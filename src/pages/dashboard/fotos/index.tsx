@@ -57,7 +57,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Dashboard: Fotos" />
+      <Seo title="Dashboard: Images" />
       <Box
         component="main"
         sx={{
@@ -78,7 +78,7 @@ const Page: NextPage = () => {
                 spacing={4}
               >
                 <div>
-                  <Typography variant="h4">Fotos</Typography>
+                  <Typography variant="h4">Images</Typography>
                 </div>
                 <Stack
                   alignItems="center"

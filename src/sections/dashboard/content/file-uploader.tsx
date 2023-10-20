@@ -6,9 +6,9 @@ import XIcon from '@untitled-ui/icons-react/build/esm/X';
 import { serverTimestamp, doc, setDoc, getDoc} from 'firebase/firestore';
 import {ref, getDownloadURL, uploadBytes} from 'firebase/storage';
 import { auth, db, storage } from 'src/libs/firebase';
-import { FileDropzone } from 'src/sections/dashboard/documentos/file-dropzone';
-import {PrivacyDoc} from 'src/sections/dashboard/documentos/privacy-doc';
-import {DetailsDoc} from 'src/sections/dashboard/documentos/details-doc';
+import { FileDropzone } from 'src/sections/dashboard/content/file-dropzone';
+import {PrivacyDoc} from 'src/sections/dashboard/content/privacy-doc';
+import {DetailsDoc} from 'src/sections/dashboard/content/details-doc';
 import { Box, Dialog, DialogContent, IconButton, Stack, SvgIcon } from '@mui/material';
 
 interface FileUploaderProps {
@@ -41,7 +41,7 @@ export const FileUploader: FC<FileUploaderProps> = ({ onClose, open, onUpload, o
 
     const uploadDoc = (file: File, uniqueID: string) => {
         if (uid) {
-            const docsRef = ref(storage, `${uid}/documentos/${uniqueID}`);
+            const docsRef = ref(storage, `${uid}/content/${uniqueID}`);
 
             uploadBytes(docsRef, file).then(snapshot => {
                 getDownloadURL(snapshot.ref).then(url => {
@@ -77,14 +77,14 @@ export const FileUploader: FC<FileUploaderProps> = ({ onClose, open, onUpload, o
 
 
         const uniqueID = uuidv4();
-        const fileLink = `http://localhost:3000/${userUrl}/documentos/${uniqueID}`;
+        const fileLink = `http://localhost:3000/${userUrl}/content/${uniqueID}`;
         setFileLink(fileLink);
 
 
 
 
 
-        const documentRef = ref(storage, `${uid}/documentos/${uniqueID}`);
+        const documentRef = ref(storage, `${uid}/content/${uniqueID}`);
 
         const fileExtension = file.name.split('.').pop();
 

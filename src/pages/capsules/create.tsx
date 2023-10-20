@@ -16,8 +16,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { BreadcrumbsSeparator } from 'src/components/breadcrumbs-separator';
-import type { File } from 'src/sections/dashboard/documentos/file-dropzone';
-import { FileDropzone } from 'src/sections/dashboard/documentos/file-dropzone';
+import type { File } from 'src/sections/dashboard/content/file-dropzone';
+import { FileDropzone } from 'src/sections/dashboard/content/file-dropzone';
 import { QuillEditor } from 'src/components/quill-editor';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';

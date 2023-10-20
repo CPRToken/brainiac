@@ -150,7 +150,7 @@ export const StorageStats: FC = () => {
       });
 
       // For PDFs
-      const pdfStorageRef = ref(storage, `/${auth.currentUser.uid}/documentos`);
+      const pdfStorageRef = ref(storage, `/${auth.currentUser.uid}/content`);
       listResults = await listAll(pdfStorageRef);
       promises = listResults.items.map((itemRef) => getMetadata(itemRef));
       metadataResults = await Promise.all(promises);

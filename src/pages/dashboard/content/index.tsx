@@ -16,7 +16,7 @@ import { useDialog } from 'src/hooks/use-dialog';
 import { usePageView } from 'src/hooks/use-page-view';
 import { useSettings } from 'src/hooks/use-settings';
 import {getDocs, deleteDoc, doc,  collection} from 'firebase/firestore';
-import { FileUploader } from '../../../sections/dashboard/documentos/file-uploader';
+import { FileUploader } from '../../../sections/dashboard/content/file-uploader';
 import { ItemList } from 'src/sections/dashboard/file-manager/item-list';
 
 import { StorageStats } from 'src/sections/dashboard/file-manager/storage-stats';

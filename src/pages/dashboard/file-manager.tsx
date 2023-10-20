@@ -241,7 +241,7 @@ const Page: NextPage = () => {
 
 
 
-    const folderOrder = ['Videos', 'Fotos', 'Documentos'];
+    const folderOrder = ['Videos', 'Fotos', 'Content'];
 
     const sortedItems = itemsStore.items.sort((a, b) => {
         if (a.type === 'folder' && b.type !== 'folder') {

@@ -29,7 +29,7 @@ const DocPage = () => {
         if (user) {
           // ...
           if (uid) {
-            const docRef = ref(storage, `${uid}/documentos/${itemId}`);
+            const docRef = ref(storage, `${uid}/content/${itemId}`);
             try {
               const url = await getDownloadURL(docRef);
               setDocUrl(url);
