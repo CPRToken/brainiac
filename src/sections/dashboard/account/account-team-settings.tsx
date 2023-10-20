@@ -84,7 +84,7 @@ const { currentUser } = auth;
     }
 
 
-    const inviteLink = `http://localhost:3000/${userUrl}?invite=true`;
+    const inviteLink = `/${userUrl}?invite=true`;
     const senderName = user ? user.name : null;
 
     // Create the payload for the email invitation
