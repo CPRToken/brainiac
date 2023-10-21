@@ -8,7 +8,7 @@ export const defaultSettings: Settings = {
   direction: 'ltr',
   layout: 'vertical',
   navColor: 'evident',
-  paletteMode: 'light',
+  paletteMode: 'dark',
   responsiveFontSizes: true,
   stretch: false,
 };
