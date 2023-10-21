@@ -178,7 +178,7 @@ const Page: NextPage = () => {
                                     type="submit"
                                     variant="contained"
                                 >
-                                    Ingresar
+                                    Log In
                                 </Button>
                             </Box>
                             <Box sx={{ mt: 2 }}>

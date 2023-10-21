@@ -105,7 +105,7 @@ const Page: NextPage = () => {
         // Construct the user URL
 
 
-        const defaultCoverImageUrl = "/assets/covers/watercover.png";
+        const defaultCoverImageUrl = "/assets/covers/brainiac.png";
 
         const profileURL = `${values.firstName}${values.lastName}`.toLowerCase().replace(/\s+/g, '');
 

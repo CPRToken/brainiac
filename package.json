@@ -5,10 +5,10 @@
   "homepage": "",
   "private": true,
   "scripts": {
-    "dev": "next --port 3001",
+    "dev": "next --port 4000",
     "build": "next build",
-    "start": "next start",
-        "export": "next export",
+    "start": "next start --port 4000",
+    "export": "next export",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
     "format:write": "prettier --write \"**/*.{js,jsx,ts,tsx,mdx}\" --cache",

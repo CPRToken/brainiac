@@ -171,59 +171,45 @@ const Page: NextPage = () => {
 
 //below is to upload and change the user's cover and avatar images.
 
-
-    const handleUpload = async (file: Blob | Uint8Array | ArrayBuffer) => {
-
-        const uid = auth.currentUser?.uid;
-        if (file && uid) {
-
-        } else {
-
-        }
-
-        const storageReference = storageRef(storage, 'avatars/' + uid + '/' + (file as File).name);
-
-        try {
-
-            const snapshot = await uploadBytesResumable(storageReference, file);
-
-            const avatarUrl = await getDownloadURL(snapshot.ref);
-
-
-
-            const userRef = doc(db, `users/${uid}`);
-            const publicUserRef = doc(db, `public/${uid}`);
-
-
-            await updateDoc(userRef, { avatar: avatarUrl });
-            await updateDoc(publicUserRef, { avatar: avatarUrl });
-
-
-            // Assuming you have a method to update user data
-
-
-
-            if (inputRef.current) {
-                inputRef.current.value = '';
-            }
-        } catch (error) {
-            console.error('Error uploading the file:', error);
-        }
+  const handleUpload = async (file: Blob | Uint8Array | ArrayBuffer, imageType: "avatar" | "cover") => {
+    const uid = auth.currentUser?.uid;
+    if (!file || !uid) {
+      return;
     }
-    const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-            const file = e.target.files[0];
-            const imageType = e.target.getAttribute('data-type');
 
-            if (file) {
-                if (imageType === 'avatar') {
-                    await handleUpload(file); // For avatar
-                } else if (imageType === 'cover') {
-                    // your cover upload logic here
-                }
-            }
-        }
-    };
+    const storageReference = storageRef(storage, `${imageType}s/${uid}/${(file as File).name}`);
+
+    try {
+      const snapshot = await uploadBytesResumable(storageReference, file);
+      const imageUrl = await getDownloadURL(snapshot.ref);
+
+      const userRef = doc(db, `users/${uid}`);
+      const publicUserRef = doc(db, `public/${uid}`);
+
+      await updateDoc(userRef, { [imageType]: imageUrl });
+      await updateDoc(publicUserRef, { [imageType]: imageUrl });
+
+      if (imageType === 'avatar' && inputRef.current) {
+        inputRef.current.value = '';
+      } else if (imageType === 'cover' && coverInputRef.current) {
+        coverInputRef.current.value = '';
+      }
+    } catch (error) {
+      console.error(`Error uploading the ${imageType} file:`, error);
+    }
+  }
+
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      const imageType = e.target.getAttribute('data-type') as "avatar" | "cover";
+
+
+      if (file && imageType) {
+        await handleUpload(file, imageType);
+      }
+    }
+  };
 
 
 
