@@ -73,11 +73,6 @@ lyricWriter: '/dashboard/lyric-writer',
       details: '/dashboard/invoices/:orderId',
     },
 
-    myContent: {
-      lyricWriter: '/dashboard/lyric-writer',
-
-
-    },
 
 
     mail: '/dashboard/mail',
