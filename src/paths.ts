@@ -59,6 +59,7 @@ export const paths = {
 lyricWriter: '/dashboard/lyric-writer',
     scriptWriter: '/dashboard/script-writer',
 
+
     customers: {
       index: '/dashboard/customers',
       details: '/dashboard/customers/:customerId',

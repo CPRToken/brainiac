@@ -90,15 +90,14 @@ export const useSections = () => {
           },
           {
             title: t(tokens.nav.myContent),
-            path: paths.dashboard.myContent,
+            path: '', // empty or undefined since it's a parent menu item
             icon: <SvgIcon fontSize="small"><Upload04Icon /></SvgIcon>,
             items: [
-              { title: t(tokens.nav.lyricWriter),
-                path: paths.dashboard.lyricWriter},
-              { title: t(tokens.nav.scriptWriter),
-                path: paths.dashboard.scriptWriter},
-            ],
-           },
+              { title: t(tokens.nav.lyricWriter), path: paths.dashboard.lyricWriter },
+              { title: t(tokens.nav.scriptWriter), path: paths.dashboard.scriptWriter },
+            ]
+          }
+
         ],
       },
 
