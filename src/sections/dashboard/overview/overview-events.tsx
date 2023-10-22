@@ -58,7 +58,7 @@ export const OverviewEvents: FC<OverviewEventsProps> = (props) => {
                       backgroundColor: (theme) =>
                         theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100',
                       borderRadius: 2,
-                      maxWidth: 'fit-content',
+                      maxWidth: 'fit-my-content',
                     }}
                   >
                     <Typography

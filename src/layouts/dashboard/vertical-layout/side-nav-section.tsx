@@ -123,9 +123,9 @@ export const SideNavSection: FC<SideNavSectionProps> = (props) => {
           component="li"
           sx={{
             color: 'var(--nav-section-title-color)',
-            fontSize: 12,
+            fontSize: 15,
             fontWeight: 700,
-            lineHeight: 1.66,
+            lineHeight: 1.86,
             mb: 1,
             ml: 1,
             textTransform: 'uppercase',

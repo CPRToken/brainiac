@@ -5,6 +5,7 @@ export const tokens = {
   nav: {
     academy: 'nav.academy',
     account: 'nav.account',
+    contentManager: 'nav.contentManager',
     analytics: 'nav.analytics',
     auth: 'nav.auth',
     capsules: 'nav.capsules',
@@ -17,7 +18,8 @@ export const tokens = {
     contact: 'nav.contact',
     course: 'nav.course',
     create: 'nav.create',
-
+    lyricWriter: 'nav.lyricWriter',
+    scriptWriter: 'nav.scriptWriter',
     customers: 'nav.customers',
     dashboard: 'nav.dashboard',
     details: 'nav.details',
@@ -25,7 +27,7 @@ export const tokens = {
     edit: 'nav.edit',
     error: 'nav.error',
     feed: 'nav.feed',
-
+    myContent: 'nav.myContent',
     fileManager: 'nav.fileManager',
     files: 'nav.files',
     finance: 'nav.finance',
@@ -63,9 +65,13 @@ export const tokens = {
 headings: {
   primaryColor: 'headings.primaryColor',
   welcome: 'headings.welcome',
+  lyricWriter: 'headings.lyricWriter',
+  scriptWriter: 'headings.scriptWriter',
+  contentWriter: 'headings.contentWriter',
   whatsOnYourMind: 'headings.whatsOnYourMind',
       aboutUs: 'headings.aboutUs',
   documents: 'headings.documents',
+  myContent: 'headings.myContent',
   language: 'headings.language',
   colorScheme: 'headings.colorScheme',
 

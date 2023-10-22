@@ -54,6 +54,11 @@ export const paths = {
     calendar: '/dashboard/calendar',
     chat: '/dashboard/chat',
     crypto: '/dashboard/crypto',
+    contentManager: '/dashboard/content-manager',
+
+lyricWriter: '/dashboard/lyric-writer',
+    scriptWriter: '/dashboard/script-writer',
+
     customers: {
       index: '/dashboard/customers',
       details: '/dashboard/customers/:customerId',
@@ -66,6 +71,12 @@ export const paths = {
     invoices: {
       index: '/dashboard/invoices',
       details: '/dashboard/invoices/:orderId',
+    },
+
+    myContent: {
+      lyricWriter: '/dashboard/lyric-writer',
+
+
     },
 
 
@@ -125,6 +136,7 @@ export const paths = {
     },
     forms: '/components/forms',
     modals: '/components/modals',
+
     charts: '/components/charts',
     buttons: '/components/buttons',
     typography: '/components/typography',

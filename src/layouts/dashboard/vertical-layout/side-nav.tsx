@@ -204,12 +204,12 @@ export const SideNav: FC<SideNavProps> = (props) => {
                 borderStyle: 'solid',
                 borderWidth: 1,
                 display: 'flex',
-                height: 45,
+                height: 54,
                 p: '4px',
-                width: 45,
+                width: 54,
               }}
             >
-              <img src="/assets/logos/logo.svg" alt="Your Logo" style={{ height: '33px', width: '33px' }} />
+              <img src="/assets/logos/logo.svg" alt="Your Logo" style={{ height: '38px', width: '38px' }} />
 
             </Box>
             <TenantSwitch sx={{ flexGrow: 1 }} />

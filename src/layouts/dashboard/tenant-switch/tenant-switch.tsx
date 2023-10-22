@@ -31,6 +31,7 @@ export const TenantSwitch: FC<TenantSwitchProps> = (props) => {
           <Typography
             color="inherit"
             variant="h6"
+            style={{ fontSize: "21px" }}
           >
             Brainiac Media
           </Typography>
