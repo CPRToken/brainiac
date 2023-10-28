@@ -59,7 +59,7 @@ export const HomeCaps: React.FC = () => {
                             textAlign: 'left',
                             fontSize: { xs: '1.3rem', sm: '1.2rem' }  // Add this line
                         }}>
-               round the clock marteting 24/7 at affordable prices.
+               round the clock marketing 24/7 at affordable prices.
             </Typography>
 
 
