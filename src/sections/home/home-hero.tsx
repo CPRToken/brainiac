@@ -29,7 +29,7 @@ export const HomeHero: FC = () => {
             width: '100vw',
             '@media (max-width:600px)': {
               height: '47vh',  // Adjust this value as needed
-              // Add any other adjustments for mobile here
+
             }
           }}
       >

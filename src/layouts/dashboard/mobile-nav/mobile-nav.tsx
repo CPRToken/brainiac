@@ -1,27 +1,25 @@
 import type { FC } from 'react';
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import File04Icon from '@untitled-ui/icons-react/build/esm/File04';
+
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+
 import Drawer from '@mui/material/Drawer';
 import Stack from '@mui/material/Stack';
-import SvgIcon from '@mui/material/SvgIcon';
-import Typography from '@mui/material/Typography';
+
 import { useTheme } from '@mui/material/styles';
 
-import { Logo } from 'src/components/logo';
-import { RouterLink } from 'src/components/router-link';
+
 import { Scrollbar } from 'src/components/scrollbar';
 import { usePathname } from 'src/hooks/use-pathname';
-import { paths } from 'src/paths';
+
 import type { NavColor } from 'src/types/settings';
 
 import type { Section } from '../config';
 
 import { MobileNavSection } from './mobile-nav-section';
 
-const MOBILE_NAV_WIDTH = 280;
+const MOBILE_NAV_WIDTH = 350;
 
 const useCssVars = (color: NavColor): Record<string, string> => {
   const theme = useTheme();
@@ -157,13 +155,13 @@ export const MobileNav: FC<MobileNavProps> = (props) => {
             sx={{ p: 3 }}
           >
             <Box
-                component="img"
-                src="/assets/logos/logo.svg"
-                sx={{
-                  display: 'inline-flex',
-                  height: 41,
-                  width: 41,
-                }}
+              component="img"
+              src="/assets/logos/logo.svg"
+              sx={{
+                display: 'inline-flex',
+                height: 50,
+                width: 50,
+              }}
             />
 
           </Stack>

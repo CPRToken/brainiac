@@ -16,10 +16,10 @@ interface Item {
 }
 
 const renderItems = ({
-  depth = 0,
-  items,
-  pathname,
-}: {
+                       depth = 0,
+                       items,
+                       pathname,
+                     }: {
   depth?: number;
   items: Item[];
   pathname?: string | null;
@@ -36,11 +36,11 @@ const renderItems = ({
   );
 
 const reduceChildRoutes = ({
-  acc,
-  depth,
-  item,
-  pathname,
-}: {
+                             acc,
+                             depth,
+                             item,
+                             pathname,
+                           }: {
   acc: JSX.Element[];
   depth: number;
   item: Item;
@@ -110,7 +110,7 @@ export const MobileNavSection: FC<MobileNavSectionProps> = (props) => {
   return (
     <Stack
       component="ul"
-      spacing={0.5}
+      spacing={3}
       sx={{
         listStyle: 'none',
         m: 0,
@@ -123,10 +123,10 @@ export const MobileNavSection: FC<MobileNavSectionProps> = (props) => {
           component="li"
           sx={{
             color: 'var(--nav-section-title-color)',
-            fontSize: 14,
+            fontSize: 20,
             fontWeight: 700,
-            lineHeight: 1.66,
-            mb: 1,
+            lineHeight: 2.4,
+            mb: 2,
             ml: 1,
             textTransform: 'uppercase',
           }}

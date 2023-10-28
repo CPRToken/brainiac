@@ -115,16 +115,7 @@ export const useSections = () => {
                       path: paths.dashboard.customers.index },
                   ],
                 },
-                {
-              title: t(tokens.nav.capsules),
-              path: paths.dashboard.capsules.index,
-              icon: <SvgIcon fontSize="small"><File01Icon /></SvgIcon>,
-            },
-            {
-              title: t(tokens.nav.postCreate),
-              path: paths.dashboard.capsules.postCreate,
-              icon: <SvgIcon fontSize="small"><Users03Icon /></SvgIcon>,
-            },
+
             {
               title: t(tokens.nav.auth),
               icon: (

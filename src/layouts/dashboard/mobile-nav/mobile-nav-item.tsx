@@ -131,7 +131,7 @@ export const MobileNavItem: FC<MobileNavItemProps> = (props) => {
               color: 'var(--nav-item-color)',
               flexGrow: 1,
               fontFamily: (theme) => theme.typography.fontFamily,
-              fontSize: depth > 0 ? 13 : 14,
+              fontSize: depth > 0 ? 27: 28,
               fontWeight: depth > 0 ? 500 : 600,
               lineHeight: '24px',
               whiteSpace: 'nowrap',
@@ -170,14 +170,14 @@ export const MobileNavItem: FC<MobileNavItemProps> = (props) => {
   const linkProps = path
     ? external
       ? {
-          component: 'a',
-          href: path,
-          target: '_blank',
-        }
+        component: 'a',
+        href: path,
+        target: '_blank',
+      }
       : {
-          component: RouterLink,
-          href: path,
-        }
+        component: RouterLink,
+        href: path,
+      }
     : {};
 
   return (
@@ -228,9 +228,9 @@ export const MobileNavItem: FC<MobileNavItemProps> = (props) => {
             color: 'var(--nav-item-color)',
             flexGrow: 1,
             fontFamily: (theme) => theme.typography.fontFamily,
-            fontSize: depth > 0 ? 13 : 14,
+            fontSize: depth > 0 ? 27: 28,
             fontWeight: depth > 0 ? 500 : 600,
-            lineHeight: '24px',
+            lineHeight: '27px',
             whiteSpace: 'nowrap',
             ...(active && {
               color: 'var(--nav-item-active-color)',
