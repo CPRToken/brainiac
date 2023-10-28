@@ -53,7 +53,7 @@ const CustomApp = (props: CustomAppProps) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>Virtual Eternity</title>
+        <title>Brainiac Media</title>
         <meta
           name="viewport"
           content="initial-scale=0.9, width=device-width"

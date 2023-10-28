@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const response = await openai.completions.create({
       model: 'gpt-3.5-turbo-instruct',
       prompt,
-      max_tokens: 200,
+      max_tokens: 500,
     });
 
     res.status(200).json({ lyrics: response.choices[0].text.trim() });

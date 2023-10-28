@@ -5,7 +5,6 @@ import type { Theme } from '@mui/material/styles/createTheme';
 import { styled } from '@mui/material/styles';
 
 import { Footer } from './footer';
-import { SideNav } from './side-nav';
 import { TopNav } from './top-nav';
 import { useMobileNav } from './use-mobile-nav';
 
@@ -26,12 +25,7 @@ export const Layout: FC<LayoutProps> = (props) => {
   return (
     <>
       <TopNav onMobileNavOpen={mobileNav.handleOpen} />
-      {!lgUp && (
-        <SideNav
-          onClose={mobileNav.handleClose}
-          open={mobileNav.open}
-        />
-      )}
+
       <LayoutRoot>
         {children}
         <Footer />
