@@ -6,76 +6,79 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
+import {useTranslation} from "react-i18next";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import {tokens} from "../../../locales/tokens";
 
 type Option = {
   label: string;
   value: string;
 };
 
-const genreOptions: Option[] = [
+const countryOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Drama', value: 'drama' },
-  { label: 'Comedy', value: 'comedy' },
-  { label: 'Romance', value: 'romance' },
-  { label: 'Action', value: 'action' },
-  { label: 'Adventure', value: 'adventure' },
-  { label: 'Mystery', value: 'mystery' },
-  { label: 'Science Fiction', value: 'science-fiction' },
-  { label: 'Fantasy', value: 'fantasy' },
-  { label: 'Horror', value: 'horror' },
-  { label: 'Thriller', value: 'thriller' },
-  { label: 'Historical', value: 'historical' },
-  // ... add more as needed
+  { label: 'Italy', value: 'Italian' },
+  { label: 'Thailand', value: 'Thai' },
+  { label: 'India', value: 'Indian' },
+  { label: 'France', value: 'French' },
+  { label: 'Mexico', value: 'Mexican' },
+  { label: 'China', value: 'Chinese' },
+  { label: 'Japan', value: 'Japanese' },
+  { label: 'Spain', value: 'Spanish' },
+  { label: 'USA', value: 'American' },
+  { label: 'Greece', value: 'Greek' },
+  { label: 'Vietnam', value: 'Vietnamese' },
+  { label: 'Korea', value: 'Korean' },
+  { label: 'Brazil', value: 'Brazilian' },
+  { label: 'Lebanon', value: 'Lebanese' }
+  // ... add more
 ];
 
-const styleOptions: Option[] = [
+const dishTypeOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Epic', value: 'epic' },
-  { label: 'Romantic Comedy', value: 'romantic-comedy' },
-  { label: 'Action-Packed', value: 'action-packed' },
-  { label: 'Musical', value: 'musical' },
-  { label: 'Surreal', value: 'surreal' },
-  { label: 'Dark Comedy', value: 'dark-comedy' },
-  { label: 'Fantasy Adventure', value: 'fantasy-adventure' },
-  { label: 'Historical Drama', value: 'historical-drama' },
-  { label: 'Supernatural', value: 'supernatural' },
-  // ... add more as needed
+  { label: 'Appetizer', value: 'appetizer' },
+  { label: 'Main Course', value: 'main-course' },
+  { label: 'Dessert', value: 'dessert' },
+  { label: 'Soup', value: 'soup' },
+  { label: 'Salad', value: 'salad' },
+  { label: 'Side Dish', value: 'side-dish' },
+  { label: 'Snack', value: 'snack' },
+  { label: 'Beverage', value: 'beverage' },
+  { label: 'Cocktail', value: 'cocktail' },
+  { label: 'Bread', value: 'bread' },
+  { label: 'Breakfast', value: 'breakfast' },
+  { label: 'Brunch', value: 'brunch' },
+  { label: 'Pastry', value: 'pastry' }
+
+  // ... add more
 ];
 
-const moodOptions: Option[] = [
+const difficultyOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Joyful', value: 'joyful' },
-  { label: 'Tense', value: 'tense' },
-  { label: 'Lighthearted', value: 'lighthearted' },
-  { label: 'Reflective', value: 'reflective' },
-  { label: 'Intense', value: 'intense' },
-  { label: 'Quirky', value: 'quirky' },
-  { label: 'Sentimental', value: 'sentimental' },
-  { label: 'Energetic', value: 'energetic' },
-  // ... add more as needed
+  { label: 'Easy', value: 'easy' },
+  { label: 'Medium', value: 'medium' },
+  { label: 'Hard', value: 'hard' },
+  // ... add more
 ];
 
-
-export const ScriptWriter: FC = () => {
-
-
+export const RecipeWriter: FC = () => {
 
   const [openAIResponse, setOpenAIResponse] = useState<string | null>(null);
-  const [genre, setGenre] = useState<string>('');
-  const [style, setTheme] = useState<string>('');
-  const [mood, setMood] = useState<string>('');
-  const [duration, setDuration] = useState<number>(2.5);
+  const [country, setCountry] = useState<string>('');
+  const [dishType, setDishType] = useState<string>('');
+  const [difficulty, setDifficulty] = useState<string>('');
+  const [cookingTime, setCookingTime] = useState<number>(30);
   const [prompt, setPrompt] = useState<string>('');
+  const { t } = useTranslation();
 
   useEffect(() => {
-    let newPrompt = 'Write a[genre][style][mood]with a duration of [duration]';
-    newPrompt = newPrompt.replace('[genre]', genre !== '' ? ` ${genre} screenplay ` : ' screenplay ');
-    newPrompt = newPrompt.replace('[style]', style !== '' ? `in a ${style} style ` : '');
-    newPrompt = newPrompt.replace('[mood]', mood !== '' ? ` in a ${mood} mood ` : '');
-    newPrompt = newPrompt.replace('[duration]', `${duration} minutes`);
+    let newPrompt = 'Create a [country] [dishType] recipe that is [difficulty] difficulty, and takes [cookingTime] minutes to make.';
+    newPrompt = newPrompt.replace('[country]', country || 'any');
+    newPrompt = newPrompt.replace('[dishType]', dishType || 'any type of');
+    newPrompt = newPrompt.replace('[difficulty]', difficulty || 'of any difficulty');
+    newPrompt = newPrompt.replace('[cookingTime]', `${cookingTime}`);
     setPrompt(newPrompt);
-  }, [genre, style, mood, duration]);
+  }, [country, dishType, difficulty, cookingTime]);
 
 
 
@@ -85,7 +88,6 @@ export const ScriptWriter: FC = () => {
     const text = textRef.current?.innerText || '';  // <-- Null check added here
     navigator.clipboard.writeText(text);
   };
-
 
   const handleSubmit = async () => {
     try {
@@ -111,22 +113,19 @@ export const ScriptWriter: FC = () => {
     }
   };
 
-
-
   return (
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
-
       <Stack spacing={3}>
         <TextField
           fullWidth
-          label="Genre"
-          name="genre"
+          label="Country"
+          name="country"
           select
           SelectProps={{ native: true }}
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
         >
-          {genreOptions.map((option) => (
+          {countryOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -134,14 +133,14 @@ export const ScriptWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Style"
-          name="style"
+          label="Dish Type"
+          name="dishType"
           select
           SelectProps={{ native: true }}
-          value={style}
-          onChange={(e) => setTheme(e.target.value)}
+          value={dishType}
+          onChange={(e) => setDishType(e.target.value)}
         >
-          {styleOptions.map((option) => (
+          {dishTypeOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -149,27 +148,27 @@ export const ScriptWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Mood"
-          name="mood"
+          label="Difficulty"
+          name="difficulty"
           select
           SelectProps={{ native: true }}
-          value={mood}
-          onChange={(e) => setMood(e.target.value)}
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value)}
         >
-          {moodOptions.map((option) => (
+          {difficultyOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
           ))}
         </TextField>
         <div>
-          <label>Duration (minutes)</label>
+          <label>Cooking Time (minutes)</label>
           <Slider
-            value={duration}
-            min={30}
-            max={90}
-            step={0.5}
-            onChange={(_, newValue) => setDuration(newValue as number)}
+            value={cookingTime}
+            min={1}
+            max={120}
+            step={1}
+            onChange={(_, newValue) => setCookingTime(newValue as number)}
           />
         </div>
         <TextField
@@ -180,19 +179,14 @@ export const ScriptWriter: FC = () => {
           multiline
           rows={4}
         />
-
-
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button onClick={handleSubmit} type="submit" variant="contained" fullWidth>
           Submit
         </Button>
       </Box>
-
-
-
       <Box sx={{ mt: 3 }}>
-        <label>Your Script:</label> <br/>
+        <label>{t(tokens.headings.yourRecipe)}</label> <br/>
         <Button onClick={handleCopyText} title="Copy response text">
           <FileCopyIcon />
         </Button>
@@ -203,8 +197,5 @@ export const ScriptWriter: FC = () => {
         </Paper>
       </Box>
     </Box>
-
-
   );
 };
-

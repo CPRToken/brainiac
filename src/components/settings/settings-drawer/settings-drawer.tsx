@@ -157,7 +157,7 @@ export const SettingsDrawer: FC<SettingsDrawerProps> = (props) => {
                 onClick={() => i18n.changeLanguage('en')}
               />
               <img
-                src="/assets/flags/flag-ch.svg"
+                src="/assets/flags/flag-es.svg"
                 alt="Spanish"
                 onClick={() => i18n.changeLanguage('es')}
               />

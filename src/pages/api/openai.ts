@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       max_tokens: 500,
     });
 
-    res.status(200).json({ lyrics: response.choices[0].text.trim() });
+    res.status(200).json({ content: response.choices[0].text.trim() });
   } else {
     res.status(405).end(); // Method Not Allowed
   }

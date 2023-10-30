@@ -4,12 +4,11 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
-import Hidden from '@mui/material/Hidden';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
 import { usePageView } from 'src/hooks/use-page-view';
-import { LyricWriter } from 'src/sections/components/forms/lyric-writer';
+import { DietPlanner } from 'src/sections/components/forms/diet-planner';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { auth } from '../../libs/firebase';
@@ -26,7 +25,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Lyric Writer" />
+      <Seo title="Diet Planner" />
       <Box
         component="main"
         sx={{
@@ -50,7 +49,7 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                      variant="h5">{t(tokens.headings.lyricWriter)}</Typography>
+                      variant="h5">{t(tokens.headings.dietPlanner)}</Typography>
                 </div>
 
                 <Stack
@@ -73,7 +72,7 @@ const Page: NextPage = () => {
                 }}
               >
                 <Box paddingTop={4}>
-                  <LyricWriter />
+                  <DietPlanner />
                 </Box>
               </Stack>
             </Grid>

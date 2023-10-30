@@ -1,6 +1,8 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Box from '@mui/material/Box';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -69,6 +71,9 @@ export const LyricWriter: FC = () => {
   const [duration, setDuration] = useState<number>(2.5);
   const [prompt, setPrompt] = useState<string>('');
 
+
+
+
   useEffect(() => {
         let newPrompt = 'write a[genre][style][mood]with a duration of [duration]';
         newPrompt = newPrompt.replace('[genre]', genre !== '' ? ` ${genre} song ` : ' song ');
@@ -78,7 +83,18 @@ export const LyricWriter: FC = () => {
         setPrompt(newPrompt);
     }, [genre, style, mood, duration]);
 
-    const handleSubmit = async () => {
+
+
+  const textRef = useRef<HTMLDivElement>(null);  // <-- Step 1: Create ref
+
+  const handleCopyText = () => {
+    const text = textRef.current?.innerText || '';  // <-- Null check added here
+    navigator.clipboard.writeText(text);
+  };
+
+
+
+  const handleSubmit = async () => {
         try {
             const response = await fetch('/api/openai', {
                 method: 'POST',
@@ -92,10 +108,10 @@ export const LyricWriter: FC = () => {
 
             const data = await response.json();
 
-            if (data.lyrics) {
-                setOpenAIResponse(data.lyrics);
+            if (data.content) {
+                setOpenAIResponse(data.content);
             } else {
-                console.error("Failed to get lyrics.");
+                console.error("Failed to get content.");
             }
         } catch (error) {
             console.error("An error occurred:", error);
@@ -104,8 +120,8 @@ export const LyricWriter: FC = () => {
 
 
 
-    return (
-  <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
+  return (
+      <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
 
       <Stack spacing={3}>
         <TextField
@@ -182,14 +198,16 @@ export const LyricWriter: FC = () => {
 
 
     <Box sx={{ mt: 3 }}>
-          <label>Your Lyrics:</label>
-          <Paper elevation={3} style={{ padding: '10px', maxHeight: '200px', overflow: 'auto' }}>
-              {openAIResponse}
-          </Paper>
+      <label>Your Lyrics:</label> <br/>
+      <Button onClick={handleCopyText} title="Copy response text">
+        <FileCopyIcon />
+      </Button>
 
-      </Box>
-
-
+      {/* Step 3: Add Copy Text button */}
+      <Paper elevation={3} ref={textRef} style={{ padding: '10px', maxHeight: '200px', overflow: 'auto' }}>  {/* Attach ref */}
+        {openAIResponse}
+      </Paper>
+    </Box>
   </Box>
 
 );

@@ -98,8 +98,10 @@ export const es = {
   [tokens.headings.language]: "IDIOMA",
   [tokens.headings.primaryColor]: 'Color Primario',
   [tokens.headings.colorScheme]: 'Esquema de Colores',
-
-
+  [tokens.headings.recipeWriter]: "Generador de Recetas",
+  [tokens.headings.dietPlanner]: "Planificador de Dietas",
+  [tokens.headings.yourRecipe]: "Tu Receta",
+  [tokens.headings.yourMealPlan]: "Tu Plan de Dieta",
   [tokens.headings.logout]: 'Cerrar sesión',
   [tokens.headings.newUpdateAvailable]: 'Bienvenidos!',
   [tokens.headings.favoriteTemplateUpdate]: 'Aquí puedes personalizar las configuraciones de tu página según tus preferencias, eligiendo entre el modo oscuro o el modo claro, y seleccionando otros colores para el tema. Haz click en "Configuraciones" para probarlo. ¡Esperamos que lo disfrutes!.',
@@ -113,7 +115,8 @@ export const es = {
   [tokens.headings.description]: 'Descripción',
   [tokens.headings.to]: 'Para',
   [tokens.headings.scheduled]: 'Programado',
-
+  [tokens.headings.lyricWriter]: "Letrista",
+  [tokens.headings.scriptWriter]: "Guionista",
 
   [tokens.headings.changeCover]: 'Cambiar Portada',
   [tokens.headings.changeAvatar]: 'Cambiar Imagen',

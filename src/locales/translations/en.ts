@@ -12,7 +12,12 @@ export const en = {
   [tokens.headings.language]: "LANGUAGE",
   [tokens.headings.myContent]: "My Content",
   [tokens.headings.lyricWriter]: "Lyric Writer",
+  [tokens.headings.yourRecipe]: "Your Recipe",
   [tokens.headings.scriptWriter]: "Script Writer",
+  [tokens.headings.recipeWriter]: "Recipe Generator",
+  [tokens.headings.dietPlanner]: "Diet Planner",
+  [tokens.headings.yourMealPlan]: "Your Meal Plan",
+
 
   [tokens.headings.contentWriter]: "Content Writer",
   [tokens.nav.browse]: 'Browse',

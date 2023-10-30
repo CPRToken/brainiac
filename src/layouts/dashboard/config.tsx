@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import SvgIcon from '@mui/material/SvgIcon';
 import { useEffect, useMemo, useState } from 'react';
-import File01Icon from 'src/icons/untitled-ui/duocolor/file-01';
+
 import HomeSmileIcon from 'src/icons/untitled-ui/duocolor/home-smile';
 import Lock01Icon from 'src/icons/untitled-ui/duocolor/lock-01';
 import Upload04Icon from 'src/icons/untitled-ui/duocolor/upload-04';
@@ -93,8 +93,10 @@ export const useSections = () => {
             path: '', // empty or undefined since it's a parent menu item
             icon: <SvgIcon fontSize="small"><Upload04Icon /></SvgIcon>,
             items: [
-              { title: t(tokens.nav.lyricWriter), path: paths.dashboard.lyricWriter },
-              { title: t(tokens.nav.scriptWriter), path: paths.dashboard.scriptWriter },
+              { title: t(tokens.headings.lyricWriter), path: paths.dashboard.lyricWriter },
+              { title: t(tokens.headings.scriptWriter), path: paths.dashboard.scriptWriter },
+              { title: t(tokens.headings.recipeWriter), path: paths.dashboard.recipeGen },
+              { title: t(tokens.headings.dietPlanner), path: paths.dashboard.dietPlanner },
             ]
           }
 

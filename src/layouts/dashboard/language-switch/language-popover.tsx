@@ -24,7 +24,7 @@ type LanguageOptions = {
 const languageOptions: LanguageOptions = {
 
   es: {
-    icon: '/assets/flags/flag-ch.svg',
+    icon: '/assets/flags/flag-es.svg',
     label: 'Español',
   },
 

@@ -58,7 +58,8 @@ export const paths = {
 
 lyricWriter: '/dashboard/lyric-writer',
     scriptWriter: '/dashboard/script-writer',
-
+    recipeGen: '/dashboard/recipe-generator',
+    dietPlanner: '/dashboard/diet-planner',
 
     customers: {
       index: '/dashboard/customers',
