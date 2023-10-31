@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
-import responseText from '../clipboards/response-text';
+import ReponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -74,7 +74,7 @@ export const LyricWriter: FC = () => {
   const [duration, setDuration] = useState<number>(2.5);
   const [prompt, setPrompt] = useState<string>('');
   const { t } = useTranslation();
-  const { textRef, handleCopyText } = responseText();
+  const { textRef, handleCopyText } = ReponseText();
 
 
   useEffect(() => {

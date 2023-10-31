@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
-import responseText from '../clipboards/response-text';
+import ReponseText from '../clipboards/response-text';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import useHandleSubmit from './handle-submit';
 
@@ -72,7 +72,7 @@ export const ScriptWriter: FC = () => {
   const [mood, setMood] = useState<string>('');
   const [duration, setDuration] = useState<number>(2.5);
   const [prompt, setPrompt] = useState<string>('');
-  const { textRef, handleCopyText } = responseText();
+  const { textRef, handleCopyText } = ReponseText();
 
 
 

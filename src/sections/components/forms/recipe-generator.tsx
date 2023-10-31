@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
-import responseText from '../clipboards/response-text';
+import ReponseText from '../clipboards/response-text';
 import {useTranslation} from "react-i18next";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import {tokens} from "../../../locales/tokens";
@@ -73,7 +73,7 @@ export const RecipeWriter: FC = () => {
   const [difficulty, setDifficulty] = useState<string>('');
   const [cookingTime, setCookingTime] = useState<number>(30);
   const [prompt, setPrompt] = useState<string>('');
-  const { textRef, handleCopyText } = responseText();
+  const { textRef, handleCopyText } = ReponseText();
   const { t } = useTranslation();
 
 

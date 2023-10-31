@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-const responseText = () => {
+const ReponseText = () => {
   const textRef = useRef<HTMLDivElement>(null);
 
   const handleCopyText = () => {
@@ -11,4 +11,4 @@ const responseText = () => {
   return { textRef, handleCopyText };
 };
 
-export default responseText
+export default ReponseText

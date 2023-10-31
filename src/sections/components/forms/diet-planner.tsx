@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import responseText from '../clipboards/response-text';
+import ReponseText from '../clipboards/response-text';
 import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
 import { useTranslation } from 'react-i18next';
@@ -41,7 +41,7 @@ export const DietPlanner: FC = () => {
   const [calories, setCalories] = useState<number>(500);
   const [prompt, setPrompt] = useState<string>('');
   const { handleSubmit, openAIResponse } = useHandleSubmit();
-  const { textRef, handleCopyText } = responseText();
+  const { textRef, handleCopyText } = ReponseText();
   const { t } = useTranslation();
 
 

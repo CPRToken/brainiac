@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import PropTypes from 'prop-types';
+import Image from 'next/image'; // Import Image from Next.js
 
 type Extension = 'jpeg' | 'jpg' | 'mp4' | 'pdf' | 'png' | 'doc' |'docx' | string;
 
@@ -29,7 +30,7 @@ export const FileIcon: FC<FileIconProps> = (props) => {
     icon = icons[extension] || '/assets/icons/icon-other.svg';
   }
 
-  return <img src={icon} />;
+  return <Image src={icon} alt={`${extension} icon`} width={24} height={24} />; // Use Image from Next.js
 };
 
 FileIcon.propTypes = {
