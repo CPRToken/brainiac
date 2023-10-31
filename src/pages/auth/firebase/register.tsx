@@ -294,15 +294,7 @@ const Page: NextPage = () => {
                 {currentStep === 2 && (
                     <Stack spacing={3}>
 
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DateTimePicker
-                          label="D.O.B"
-                          value={formik.values.dob}
-                          onChange={(newValue) => {
-                            formik.setFieldValue("dob", newValue);
-                          }}
-                        />
-                      </LocalizationProvider>
+
 
                   <TextField
                       error={Boolean(formik.touched.originCity && formik.errors.originCity)}
