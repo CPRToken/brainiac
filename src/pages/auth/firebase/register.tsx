@@ -407,22 +407,16 @@ const Page: NextPage = () => {
                       {Boolean(formik.touched.policy && formik.errors.policy) && (
                           <FormHelperText error>{formik.errors.policy}</FormHelperText>
                       )}
-                      <Typography color="text.secondary" variant="body2">
-                        Website is currently under maintenance. Please check back later.
-                      </Typography>
-
                       <Button
-                        disabled={true}  // Keep this disabled
+                        disabled={formik.isSubmitting}
                         fullWidth
                         size="large"
                         sx={{ mt: 2 }}
                         type="submit"
                         variant="contained"
                       >
-                        Register
+                        Registrar
                       </Button>
-
-
                     </Stack>
                 )}
                 {/* ... */}
