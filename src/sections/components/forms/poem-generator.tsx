@@ -18,52 +18,50 @@ type Option = {
 };
 
 const genreOptions: Option[] = [
-    { label: '', value: '' },
-    { label: 'Rock', value: 'rock' },
-    { label: 'Pop', value: 'pop' },
-    { label: 'Jazz', value: 'jazz' },
-    { label: 'Hip-Hop', value: 'hip-hop' },
-    { label: 'Classical', value: 'classical' },
-    { label: 'Country', value: 'country' },
-    { label: 'Reggae', value: 'reggae' },
-    { label: 'Blues', value: 'blues' },
-    { label: 'Electronic', value: 'electronic' },
-    { label: 'Folk', value: 'folk' },
-    { label: 'R&B', value: 'r&b' },
-    { label: 'Metal', value: 'metal' },
-    // ... add more as needed
+  { label: '', value: '' },
+  { label: 'Sonnet', value: 'sonnet' },
+  { label: 'Haiku', value: 'haiku' },
+  { label: 'Limerick', value: 'limerick' },
+  { label: 'Epic', value: 'epic' },
+  { label: 'Free Verse', value: 'free-verse' },
+  { label: 'Ode', value: 'ode' },
+  { label: 'Ballad', value: 'ballad' },
+  { label: 'Villanelle', value: 'villanelle' },
+  { label: 'Sestina', value: 'sestina' },
+  { label: 'Acrostic', value: 'acrostic' },
+  { label: 'Cinquain', value: 'cinquain' },
 ];
 
 const styleOptions: Option[] = [
-    { label: '', value: '' },
-    { label: 'Adventure', value: 'adventure' },
-    { label: 'Mystery', value: 'mystery' },
-    { label: 'Romantic', value: 'romantic' },
-    { label: 'Action', value: 'action' },
-    { label: 'Comedy', value: 'comedy' },
-    { label: 'Horror', value: 'horror' },
-    { label: 'Love Song', value: 'love-song' },
-    { label: 'Ballad', value: 'ballad' },
-    { label: 'Anthem', value: 'anthem' },
-    // ... add more as needed
+  { label: '', value: '' },
+  { label: 'Romantic', value: 'romantic' },
+  { label: 'Narrative', value: 'narrative' },
+  { label: 'Descriptive', value: 'descriptive' },
+  { label: 'Reflective', value: 'reflective' },
+  { label: 'Symbolic', value: 'symbolic' },
+  { label: 'Modernist', value: 'modernist' },
+  { label: 'Surreal', value: 'surreal' },
+  { label: 'Humorous', value: 'humorous' },
+  { label: 'Satirical', value: 'satirical' },
 ];
 
 const moodOptions: Option[] = [
-    { label: '', value: '' },
-    { label: 'Happy', value: 'happy' },
-    { label: 'Sad', value: 'sad' },
-    { label: 'Excited', value: 'excited' },
-    { label: 'Relaxed', value: 'relaxed' },
-    { label: 'Angry', value: 'angry' },
-    { label: 'Serene', value: 'serene' },
-    { label: 'Nostalgic', value: 'nostalgic' },
-    { label: 'Energetic', value: 'energetic' },
-    // ... add more as needed
+  { label: '', value: '' },
+  { label: 'Joyful', value: 'joyful' },
+  { label: 'Melancholic', value: 'melancholic' },
+  { label: 'Inspirational', value: 'inspirational' },
+  { label: 'Serene', value: 'serene' },
+  { label: 'Nostalgic', value: 'nostalgic' },
+  { label: 'Passionate', value: 'passionate' },
+  { label: 'Triumphant', value: 'triumphant' },
+  { label: 'Pensive', value: 'pensive' },
+  { label: 'Optimistic', value: 'optimistic' },
 ];
 
 
 
-export const LyricWriter: FC = () => {
+
+export const PoemGenerator: FC = () => {
 
 
 
@@ -77,20 +75,23 @@ export const LyricWriter: FC = () => {
   const { textRef, handleCopyText } = responseText();
 
 
-  useEffect(() => {
-    let newPrompt = t(tokens.form.writeSong);
-    const genreText = genre !== '' ? `the ${t(genre)} genre` : '';
-    const styleText = style !== '' ? `a ${t(style)} style` : '';
-    const moodText = mood !== '' ? `a ${t(mood)} mood` : '';
 
-    const components = [genreText, styleText, moodText].filter(Boolean).join(', ');
+
+  useEffect(() => {
+    let newPrompt = t(tokens.form.writePoem);
+    const genreText = genre !== '' ? ` ${t(genre)} ` : '';
+    const styleText = style !== '' ? ` ${t('in a')} ${t(style)} ${t('style')} ` : '';
+    const moodText = mood !== '' ? ` ${t('with a')} ${t(mood)} ${t('mood')} ` : '';
 
     newPrompt = newPrompt
-      .replace('[genre][style][mood]', components)
+      .replace('[genre]', genreText)
+      .replace('[style]', styleText)
+      .replace('[mood]', moodText)
       .replace('[duration]', `${duration} ${t('minutes')}`);
 
     setPrompt(newPrompt.trim());
   }, [genre, style, mood, duration, t]);
+
 
 
 
@@ -185,7 +186,7 @@ export const LyricWriter: FC = () => {
         <Box sx={{ mt: 3 }}>
           {openAIResponse && (
             <>
-              <label>Your Lyrics:</label>
+              <label>Your Poem:</label>
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>

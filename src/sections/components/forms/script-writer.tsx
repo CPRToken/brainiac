@@ -1,12 +1,14 @@
 import type { FC } from 'react';
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
+import responseText from '../clipboards/response-text';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import useHandleSubmit from './handle-submit';
 
 type Option = {
   label: string;
@@ -57,16 +59,22 @@ const moodOptions: Option[] = [
 ];
 
 
+
+
+
 export const ScriptWriter: FC = () => {
 
 
 
-  const [openAIResponse, setOpenAIResponse] = useState<string | null>(null);
+  const { handleSubmit, openAIResponse } = useHandleSubmit();
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
   const [duration, setDuration] = useState<number>(2.5);
   const [prompt, setPrompt] = useState<string>('');
+  const { textRef, handleCopyText } = responseText();
+
+
 
   useEffect(() => {
     let newPrompt = 'Write a[genre][style][mood]with a duration of [duration]';
@@ -79,37 +87,6 @@ export const ScriptWriter: FC = () => {
 
 
 
-  const textRef = useRef<HTMLDivElement>(null);  // <-- Step 1: Create ref
-
-  const handleCopyText = () => {
-    const text = textRef.current?.innerText || '';  // <-- Null check added here
-    navigator.clipboard.writeText(text);
-  };
-
-
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch('/api/openai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: prompt,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.content) {
-        setOpenAIResponse(data.content);
-      } else {
-        console.error("Failed to get content.");
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
 
 
 
@@ -184,7 +161,12 @@ export const ScriptWriter: FC = () => {
 
       </Stack>
       <Box sx={{ mt: 3 }}>
-        <Button onClick={handleSubmit} type="submit" variant="contained" fullWidth>
+        <Button
+          onClick={() => handleSubmit(prompt)}
+          type="submit"
+          variant="contained"
+          fullWidth
+        >
           Submit
         </Button>
       </Box>
@@ -192,15 +174,24 @@ export const ScriptWriter: FC = () => {
 
 
       <Box sx={{ mt: 3 }}>
-        <label>Your Script:</label> <br/>
+        {openAIResponse && (
+          <>
+        <label>Your Script:</label>
         <Button onClick={handleCopyText} title="Copy response text">
           <FileCopyIcon />
         </Button>
+          </>
+        )}
 
-        {/* Step 3: Add Copy Text button */}
-        <Paper elevation={3} ref={textRef} style={{ padding: '10px', maxHeight: '200px', overflow: 'auto' }}>  {/* Attach ref */}
-          {openAIResponse}
+        <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+          {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
+            index === array.length - 1 ? str : <>
+              {str}
+              <br />
+            </>
+          )}
         </Paper>
+
       </Box>
     </Box>
 

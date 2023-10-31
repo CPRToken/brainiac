@@ -70,6 +70,7 @@ headings: {
   yourMealPlan: 'headings.yourMealPlan',
   dietPlanner : 'headings.dietPlanner',
   scriptWriter: 'headings.scriptWriter',
+  poemGenerator: 'headings.poemGenerator',
   yourRecipe: 'headings.yourRecipe',
   contentWriter: 'headings.contentWriter',
   whatsOnYourMind: 'headings.whatsOnYourMind',
@@ -141,7 +142,14 @@ headings: {
     forgotPassword: 'form.forgotPassword',
     policy: 'form.policy',
     termsAndConditions: 'form.termsAndConditions',
-    register: 'form.register'
+    register: 'form.register',
+    writeSong: 'form.write_song',
+    writePoem: 'form.write_poem',
+    genre: 'form.genre',
+    style: 'form.style',
+    mood: 'form.mood',
+    minutes: 'form.minutes',
+
   }
 
 };

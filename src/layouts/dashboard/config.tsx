@@ -97,6 +97,7 @@ export const useSections = () => {
               { title: t(tokens.headings.scriptWriter), path: paths.dashboard.scriptWriter },
               { title: t(tokens.headings.recipeWriter), path: paths.dashboard.recipeGen },
               { title: t(tokens.headings.dietPlanner), path: paths.dashboard.dietPlanner },
+              { title: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator },
             ]
           }
 

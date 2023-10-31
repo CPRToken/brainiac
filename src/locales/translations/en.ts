@@ -17,6 +17,7 @@ export const en = {
   [tokens.headings.recipeWriter]: "Recipe Generator",
   [tokens.headings.dietPlanner]: "Diet Planner",
   [tokens.headings.yourMealPlan]: "Your Meal Plan",
+  [tokens.headings.poemGenerator]: "Poem Generator",
 
 
   [tokens.headings.contentWriter]: "Content Writer",
@@ -102,8 +103,17 @@ export const en = {
   [tokens.form.university]: 'University',
   [tokens.form.light]: 'Light',
   [tokens.form.dark]: 'Dark',
+  [tokens.form.writeSong]: 'write a song in [genre][style][mood] with a duration of [duration]',
 
+  [tokens.form.writePoem]: 'write a [genre][style][mood] poem with a duration of [duration]',
   [tokens.form.name]: 'Full Name',
+  [tokens.form.next]: 'Next',
+  [tokens.form.previous]: 'Previous',
+  [tokens.form.genre]: 'genre',
+  [tokens.form.style]: 'style',
+  [tokens.form.mood]: 'mood',
+  [tokens.form.minutes]: 'minutes',
+
   [tokens.headings['File Manager']]: 'File Manager',
     [tokens.nav.settings]: 'Settings',
     [tokens.nav.billing]: 'Billing',

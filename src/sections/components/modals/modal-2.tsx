@@ -19,7 +19,7 @@ const languageOptions: LanguageOption[] = [
   },
 
   {
-    icon: '/assets/flags/flag-ch.svg',
+    icon: '/assets/flags/flag-es.svg',
     label: 'Spanish',
   },
 ];

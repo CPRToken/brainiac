@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import {tokens} from "src/locales/tokens";
 import type { ColorPreset } from 'src/theme';
-import { blue, green, indigo, purple } from 'src/theme/colors';
+import { blue, green, indigo, purple, orange } from 'src/theme/colors';
 import {useTranslation} from "react-i18next";
 
 interface Option {
@@ -44,6 +44,12 @@ export const OptionsColorPreset: FC<OptionsColorPresetProps> = (props) => {
       label: 'Purple',
       value: 'purple',
       color: purple.main,
+    },
+
+    {
+      label: 'Orange',  // Add this option
+      value: 'orange',  // Add this option
+      color: orange.main,  // Add this option
     },
   ];
 
@@ -93,5 +99,5 @@ export const OptionsColorPreset: FC<OptionsColorPresetProps> = (props) => {
 
 OptionsColorPreset.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.oneOf(['blue', 'green', 'indigo', 'purple']),
+  value: PropTypes.oneOf(['blue', 'green', 'indigo', 'purple', 'orange']),
 };

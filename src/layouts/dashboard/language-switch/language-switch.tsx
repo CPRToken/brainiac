@@ -13,7 +13,7 @@ type Language = 'en' | 'es';
 const languages: Record<Language, string> = {
   en: '/assets/flags/flag-uk.svg',
 
-  es: '/assets/flags/flag-ch.svg',
+  es: '/assets/flags/flag-es.svg',
 };
 
 export const LanguageSwitch: FC = () => {

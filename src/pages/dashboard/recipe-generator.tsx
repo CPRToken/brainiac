@@ -12,6 +12,7 @@ import { RecipeWriter } from 'src/sections/components/forms/recipe-generator';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { auth } from '../../libs/firebase';
+import Hidden from "@mui/material/Hidden";
 
 const Page: NextPage = () => {
   usePageView();
@@ -76,13 +77,10 @@ const Page: NextPage = () => {
                 </Box>
               </Stack>
             </Grid>
-            <Grid
-              xs={12}
-              md={4} // Adjusted size for StorageStats
-              sx={{ paddingLeft: 2 }} //
-            >
-              <MyContent />
-
+            <Grid xs={12} md={4} sx={{ paddingLeft: 2 }}>
+              <Hidden smDown> {/* Hide on small screens and down */}
+                <MyContent />
+              </Hidden>
             </Grid>
           </Grid>
         </Container>

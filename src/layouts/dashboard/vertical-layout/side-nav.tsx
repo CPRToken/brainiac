@@ -157,8 +157,11 @@ interface SideNavProps {
 
 export const SideNav: FC<SideNavProps> = (props) => {
   const { color = 'evident', sections = [] } = props;
+  const theme = useTheme();  // Use theme
   const pathname = usePathname();
   const cssVars = useCssVars(color);
+
+  const logoSrc = theme.palette.mode === 'dark' ? '/assets/logos/logo-dark.svg' : '/assets/logos/logo-light.svg';
 
   return (
     <Drawer
@@ -199,7 +202,7 @@ export const SideNav: FC<SideNavProps> = (props) => {
               component={RouterLink}
               href={paths.index}
               sx={{
-                borderColor: 'var(--nav-logo-border)',
+                borderColor: theme.palette.mode === 'dark' ? 'white' : 'black',
                 borderRadius: 1,
                 borderStyle: 'solid',
                 borderWidth: 1,
@@ -209,7 +212,7 @@ export const SideNav: FC<SideNavProps> = (props) => {
                 width: 54,
               }}
             >
-              <img src="/assets/logos/logo.svg" alt="Your Logo" style={{ height: '38px', width: '38px' }} />
+              <img src={logoSrc} alt="Your Logo" style={{ height: '43px', width: '43px' }} />
 
             </Box>
             <TenantSwitch sx={{ flexGrow: 1 }} />

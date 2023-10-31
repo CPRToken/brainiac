@@ -96,3 +96,12 @@ export const error = withAlphas({
   darkest: '#7A271A',
   contrastText: '#FFFFFF',
 });
+
+export const orange = withAlphas({
+  lightest: '#FFF5E6',
+  light: '#FFEBB3',
+  main: '#FFA500',
+  dark: '#FF8A00',
+  darkest: '#FF6F00',
+  contrastText: '#FFFFFF',
+});

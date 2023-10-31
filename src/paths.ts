@@ -60,6 +60,7 @@ lyricWriter: '/dashboard/lyric-writer',
     scriptWriter: '/dashboard/script-writer',
     recipeGen: '/dashboard/recipe-generator',
     dietPlanner: '/dashboard/diet-planner',
+    poemGenerator: '/dashboard/poem-generator',
 
     customers: {
       index: '/dashboard/customers',

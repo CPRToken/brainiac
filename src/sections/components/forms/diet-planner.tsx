@@ -4,10 +4,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import responseText from '../clipboards/response-text';
 import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
 import { useTranslation } from 'react-i18next';
 import { tokens } from 'src/locales/tokens';
+import FileCopyIcon from "@mui/icons-material/FileCopy";
+import useHandleSubmit from './handle-submit';
 
 type Option = {
   label: string;
@@ -37,8 +40,12 @@ export const DietPlanner: FC = () => {
   const [mealType, setMealType] = useState<string>('');
   const [calories, setCalories] = useState<number>(500);
   const [prompt, setPrompt] = useState<string>('');
-  const [openAIResponse, setOpenAIResponse] = useState<string | null>(null);
+  const { handleSubmit, openAIResponse } = useHandleSubmit();
+  const { textRef, handleCopyText } = responseText();
   const { t } = useTranslation();
+
+
+
 
   useEffect(() => {
     let newPrompt = 'Create a [dietType] meal plan for [mealType] with [calories] calories.';
@@ -48,29 +55,7 @@ export const DietPlanner: FC = () => {
     setPrompt(newPrompt);
   }, [dietType, mealType, calories]);
 
-  const handleSubmit = async () => {
-    try {
-      const response = await fetch('/api/openai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: prompt,
-        }),
-      });
 
-      const data = await response.json();
-
-      if (data.content) {
-        setOpenAIResponse(data.content);
-      } else {
-        console.error("Failed to get content.");
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
 
 
   return (
@@ -125,16 +110,40 @@ export const DietPlanner: FC = () => {
           rows={4}
         />
       </Stack>
+
       <Box sx={{ mt: 3 }}>
-        <Button onClick={handleSubmit} type="submit" variant="contained" fullWidth>
+        <Button
+          onClick={() => handleSubmit(prompt)}
+          type="submit"
+          variant="contained"
+          fullWidth
+        >
           Submit
         </Button>
       </Box>
-      <Box sx={{ mt: 3 }}>
-        <label>{t(tokens.headings.yourMealPlan)}</label>
 
-        <Paper elevation={3} style={{ padding: '10px', maxHeight: '200px', overflow: 'auto' }}>
-          {openAIResponse}
+
+
+      <Box sx={{ mt: 3 }}>
+        {openAIResponse && (
+          <>
+        <label>{t(tokens.headings.yourMealPlan)}</label>
+        <Button onClick={handleCopyText} title="Copy response text">
+          <FileCopyIcon />
+        </Button>
+
+          </>
+        )}
+
+
+
+        <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+          {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
+            index === array.length - 1 ? str : <>
+              {str}
+              <br />
+            </>
+          )}
         </Paper>
       </Box>
     </Box>

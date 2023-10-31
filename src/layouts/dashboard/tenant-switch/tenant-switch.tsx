@@ -29,12 +29,13 @@ export const TenantSwitch: FC<TenantSwitchProps> = (props) => {
       >
         <Box sx={{ flexGrow: 1 }}>
           <Typography
-            color="inherit"
+
             variant="h6"
-            style={{ fontSize: "21px" }}
+            style={{ fontSize: "22px" }}
           >
-            Brainiac Media
+            Br<span style={{ color: 'red' }}>ai</span>niac Media
           </Typography>
+
           <Typography
             color="neutral.400"
             variant="body2"

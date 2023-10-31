@@ -76,7 +76,14 @@ export const es = {
   [tokens.form.maritalStatus]: 'Estado civil',
   [tokens.form.light]: 'Claro',
   [tokens.form.dark]: 'Oscuro',
+  [tokens.form.writeSong]: 'escribe una canción de [genre][style][mood] con una duración de [duration]',
+  [tokens.form.writePoem]: 'escribe un poema de [genre][style][mood] con una duración de [duration]',
+  // ... other translations
 
+  [tokens.form.genre]: 'género',
+  [tokens.form.style]: 'estilo',
+  [tokens.form.mood]: 'estado de ánimo',
+  [tokens.form.minutes]: 'minutos',
   [tokens.form.email]: 'Correo electrónico',
   [tokens.form.password]: 'Contraseña',
   [tokens.form.emailSentMessage]: 'Si existe una cuenta con este correo electrónico, por favor revisa tu bandeja de entrada y sigue las instrucciones.',
@@ -117,6 +124,8 @@ export const es = {
   [tokens.headings.scheduled]: 'Programado',
   [tokens.headings.lyricWriter]: "Letrista",
   [tokens.headings.scriptWriter]: "Guionista",
+  [tokens.headings.poemGenerator]: "Generador de Poemas",
+
 
   [tokens.headings.changeCover]: 'Cambiar Portada',
   [tokens.headings.changeAvatar]: 'Cambiar Imagen',
@@ -126,5 +135,6 @@ export const es = {
   [tokens.headings.services]: 'Servicios',
   [tokens.headings.team]: 'Equipo',
   [tokens.headings.portfolio]: 'Portafolio',
+
 
 };
