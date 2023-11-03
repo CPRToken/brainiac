@@ -6,6 +6,7 @@ export const tokens = {
     academy: 'nav.academy',
     account: 'nav.account',
     contentManager: 'nav.contentManager',
+    contentWriter: 'nav.contentWriter',
     analytics: 'nav.analytics',
     auth: 'nav.auth',
     capsules: 'nav.capsules',
@@ -19,6 +20,7 @@ export const tokens = {
     course: 'nav.course',
     create: 'nav.create',
     lyricWriter: 'nav.lyricWriter',
+    SEOWriter: 'nav.SEOWriter',
     scriptWriter: 'nav.scriptWriter',
     customers: 'nav.customers',
     dashboard: 'nav.dashboard',
@@ -67,6 +69,7 @@ headings: {
   welcome: 'headings.welcome',
   lyricWriter: 'headings.lyricWriter',
   recipeWriter: 'headings.recipeWriter',
+  seoArticleWriter: 'headings.seoArticleWriter',
   yourMealPlan: 'headings.yourMealPlan',
   dietPlanner : 'headings.dietPlanner',
   scriptWriter: 'headings.scriptWriter',
@@ -117,6 +120,8 @@ headings: {
 
   form: {
     quote: 'form.quote',
+    language: 'form.language',
+    informative: 'form.informative',
     firstName: 'form.firstName',
     lastName: 'form.lastName',
     name: 'form.name',
@@ -125,7 +130,7 @@ headings: {
     highSchool: 'form.highSchool',
     light: 'labels.light',
     dark: 'labels.dark',
-
+    contentWriter: 'form.contentWriter',
     university: 'form.university',
     next: 'form.next',
     previous: 'form.previous',
@@ -144,11 +149,26 @@ headings: {
     termsAndConditions: 'form.termsAndConditions',
     register: 'form.register',
     writeSong: 'form.write_song',
+    writeScript: 'form.write_script',
+    SEOWriter: 'form.seo_writer',
+    writeContent: 'form.writeContent',
+    yourSEOArticle: 'form.yourSeoArticle',
     writePoem: 'form.write_poem',
     genre: 'form.genre',
     style: 'form.style',
     mood: 'form.mood',
     minutes: 'form.minutes',
+    yourRecipe: 'form.yourRecipe',
+    yourMealPlan: 'form.yourMealPlan',
+    dietPlanner: 'form.dietPlanner',
+    recipeWriter: 'form.recipeWriter',
+    lyricWriter: 'form.lyricWriter',
+    poemGenerator: 'form.poemGenerator',
+    seoArticleWriter: 'form.seoArticleWriter',
+    scriptWriter: 'form.scriptWriter',
+    whatsOnYourMind: 'form.whatsOnYourMind',
+
+
 
   }
 

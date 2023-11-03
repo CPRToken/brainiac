@@ -6,6 +6,8 @@ import { useEffect, useMemo, useState } from 'react';
 
 import HomeSmileIcon from 'src/icons/untitled-ui/duocolor/home-smile';
 import Lock01Icon from 'src/icons/untitled-ui/duocolor/lock-01';
+
+import File01Icon from 'src/icons/untitled-ui/duocolor/file-01';
 import Upload04Icon from 'src/icons/untitled-ui/duocolor/upload-04';
 import Users03Icon from 'src/icons/untitled-ui/duocolor/users-03';
 import XSquareIcon from 'src/icons/untitled-ui/duocolor/x-square';
@@ -13,6 +15,10 @@ import { tokens } from 'src/locales/tokens';
 import { paths } from 'src/paths';
 import { db, auth } from 'src/libs/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import {Pencil02} from "@untitled-ui/icons-react";
+import {Face, Notes, AccountBox} from "@mui/icons-material";
+
+
 
 
 
@@ -76,17 +82,22 @@ export const useSections = () => {
           {
             title: t(tokens.nav.account),
             path: paths.dashboard.account,
-            icon: <SvgIcon fontSize="small"><HomeSmileIcon /></SvgIcon>,
+            icon: <SvgIcon fontSize="small"><AccountBox /></SvgIcon>,
           },
           {
             title: t(tokens.nav.profile),
             path: `/dashboard/${userUrl}`,
-            icon: <SvgIcon fontSize="small"><Upload04Icon /></SvgIcon>,
+            icon: <SvgIcon fontSize="small"><Face /></SvgIcon>,
           },
           {
             title: t(tokens.nav.contentManager),
             path: paths.dashboard.contentManager,
-            icon: <SvgIcon fontSize="small"><Upload04Icon /></SvgIcon>,
+            icon: <SvgIcon fontSize="small"><Notes /></SvgIcon>,
+          },
+          {
+            title: t(tokens.nav.contentWriter),
+            path: paths.dashboard.contentWriter,
+            icon: <SvgIcon fontSize="small"><Pencil02 /></SvgIcon>,
           },
           {
             title: t(tokens.nav.myContent),
@@ -98,6 +109,7 @@ export const useSections = () => {
               { title: t(tokens.headings.recipeWriter), path: paths.dashboard.recipeGen },
               { title: t(tokens.headings.dietPlanner), path: paths.dashboard.dietPlanner },
               { title: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator },
+              { title: t(tokens.headings.seoArticleWriter), path: paths.dashboard.seoArticleWriter },
             ]
           }
 

@@ -53,6 +53,8 @@ export const es = {
   [tokens.nav.settings]: 'Configuración',
   [tokens.nav.billing]: 'Facturación',
   [tokens.nav.capsules]: 'Capsulas Virtuales ',
+  [tokens.nav.contentManager]: 'Mi Contenido',
+  [tokens.nav.contentWriter]: 'Escritor de Contenido',
 
   [tokens.nav.verifyCode]: 'Verificar Código',
 
@@ -78,8 +80,9 @@ export const es = {
   [tokens.form.dark]: 'Oscuro',
   [tokens.form.writeSong]: 'escribe una canción de [genre][style][mood] con una duración de [duration]',
   [tokens.form.writePoem]: 'escribe un poema de [genre][style][mood] con una duración de [duration]',
-  // ... other translations
-
+  [tokens.form.SEOWriter]: 'escribe un artículo SEO de [niche][topic][style] con una duración de [duration]',
+  [tokens.form.writeScript]: 'escribe un guión de [genre][style][mood] con una duración de [duration]',
+  [tokens.form.yourSEOArticle]: 'Tu artículo de SEO',
   [tokens.form.genre]: 'género',
   [tokens.form.style]: 'estilo',
   [tokens.form.mood]: 'estado de ánimo',
@@ -91,6 +94,9 @@ export const es = {
   [tokens.form.termsAndConditions]: 'Términos y Condiciones',
   [tokens.form.register]: 'Registrarse',
   [tokens.form.sendResetLink]: 'Enviar enlace para restablecer',
+  [tokens.form.informative]: 'informativo',
+  [tokens.form.language]: 'Idioma',
+
   [tokens.headings.welcome]: 'Bienvenido',
   [tokens.headings.aboutUs]: 'Acerca de Nosotros',
   [tokens.nav.fileManager]: 'Administrador de Archivos',
@@ -125,7 +131,8 @@ export const es = {
   [tokens.headings.lyricWriter]: "Letrista",
   [tokens.headings.scriptWriter]: "Guionista",
   [tokens.headings.poemGenerator]: "Generador de Poemas",
-
+  [tokens.headings.seoArticleWriter]: "Escritor de Artículos SEO",
+  [tokens.headings.contentWriter]: "Escritor de Contenido",
 
   [tokens.headings.changeCover]: 'Cambiar Portada',
   [tokens.headings.changeAvatar]: 'Cambiar Imagen',

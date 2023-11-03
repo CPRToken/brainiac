@@ -61,6 +61,8 @@ lyricWriter: '/dashboard/lyric-writer',
     recipeGen: '/dashboard/recipe-generator',
     dietPlanner: '/dashboard/diet-planner',
     poemGenerator: '/dashboard/poem-generator',
+    seoArticleWriter: '/dashboard/seo-article-writer',
+    contentWriter: '/dashboard/content-writer',
 
     customers: {
       index: '/dashboard/customers',

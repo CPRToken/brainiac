@@ -1,8 +1,6 @@
 import type { FC } from 'react';
 import type { ApexOptions } from 'apexcharts';
-import Lightning01Icon from '@untitled-ui/icons-react/build/esm/Lightning01';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -13,14 +11,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
-import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-
 import { Chart } from 'src/components/chart';
 import { FileIcon } from 'src/components/file-icon';
 import { bytesToSize } from 'src/utils/bytes-to-size';
-
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {  ref,  listAll, getMetadata } from "firebase/storage";
@@ -235,7 +230,7 @@ export const MyContent: FC = () => {
             color="text.secondary"
             variant="body2"
           >
-            Has usado {currentUsagePercentage.toFixed(2)}% de su almacenamiento disponible.
+            You have used {currentUsagePercentage.toFixed(2)}% of your storage
           </Typography>
           <Typography
             color="text.secondary"

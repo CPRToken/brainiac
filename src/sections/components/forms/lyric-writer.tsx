@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
-import ReponseText from '../clipboards/response-text';
+import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -61,6 +61,13 @@ const moodOptions: Option[] = [
     // ... add more as needed
 ];
 
+const useArticle = (word: string) => {
+  if (!word) return "";
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
+  // Check for special cases like "hip-hop" which sounds like it starts with a vowel
+  const specialCases = ['hip-hop'];
+  return vowels.includes(word[0].toLowerCase()) || specialCases.includes(word) ? 'an' : 'a';
+};
 
 
 export const LyricWriter: FC = () => {
@@ -74,23 +81,28 @@ export const LyricWriter: FC = () => {
   const [duration, setDuration] = useState<number>(2.5);
   const [prompt, setPrompt] = useState<string>('');
   const { t } = useTranslation();
-  const { textRef, handleCopyText } = ReponseText();
+  const { textRef, handleCopyText } = ResponseText();
 
 
   useEffect(() => {
-    let newPrompt = t(tokens.form.writeSong);
-    const genreText = genre !== '' ? `the ${t(genre)} genre` : '';
-    const styleText = style !== '' ? `a ${t(style)} style` : '';
-    const moodText = mood !== '' ? `a ${t(mood)} mood` : '';
+    if (genre && style && mood && duration) {
+      let newPrompt = t(tokens.form.writeSong);
+      const genreText = genre !== '' ? `${useArticle(genre)} ${t(genre)} genre` : '';
+      const styleText = style !== '' ? `${useArticle(style)} ${t(style)} style` : '';
+      const moodText = mood !== '' ? `${useArticle(mood)} ${t(mood)} mood` : '';
 
-    const components = [genreText, styleText, moodText].filter(Boolean).join(', ');
+      const components = [genreText, styleText, moodText].filter(Boolean).join(', ');
 
-    newPrompt = newPrompt
-      .replace('[genre][style][mood]', components)
-      .replace('[duration]', `${duration} ${t('minutes')}`);
+      newPrompt = newPrompt
+        .replace('[genre][style][mood]', components)
+        .replace('[duration]', `${duration} ${t('minutes')}`);
 
-    setPrompt(newPrompt.trim());
+      setPrompt(newPrompt.trim());
+    } else {
+      setPrompt('');
+    }
   }, [genre, style, mood, duration, t]);
+
 
 
 

@@ -18,7 +18,7 @@ export const en = {
   [tokens.headings.dietPlanner]: "Diet Planner",
   [tokens.headings.yourMealPlan]: "Your Meal Plan",
   [tokens.headings.poemGenerator]: "Poem Generator",
-
+   [tokens.headings.seoArticleWriter]: "SEO Article Writer",
 
   [tokens.headings.contentWriter]: "Content Writer",
   [tokens.nav.browse]: 'Browse',
@@ -31,7 +31,8 @@ export const en = {
   [tokens.nav.create]: 'Create',
 
   [tokens.nav.myContent ]: 'Content Generator',
-  [tokens.nav.contentManager]: 'Content Manager',
+  [tokens.nav.contentWriter]: 'Content Writer',
+  [tokens.nav.contentManager]: 'My Content',
   [tokens.nav.customers]: 'Customers',
 
   [tokens.nav.dashboard]: 'Dashboard',
@@ -101,12 +102,26 @@ export const en = {
   [tokens.form.sendResetLink]: 'Send reset link',
   [tokens.form.maritalStatus]: 'Marital Status',
   [tokens.form.university]: 'University',
+  [tokens.form.highSchool]: 'High School',
+  [tokens.form.placesWorked]: 'Places Worked',
+  [tokens.form.currentJobTitle]: 'Current Job Title',
+  [tokens.form.previousJobCompany]: 'Previous Job Company',
+  [tokens.form.previousJobTitle]: 'Previous Job Title',
+  [tokens.form.yourSEOArticle]: 'Your SEO Article',
   [tokens.form.light]: 'Light',
   [tokens.form.dark]: 'Dark',
   [tokens.form.writeSong]: 'write a song in [genre][style][mood] with a duration of [duration]',
+  [tokens.form.writeScript]: 'write a screenplay in [genre][style][mood] with a duration of [duration]',
+  [tokens.form.informative]: 'informative',
+  [tokens.form.language]: 'Language',
 
   [tokens.form.writePoem]: 'write a [genre][style][mood] poem with a duration of [duration]',
-  [tokens.form.name]: 'Full Name',
+  [tokens.form.SEOWriter]: 'Write a [duration]-word, SEO-optimized article, on the latest [niche] advancements, crafted with an [style] style and structured for [purpose] effectiveness.',
+  [tokens.form.writeContent]: 'Write a [duration] article, with [style] , in  [language] and [tone] . ',
+
+
+
+    [tokens.form.name]: 'Full Name',
   [tokens.form.next]: 'Next',
   [tokens.form.previous]: 'Previous',
   [tokens.form.genre]: 'genre',
@@ -117,5 +132,6 @@ export const en = {
   [tokens.headings['File Manager']]: 'File Manager',
     [tokens.nav.settings]: 'Settings',
     [tokens.nav.billing]: 'Billing',
+
 
 };

@@ -6,7 +6,9 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
-import ReponseText from '../clipboards/response-text';
+import ResponseText from '../clipboards/response-text';
+import { tokens } from 'src/locales/tokens';
+import { useTranslation } from 'react-i18next';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import useHandleSubmit from './handle-submit';
 
@@ -59,6 +61,14 @@ const moodOptions: Option[] = [
 ];
 
 
+const useArticle = (word: string) => {
+  if (!word) return "";
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
+  // Check for special cases like "hip-hop" which sounds like it starts with a vowel
+  const specialCases = ['hip-hop'];
+  return vowels.includes(word[0].toLowerCase()) || specialCases.includes(word) ? 'an' : 'a';
+};
+
 
 
 
@@ -70,24 +80,30 @@ export const ScriptWriter: FC = () => {
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
-  const [duration, setDuration] = useState<number>(2.5);
+  const [duration, setDuration] = useState<number>(30);
   const [prompt, setPrompt] = useState<string>('');
-  const { textRef, handleCopyText } = ReponseText();
-
+  const { t } = useTranslation();
+  const { textRef, handleCopyText } = ResponseText();
 
 
   useEffect(() => {
-    let newPrompt = 'Write a[genre][style][mood]with a duration of [duration]';
-    newPrompt = newPrompt.replace('[genre]', genre !== '' ? ` ${genre} screenplay ` : ' screenplay ');
-    newPrompt = newPrompt.replace('[style]', style !== '' ? `in a ${style} style ` : '');
-    newPrompt = newPrompt.replace('[mood]', mood !== '' ? ` in a ${mood} mood ` : '');
-    newPrompt = newPrompt.replace('[duration]', `${duration} minutes`);
-    setPrompt(newPrompt);
-  }, [genre, style, mood, duration]);
+    if (genre && style && mood && duration !== 2.5) {
+      let newPrompt = t(tokens.form.writeScript);
+      const genreText = genre ? `${useArticle(genre)} ${t(genre)} genre` : '';
+      const styleText = style ? `${useArticle(style)} ${t(style)} style` : '';
+      const moodText = mood ? `${useArticle(mood)} ${t(mood)} mood` : '';
 
+      const components = [genreText, styleText, moodText].filter(Boolean).join(', ');
 
+      newPrompt = newPrompt
+        .replace('[genre][style][mood]', components)
+        .replace('[duration]', `${duration} ${t('minutes')}`);
 
-
+      setPrompt(newPrompt.trim());
+    } else {
+      setPrompt('');
+    }
+  }, [genre, style, mood, duration, t]);
 
 
   return (
@@ -145,7 +161,7 @@ export const ScriptWriter: FC = () => {
             value={duration}
             min={30}
             max={90}
-            step={0.5}
+            step={15}
             onChange={(_, newValue) => setDuration(newValue as number)}
           />
         </div>
