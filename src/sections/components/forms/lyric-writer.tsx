@@ -61,7 +61,7 @@ const moodOptions: Option[] = [
     // ... add more as needed
 ];
 
-const useArticle = (word: string) => {
+const getArticle = (word: string) => {
   if (!word) return "";
   const vowels = ['a', 'e', 'i', 'o', 'u'];
   // Check for special cases like "hip-hop" which sounds like it starts with a vowel
@@ -87,9 +87,11 @@ export const LyricWriter: FC = () => {
   useEffect(() => {
     if (genre && style && mood && duration) {
       let newPrompt = t(tokens.form.writeSong);
-      const genreText = genre !== '' ? `${useArticle(genre)} ${t(genre)} genre` : '';
-      const styleText = style !== '' ? `${useArticle(style)} ${t(style)} style` : '';
-      const moodText = mood !== '' ? `${useArticle(mood)} ${t(mood)} mood` : '';
+      // Call getArticle as a normal function
+      const genreText = genre !== '' ? `${getArticle(genre)} ${t(genre)} genre` : '';
+      const styleText = style !== '' ? `${getArticle(style)} ${t(style)} style` : '';
+      const moodText = mood !== '' ? `${getArticle(mood)} ${t(mood)} mood` : '';
+
 
       const components = [genreText, styleText, moodText].filter(Boolean).join(', ');
 

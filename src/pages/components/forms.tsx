@@ -21,9 +21,8 @@ import { Form10 } from 'src/sections/components/forms/form-10';
 import { Form11 } from 'src/sections/components/forms/form-11';
 
 import { Form13 } from 'src/sections/components/forms/form-13';
-import { Form14 } from 'src/sections/components/forms/form-14';
-import { Form15 } from 'src/sections/components/forms/form-15';
-import { Form16 } from 'src/sections/components/forms/form-16';
+
+
 
 const components: { element: JSX.Element; title: string }[] = [
   {
@@ -75,18 +74,9 @@ const components: { element: JSX.Element; title: string }[] = [
     element: <Form13 />,
     title: 'Form 13',
   },
-  {
-    element: <Form14 />,
-    title: 'Form 14',
-  },
-  {
-    element: <Form15 />,
-    title: 'Form 15',
-  },
-  {
-    element: <Form16 />,
-    title: 'Form 16',
-  },
+
+
+
 ];
 
 const Page: NextPage = () => {

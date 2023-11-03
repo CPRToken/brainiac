@@ -61,15 +61,13 @@ const moodOptions: Option[] = [
 ];
 
 
-const useArticle = (word: string) => {
+const getArticle = (word: string) => {
   if (!word) return "";
   const vowels = ['a', 'e', 'i', 'o', 'u'];
   // Check for special cases like "hip-hop" which sounds like it starts with a vowel
   const specialCases = ['hip-hop'];
   return vowels.includes(word[0].toLowerCase()) || specialCases.includes(word) ? 'an' : 'a';
 };
-
-
 
 
 export const ScriptWriter: FC = () => {
@@ -89,9 +87,9 @@ export const ScriptWriter: FC = () => {
   useEffect(() => {
     if (genre && style && mood && duration !== 2.5) {
       let newPrompt = t(tokens.form.writeScript);
-      const genreText = genre ? `${useArticle(genre)} ${t(genre)} genre` : '';
-      const styleText = style ? `${useArticle(style)} ${t(style)} style` : '';
-      const moodText = mood ? `${useArticle(mood)} ${t(mood)} mood` : '';
+      const genreText = genre ? `${getArticle(genre)} ${t(genre)} genre` : '';
+      const styleText = style ? `${getArticle(style)} ${t(style)} style` : '';
+      const moodText = mood ? `${getArticle(mood)} ${t(mood)} mood` : '';
 
       const components = [genreText, styleText, moodText].filter(Boolean).join(', ');
 
