@@ -63,6 +63,7 @@ lyricWriter: '/dashboard/lyric-writer',
     poemGenerator: '/dashboard/poem-generator',
     seoArticleWriter: '/dashboard/seo-article-writer',
     contentWriter: '/dashboard/content-writer',
+    uniAnswers: '/dashboard/uni-answers',
 
     customers: {
       index: '/dashboard/customers',

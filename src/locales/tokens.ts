@@ -68,6 +68,7 @@ headings: {
   primaryColor: 'headings.primaryColor',
   welcome: 'headings.welcome',
   lyricWriter: 'headings.lyricWriter',
+  uniAnswers: 'headings.uniAnswers',
   recipeWriter: 'headings.recipeWriter',
   seoArticleWriter: 'headings.seoArticleWriter',
   yourMealPlan: 'headings.yourMealPlan',
@@ -120,6 +121,7 @@ headings: {
 
   form: {
     quote: 'form.quote',
+    pasteQuestion: 'form.pasteQuestion',
     language: 'form.language',
     informative: 'form.informative',
     firstName: 'form.firstName',

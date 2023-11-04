@@ -110,6 +110,7 @@ export const useSections = () => {
               { title: t(tokens.headings.dietPlanner), path: paths.dashboard.dietPlanner },
               { title: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator },
               { title: t(tokens.headings.seoArticleWriter), path: paths.dashboard.seoArticleWriter },
+              { title: t(tokens.headings.uniAnswers), path: paths.dashboard.uniAnswers },
             ]
           }
 

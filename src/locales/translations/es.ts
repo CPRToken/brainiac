@@ -96,8 +96,9 @@ export const es = {
   [tokens.form.sendResetLink]: 'Enviar enlace para restablecer',
   [tokens.form.informative]: 'informativo',
   [tokens.form.language]: 'Idioma',
+  [tokens.form.pasteQuestion]: 'Pega tu pregunta aquí y presiona Submit',
 
-  [tokens.headings.welcome]: 'Bienvenido',
+    [tokens.headings.welcome]: 'Bienvenido',
   [tokens.headings.aboutUs]: 'Acerca de Nosotros',
   [tokens.nav.fileManager]: 'Administrador de Archivos',
   [tokens.headings.usedStorage]: 'Has usado el {percentage}% de tu almacenamiento disponible.',
@@ -133,6 +134,7 @@ export const es = {
   [tokens.headings.poemGenerator]: "Generador de Poemas",
   [tokens.headings.seoArticleWriter]: "Escritor de Artículos SEO",
   [tokens.headings.contentWriter]: "Escritor de Contenido",
+  [tokens.headings.uniAnswers]: "Respuestas Universitarias",
 
   [tokens.headings.changeCover]: 'Cambiar Portada',
   [tokens.headings.changeAvatar]: 'Cambiar Imagen',

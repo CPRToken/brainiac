@@ -19,6 +19,9 @@ export const en = {
   [tokens.headings.yourMealPlan]: "Your Meal Plan",
   [tokens.headings.poemGenerator]: "Poem Generator",
    [tokens.headings.seoArticleWriter]: "SEO Article Writer",
+  [tokens.headings.uniAnswers]: "Same answers as Chegg",
+
+
 
   [tokens.headings.contentWriter]: "Content Writer",
   [tokens.nav.browse]: 'Browse',
@@ -118,7 +121,7 @@ export const en = {
   [tokens.form.writePoem]: 'write a [genre][style][mood] poem with a duration of [duration]',
   [tokens.form.SEOWriter]: 'Write a [duration]-word, SEO-optimized article, on the latest [niche] advancements, crafted with an [style] style and structured for [purpose] effectiveness.',
   [tokens.form.writeContent]: 'Write a [duration] article, with [style] , in  [language] and [tone] . ',
-
+  [tokens.form.pasteQuestion]: 'Paste your question here & click Submit',
 
 
     [tokens.form.name]: 'Full Name',
