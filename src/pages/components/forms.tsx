@@ -16,7 +16,6 @@ import { Form5 } from 'src/sections/components/forms/form-5';
 import { Form6 } from 'src/sections/components/forms/form-6';
 import { Form7 } from 'src/sections/components/forms/form-7';
 import { Form8 } from 'src/sections/components/forms/form-8';
-import { Form9 } from 'src/sections/components/forms/form-9';
 import { Form10 } from 'src/sections/components/forms/form-10';
 import { Form11 } from 'src/sections/components/forms/form-11';
 
@@ -57,10 +56,7 @@ const components: { element: JSX.Element; title: string }[] = [
     element: <Form8 />,
     title: 'Form 8',
   },
-  {
-    element: <Form9 />,
-    title: 'Form 9',
-  },
+
   {
     element: <Form10 />,
     title: 'Form 10',
