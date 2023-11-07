@@ -20,6 +20,7 @@ export const en = {
   [tokens.headings.poemGenerator]: "Poem Generator",
    [tokens.headings.seoArticleWriter]: "SEO Article Writer",
   [tokens.headings.uniAnswers]: "Same answers as Chegg",
+  [tokens.headings.imageGenerator]: "Image Generator",
 
 
 
@@ -32,8 +33,9 @@ export const en = {
   [tokens.nav.contact]: 'Contact',
   [tokens.nav.course]: 'Course',
   [tokens.nav.create]: 'Create',
+  [tokens.nav.imageGenerator]: 'Image Generator',
 
-  [tokens.nav.myContent ]: 'Content Generator',
+  [tokens.nav.myContent ]: 'AI Modules',
   [tokens.nav.contentWriter]: 'Content Writer',
   [tokens.nav.contentManager]: 'My Content',
   [tokens.nav.customers]: 'Customers',
@@ -93,6 +95,8 @@ export const en = {
   [tokens.headings.description]: 'Description',
   [tokens.headings.to]: 'To',
   [tokens.headings.scheduled]: 'Scheduled',
+  [tokens.headings.resumeMaker]: 'Resume Maker',
+  [tokens.headings.resumeBuilder]: 'Resume Builder',
 
 
   [tokens.headings.changeCover]: 'Change Cover',
@@ -105,7 +109,10 @@ export const en = {
   [tokens.form.sendResetLink]: 'Send reset link',
   [tokens.form.maritalStatus]: 'Marital Status',
   [tokens.form.university]: 'University',
-  [tokens.form.highSchool]: 'High School',
+    [tokens.form.email]: 'Email',
+    [tokens.form.highSchool]: 'High School',
+  [tokens.form.highestYearCompleted]: 'Highest Year Completed',
+  [tokens.form.originCity]: 'Origin City',
   [tokens.form.placesWorked]: 'Places Worked',
   [tokens.form.currentJobTitle]: 'Current Job Title',
   [tokens.form.previousJobCompany]: 'Previous Job Company',
@@ -117,11 +124,21 @@ export const en = {
   [tokens.form.writeScript]: 'write a screenplay in [genre][style][mood] with a duration of [duration]',
   [tokens.form.informative]: 'informative',
   [tokens.form.language]: 'Language',
+  [tokens.form.skills]: 'Skills: e.g. "HTML, Team management, JavaScript"',
+  [tokens.form.age]: 'Age',
+  [tokens.form.degree]: 'Degree',
+  [tokens.form.education]: 'Education: e.g. University Name, Degree, Field of Study',
+  [tokens.form.highSchoolEducation]: 'High school: e.g. school Name, highest year completed & year graduated',
+  [tokens.form.workExperience]: 'Work Experience: e.g. "Company Name, Job Title, Start Date, End Date, Description"',
+  [tokens.form.contactNumber]: 'Contact Number',
+
 
   [tokens.form.writePoem]: 'write a [genre][style][mood] poem with a duration of [duration]',
+  [tokens.form.imagePrompts]: 'paint me [artist] in a [style] with [theme] image with a [duration]',
   [tokens.form.SEOWriter]: 'Write a [duration]-word, SEO-optimized article, on the latest [niche] advancements, crafted with an [style] style and structured for [purpose] effectiveness.',
   [tokens.form.writeContent]: 'Write a [duration] article, with [style] , in  [language] and [tone] . ',
   [tokens.form.pasteQuestion]: 'Paste your question here & click Submit',
+  [tokens.form.constructResume]: 'Construct a resume in [name] with [age] age, [education] education, [workExperience] work experience, and [skills] skills.',
 
 
     [tokens.form.name]: 'Full Name',

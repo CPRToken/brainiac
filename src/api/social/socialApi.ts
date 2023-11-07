@@ -1,6 +1,6 @@
 import type { Post, Profile } from 'src/types/social';
-import { collection, getDocs, query, where, onSnapshot } from 'firebase/firestore';
-import { db, auth } from 'src/libs/firebase';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import { db } from 'src/libs/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
 
@@ -48,8 +48,11 @@ class SocialApi {
           name: `${userData.firstName} ${userData.lastName}`,
           originCity: userData.originCity || '',
           placesWorked: userData.placesWorked || '',
+          maritalStatus: userData.maritalStatus || '',
           highSchool: userData.highSchool || '',
+          highestYearCompleted: userData.highestYearCompleted || '',
           university: userData.university || '',
+          degree: userData.degree || '',
           quote: userData.quote || '',
           userUrl: userData.userUrl || '',
           role: userData.role || '',

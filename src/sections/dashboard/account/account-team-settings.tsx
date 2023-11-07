@@ -21,7 +21,7 @@ import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import {auth, db} from 'src/libs/firebase';
-import {collection, getDocs, addDoc, query, onSnapshot, doc, getDoc} from 'firebase/firestore';
+import {collection, addDoc, query, onSnapshot, doc, getDoc} from 'firebase/firestore';
 import { Scrollbar } from 'src/components/scrollbar';
 import { SeverityPill } from 'src/components/severity-pill';
 import {Profile} from "../../../types/social";

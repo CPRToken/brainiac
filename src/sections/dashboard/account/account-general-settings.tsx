@@ -32,7 +32,9 @@ interface AccountGeneralSettingsProps {
   name?: string;
   maritalStatus?: string;
      highSchool?: string;
+     highestYearCompleted?: string;
     university?: string;
+    degree?: string;
         placesWorked?: string;
        quote?: string;
 }
@@ -41,7 +43,7 @@ interface AccountGeneralSettingsProps {
 
 
 export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) => {
-    const { avatar, name, quote, email, maritalStatus, university } = props;
+    const { avatar, name, quote, email, maritalStatus, highSchool, highestYearCompleted, university, degree, placesWorked } = props;
     const [uid, setUid] = useState<string | null>(null); // Add this line to hold uid this line to hold uid
   const [isEditingName, setIsEditingName] = useState(false);
   const [newName, setNewName] = useState(name);
@@ -51,12 +53,29 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
   const [newQuote, setNewQuote] = useState(quote);
 
 
-    const [isEditingMarital, setIsEditingMarital] = useState(false);
-    const [newMarital, setNewMarital] = useState(maritalStatus);
+    const [isEditingMaritalStatus, setIsEditingMaritalStatus] = useState(false);
+    const [newMaritalStatus, setNewMaritalStatus] = useState(maritalStatus);
 
 
-    const [isEditingUni, setIsEditingUni] = useState(false);
+
+  const [isEditingHighSchool, setIsEditingHighSchool] = useState(false);
+  const [newHighSchool, setNewHighSchool] = useState(highSchool);
+
+  const [isEditingHighestYear, setIsEditingHighestYear] = useState(false);
+  const [newHighestYearCompleted, setHighestYear] = useState(highestYearCompleted);
+
+
+  const [isEditingUni, setIsEditingUni] = useState(false);
     const [newUni, setNewUni] = useState(university);
+
+
+  const [isEditingDegree, setIsEditingDegree] = useState(false);
+  const [newDegree, setDegree] = useState(degree);
+
+
+
+  const [isEditingPlacesWorked, setIsEditingPlacesWorked] = useState(false);
+  const [newPlacesWorked, setNewPlacesWorked] = useState(placesWorked);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -147,16 +166,16 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
 
     //edit quote below
 
-    const handleEditMaritalClick = () => {
-        setIsEditingMarital(true);
+    const handleEditMaritalStatusClick = () => {
+        setIsEditingMaritalStatus(true);
     };
-    const handleSaveMaritalClick = async () => {
+    const handleSaveMaritalStatusClick = async () => {
         if (uid) {
             const userRef = doc(db, 'users', uid);
             await updateDoc(userRef, {
-                maritalStatus: newMarital
+                maritalStatus: newMaritalStatus
             });
-            setIsEditingMarital(false);
+            setIsEditingMaritalStatus(false);
         } else {
             // Handle the case when uid is null
             console.error("UID is null. Cannot update document.");
@@ -166,19 +185,43 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
 //edit quote end here
 
 
+  const handleEditHighSchoolClick = () => {
+    setIsEditingHighSchool(true);
+    setIsEditingHighestYear(true);
+  };
 
-    //edit quote below
+// Combine the save functions to update both fields at once
+  const handleSaveHighSchoolClick = async () => {
+    if (uid) {
+      const userRef = doc(db, 'users', uid);
+      await updateDoc(userRef, {
+        highSchool: newHighSchool,
+        highestYearCompleted: newHighestYearCompleted,
+      });
+      setIsEditingHighSchool(false);
+      setIsEditingHighestYear(false);
+    } else {
+      console.error("UID is null. Cannot update document.");
+    }
+  };
 
-    const handleEditUniClick = () => {
+
+
+
+
+  const handleEditUniClick = () => {
         setIsEditingUni(true);
+        setIsEditingDegree(true);
     };
     const handleSaveUniClick = async () => {
         if (uid) {
             const userRef = doc(db, 'users', uid);
             await updateDoc(userRef, {
-                university: newUni
+                university: newUni,
+              degree: newDegree,
             });
             setIsEditingUni(false);
+            setIsEditingDegree(false);
         } else {
             // Handle the case when uid is null
             console.error("UID is null. Cannot update document.");
@@ -186,6 +229,22 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
     };
 
 
+
+  const handleEditPlacesWorkedClick = () => {
+    setIsEditingPlacesWorked(true);
+  };
+  const handleSavePlacesWorkedClick = async () => {
+    if (uid) {
+      const userRef = doc(db, 'users', uid);
+      await updateDoc(userRef, {
+        placesWorked: newPlacesWorked
+      });
+      setIsEditingPlacesWorked(false);
+    } else {
+      // Handle the case when uid is null
+      console.error("UID is null. Cannot update document.");
+    }
+  };
 
 
 
@@ -321,7 +380,7 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
                     <TextField
                         defaultValue={email}
                         disabled
-                        label="Email Address"
+                        label={t(tokens.form.email)}
                         required
                         sx={{
                           flexGrow: 1,
@@ -343,29 +402,29 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
 
 
 
-                    <Stack alignItems="center" direction="row" spacing={2}>
-                        <TextField
-                            defaultValue={newMarital}
-                            label={t(tokens.form.maritalStatus)}
-                            disabled={!isEditingMarital}
-                            onChange={(e) => setNewMarital(e.target.value)}
-                            sx={{
-                                flexGrow: 1,
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderStyle: 'dashed',
-                                },
-                            }}
-                        />
-                        {isEditingMarital ? (
-                            <Button color="inherit" size="small" onClick={handleSaveMaritalClick}>
-                                Save
-                            </Button>
-                        ) : (
-                            <Button color="inherit" size="small" onClick={handleEditMaritalClick}>
-                                Edit
-                            </Button>
-                        )}
-                    </Stack>
+                  <Stack alignItems="center" direction="row" spacing={2}>
+                    <TextField
+                      defaultValue={newMaritalStatus}
+                      label={t(tokens.form.maritalStatus)}
+                      disabled={!isEditingMaritalStatus}
+                      onChange={(e) => setNewMaritalStatus(e.target.value)}
+                      sx={{
+                        flexGrow: 1,
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderStyle: 'dashed',
+                        },
+                      }}
+                    />
+                    {isEditingMaritalStatus ? (
+                      <Button color="inherit" size="small" onClick={handleSaveMaritalStatusClick}>
+                        Save
+                      </Button>
+                    ) : (
+                      <Button color="inherit" size="small" onClick={handleEditMaritalStatusClick}>
+                        Edit
+                      </Button>
+                    )}
+                  </Stack>
 
 
 
@@ -375,7 +434,7 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
 
 
 
-                    <Stack alignItems="center" direction="row" spacing={2}>
+                  <Stack alignItems="center" direction="row" spacing={2}>
                         <TextField
                             defaultValue={newQuote}
                             label={t(tokens.headings.citaFavorita)}
@@ -400,36 +459,105 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
                     </Stack>
 
 
+                  <Stack alignItems="center" direction="row" spacing={2}>
+                    <TextField
+                      defaultValue={newHighSchool}
+                      label={t(tokens.form.highSchool)}
+                      disabled={!isEditingHighSchool}
+                      onChange={(e) => setNewHighSchool(e.target.value)}
+                      sx={{
+                        width: 'calc(50% - 8px)', // Adjust the value 8px according to your spacing needs
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderStyle: 'dashed',
+                        },
+                      }}
+                    />
+                    <TextField
+                      defaultValue={highestYearCompleted}
+                      label={t(tokens.form.highestYearCompleted)}
+                      disabled={!isEditingHighSchool}
+                      onChange={(e) => setHighestYear(e.target.value)}
+                      sx={{
+                        width: 'calc(50% - 8px)', // Adjust the value 8px according to your spacing needs
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderStyle: 'dashed',
+                        },
+                      }}
+                    />
+                    {isEditingHighSchool ? (
+                      <Button color="inherit" size="small" onClick={handleSaveHighSchoolClick}>
+                        Save
+                      </Button>
+                    ) : (
+                      <Button color="inherit" size="small" onClick={handleEditHighSchoolClick}>
+                        Edit
+                      </Button>
+                    )}
+                  </Stack>
 
 
 
 
+                  <Stack alignItems="center" direction="row" spacing={2}>
+                    <TextField
+                      defaultValue={newUni}
+                      label={t(tokens.form.university)}
+                      disabled={!isEditingUni}
+                      onChange={(e) => setNewUni(e.target.value)}
+                      sx={{
+                        width: '50%', // Adjust the width to 50%
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderStyle: 'dashed',
+                        },
+                      }}
+                    />
+                    <TextField // New TextField for degreeType
+                      defaultValue={degree}
+                      label={t(tokens.form.degree)}
+                      disabled={!isEditingUni}
+                      onChange={(e) => setDegree(e.target.value)}
+                      sx={{
+                        width: '50%', // Adjust the width to 50%
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderStyle: 'dashed',
+                        },
+                      }}
+                    />
+                    {isEditingUni ? (
+                      <Button color="inherit" size="small" onClick={handleSaveUniClick}>
+                        Save
+                      </Button>
+                    ) : (
+                      <Button color="inherit" size="small" onClick={handleEditUniClick}>
+                        Edit
+                      </Button>
+                    )}
+                  </Stack>
 
-                    <Stack alignItems="center" direction="row" spacing={2}>
-                        <TextField
-                            defaultValue={newUni}
-                            label={t(tokens.form.university)}
-                            disabled={!isEditingUni}
-                            onChange={(e) => setNewUni(e.target.value)}
-                            sx={{
-                                flexGrow: 1,
-                                '& .MuiOutlinedInput-notchedOutline': {
-                                    borderStyle: 'dashed',
-                                },
-                            }}
-                        />
-                        {isEditingUni ? (
-                            <Button color="inherit" size="small" onClick={handleSaveUniClick}>
-                                Save
-                            </Button>
-                        ) : (
-                            <Button color="inherit" size="small" onClick={handleEditUniClick}>
-                                Edit
-                            </Button>
-                        )}
-                    </Stack>
 
-
+                  <Stack alignItems="center" direction="row" spacing={2}>
+                    <TextField
+                      defaultValue={newPlacesWorked}
+                      label={t(tokens.form.placesWorked)}
+                      disabled={!isEditingPlacesWorked}
+                      onChange={(e) => setNewPlacesWorked(e.target.value)}
+                      sx={{
+                        flexGrow: 1,
+                        '& .MuiOutlinedInput-notchedOutline': {
+                          borderStyle: 'dashed',
+                        },
+                      }}
+                    />
+                    {isEditingPlacesWorked ? (
+                      <Button color="inherit" size="small" onClick={handleSavePlacesWorkedClick}>
+                        Save
+                      </Button>
+                    ) : (
+                      <Button color="inherit" size="small" onClick={handleEditPlacesWorkedClick}>
+                        Edit
+                      </Button>
+                    )}
+                  </Stack>
 
 
                 </Stack>
@@ -545,9 +673,8 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
 AccountGeneralSettings.propTypes = {
     uid: PropTypes.string,
   avatar: PropTypes.string.isRequired,
-  maritalStatus: PropTypes.string,
-  email: PropTypes.string.isRequired,
+   email: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
     highSchool: PropTypes.string,
-    quote: PropTypes.string,
+     quote: PropTypes.string,
 };

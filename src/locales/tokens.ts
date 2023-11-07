@@ -13,6 +13,7 @@ export const tokens = {
     browse: 'nav.browse',
     calendar: 'nav.calendar',
     components: 'nav.components',
+    imageGenerator: 'nav.imageGenerator',
 
   overview: 'nav.overview',
     concepts: 'nav.concepts',
@@ -66,6 +67,9 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+  imageGenerator: 'headings.imageGenerator',
+  resumeMaker: 'headings.resumeMaker',
+  resumeBuilder: 'headings.resumeBuilder',
   welcome: 'headings.welcome',
   lyricWriter: 'headings.lyricWriter',
   uniAnswers: 'headings.uniAnswers',
@@ -121,7 +125,17 @@ headings: {
 
   form: {
     quote: 'form.quote',
+    degree: 'form.degree',
+    contactNumber: 'form.contactNumber',
+   highestYearCompleted: 'form.yearCompleted',
+
+    education: 'form.education',
+    highSchoolEducation: 'form.highSchoolEducation',
+    age: 'form.age',
+    workExperience: 'form.workExperience',
+    skills: 'form.skills',
     pasteQuestion: 'form.pasteQuestion',
+    imagePrompts: 'form.imagePrompts',
     language: 'form.language',
     informative: 'form.informative',
     firstName: 'form.firstName',
@@ -154,6 +168,7 @@ headings: {
     writeScript: 'form.write_script',
     SEOWriter: 'form.seo_writer',
     writeContent: 'form.writeContent',
+    constructResume: 'form.constructResume',
     yourSEOArticle: 'form.yourSeoArticle',
     writePoem: 'form.write_poem',
     genre: 'form.genre',

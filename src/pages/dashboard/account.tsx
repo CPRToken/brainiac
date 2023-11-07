@@ -29,9 +29,9 @@ new Date();
 const tabs = [
   { label: 'General', value: 'general' },
 
-  { label: 'Equipo', value: 'team' },
+  { label: 'Team', value: 'team' },
 
-  { label: 'Seguridad', value: 'security' },
+  { label: 'Security', value: 'security' },
 ];
 
 const Page: NextPage = () => {
@@ -120,7 +120,11 @@ const Page: NextPage = () => {
               name={user.name || ''}
               maritalStatus={user.maritalStatus || ''}
                quote={user.quote || ''}
+              placesWorked={user.placesWorked || ''}
+              highSchool={user.highSchool || ''}
+              highestYearCompleted={user.highestYearCompleted || ''}
               university={user.university || ''}
+              degree={user.degree || ''}
             />
           )}
 

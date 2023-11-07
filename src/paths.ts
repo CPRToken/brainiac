@@ -64,6 +64,9 @@ lyricWriter: '/dashboard/lyric-writer',
     seoArticleWriter: '/dashboard/seo-article-writer',
     contentWriter: '/dashboard/content-writer',
     uniAnswers: '/dashboard/uni-answers',
+    resumeMaker: '/dashboard/resume-maker',
+    resumeBuilder: '/dashboard/resume-builder',
+    imageGenerator: '/dashboard/image-generator',
 
     customers: {
       index: '/dashboard/customers',

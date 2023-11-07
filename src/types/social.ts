@@ -14,7 +14,9 @@ export interface Profile {
     maritalStatus?: string;
     originCity?: string,
     highSchool?: string;
+    highestYearCompleted?: string;
     university?: string;
+    degree?: string;
        quote?: string;
     userUrl?: string;
 

@@ -6,8 +6,6 @@ import { useEffect, useMemo, useState } from 'react';
 
 import HomeSmileIcon from 'src/icons/untitled-ui/duocolor/home-smile';
 import Lock01Icon from 'src/icons/untitled-ui/duocolor/lock-01';
-
-import File01Icon from 'src/icons/untitled-ui/duocolor/file-01';
 import Upload04Icon from 'src/icons/untitled-ui/duocolor/upload-04';
 import Users03Icon from 'src/icons/untitled-ui/duocolor/users-03';
 import XSquareIcon from 'src/icons/untitled-ui/duocolor/x-square';
@@ -15,7 +13,7 @@ import { tokens } from 'src/locales/tokens';
 import { paths } from 'src/paths';
 import { db, auth } from 'src/libs/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import {Pencil02} from "@untitled-ui/icons-react";
+import {Image01, Pencil02} from "@untitled-ui/icons-react";
 import {Face, Notes, AccountBox} from "@mui/icons-material";
 
 
@@ -95,6 +93,11 @@ export const useSections = () => {
             icon: <SvgIcon fontSize="small"><Notes /></SvgIcon>,
           },
           {
+            title: t(tokens.nav.imageGenerator),
+            path: paths.dashboard.imageGenerator,
+            icon: <SvgIcon fontSize="small"><Image01 /></SvgIcon>,
+          },
+          {
             title: t(tokens.nav.contentWriter),
             path: paths.dashboard.contentWriter,
             icon: <SvgIcon fontSize="small"><Pencil02 /></SvgIcon>,
@@ -111,6 +114,7 @@ export const useSections = () => {
               { title: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator },
               { title: t(tokens.headings.seoArticleWriter), path: paths.dashboard.seoArticleWriter },
               { title: t(tokens.headings.uniAnswers), path: paths.dashboard.uniAnswers },
+              { title: t(tokens.headings.resumeBuilder), path: paths.dashboard.resumeBuilder },
             ]
           }
 

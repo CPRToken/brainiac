@@ -55,9 +55,10 @@ export const es = {
   [tokens.nav.capsules]: 'Capsulas Virtuales ',
   [tokens.nav.contentManager]: 'Mi Contenido',
   [tokens.nav.contentWriter]: 'Escritor de Contenido',
+  [tokens.nav.imageGenerator]: 'Generador de Imágenes',
 
   [tokens.nav.verifyCode]: 'Verificar Código',
-
+  [tokens.nav.myContent ]: 'Módulos de IA',
 
   [tokens.form.forgotPassword]: '¿Olvidaste tu contraseña?',
   [tokens.form.quote]: 'Cita',
@@ -97,6 +98,17 @@ export const es = {
   [tokens.form.informative]: 'informativo',
   [tokens.form.language]: 'Idioma',
   [tokens.form.pasteQuestion]: 'Pega tu pregunta aquí y presiona Submit',
+  [tokens.form.imagePrompts]: 'Imagenes',
+  [tokens.form.skills]: 'Habilidades',
+  [tokens.form.age]: 'Edad',
+    [tokens.form.email]: 'Correo electrónico',
+  [tokens.form.highestYearCompleted]: 'Año más alto completado',
+  [tokens.form.education]: 'Educación: e.g.Nombre de la Escuela, Título, Campo de Estudio',
+  [tokens.form.degree]: 'Título',
+  [tokens.form.contactNumber]: 'Número de contacto',
+  [tokens.form.highSchoolEducation]: 'Educación: e.g. Nombre del Liceo, Título, Campo de Estudio',
+    [tokens.form.workExperience]: 'Experiencia Laboral: e.g. "Nombre de la Empresa, Título, Fecha de Inicio y Finalización, Descripción"',
+  [tokens.form.constructResume]: 'Construye un CV en [name] con [age] años, [education] educación, [workExperience] experiencia laboral, y [skills] habilidades.',
 
     [tokens.headings.welcome]: 'Bienvenido',
   [tokens.headings.aboutUs]: 'Acerca de Nosotros',
@@ -116,6 +128,7 @@ export const es = {
   [tokens.headings.dietPlanner]: "Planificador de Dietas",
   [tokens.headings.yourRecipe]: "Tu Receta",
   [tokens.headings.yourMealPlan]: "Tu Plan de Dieta",
+  [tokens.headings.imageGenerator]: "Generador de Imágenes",
   [tokens.headings.logout]: 'Cerrar sesión',
   [tokens.headings.newUpdateAvailable]: 'Bienvenidos!',
   [tokens.headings.favoriteTemplateUpdate]: 'Aquí puedes personalizar las configuraciones de tu página según tus preferencias, eligiendo entre el modo oscuro o el modo claro, y seleccionando otros colores para el tema. Haz click en "Configuraciones" para probarlo. ¡Esperamos que lo disfrutes!.',
@@ -135,6 +148,8 @@ export const es = {
   [tokens.headings.seoArticleWriter]: "Escritor de Artículos SEO",
   [tokens.headings.contentWriter]: "Escritor de Contenido",
   [tokens.headings.uniAnswers]: "Respuestas Universitarias",
+  [tokens.headings.resumeMaker]: "Generador de CV",
+  [tokens.headings.resumeBuilder]: "Constructor de CV",
 
   [tokens.headings.changeCover]: 'Cambiar Portada',
   [tokens.headings.changeAvatar]: 'Cambiar Imagen',
