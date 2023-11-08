@@ -230,10 +230,10 @@ export const SEOArticleWriter: FC = () => {
       </Stack>
         <Box sx={{ mt: 3 }}>
           <Button
-            onClick={() => handleSubmit(prompt)}
-            type="submit"
-            variant="contained"
-            fullWidth
+              onClick={() => handleSubmit(prompt, 2000)}
+              type="submit"
+              variant="contained"
+              fullWidth
           >
             Submit
           </Button>

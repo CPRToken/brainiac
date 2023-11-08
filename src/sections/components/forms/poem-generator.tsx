@@ -173,10 +173,10 @@ export const PoemGenerator: FC = () => {
       </Stack>
         <Box sx={{ mt: 3 }}>
           <Button
-            onClick={() => handleSubmit(prompt)}
-            type="submit"
-            variant="contained"
-            fullWidth
+              onClick={() => handleSubmit(prompt, 1000)}
+              type="submit"
+              variant="contained"
+              fullWidth
           >
             Submit
           </Button>

@@ -110,13 +110,12 @@ export const DietPlanner: FC = () => {
           rows={4}
         />
       </Stack>
-
       <Box sx={{ mt: 3 }}>
         <Button
-          onClick={() => handleSubmit(prompt)}
-          type="submit"
-          variant="contained"
-          fullWidth
+            onClick={() => handleSubmit(prompt, 800)}
+            type="submit"
+            variant="contained"
+            fullWidth
         >
           Submit
         </Button>

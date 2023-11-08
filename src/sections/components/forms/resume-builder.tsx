@@ -135,38 +135,50 @@ export const ResumeBuilder: FC<ResumeBuilderProps> = (props) => {
 
 
 
-  useEffect(() => {
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const uid = auth.currentUser?.uid;
+                if (!uid) return;
+                const userDocRef = doc(db, 'users', uid);
+
+                const docSnapshot = await getDoc(userDocRef);
+                if (docSnapshot.exists()) {
+                    setIsPublic(docSnapshot.data().isPublic || false);
+                }
+            } catch (error) {
+                console.error("Failed to fetch profile:", error);
+            }
+        };
+
+        fetchProfile().catch(console.error); // Catch and log any errors from fetchProfile
+    }, [uid]);
 
 
-    const fetchProfile = async () => {
 
-      const uid = auth.currentUser?.uid;
-      if (!uid) return;
-      const userDocRef = doc(db, 'users', uid);
-
-      const docSnapshot = await getDoc(userDocRef);
-      if (docSnapshot.exists()) {
-        setIsPublic(docSnapshot.data().isPublic || false);
-      }
-    };
-    fetchProfile();
-  }, [uid]);
-
-
-
+    const maxTokensForResume = 2000;
 
   const submitToOpenAI = () => {
     // Construct a prompt that OpenAI can use to generate a resume
     const newPrompt = `Please create a resume for the following candidate:
 Name: ${name}
 Age: ${age}
+Email: ${email}
+Contact Number: ${contactNumber}
 Skills: ${skills}
 Education: ${university}
- Work Experience: ${experience}
+Degrees: ${degree}
+ Work Experience: ${placesWorked}
 Language: ${language}`;
 
-    setPrompt(newPrompt); // Update the prompt state
-    handleSubmit(newPrompt); // Then use the updated prompt for submission
+      setPrompt(newPrompt); // Update the prompt state
+      handleSubmit(newPrompt, maxTokensForResume)
+          .then(() => {
+              // Handle successful submission if needed
+          })
+          .catch(error => {
+              console.error("Error submitting to OpenAI:", error);
+          });
   };
 
   useEffect(() => {
@@ -174,13 +186,16 @@ Language: ${language}`;
       let newPrompt = `Please create a resume for the following candidate in {language} language :
 Name: ${name}
 Age: ${age}
+Email: ${email}
+Contact Number: ${contactNumber}
 Skills: ${skills}
 Education: ${university}
 highSchool: ${highSchool}
 highestYearCompleted: ${highestYearCompleted}
 University: ${university}
+Degrees: ${degrees}
 degree: ${degree}
-Work Experience: ${experience}
+Work Experience: ${placesWorked}
 `;
 
       // Update the prompt state with the new prompt

@@ -3,7 +3,7 @@ import { useState } from 'react';
 const useHandleSubmit = () => {
   const [openAIResponse, setOpenAIResponse] = useState<string | null>(null);
 
-  const handleSubmit = async (prompt: string) => {
+  const handleSubmit = async (prompt: string, maxTokens: number) => {
     try {
       const response = await fetch('/api/openai', {
         method: 'POST',
@@ -11,7 +11,8 @@ const useHandleSubmit = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          prompt: prompt,
+          prompt,
+          maxTokens,
         }),
       });
 

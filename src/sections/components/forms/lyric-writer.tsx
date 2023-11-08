@@ -80,6 +80,8 @@ export const LyricWriter: FC = () => {
   const [mood, setMood] = useState<string>('');
   const [duration, setDuration] = useState<number>(2.5);
   const [prompt, setPrompt] = useState<string>('');
+
+
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
@@ -186,7 +188,7 @@ export const LyricWriter: FC = () => {
       </Stack>
         <Box sx={{ mt: 3 }}>
           <Button
-            onClick={() => handleSubmit(prompt)}
+            onClick={() => handleSubmit(prompt, 1000)}
             type="submit"
             variant="contained"
             fullWidth

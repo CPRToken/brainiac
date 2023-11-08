@@ -210,12 +210,19 @@ export const ContentWriter: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
 
+  const maxTokensForResume = 2000;
 
   const submitToOpenAI = () => {
     // Construct a prompt that OpenAI can use to generate an article
     const newPrompt = `Write a ${duration}-word article titled "${title}" in ${language} ${t(style)} style and ${t(tone)} tone, using the following keywords: ${keywords}`;
     setPrompt(newPrompt); // Update the prompt state
-    handleSubmit(newPrompt); // Then use the updated prompt for submission
+    handleSubmit(newPrompt, maxTokensForResume)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
   };
 
 
