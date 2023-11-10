@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -9,6 +9,11 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useImageSubmit from './image-submit';
+import { auth } from 'src/libs/firebase';
+
+
+
+
 
 type Option = {
     label: string;
@@ -237,7 +242,9 @@ export const ImageGenerator: FC = () => {
   const [theme, setTheme] = useState<string>('');
   const [object, setObject] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
-  const { t } = useTranslation();
+
+
+    const { t } = useTranslation();
 
 
 
@@ -263,9 +270,35 @@ export const ImageGenerator: FC = () => {
   }, [artist, style, theme, object, t]);
 
 
+  const handleSaveImage = (url: string, index: number) => {
+    const user = auth.currentUser;
+    const uid = user ? user.uid : null;
 
+    if (uid === null) {
+      alert('User is not authenticated');
+      return;
+    }
 
-
+    // Send a POST request to your server with the image URL and UID
+    fetch('/api/upload-image', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ imageUrl: url, uid }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.url) {
+          console.log(`Image saved to Firebase Storage. URL: ${data.url}`);
+        } else {
+          console.error('Failed to save image:', data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error saving image:', error);
+      });
+  };
 
 
 
@@ -371,22 +404,25 @@ export const ImageGenerator: FC = () => {
             {isLoading ? <CircularProgress size={24} /> : 'Submit'}
           </Button>
         </Box>
-        {openAIResponse && openAIResponse.length > 0 && (
-            <Box sx={{ mt: 3 }}>
-                <label>Your Image:</label>
-                {openAIResponse.map((url, index) => (
-                    <Box key={index} sx={{ mt: 2 }}>
-                        <img src={url} alt={`Generated Art ${index + 1}`} style={{ width: '100%', marginBottom: '10px' }} />
-                        {/* Wrap the button inside an anchor tag with a download attribute */}
-                        <a href={url} download={`Generated-Art-${index + 1}.png`}>
-                            <Button variant="contained" color="primary">
-                                Download Image
-                            </Button>
-                        </a>
-                    </Box>
-                ))}
+      {openAIResponse && openAIResponse.length > 0 && (
+        <Box sx={{ mt: 3 }}>
+          <label>Your Image:</label>
+          {openAIResponse.map((url, index) => (
+            <Box key={index} sx={{ mt: 2 }}>
+              <img src={url} alt={`Generated Art ${index + 1}`} style={{ width: '100%', marginBottom: '10px' }} />
+              {/* Remove the anchor tag from here */}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleSaveImage(url, index)}
+              >
+                Save Image
+              </Button>
+              {/* Anchor tag removed */}
             </Box>
-        )}
+          ))}
+        </Box>
+      )}
 
     </Box>
   );

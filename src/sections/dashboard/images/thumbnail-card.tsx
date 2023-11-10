@@ -23,6 +23,7 @@ import { ImagesMenu } from './images-menu';
 interface ThumbnailCardProps {
   item: Item;
   imageUrls?: string;
+
   onDelete?: (itemId: string) => void;
   onFavorite?: (itemId: string, value: boolean) => void;
     onOpen?: () => void;  // Change this line
@@ -44,7 +45,8 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
     size += `• ${item.itemsCount} items`;
   }
 
-    // @ts-ignore
+  const imageSize = 200;
+  // @ts-ignore
 
 
     return (
@@ -77,12 +79,13 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
             }}
         >
           {imageUrls && (
-              <Image
-                  src={imageUrls}
-                  alt="Thumbnail"
-                  width={500}  // Specify the width
-                  height={300}  // Specify the height
-              />
+            <Image
+              src={imageUrls}
+              alt="Thumbnail"
+              width={imageSize}  // Adjusted width
+              height={imageSize} // Adjusted height
+              layout="responsive" // This ensures the aspect ratio is maintained
+            />
           )}
         </Stack>
         <Box sx={{ p: 2 }}>

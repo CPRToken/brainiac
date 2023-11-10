@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage } from 'next';
-import Upload01Icon from '@untitled-ui/icons-react/build/esm/Upload01';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 import { Seo } from 'src/components/seo';
 import { ImageViewer } from "../../../sections/components/modals/modal-image";
@@ -85,54 +82,31 @@ const Page: NextPage = () => {
                   direction="row"
                   spacing={2}
                 >
-                    <Button
-                        onClick={uploadDialog.handleOpen}
-                        startIcon={
-                            <SvgIcon>
-                                <Upload01Icon />
-                            </SvgIcon>
-                        }
 
-                        variant="contained"
-                  >
-                    Upload Images
-                    </Button>
                 </Stack>
               </Stack>
             </Grid>
-              <Grid item xs={12} md={8}>
-                  <Stack
-                      spacing={{
-                          xs: 3,
-                          lg: 4,
+
+            <Grid item xs={12} md={8}>
+              <Grid container spacing={1}>
+                {imageUrls.map((imageObj, index) => (
+                  <Grid item xs={6} sm={6} md={3} key={index}>
+                    <ThumbnailCard
+                      item={{
+                        id: index.toString(),
+                        size: 0,
+                        type: 'file',
+                        isFavorite: false,
+                        name: imageObj.name
                       }}
-                  >
-
-
-
-                  </Stack>
-                  <Grid container
-                        spacing={1}>
-                      {imageUrls.map((imageObj, index) => (
-                          <Grid item
-                                xs={3}
-                                key={index}>
-                              <ThumbnailCard
-                                  item={{
-                                      id: index.toString(),
-                                      size: 0,
-                                      type: 'file',
-                                      isFavorite: false,
-                                      name: imageObj.name // Use name from imageObj
-                                  }}
-                                  imageUrls={imageObj.url} // Use url from imageObj
-                                  onDelete={() => console.log("Delete")}
-                                  onFavorite={() => console.log("Favorite")}
-                                  onOpen={() => handleClickOpen(imageObj.url)} // Use url from imageObj
-                              />
-                          </Grid>
-                      ))}
+                      imageUrls={imageObj.url}
+                      onDelete={() => console.log("Delete")}
+                      onFavorite={() => console.log("Favorite")}
+                      onOpen={() => handleClickOpen(imageObj.url)}
+                    />
                   </Grid>
+                ))}
+              </Grid>
 
                   {/* Add this block to show ImageViewer when open is true */}
                   {open && selectedImage && (

@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import {  ref,  listAll, getMetadata } from "firebase/storage";
 import { auth , storage } from 'src/libs/firebase';
 import { tokens } from 'src/locales/tokens';
+import { paths } from 'src/paths';
 
 
 const useChartOptions = (usage: string): ApexOptions => {
@@ -165,6 +166,7 @@ export const MyImages: FC = () => {
     <Card>
       <CardHeader
         title={t(tokens.headings.myImages)}
+        path={paths.dashboard.images}
 
       />
       <CardContent>
