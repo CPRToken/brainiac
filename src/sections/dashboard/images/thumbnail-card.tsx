@@ -8,11 +8,7 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Image from 'next/image';
 import DotsVerticalIcon from '@untitled-ui/icons-react/build/esm/DotsVertical';
-import Globe01Icon from '@untitled-ui/icons-react/build/esm/Globe03';
-import Avatar from '@mui/material/Avatar';
-
 import Box from '@mui/material/Box';
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { usePopover } from 'src/hooks/use-popover';
 import type { Item } from 'src/types/file-manager';
@@ -90,15 +86,7 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
         </Stack>
         <Box sx={{ p: 2 }}>
 
-          <Typography
-            onClick={() => onOpen?.()}
-            sx={{
-              display: 'inline-flex',
-              cursor: 'pointer',
-            }}
-          >
-            {item.name}
-          </Typography>
+
           <Divider sx={{ my: 1 }} />
           <Stack
             alignItems="center"
@@ -106,29 +94,9 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
             justifyContent="space-between"
             spacing={1}
           >
+
             <div>
-              <Typography
-                color="text.secondary"
-                variant="body2"
-              >
-                {size}
-              </Typography>
-            </div>
-            <div>
-              {item.isPublic && (
-                <Tooltip title="Public">
-                  <Avatar
-                    sx={{
-                      height: 32,
-                      width: 32,
-                    }}
-                  >
-                    <SvgIcon fontSize="small">
-                      <Globe01Icon />
-                    </SvgIcon>
-                  </Avatar>
-                </Tooltip>
-              )}
+
 
             </div>
           </Stack>
