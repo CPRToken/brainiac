@@ -20,7 +20,7 @@ import type { Section } from '../config';
 import { TenantSwitch } from '../tenant-switch';
 import { SideNavSection } from './side-nav-section';
 
-const SIDE_NAV_WIDTH = 280;
+const SIDE_NAV_WIDTH = 290;
 
 const useCssVars = (color: NavColor): Record<string, string> => {
   const theme = useTheme();
@@ -52,7 +52,7 @@ const useCssVars = (color: NavColor): Record<string, string> => {
             '--nav-color': theme.palette.text.primary,
             '--nav-border-color': theme.palette.neutral[100],
             '--nav-logo-border': theme.palette.neutral[100],
-            '--nav-section-title-color': theme.palette.neutral[400],
+            '--nav-section-title-color': theme.palette.neutral[500],
             '--nav-item-color': theme.palette.text.secondary,
             '--nav-item-hover-bg': theme.palette.action.hover,
             '--nav-item-active-bg': theme.palette.action.selected,

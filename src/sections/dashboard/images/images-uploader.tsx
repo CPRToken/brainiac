@@ -10,30 +10,30 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { auth, storage } from 'src/libs/firebase';
-import { Fotos, FotosDropzone } from './fotos-dropzone';
+import { Images, ImagesDropzone } from './images-dropzone';
 import { useSettings } from '../../../hooks/use-settings';
 
-interface FotosUploaderProps {
+interface ImagesUploaderProps {
   onClose?: () => void;
   open?: boolean;
   onUploadSuccess?: () => void;
 }
 
-export const FotosUploader: FC<FotosUploaderProps> = (props) => {
+export const ImagesUploader: FC<ImagesUploaderProps> = (props) => {
   const { onClose, open = false, onUploadSuccess } = props;
-  const [fotosUpload, setFotosUpload] = useState<Fotos | null>(null);
+  const [imagesUpload, setImagesUpload] = useState<Images | null>(null);
   const [files, setFiles] = useState<File[]>([]);
 
   const user = auth.currentUser;
   const uid = user ? user.uid : null;
   useSettings();
   const uploadFile = () => {
-    if (fotosUpload === null || uid === null) return;
+    if (imagesUpload === null || uid === null) return;
 
-    const imageRef = ref(storage, `${uid}/fotos/${fotosUpload.name}`);
-    uploadBytes(imageRef, fotosUpload).then((snapshot) => {
+    const imageRef = ref(storage, `${uid}/images/${imagesUpload.name}`);
+    uploadBytes(imageRef, imagesUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then(() => {
-        setFotosUpload(null);
+        setImagesUpload(null);
         setFiles([]);
         if (onUploadSuccess) {
           onUploadSuccess();
@@ -42,18 +42,18 @@ export const FotosUploader: FC<FotosUploaderProps> = (props) => {
     });
   };
 
-  const handleDrop = useCallback((newFiles: Fotos[]): void => {
+  const handleDrop = useCallback((newFiles: Images[]): void => {
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
-    setFotosUpload(newFiles[0]);
+    setImagesUpload(newFiles[0]);
   }, []);
 
   useEffect(() => {
-    if (fotosUpload !== null) {
+    if (imagesUpload !== null) {
       uploadFile();
     }
-  }, [fotosUpload]);
+  }, [imagesUpload]);
 
-  const handleRemove = useCallback((file: Fotos): void => {
+  const handleRemove = useCallback((file: Images): void => {
     setFiles((prevFiles) => {
       return prevFiles.filter((_file) => _file !== file);
     });
@@ -75,7 +75,7 @@ export const FotosUploader: FC<FotosUploaderProps> = (props) => {
               py: 2,
             }}
         >
-          <Typography variant="h6">Upload Fotos</Typography>
+          <Typography variant="h6">Upload Images</Typography>
           <IconButton color="inherit" onClick={onClose}>
             <SvgIcon>
               <XIcon />
@@ -83,7 +83,7 @@ export const FotosUploader: FC<FotosUploaderProps> = (props) => {
           </IconButton>
         </Stack>
         <DialogContent>
-          <FotosDropzone
+          <ImagesDropzone
               accept={"image/*" as any}
               caption="Max file size is 3 MB"
               files={files}
@@ -97,7 +97,7 @@ export const FotosUploader: FC<FotosUploaderProps> = (props) => {
   );
 };
 
-FotosUploader.propTypes = {
+ImagesUploader.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool,
 };

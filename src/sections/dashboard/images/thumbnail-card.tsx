@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
-import { format } from 'date-fns';
 import Image from 'next/image';
 import DotsVerticalIcon from '@untitled-ui/icons-react/build/esm/DotsVertical';
 import Globe01Icon from '@untitled-ui/icons-react/build/esm/Globe03';
@@ -18,7 +17,7 @@ import Typography from '@mui/material/Typography';
 import { usePopover } from 'src/hooks/use-popover';
 import type { Item } from 'src/types/file-manager';
 import { bytesToSize } from 'src/utils/bytes-to-size';
-import { FotosMenu } from './fotos-menu';
+import { ImagesMenu } from './images-menu';
 
 
 interface ThumbnailCardProps {
@@ -46,7 +45,7 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
   }
 
     // @ts-ignore
-    const createdAt = format(new Date(item.createdAt), 'dd MMM, yyyy');
+
 
     return (
         <>
@@ -134,7 +133,7 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
             color="text.secondary"
             variant="caption"
           >
-            Created at {createdAt}
+
           </Typography>
         </Box>
           <IconButton
@@ -147,7 +146,7 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
           </IconButton>
 
       </Card>
-      <FotosMenu
+      <ImagesMenu
         anchorEl={popover.anchorRef.current}
         onClose={popover.handleClose}
         onDelete={handleDelete}

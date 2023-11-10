@@ -20,7 +20,7 @@ interface ItemMenuProps {
 }
 
 
-export const FotosMenu: FC<ItemMenuProps> = (props) => {
+export const ImagesMenu: FC<ItemMenuProps> = (props) => {
   const {anchorEl, onClose, open, onDelete } = props; // <-- Add this line
 
 
@@ -65,7 +65,7 @@ export const FotosMenu: FC<ItemMenuProps> = (props) => {
   return element;
 };
 
-FotosMenu.propTypes = {
+ImagesMenu.propTypes = {
   anchorEl: PropTypes.any,
   onClose: PropTypes.func,
   onDelete: PropTypes.func,

@@ -20,17 +20,17 @@ import Typography from '@mui/material/Typography';
 import { FileIcon } from 'src/components/file-icon';
 import { bytesToSize } from 'src/utils/bytes-to-size';
 
-export type Fotos = FileWithPath;
+export type Images = FileWithPath;
 
-interface FotosDropzoneProps extends DropzoneOptions {
+interface ImagesDropzoneProps extends DropzoneOptions {
   caption?: string;
-  files?: Fotos[];
-  onRemove?: (file: Fotos) => void;
+  files?: Images[];
+  onRemove?: (file: Images) => void;
   onRemoveAll?: () => void;
   onUpload?: () => void;
 }
 
-export const FotosDropzone: FC<FotosDropzoneProps> = (props) => {
+export const ImagesDropzone: FC<ImagesDropzoneProps> = (props) => {
   const { caption, files = [], onRemove, onRemoveAll, onUpload, ...other } = props;
   const { getRootProps, getInputProps, isDragActive } = useDropzone(other);
 
@@ -174,7 +174,7 @@ export const FotosDropzone: FC<FotosDropzoneProps> = (props) => {
   );
 };
 
-FotosDropzone.propTypes = {
+ImagesDropzone.propTypes = {
   caption: PropTypes.string,
   files: PropTypes.array,
   onRemove: PropTypes.func,

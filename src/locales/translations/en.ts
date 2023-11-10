@@ -21,6 +21,7 @@ export const en = {
    [tokens.headings.seoArticleWriter]: "SEO Article Writer",
   [tokens.headings.uniAnswers]: "Same answers as Chegg",
   [tokens.headings.imageGenerator]: "Image Generator",
+  [tokens.headings.myImages]: "My Images",
 
 
 
@@ -109,7 +110,10 @@ export const en = {
   [tokens.form.sendResetLink]: 'Send reset link',
   [tokens.form.maritalStatus]: 'Marital Status',
   [tokens.form.university]: 'University',
-    [tokens.form.email]: 'Email',
+  [tokens.form.imageInstructions]: 'Select the desired options to generate an image. Choose an artist, a visual style, a theme & an object.\nSelect \'No Artist\' for realistic looking images.\n' +
+  '\n',
+
+  [tokens.form.email]: 'Email',
     [tokens.form.highSchool]: 'High School',
   [tokens.form.highestYearCompleted]: 'Highest Year Completed',
   [tokens.form.originCity]: 'Origin City',
@@ -122,6 +126,7 @@ export const en = {
   [tokens.form.dark]: 'Dark',
   [tokens.form.writeSong]: 'write a song in [genre][style][mood] with a duration of [duration]',
   [tokens.form.writeScript]: 'write a screenplay in [genre][style][mood] with a duration of [duration]',
+  [tokens.form.dietPlan]: 'Construct a diet plan with [dietType] requirements, [mealType] and with only [calories] ',
   [tokens.form.informative]: 'informative',
   [tokens.form.language]: 'Language',
   [tokens.form.skills]: 'Skills: e.g. "HTML, Team management, JavaScript"',
@@ -134,7 +139,7 @@ export const en = {
 
 
   [tokens.form.writePoem]: 'write a [genre][style][mood] poem with a duration of [duration]',
-  [tokens.form.imagePrompts]: 'paint me [artist] in a [style] with [theme] image with a [duration]',
+  [tokens.form.imagePrompts]: 'Create an image of a [object] with a [artist] in a [style] with a [theme] ',
   [tokens.form.SEOWriter]: 'Write a [duration]-word, SEO-optimized article, on the latest [niche] advancements, crafted with an [style] style and structured for [purpose] effectiveness.',
   [tokens.form.writeContent]: 'Write a [duration] article, with [style] , in  [language] and [tone] . ',
   [tokens.form.pasteQuestion]: 'Paste your question here & click Submit',

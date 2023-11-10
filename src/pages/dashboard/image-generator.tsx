@@ -7,7 +7,7 @@ import {tokens} from "src/locales/tokens";
 import Hidden from '@mui/material/Hidden';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
+import { MyImages } from 'src/sections/dashboard/file-manager/my-images';
 import { usePageView } from 'src/hooks/use-page-view';
 import { ImageGenerator } from 'src/sections/components/forms/image-generator';
 import { Seo } from 'src/components/seo';
@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Lyric Writer" />
+      <Seo title="Image Generator" />
       <Box
         component="main"
         sx={{
@@ -50,7 +50,7 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                      variant="h5">{t(tokens.headings.imageGenerator)}</Typography>
+                    variant="h5">{t(tokens.headings.imageGenerator)}</Typography>
                 </div>
 
                 <Stack
@@ -64,7 +64,7 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={8}
+              md={9} // Increased to 9 for wider space
             >
               <Stack
                 spacing={{
@@ -77,19 +77,17 @@ const Page: NextPage = () => {
                 </Box>
               </Stack>
             </Grid>
-            <Grid xs={12} md={4} sx={{ paddingLeft: 2 }}>
+            <Grid xs={12} md={3} sx={{ paddingLeft: 2 }}> {/* Decreased to 3 for skinnier space */}
               <Hidden smDown> {/* Hide on small screens and down */}
-                <MyContent />
+                <MyImages />
               </Hidden>
             </Grid>
           </Grid>
         </Container>
       </Box>
-
-
-
     </>
   );
+
 
 };
 

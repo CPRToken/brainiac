@@ -93,7 +93,7 @@ export const OverviewTransactions: FC<OverviewTransactionsProps> = (props) => {
                         backgroundColor: (theme) =>
                           theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100',
                         borderRadius: 2,
-                        maxWidth: 'fit-my-content',
+                        maxWidth: 'fit-content',
                       }}
                     >
                       <Typography

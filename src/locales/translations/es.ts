@@ -59,7 +59,7 @@ export const es = {
 
   [tokens.nav.verifyCode]: 'Verificar Código',
   [tokens.nav.myContent ]: 'Módulos de IA',
-
+  [tokens.form.imageInstructions]: 'Selecciona las opciones deseadas para generar una imagen. Elige un estilo de artista, un estilo visual y un tema. Deja "Artista" como "Sin artista específico" para imágenes realistas.',
   [tokens.form.forgotPassword]: '¿Olvidaste tu contraseña?',
   [tokens.form.quote]: 'Cita',
   [tokens.form.firstName]: 'Nombres',
@@ -98,7 +98,7 @@ export const es = {
   [tokens.form.informative]: 'informativo',
   [tokens.form.language]: 'Idioma',
   [tokens.form.pasteQuestion]: 'Pega tu pregunta aquí y presiona Submit',
-  [tokens.form.imagePrompts]: 'Imagenes',
+  [tokens.form.imagePrompts]: 'Crea una imagen de un [object] con un artista [artist] en un estilo [style] sobre un tema [theme] a una resolución [sizeImage]',
   [tokens.form.skills]: 'Habilidades',
   [tokens.form.age]: 'Edad',
     [tokens.form.email]: 'Correo electrónico',
@@ -109,7 +109,7 @@ export const es = {
   [tokens.form.highSchoolEducation]: 'Educación: e.g. Nombre del Liceo, Título, Campo de Estudio',
     [tokens.form.workExperience]: 'Experiencia Laboral: e.g. "Nombre de la Empresa, Título, Fecha de Inicio y Finalización, Descripción"',
   [tokens.form.constructResume]: 'Construye un CV en [name] con [age] años, [education] educación, [workExperience] experiencia laboral, y [skills] habilidades.',
-
+  [tokens.form.dietPlan]: 'construye un plan de dieta con requerimientos de dieta [dietType] [mealType] y con solo [calories] calorías',
     [tokens.headings.welcome]: 'Bienvenido',
   [tokens.headings.aboutUs]: 'Acerca de Nosotros',
   [tokens.nav.fileManager]: 'Administrador de Archivos',
@@ -150,6 +150,7 @@ export const es = {
   [tokens.headings.uniAnswers]: "Respuestas Universitarias",
   [tokens.headings.resumeMaker]: "Generador de CV",
   [tokens.headings.resumeBuilder]: "Constructor de CV",
+  [tokens.headings.myImages]: "Mis Imágenes",
 
   [tokens.headings.changeCover]: 'Cambiar Portada',
   [tokens.headings.changeAvatar]: 'Cambiar Imagen',

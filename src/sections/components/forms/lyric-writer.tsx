@@ -10,6 +10,7 @@ import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
+import CircularProgress from '@mui/material/CircularProgress';
 import useHandleSubmit from './handle-submit';
 
 type Option = {
@@ -74,7 +75,7 @@ export const LyricWriter: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
@@ -93,6 +94,7 @@ export const LyricWriter: FC = () => {
       const genreText = genre !== '' ? `${getArticle(genre)} ${t(genre)} genre` : '';
       const styleText = style !== '' ? `${getArticle(style)} ${t(style)} style` : '';
       const moodText = mood !== '' ? `${getArticle(mood)} ${t(mood)} mood` : '';
+
 
 
       const components = [genreText, styleText, moodText].filter(Boolean).join(', ');
@@ -186,17 +188,17 @@ export const LyricWriter: FC = () => {
 
 
       </Stack>
-        <Box sx={{ mt: 3 }}>
-          <Button
-            onClick={() => handleSubmit(prompt, 1000)}
-            type="submit"
-            variant="contained"
-            fullWidth
-          >
-            Submit
-          </Button>
-        </Box>
-
+          <Box sx={{ mt: 3 }}>
+              <Button
+                  onClick={() => handleSubmit(prompt, 1000)}
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  disabled={isLoading}  // Disable the button while loading
+              >
+                  {isLoading ? <CircularProgress size={24} /> : 'Submit'}
+              </Button>
+          </Box>
 
         <Box sx={{ mt: 3 }}>
           {openAIResponse && (

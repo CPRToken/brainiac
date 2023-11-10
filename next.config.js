@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
-const config = {
+const nextConfig = {
   reactStrictMode: false,
+  images: {
+    domains: ['firebasestorage.googleapis.com'], // Add this line
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -10,4 +13,4 @@ const config = {
   },
 };
 
-module.exports = config;
+module.exports = nextConfig;

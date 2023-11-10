@@ -10,6 +10,7 @@ import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
+import CircularProgress from '@mui/material/CircularProgress';
 import useHandleSubmit from './handle-submit';
 
 type Option = {
@@ -65,35 +66,37 @@ export const PoemGenerator: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
-  const [duration, setDuration] = useState<number>(2.5);
+  const [duration, setDuration] = useState<number>(100);
   const [prompt, setPrompt] = useState<string>('');
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ReponseText();
 
 
 
-
   useEffect(() => {
-    let newPrompt = t(tokens.form.writePoem);
-    const genreText = genre !== '' ? ` ${t(genre)} ` : '';
-    const styleText = style !== '' ? ` ${t('in a')} ${t(style)} ${t('style')} ` : '';
-    const moodText = mood !== '' ? ` ${t('with a')} ${t(mood)} ${t('mood')} ` : '';
+    // Check if all selections are made
+    if (genre && style && mood && duration) {
+      let newPrompt = t(tokens.form.writePoem);
+      const genreText = ` ${t(genre)} `;
+      const styleText = ` ${t('in a')} ${t(style)} ${t('style')} `;
+      const moodText = ` ${t('with a')} ${t(mood)} ${t('mood')} `;
 
-    newPrompt = newPrompt
-      .replace('[genre]', genreText)
-      .replace('[style]', styleText)
-      .replace('[mood]', moodText)
-      .replace('[duration]', `${duration} ${t('minutes')}`);
+      newPrompt = newPrompt
+        .replace('[genre]', genreText)
+        .replace('[style]', styleText)
+        .replace('[mood]', moodText)
+        .replace('[duration]', `${duration} ${t('words')}`);
 
-    setPrompt(newPrompt.trim());
+      setPrompt(newPrompt.trim());
+    } else {
+      // If not all selections are made, keep the prompt empty
+      setPrompt('');
+    }
   }, [genre, style, mood, duration, t]);
-
-
-
 
 
 
@@ -151,13 +154,13 @@ export const PoemGenerator: FC = () => {
           ))}
         </TextField>
         <div>
-          <label>Duration (minutes)</label>
+          <label>Words</label>
           <Slider
-            value={duration}
+            value={duration / 100} // Convert the word count to the slider's scale
             min={1}
             max={4}
-            step={0.5}
-            onChange={(_, newValue) => setDuration(newValue as number)}
+            step={0.5} // The slider's step
+            onChange={(_, newValue) => setDuration(newValue as number * 100)} // Convert back to words on change
           />
         </div>
           <TextField
@@ -173,12 +176,13 @@ export const PoemGenerator: FC = () => {
       </Stack>
         <Box sx={{ mt: 3 }}>
           <Button
-              onClick={() => handleSubmit(prompt, 1000)}
-              type="submit"
-              variant="contained"
-              fullWidth
+            onClick={() => handleSubmit(prompt, 1000)}
+            type="submit"
+            variant="contained"
+            fullWidth
+            disabled={isLoading}  // Disable the button while loading
           >
-            Submit
+            {isLoading ? <CircularProgress size={24} /> : 'Submit'}
           </Button>
         </Box>
 

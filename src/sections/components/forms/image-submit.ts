@@ -1,34 +1,37 @@
 import { useState } from 'react';
 
 const useImageSubmit = () => {
-  const [openAIResponse, setOpenAIResponse] = useState<string | null>(null);
+  const [openAIResponse, setOpenAIResponse] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState(false);  // Add a loading state
 
-  const imageSubmit = async (prompt: string) => {
+  const imageSubmit = async (prompt: string, n: number = 1, size: string = "1024x1024", model: string = "dall-e-3") => {
+    setIsLoading(true); // Set loading to true when the request starts
     try {
       const response = await fetch('/api/dalle', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          prompt: prompt,
-        }),
+        body: JSON.stringify({prompt, n}),
       });
 
       const data = await response.json();
 
-      if (data.imageUrl) {
-        setOpenAIResponse(data.imageUrl);
-      }
-      else {
-        console.error("Failed to get content.");
+      if (data.images) {
+        // Assuming each image object has a 'url' property
+        const imageUrls = data.images.map((img: { url: string }) => img.url);
+        setOpenAIResponse(imageUrls);
+      } else {
+        console.error("Failed to get images:", data.error || "Unknown error");
       }
     } catch (error) {
       console.error("An error occurred:", error);
+    } finally {
+      setIsLoading(false); // Stop loading when request is complete or fails
     }
   };
 
-  return { imageSubmit, openAIResponse, setOpenAIResponse };
+  return { imageSubmit, openAIResponse, setOpenAIResponse, isLoading };
 };
 
 export default useImageSubmit;

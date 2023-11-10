@@ -39,7 +39,7 @@ import { db } from 'src/libs/firebase';
 const tabs = [
     { label: 'Timeline', value: 'timeline' },
     { label: 'Videos', value: 'videos' },
-    { label: 'Fotos', value: 'fotos' },
+    { label: 'Fotos', value: 'images' },
 ];
 
 

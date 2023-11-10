@@ -50,7 +50,7 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                      variant="h5">{t(tokens.headings.lyricWriter)}</Typography>
+                    variant="h5">{t(tokens.headings.lyricWriter)}</Typography>
                 </div>
 
                 <Stack
@@ -64,7 +64,7 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={8}
+              md={9} // Changed from 8 to 9 for wider LyricWriter
             >
               <Stack
                 spacing={{
@@ -77,7 +77,11 @@ const Page: NextPage = () => {
                 </Box>
               </Stack>
             </Grid>
-            <Grid xs={12} md={4} sx={{ paddingLeft: 2 }}>
+            <Grid
+              xs={12}
+              md={3} // Changed from 4 to 3 for skinnier My Content
+              sx={{ paddingLeft: 2 }}
+            >
               <Hidden smDown> {/* Hide on small screens and down */}
                 <MyContent />
               </Hidden>
@@ -85,11 +89,9 @@ const Page: NextPage = () => {
           </Grid>
         </Container>
       </Box>
-
-
-
     </>
   );
+
 
 };
 

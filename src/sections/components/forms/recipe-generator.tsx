@@ -10,6 +10,7 @@ import ResponseText from '../clipboards/response-text';
 import {useTranslation} from "react-i18next";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import {tokens} from "../../../locales/tokens";
+import CircularProgress from '@mui/material/CircularProgress';
 import useHandleSubmit from "./handle-submit";
 
 type Option = {
@@ -67,7 +68,7 @@ export const RecipeWriter: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
   const [country, setCountry] = useState<string>('');
   const [dishType, setDishType] = useState<string>('');
   const [difficulty, setDifficulty] = useState<string>('');
@@ -78,12 +79,18 @@ export const RecipeWriter: FC = () => {
 
 
   useEffect(() => {
-    let newPrompt = 'Create a [country] [dishType] recipe that is [difficulty] difficulty, and takes [cookingTime] minutes to make.';
-    newPrompt = newPrompt.replace('[country]', country || 'any');
-    newPrompt = newPrompt.replace('[dishType]', dishType || 'any type of');
-    newPrompt = newPrompt.replace('[difficulty]', difficulty || 'of any difficulty');
-    newPrompt = newPrompt.replace('[cookingTime]', `${cookingTime}`);
-    setPrompt(newPrompt);
+    // Check if all selections are made
+    if (country && dishType && difficulty && cookingTime) {
+      let newPrompt = 'Create a [country] [dishType] recipe that is [difficulty] difficulty, and takes [cookingTime] minutes to make.';
+      newPrompt = newPrompt.replace('[country]', country);
+      newPrompt = newPrompt.replace('[dishType]', dishType);
+      newPrompt = newPrompt.replace('[difficulty]', difficulty);
+      newPrompt = newPrompt.replace('[cookingTime]', `${cookingTime}`);
+      setPrompt(newPrompt);
+    } else {
+      // If not all selections are made, keep the prompt empty
+      setPrompt('');
+    }
   }, [country, dishType, difficulty, cookingTime]);
 
 
@@ -158,12 +165,13 @@ export const RecipeWriter: FC = () => {
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-            onClick={() => handleSubmit(prompt, 1000)}
-            type="submit"
-            variant="contained"
-            fullWidth
+          onClick={() => handleSubmit(prompt, 700)}
+          type="submit"
+          variant="contained"
+          fullWidth
+          disabled={isLoading}  // Disable the button while loading
         >
-          Submit
+          {isLoading ? <CircularProgress size={24} /> : 'Submit'}
         </Button>
       </Box>
 

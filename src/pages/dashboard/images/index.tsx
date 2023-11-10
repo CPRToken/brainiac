@@ -8,15 +8,15 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 import { Seo } from 'src/components/seo';
 import { ImageViewer } from "../../../sections/components/modals/modal-image";
-import { FotosUploader } from '../../../sections/dashboard/fotos/fotos-uploader';
-import { ThumbnailCard } from '../../../sections/dashboard/fotos/thumbnail-card';
+import { ImagesUploader } from '../../../sections/dashboard/images/images-uploader';
+import { ThumbnailCard } from '../../../sections/dashboard/images/thumbnail-card';
 import { auth, storage } from 'src/libs/firebase';
 import { ref, getDownloadURL, listAll } from "firebase/storage";
 import { Layout as DashboardLayout } from "../../../layouts/dashboard";
 import { Grid, Box } from '@mui/material';
 import { useSettings } from "../../../hooks/use-settings";
 import { useDialog } from "../../../hooks/use-dialog";
-import { StorageStats } from "../../../sections/dashboard/file-manager/storage-stats";
+import { MyImages } from "../../../sections/dashboard/file-manager/my-images";
 
 const Page: NextPage = () => {
     const [imageUrls, setImageUrls] = useState<Array<{ url: string, name: string }>>([]);
@@ -37,10 +37,10 @@ const Page: NextPage = () => {
         setOpen(false);
     };
 
-    const fetchFotos = () => {
-        const fotosListRef = ref(storage, `/${uid}/fotos/`);
+    const fetchImages = () => {
+        const imagesListRef = ref(storage, `/${uid}/images/`);
         setImageUrls([]);
-        listAll(fotosListRef).then((response) => {
+        listAll(imagesListRef).then((response) => {
             response.items.forEach((item) => {
                 getDownloadURL(item).then((url) => {
                     setImageUrls((prev) => [...prev, { url: url, name: item.name }]);
@@ -50,7 +50,7 @@ const Page: NextPage = () => {
     };
 
     useEffect(() => {
-        if (uid) fetchFotos();
+        if (uid) fetchImages();
     }, [uid]);
 
 
@@ -95,7 +95,7 @@ const Page: NextPage = () => {
 
                         variant="contained"
                   >
-                    Upload Fotos
+                    Upload Images
                     </Button>
                 </Stack>
               </Stack>
@@ -145,15 +145,15 @@ const Page: NextPage = () => {
 
               </Grid>
               <Grid item xs={12} md={4}>
-                  <StorageStats />
+                  <MyImages />
               </Grid>
           </Grid>
         </Container>
       </Box>
-        <FotosUploader
+        <ImagesUploader
             onClose={uploadDialog.handleClose}
             open={uploadDialog.open}
-             onUploadSuccess={fetchFotos}
+             onUploadSuccess={fetchImages}
         />
     </>
   );

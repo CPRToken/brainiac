@@ -11,6 +11,7 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import useHandleSubmit from './handle-submit';
+import CircularProgress from "@mui/material/CircularProgress";
 
 type Option = {
   label: string;
@@ -74,7 +75,7 @@ export const ScriptWriter: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
@@ -176,15 +177,15 @@ export const ScriptWriter: FC = () => {
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-          onClick={() => handleSubmit(prompt, 2000)}
+          onClick={() => handleSubmit(prompt, 1000)}
           type="submit"
           variant="contained"
           fullWidth
+          disabled={isLoading}  // Disable the button while loading
         >
-          Submit
+          {isLoading ? <CircularProgress size={24} /> : 'Submit'}
         </Button>
       </Box>
-
 
 
 

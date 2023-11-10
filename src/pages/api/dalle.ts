@@ -1,41 +1,41 @@
 import { NextApiRequest, NextApiResponse } from 'next/types';
-import OpenAI from 'openai';
-import fs from 'fs';
-
-interface OpenAIWithImage extends OpenAI {
-  createImage: (options: {
-    prompt: string;
-    n: number;
-    size: string;
-  }) => Promise<any>; // Replace 'any' with the actual expected response type
-}
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) as OpenAIWithImage;
+import fetch from 'node-fetch';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    try {
-      const response = await openai.createImage({
-        prompt: req.body.prompt, // Make sure to use the prompt from the request body
-        n: 1,
-        size: "1024x1024",
-      });
-      const imageUrl = response.data.data[0].url;
+    const { prompt, n = 1, size = "1024x1024", model = "dall-e-3" } = req.body;
 
-      // Respond with the image URL
-      res.status(200).json({ imageUrl });
-    } catch (error) {
-      if (error.response) {
-        // Respond with the error from the API
-        res.status(error.response.status).json(error.response.data);
+    try {
+      const response = await fetch('https://api.openai.com/v1/images/generations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          n: n,
+          size: size,
+          model: model
+        }),
+      });
+
+      // You should check if the response was ok before assuming data.data is valid
+      if (response.ok) {
+        const data = await response.json();
+        res.status(200).json({ images: data.data });
       } else {
-        // Respond with a generic server error
-        res.status(500).json({ message: error.message });
+        // If response was not ok, you handle it here
+        const errorData = await response.json();  // Assume that the API returns JSON even on error
+        console.error('Error response from OpenAI:', errorData);
+        res.status(response.status).json({ error: 'Failed to generate images', details: errorData });
       }
+    } catch (error) {
+      console.error('Error in making the API request:', error);
+      res.status(500).json({ error: 'Error in making the API request', details: error instanceof Error ? error.message : error });
     }
   } else {
-    // Handle any non-POST requests
     res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.status(405).end('Method Not Allowed');
   }
 };

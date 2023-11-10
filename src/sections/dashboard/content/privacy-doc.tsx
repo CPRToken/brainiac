@@ -1,10 +1,10 @@
 import React, {FC, useEffect, useState} from 'react';
 
-import { RadioGroup, FormControlLabel, Radio, TextField, Button, Box, Typography, FilledTextFieldProps, OutlinedTextFieldProps, StandardTextFieldProps, TextFieldVariants} from '@mui/material';
+import { RadioGroup, FormControlLabel, Radio, TextField, Button, Box, Typography} from '@mui/material';
 import {Chip, Dialog, DialogTitle, DialogContent, DialogActions} from '@mui/material';
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+
 import '@mui/material/styles';
-import {DateTimePicker, LocalizationProvider} from '@mui/x-date-pickers';
+
 import {addDoc, collection, serverTimestamp} from 'firebase/firestore';
 import {socialApi} from "src/api/social/socialApi";
 import type {Profile} from 'src/types/social';
@@ -283,15 +283,7 @@ Description: "${description}" "${allEmails}" "${pdfDownloadUrl}"
 
                     </Box>
 
-                    {isScheduledShare && (
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DateTimePicker
-                                label="Share on Date and Time"
-                                value={scheduleDate}
-                                onChange={(date) => setScheduleDate(date)}
-                            />
-                        </LocalizationProvider>
-                    )}
+
 
 
 

@@ -52,7 +52,7 @@ const useCssVars = (color: NavColor): Record<string, string> => {
             '--nav-bg': theme.palette.background.default,
             '--nav-color': theme.palette.text.primary,
             '--nav-logo-border': theme.palette.neutral[100],
-            '--nav-section-title-color': theme.palette.neutral[400],
+            '--nav-section-title-color': theme.palette.neutral[500],
             '--nav-item-color': theme.palette.text.secondary,
             '--nav-item-hover-bg': theme.palette.action.hover,
             '--nav-item-active-bg': theme.palette.action.selected,

@@ -10,6 +10,7 @@ import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
+import CircularProgress from '@mui/material/CircularProgress';
 import useHandleSubmit from './handle-submit';
 
 type Option = {
@@ -122,7 +123,7 @@ const styleOptions: Option[] = [
 
 export const SEOArticleWriter: FC = () => {
 
-  const { handleSubmit, openAIResponse } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
   const [niche, setNiche] = useState<string>('');  // changed from genre
   const [purpose, setPurpose] = useState<string>('');  // changed from style
   const [style, setMood] = useState<string>('');
@@ -230,12 +231,13 @@ export const SEOArticleWriter: FC = () => {
       </Stack>
         <Box sx={{ mt: 3 }}>
           <Button
-              onClick={() => handleSubmit(prompt, 2000)}
-              type="submit"
-              variant="contained"
-              fullWidth
+            onClick={() => handleSubmit(prompt, 1000)}
+            type="submit"
+            variant="contained"
+            fullWidth
+            disabled={isLoading}  // Disable the button while loading
           >
-            Submit
+            {isLoading ? <CircularProgress size={24} /> : 'Submit'}
           </Button>
         </Box>
 

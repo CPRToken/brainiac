@@ -11,6 +11,8 @@ import { useTranslation } from 'react-i18next';
 import { tokens } from 'src/locales/tokens';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import useHandleSubmit from './handle-submit';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 type Option = {
   label: string;
@@ -35,25 +37,50 @@ const mealTypeOptions: Option[] = [
   // ... add more
 ];
 
+
+const getArticle = (word: string) => {
+  if (!word) return "";
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
+  // Check for special cases like "hip-hop" which sounds like it starts with a vowel
+  const specialCases = ['hip-hop'];
+  return vowels.includes(word[0].toLowerCase()) || specialCases.includes(word) ? 'an' : 'a';
+};
+
 export const DietPlanner: FC = () => {
+
+
+  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
   const [dietType, setDietType] = useState<string>('');
   const [mealType, setMealType] = useState<string>('');
   const [calories, setCalories] = useState<number>(500);
   const [prompt, setPrompt] = useState<string>('');
-  const { handleSubmit, openAIResponse } = useHandleSubmit();
-  const { textRef, handleCopyText } = ReponseText();
+ const { textRef, handleCopyText } = ReponseText();
   const { t } = useTranslation();
 
 
-
-
   useEffect(() => {
-    let newPrompt = 'Create a [dietType] meal plan for [mealType] with [calories] calories.';
-    newPrompt = newPrompt.replace('[dietType]', dietType || 'any');
-    newPrompt = newPrompt.replace('[mealType]', mealType || 'any meal');
-    newPrompt = newPrompt.replace('[calories]', `${calories}`);
-    setPrompt(newPrompt);
-  }, [dietType, mealType, calories]);
+    // Only construct the prompt if all fields are filled
+    if (dietType && mealType && calories) {
+      let newPrompt = t(tokens.form.dietPlan);
+
+      const dietTypeText = `${getArticle(dietType)} ${t(dietType)} diet`;
+      const mealTypeText = `${getArticle(mealType)} ${t(mealType)} meal`;
+      const caloriesText = `${calories} calories`;
+
+      // Replace each placeholder with its corresponding text
+      newPrompt = newPrompt
+        .replace('[dietType]', dietTypeText)
+        .replace('[mealType]', mealTypeText)
+        .replace('[calories]', caloriesText);
+
+      setPrompt(newPrompt.trim());
+    } else {
+      // Clear the prompt if any field is not filled
+      setPrompt('');
+    }
+  }, [dietType, mealType, calories, t]);
+
+
 
 
 
@@ -112,14 +139,16 @@ export const DietPlanner: FC = () => {
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-            onClick={() => handleSubmit(prompt, 800)}
-            type="submit"
-            variant="contained"
-            fullWidth
+          onClick={() => handleSubmit(prompt, 1000)}
+          type="submit"
+          variant="contained"
+          fullWidth
+          disabled={isLoading}  // Disable the button while loading
         >
-          Submit
+          {isLoading ? <CircularProgress size={24} /> : 'Submit'}
         </Button>
       </Box>
+
 
 
 
@@ -145,6 +174,9 @@ export const DietPlanner: FC = () => {
           )}
         </Paper>
       </Box>
+
+
     </Box>
+
   );
 };

@@ -67,6 +67,7 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+  myImages: 'headings.myImages',
   imageGenerator: 'headings.imageGenerator',
   resumeMaker: 'headings.resumeMaker',
   resumeBuilder: 'headings.resumeBuilder',
@@ -124,7 +125,9 @@ headings: {
 },
 
   form: {
+    imageInstructions: 'form.imageInstructions',
     quote: 'form.quote',
+    dietPlan: 'form.dietPlan',
     degree: 'form.degree',
     contactNumber: 'form.contactNumber',
    highestYearCompleted: 'form.yearCompleted',
