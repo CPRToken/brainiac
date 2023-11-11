@@ -10,6 +10,10 @@ import Divider from '@mui/material/Divider';
 import FormHelperText from '@mui/material/FormHelperText';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
@@ -29,6 +33,7 @@ import { Layout as AuthLayout } from 'src/layouts/auth/modern-layout';
 import { paths } from 'src/paths';
 
 import { Issuer } from 'src/utils/auth';
+import React, {useState} from "react";
 
 
 interface Values {
@@ -50,6 +55,7 @@ const validationSchema = Yup.object({
 
 const Page: NextPage = () => {
     const isMounted = useMounted();
+  const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const searchParams = useSearchParams();
     const returnTo = searchParams.get('returnTo');
@@ -76,6 +82,10 @@ const Page: NextPage = () => {
     const { t } = useTranslation();
 
     usePageView();
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
     return (
         <>
@@ -148,17 +158,30 @@ const Page: NextPage = () => {
                                     type="email"
                                     value={formik.values.email}
                                 />
-                                <TextField
-                                    error={!!(formik.touched.password && formik.errors.password)}
-                                    fullWidth
-                                    helperText={formik.touched.password && formik.errors.password}
-                                    label="Password"
-                                    name="password"
-                                    onBlur={formik.handleBlur}
-                                    onChange={formik.handleChange}
-                                    type="password"
-                                    value={formik.values.password}
-                                />
+                              <TextField
+                                error={Boolean(formik.touched.password && formik.errors.password)}
+                                fullWidth
+                                helperText={formik.touched.password && formik.errors.password}
+                                label="Password"
+                                name="password"
+                                onBlur={formik.handleBlur}
+                                onChange={formik.handleChange}
+                                type={showPassword ? 'text' : 'password'}
+                                value={formik.values.password}
+                                InputProps={{
+                                  endAdornment: (
+                                    <InputAdornment position="end">
+                                      <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        edge="end"
+                                      >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                      </IconButton>
+                                    </InputAdornment>
+                                  ),
+                                }}
+                              />
                             </Stack>
                             {formik.errors.submit && (
                                 <FormHelperText
