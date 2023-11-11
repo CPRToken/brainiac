@@ -12,14 +12,16 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
 
 import { GuestGuard } from 'src/guards/guest-guard';
 import { IssuerGuard } from 'src/guards/issuer-guard';
 import { useRouter } from 'src/hooks/use-router';
-import {DateTimePicker, LocalizationProvider} from '@mui/x-date-pickers';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Layout as AuthLayout } from 'src/layouts/auth/modern-layout';
 import { paths } from 'src/paths';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -29,38 +31,12 @@ import { db } from 'src/libs/firebase';
 import React, { useState } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { addDoc, collection } from 'firebase/firestore';
-import { serverTimestamp, Timestamp } from "firebase/firestore";
-import MenuItem from '@mui/material/MenuItem';
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
-
-
-
-interface Values {
-
-   uid: string;
-  email: string;
-  password: string;  policy: boolean;
-  currentCity: string;
-  dob: string;
-   gender: string;
-  firstName: string;
-  lastName: string;
-  originCity: string;
-  quote: string;
-  submit: null;
-}
-
-
+import { serverTimestamp } from "firebase/firestore";
 
 const auth = getAuth();
-let uid;
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in, set the uid
-    uid = user.uid;
   } else {
-    // User is signed out
-    uid = null;
   }
 });
 
@@ -70,8 +46,7 @@ onAuthStateChanged(auth, (user) => {
 const validationSchema = Yup.object({
   firstName: Yup.string().required('First name is required'),
   lastName: Yup.string().required('Last name is required'),
-  dob:  Yup.string().required('Gender is required'),
-  email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+   email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
   password: Yup.string().min(7).max(255).required('Password is required'),
   policy: Yup.boolean().oneOf([true], 'This field must be checked'),
 });
@@ -81,6 +56,7 @@ const validationSchema = Yup.object({
 const Page: NextPage = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
+  const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -89,7 +65,6 @@ const Page: NextPage = () => {
       lastName: '',
         dob: null,
       email: '',
-      gender: '',
       password: '',
       policy: false,
       currentCity: '',
@@ -99,9 +74,11 @@ const Page: NextPage = () => {
     },
     validationSchema,
     onSubmit: async (values, { setSubmitting, setErrors }) => {
+      console.log('Form onSubmit started');
       try {
+        console.log('Firebase createUserWithEmailAndPassword starting');
         const { user } = await createUserWithEmailAndPassword(auth, values.email, values.password);
-
+        console.log('Firebase createUserWithEmailAndPassword finished', user);
         // Construct the user URL
 
 
@@ -117,12 +94,10 @@ const Page: NextPage = () => {
           uid: user.uid,
           firstName: values.firstName,
           lastName: values.lastName,
-            dob: Timestamp.fromDate(new Date(values.dob || '1980-01-01')),
             email: user.email,
           quote: values.quote,
           cover: defaultCoverImageUrl,
-          gender: values.gender,
-           originCity: values.originCity,
+          originCity: values.originCity,
             userUrl: profileURL,
           role: 'owner',
           team: [],
@@ -190,7 +165,9 @@ const Page: NextPage = () => {
     }
   };
 
-
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
 
   return (
@@ -267,16 +244,6 @@ const Page: NextPage = () => {
                       value={formik.values.lastName}
                   />
 
-
-
-
-
-
-
-
-
-
-
                       <Button
                           disabled={formik.isSubmitting}
                           fullWidth
@@ -307,20 +274,7 @@ const Page: NextPage = () => {
                       value={formik.values.originCity}
                   />
 
-                      <TextField
-                        fullWidth
-                        select
-                        label="Gender"
-                        name="gender"
-                        value={formik.values.gender}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        helperText={formik.touched.gender && formik.errors.gender}
-                        error={Boolean(formik.touched.gender && formik.errors.gender)}
-                      >
-                        <MenuItem value="masculino">Hombre</MenuItem>
-                        <MenuItem value="mujer">Mujer</MenuItem>
-                      </TextField>
+
 
 
                       <Button
@@ -360,15 +314,28 @@ const Page: NextPage = () => {
                           value={formik.values.email}
                       />
                       <TextField
-                          error={Boolean(formik.touched.password && formik.errors.password)}
-                          fullWidth
-                          helperText={formik.touched.password && formik.errors.password}
-                          label="Password"
-                          name="password"
-                          onBlur={formik.handleBlur}
-                          onChange={formik.handleChange}
-                          type="password"
-                          value={formik.values.password}
+                        error={Boolean(formik.touched.password && formik.errors.password)}
+                        fullWidth
+                        helperText={formik.touched.password && formik.errors.password}
+                        label="Password"
+                        name="password"
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        type={showPassword ? 'text' : 'password'}
+                        value={formik.values.password}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                edge="end"
+                              >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
                       <Box
                           sx={{
@@ -407,7 +374,7 @@ const Page: NextPage = () => {
                         type="submit"
                         variant="contained"
                       >
-                        Registrar
+                        Register
                       </Button>
                     </Stack>
                 )}

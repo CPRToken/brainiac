@@ -14,11 +14,14 @@ import { Grid, Box } from '@mui/material';
 import { useSettings } from "../../../hooks/use-settings";
 import { useDialog } from "../../../hooks/use-dialog";
 import { MyImages } from "../../../sections/dashboard/file-manager/my-images";
+import {useTranslation} from "react-i18next";
+import {tokens} from "src/locales/tokens";
 
 const Page: NextPage = () => {
     const [imageUrls, setImageUrls] = useState<Array<{ url: string, name: string }>>([]);
     const [open, setOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const { t } = useTranslation();
 
     const settings = useSettings();
     const uploadDialog = useDialog();
@@ -66,7 +69,7 @@ const Page: NextPage = () => {
           <Grid container
                 spacing={2}>
 
-            <Grid item
+          <Grid item
                   xs={12}>
 
               <Stack
@@ -75,7 +78,7 @@ const Page: NextPage = () => {
                 spacing={4}
               >
                 <div>
-                  <Typography variant="h4">Images</Typography>
+                  <Typography variant="h4">{t(tokens.headings.myImages)}</Typography>
                 </div>
                 <Stack
                   alignItems="center"
@@ -86,11 +89,10 @@ const Page: NextPage = () => {
                 </Stack>
               </Stack>
             </Grid>
-
-            <Grid item xs={12} md={8}>
-              <Grid container spacing={1}>
+            <Grid item xs={12} md={9} sx={{ flexGrow: 1 }}> {/* Adjusted for thumbnail area */}
+              <Grid container spacing={1} justifyContent="center">
                 {imageUrls.map((imageObj, index) => (
-                  <Grid item xs={6} sm={6} md={3} key={index}>
+                  <Grid item key={index} style={{ flexBasis: '20%', flexGrow: 1, maxWidth: '20%' }}> {/* Inline style for 5 thumbnails per row */}
                     <ThumbnailCard
                       item={{
                         id: index.toString(),
@@ -108,19 +110,18 @@ const Page: NextPage = () => {
                 ))}
               </Grid>
 
-                  {/* Add this block to show ImageViewer when open is true */}
-                  {open && selectedImage && (
-                      <ImageViewer
-                          imageUrl={selectedImage}
-                          onClose={handleClose}
-                      />
-                  )}
+              {/* ImageViewer block */}
+              {open && selectedImage && (
+                <ImageViewer
+                  imageUrl={selectedImage}
+                  onClose={handleClose}
+                />
+              )}
+            </Grid>
 
-
-              </Grid>
-              <Grid item xs={12} md={4}>
-                  <MyImages />
-              </Grid>
+            <Grid item xs={12} md={3}>
+              <MyImages />
+            </Grid>
           </Grid>
         </Container>
       </Box>

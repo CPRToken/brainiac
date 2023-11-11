@@ -1,5 +1,5 @@
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Upload01Icon from '@untitled-ui/icons-react/build/esm/Upload01';
 import Box from '@mui/material/Box';
@@ -21,7 +21,7 @@ import { ItemList } from 'src/sections/dashboard/file-manager/item-list';
 
 import { StorageStats } from 'src/sections/dashboard/file-manager/storage-stats';
 import type { Item } from 'src/types/file-manager';
-import {db, auth, storage} from 'src/libs/firebase';
+import {db, auth} from 'src/libs/firebase';
 
 import { useRouter } from 'next/router'
 import {Layout as DashboardLayout} from "../../../layouts/dashboard";
