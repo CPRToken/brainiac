@@ -23,15 +23,16 @@ type LanguageOptions = {
 
 const languageOptions: LanguageOptions = {
 
+  en: {
+    icon: '/assets/flags/flag-uk.svg',
+    label: 'English',
+  },
+
   es: {
     icon: '/assets/flags/flag-es.svg',
     label: 'Español',
   },
 
-    en: {
-        icon: '/assets/flags/flag-uk.svg',
-        label: 'English',
-    },
 
   th: {
     icon: '/assets/flags/flag-th.svg',

@@ -15,21 +15,22 @@ import { paths } from 'src/paths';
 
 
 export const HomeHero: FC = () => {
-    useTheme();
+  const theme = useTheme();  // Use the theme
     return (
       <Box
           sx={{
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'top center',
             backgroundSize: 'cover',
-            backgroundImage: 'linear-gradient(rgba(0, 0, 139, 0.20), rgba(0, 0, 139, 0.3)), url("/assets/ai.png")',
+            backgroundImage: theme.palette.mode === 'dark'
+              ? 'linear-gradient(rgba(0, 0, 139, 0.20), rgba(0, 0, 139, 0.3)), url("/assets/ai-dark.png")'
+              : 'linear-gradient(rgba(0, 0, 139, 0.20), rgba(0, 0, 139, 0.3)), url("/assets/ai-light.png")',
             pt: '120px',
             pb: '120px',
             height: '80vh',  // 100% of the viewport height
             width: '100vw',
             '@media (max-width:600px)': {
               height: '47vh',  // Adjust this value as needed
-
             }
           }}
       >

@@ -132,6 +132,8 @@ export const th = {
   [tokens.form.highSchoolEducation]: 'โรงเรียนมัธยม: เช่น ชื่อโรงเรียน, ระดับชั้นสูงสุดที่เสร็จสิ้นและปีที่จบ',
   [tokens.form.saveImage]: 'บันทึกรูปภาพ',
   [tokens.form.yourImage]: 'รูปภาพของคุณ',
-
+  [tokens.nav.settings]: 'การตั้งค่า',
+  [tokens.nav.imageGenerator]: 'สร้างรูปภาพ',
+  [tokens.nav.billing]: 'การเรียกเก็บเงิน',
 
 };

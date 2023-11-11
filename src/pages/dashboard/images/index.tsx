@@ -92,7 +92,7 @@ const Page: NextPage = () => {
             <Grid item xs={12} md={9} sx={{ flexGrow: 1 }}> {/* Adjusted for thumbnail area */}
               <Grid container spacing={1} justifyContent="center">
                 {imageUrls.map((imageObj, index) => (
-                  <Grid item key={index} style={{ flexBasis: '20%', flexGrow: 1, maxWidth: '20%' }}> {/* Inline style for 5 thumbnails per row */}
+                  <Grid item key={index} xs={3} md={2} lg={1} style={{ flexGrow: 1 }}> {/* Responsive Grid for thumbnails */}
                     <ThumbnailCard
                       item={{
                         id: index.toString(),
@@ -109,6 +109,7 @@ const Page: NextPage = () => {
                   </Grid>
                 ))}
               </Grid>
+
 
               {/* ImageViewer block */}
               {open && selectedImage && (
