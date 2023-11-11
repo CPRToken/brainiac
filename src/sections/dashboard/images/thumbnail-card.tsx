@@ -40,9 +40,7 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
   if (item.type === 'folder') {
     size += `• ${item.itemsCount} items`;
   }
-
-  const imageSize = 200;
-  // @ts-ignore
+// @ts-ignore
 
 
     return (
@@ -63,6 +61,7 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
           },
         }}
         variant="outlined"
+        onClick={onOpen} // Add onClick event here to trigger onOpen
       >
         <Stack
             alignItems="center"
@@ -76,11 +75,12 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
         >
           {imageUrls && (
             <Image
-              src={imageUrls}
+              src={imageUrls} // Use imageUrls here
               alt="Thumbnail"
-              width={imageSize}  // Adjusted width
-              height={imageSize} // Adjusted height
-              layout="responsive" // This ensures the aspect ratio is maintained
+              width={1024} // Width of the image
+              height={1024} // Height of the image
+              layout="responsive"
+              onClick={onOpen} // This line makes the image clickable and will call the onOpen function when clicked
             />
           )}
         </Stack>

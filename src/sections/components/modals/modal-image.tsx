@@ -43,7 +43,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({ imageUrl, onClose }) => {
             sx={{ flexGrow: 1 }}
             variant="h6"
           >
-           <center> Esta foto es solo para tus ojos!</center>
+           <center> Enjoy!</center>
           </Typography>
           <IconButton onClick={onClose}>
             <SvgIcon>
@@ -51,8 +51,13 @@ export const ImageViewer: FC<ImageViewerProps> = ({ imageUrl, onClose }) => {
             </SvgIcon>
           </IconButton>
         </Stack>
-        <Image src={imageUrl} alt="Modal content" width={100} />
-
+        <Image
+          src={imageUrl}
+          alt="Modal content"
+          width={1024}  // Width of the image
+          height={1024} // Height of the image
+          layout="responsive"
+        />
       </Paper>
     </Box>
   );
