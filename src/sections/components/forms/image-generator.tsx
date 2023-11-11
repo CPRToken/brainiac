@@ -406,7 +406,7 @@ export const ImageGenerator: FC = () => {
         </Box>
       {openAIResponse && openAIResponse.length > 0 && (
         <Box sx={{ mt: 3 }}>
-          <label>Your Image:</label>
+          <label>{t(tokens.form.yourImage)}</label>
           {openAIResponse.map((url, index) => (
             <Box key={index} sx={{ mt: 2 }}>
               <img src={url} alt={`Generated Art ${index + 1}`} style={{ width: '100%', marginBottom: '10px' }} />
@@ -416,7 +416,7 @@ export const ImageGenerator: FC = () => {
                 color="primary"
                 onClick={() => handleSaveImage(url, index)}
               >
-                Save Image
+                {t(tokens.form.saveImage)}
               </Button>
               {/* Anchor tag removed */}
             </Box>

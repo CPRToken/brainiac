@@ -100,6 +100,8 @@ export const es = {
   [tokens.form.pasteQuestion]: 'Pega tu pregunta aquí y presiona Submit',
   [tokens.form.imagePrompts]: 'Crea una imagen de un [object] con un artista [artist] en un estilo [style] sobre un tema [theme] a una resolución [sizeImage]',
   [tokens.form.skills]: 'Habilidades',
+  [tokens.form.saveImage]: 'Guardar Imagen',
+  [tokens.form.yourImage]: 'Tu Imagen',
   [tokens.form.age]: 'Edad',
     [tokens.form.email]: 'Correo electrónico',
   [tokens.form.highestYearCompleted]: 'Año más alto completado',

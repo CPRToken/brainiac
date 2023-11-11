@@ -125,6 +125,8 @@ headings: {
 },
 
   form: {
+    saveImage: 'form.saveImage',
+    yourImage: 'form.yourImage',
     imageInstructions: 'form.imageInstructions',
     quote: 'form.quote',
     dietPlan: 'form.dietPlan',

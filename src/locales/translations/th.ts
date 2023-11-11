@@ -130,6 +130,8 @@ export const th = {
   [tokens.form.degree]: 'ระดับการศึกษา',
   [tokens.form.education]: 'การศึกษา: เช่น ชื่อมหาวิทยาลัย, ระดับการศึกษา, สาขาวิชา',
   [tokens.form.highSchoolEducation]: 'โรงเรียนมัธยม: เช่น ชื่อโรงเรียน, ระดับชั้นสูงสุดที่เสร็จสิ้นและปีที่จบ',
+  [tokens.form.saveImage]: 'บันทึกรูปภาพ',
+  [tokens.form.yourImage]: 'รูปภาพของคุณ',
 
 
 };
