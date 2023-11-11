@@ -6,11 +6,15 @@ import { en } from './translations/en';
 
 import { es } from './translations/es';
 
+import { th } from './translations/th';
+
 i18n.use(initReactI18next).init({
   resources: {
     en: { translation: en },
 
     es: { translation: es },
+
+    th: { translation: th },
   },
   lng: 'en',
   fallbackLng: 'en',

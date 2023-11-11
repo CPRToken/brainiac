@@ -157,6 +157,27 @@ export const en = {
   [tokens.headings['File Manager']]: 'File Manager',
     [tokens.nav.settings]: 'Settings',
     [tokens.nav.billing]: 'Billing',
+  [tokens.form.workExperience]: 'ประสบการณ์การทำงาน: เช่น "ชื่อบริษัท, ตำแหน่งงาน, วันเริ่มงาน, วันสิ้นสุดงาน, รายละเอียด"',
+  [tokens.form.contactNumber]: 'เบอร์โทรติดต่อ',
 
+  [tokens.form.writePoem]: 'เขียนบทกวี [genre][style][mood] ระยะเวลา [duration]',
+  [tokens.form.imagePrompts]: 'สร้างรูปภาพของ [object] โดย [artist] ใน [style] ด้วย [theme]',
+  [tokens.form.SEOWriter]: 'เขียนบทความความยาว [duration] คำ ที่ได้รับการปรับแต่ง SEO เกี่ยวกับความก้าวหน้าใน [niche] ล่าสุด ซึ่งถูกสร้างขึ้นด้วยรูปแบบ [style] และมีโครงสร้างเพื่อความมีประสิทธิภาพในการ [purpose]',
 
+  [tokens.form.writeContent]: 'เขียนบทความระยะเวลา [duration] ด้วย [style] ใน [language] และ [tone]',
+  [tokens.form.pasteQuestion]: 'วางคำถามของคุณที่นี่และคลิกส่ง',
+  [tokens.form.constructResume]: 'สร้างเรซูเม่ในชื่อ [name] อายุ [age], การศึกษา [education], ประสบการณ์การทำงาน [workExperience], และทักษะ [skills]',
+
+  [tokens.form.name]: 'ชื่อเต็ม',
+  [tokens.form.next]: 'ถัดไป',
+  [tokens.form.previous]: 'ก่อนหน้า',
+  [tokens.form.genre]: 'ประเภท',
+  [tokens.form.style]: 'สไตล์',
+  [tokens.form.mood]: 'อารมณ์',
+  [tokens.form.minutes]: 'นาที',
+
+  [tokens.headings['File Manager']]: 'ผู้จัดการไฟล์',
+  [tokens.nav.settings]: 'การตั้งค่า',
+  [tokens.nav.billing]: 'การเรียกเก็บเงิน',
 };
+
