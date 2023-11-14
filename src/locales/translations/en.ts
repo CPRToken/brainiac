@@ -151,6 +151,8 @@ export const en = {
   [tokens.form.degree]: 'Degree',
   [tokens.form.duration]: 'Duration (mins)',
   [tokens.form.words]: 'Words',
+  [tokens.form.italian]: 'italian',
+  [tokens.form.thailand]: 'thailand',
   [tokens.form.mode]: 'Mode',
   [tokens.form.budget]: 'Budget (USD)',
   [tokens.form.wordCount]: 'Word Count',
@@ -160,11 +162,12 @@ export const en = {
   [tokens.form.workExperience]: 'Work Experience: e.g. "Company Name, Job Title, Start Date, End Date, Description"',
   [tokens.form.contactNumber]: 'Contact Number',
   [tokens.form.yourItinerary]: 'Your Itinerary',
-
-
+  [tokens.form.protein]: 'Protein',
+  [tokens.form.garnish]: 'Garnish: e.g. onion, garlic, parsley',
   [tokens.form.writePoem]: 'write a [genre][style][mood] poem with a duration of [duration]',
   [tokens.form.writeItinerary]: 'write an itinerary for a trip to [destination] using [mode] travel, with a budget of [budget]',
   [tokens.form.imagePrompts]: 'Create an image of a [object] with a [artist] in a [style] with a [theme] ',
+  [tokens.form.createRecipe]: 'Create an [country] [dishType] recipe with [protein] and [garnish], with a cooking time of [cookingTime] minutes',
   [tokens.form.SEOWriter]: 'Write a [duration]-word, SEO-optimized article, on the latest [niche] advancements, crafted with an [style] style and structured for [purpose] effectiveness.',
   [tokens.form.writeContent]: 'Write a [duration] article, with [style] , in  [language] and [tone] . ',
   [tokens.form.pasteQuestion]: 'Paste your question here & click Submit',

@@ -127,6 +127,11 @@ headings: {
 
   form: {
     title: 'form.title',
+    createRecipe: 'form.createRecipe',
+    italian: 'form.italian',
+    thailand: 'form.thailand',
+    protein: 'form.protein',
+    garnish: 'form.garnish',
     budget: 'form.budget',
     mode: 'form.mode',
     wordCount: 'form.wordCount',

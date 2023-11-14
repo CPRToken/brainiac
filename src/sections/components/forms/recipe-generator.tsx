@@ -9,9 +9,10 @@ import Paper from '@mui/material/Paper';
 import ResponseText from '../clipboards/response-text';
 import {useTranslation} from "react-i18next";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import {tokens} from "../../../locales/tokens";
+import { tokens } from "../../../locales/tokens";
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from "./handle-submit";
+import textImageSubmit from "./textimage-submit";
+import React from 'react';
 
 type Option = {
   label: string;
@@ -21,11 +22,13 @@ type Option = {
 const countryOptions: Option[] = [
   { label: '', value: '' },
   { label: 'Italy', value: 'Italian' },
+  { label: 'Chile', value: 'Chile' },
   { label: 'Thailand', value: 'Thai' },
   { label: 'India', value: 'Indian' },
   { label: 'France', value: 'French' },
   { label: 'Mexico', value: 'Mexican' },
   { label: 'China', value: 'Chinese' },
+  { label: 'Greek', value: 'Greek' },
   { label: 'Japan', value: 'Japanese' },
   { label: 'Spain', value: 'Spanish' },
   { label: 'USA', value: 'American' },
@@ -33,6 +36,8 @@ const countryOptions: Option[] = [
   { label: 'Vietnam', value: 'Vietnamese' },
   { label: 'Korea', value: 'Korean' },
   { label: 'Brazil', value: 'Brazilian' },
+  { label: 'Peru', value: 'Peru' },
+  { label: 'Turkish', value: 'Turkish' },
   { label: 'Lebanon', value: 'Lebanese' }
   // ... add more
 ];
@@ -56,6 +61,31 @@ const dishTypeOptions: Option[] = [
   // ... add more
 ];
 
+const proteinOptions: Option[] = [
+  { label: '', value: '' },
+  { label: 'Chicken', value: 'Chicken' },
+  { label: 'Beef', value: 'Beef' },
+  { label: 'Pork', value: 'Pork' },
+  { label: 'Salmon', value: 'Salmon' },
+  { label: 'Shrimp', value: 'Shrimp' },
+  { label: 'Tofu', value: 'Tofu' },
+  { label: 'Lamb', value: 'Lamb' },
+  { label: 'Turkey', value: 'Turkey' },
+  { label: 'Cod', value: 'Cod' },
+  { label: 'Sausage', value: 'Sausage' },
+  // ... add more
+];
+
+
+const garnishOptions: Option[] = [
+  { label: '', value: '' },
+  { label: 'Onion', value: 'Onion' },
+
+  // ... add more
+];
+
+
+
 const difficultyOptions: Option[] = [
   { label: '', value: '' },
   { label: 'Easy', value: 'easy' },
@@ -68,30 +98,35 @@ export const RecipeWriter: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { combinedSubmit, textResponse, images, isLoading } = textImageSubmit();
   const [country, setCountry] = useState<string>('');
   const [dishType, setDishType] = useState<string>('');
-  const [difficulty, setDifficulty] = useState<string>('');
+  const [protein, setProtein] = useState<string>('');
+  const [garnish, setGarnish] = useState<string>('');
   const [cookingTime, setCookingTime] = useState<number>(30);
   const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
   const { t } = useTranslation();
 
 
+
+
+
   useEffect(() => {
     // Check if all selections are made
-    if (country && dishType && difficulty && cookingTime) {
-      let newPrompt = 'Create a [country] [dishType] recipe that is [difficulty] difficulty, and takes [cookingTime] minutes to make.';
+    if (country && dishType && protein  && garnish && cookingTime) {
+      let newPrompt = t(tokens.form.createRecipe);
       newPrompt = newPrompt.replace('[country]', country);
       newPrompt = newPrompt.replace('[dishType]', dishType);
-      newPrompt = newPrompt.replace('[difficulty]', difficulty);
-      newPrompt = newPrompt.replace('[cookingTime]', `${cookingTime}`);
+      newPrompt = newPrompt.replace('[protein]', protein);
+      newPrompt = newPrompt.replace('[garnish]', garnish);
+       newPrompt = newPrompt.replace('[cookingTime]', `${cookingTime}`);
       setPrompt(newPrompt);
     } else {
       // If not all selections are made, keep the prompt empty
       setPrompt('');
     }
-  }, [country, dishType, difficulty, cookingTime]);
+  }, [country, dishType, protein, garnish, cookingTime]);
 
 
 
@@ -99,58 +134,82 @@ export const RecipeWriter: FC = () => {
   return (
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
       <Stack spacing={3}>
-        <TextField
-          fullWidth
-          label={t(tokens.form.country)}
-          name="country"
-          select
-          SelectProps={{ native: true }}
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-        >
-          {countryOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-        <TextField
-          fullWidth
-          label={t(tokens.form.dishType)}
-          name="dishType"
-          select
-          SelectProps={{ native: true }}
-          value={dishType}
-          onChange={(e) => setDishType(e.target.value)}
-        >
-          {dishTypeOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-        <TextField
-          fullWidth
-          label={t(tokens.form.difficulty)}
-          name="difficulty"
-          select
-          SelectProps={{ native: true }}
-          value={difficulty}
-          onChange={(e) => setDifficulty(e.target.value)}
-        >
-          {difficultyOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
+        <Stack direction="row" spacing={2}>
+          <TextField
+            label={t(tokens.form.country)}
+            name="artist"
+            select
+            SelectProps={{ native: true }}
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            fullWidth
+            sx={{ width: 'calc(50% - 8px)' }}
+          >
+            {countryOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </TextField>
+          <TextField
+            label={t(tokens.form.dishType)}
+            name="style"
+            select
+            SelectProps={{ native: true }}
+            value={dishType}
+            onChange={(e) => setDishType(e.target.value)}
+            fullWidth
+            sx={{ width: 'calc(50% - 8px)' }}
+          >
+            {dishTypeOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </TextField>
+        </Stack>
+
+        <Stack direction="row" spacing={2}>
+          <TextField
+            label={t(tokens.form.protein)}
+            name="protein"
+            select
+            SelectProps={{ native: true }}
+            value={protein}
+            onChange={(e) => setProtein(e.target.value)}
+            fullWidth
+            sx={{ width: 'calc(50% - 8px)' }}
+          >
+            {proteinOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </TextField>
+          <TextField
+             label={t(tokens.form.garnish)}
+            name="garnish"
+            value={garnish}
+            onChange={(e) => setGarnish(e.target.value)}
+             multiline
+             rows={1}
+             sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
+          >
+            {garnishOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </TextField>
+        </Stack>
+
         <div>
           <label>{t(tokens.form.cookingTime)}</label>
           <Slider
             value={cookingTime}
-            min={1}
+            min={5}
             max={120}
-            step={1}
+            step={5}
             onChange={(_, newValue) => setCookingTime(newValue as number)}
           />
         </div>
@@ -165,7 +224,7 @@ export const RecipeWriter: FC = () => {
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-          onClick={() => handleSubmit(prompt, 700)}
+          onClick={() => combinedSubmit(prompt, 700)}
           type="submit"
           variant="contained"
           fullWidth
@@ -176,24 +235,33 @@ export const RecipeWriter: FC = () => {
       </Box>
 
       <Box sx={{ mt: 3 }}>
-        {openAIResponse && (
-          <>
-        <label>{t(tokens.headings.yourRecipe)}</label>
-        <Button onClick={handleCopyText} title="Copy response text">
-          <FileCopyIcon />
-        </Button>
-          </>
+        {textResponse && (
+          <Box sx={{ mt: 3 }}>
+            <label>{t(tokens.headings.yourRecipe)}</label>
+            <Button onClick={handleCopyText} title="Copy response text">
+              <FileCopyIcon />
+            </Button>
+            <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+              {textResponse.split('\n').map((str, index, array) => (
+                <React.Fragment key={index}>
+                  {str}
+                  {index < array.length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </Paper>
+          </Box>
         )}
-        <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
-          {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
-            index === array.length - 1 ? str : <>
-              {str}
-              <br />
-            </>
-          )}
-        </Paper>
 
+        {/* Display the images */}
+        {images && (
+          <Box sx={{ mt: 3 }}>
+            {images.map((image, index) => (
+              <img key={index} src={image} alt={`Generated Image ${index}`} style={{ maxWidth: '100%', height: 'auto' }} />
+            ))}
+          </Box>
+        )}
       </Box>
     </Box>
   );
-};
+}
+
