@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ResponseText from '../clipboards/response-text';
@@ -18,47 +18,22 @@ type Option = {
     value: string;
 };
 
-const genreOptions: Option[] = [
-    { label: '', value: '' },
-    { label: 'Rock', value: 'rock' },
-    { label: 'Pop', value: 'pop' },
-    { label: 'Jazz', value: 'jazz' },
-    { label: 'Hip-Hop', value: 'hip-hop' },
-    { label: 'Classical', value: 'classical' },
-    { label: 'Country', value: 'country' },
-    { label: 'Reggae', value: 'reggae' },
-    { label: 'Blues', value: 'blues' },
-    { label: 'Electronic', value: 'electronic' },
-    { label: 'Folk', value: 'folk' },
-    { label: 'R&B', value: 'r&b' },
-    { label: 'Metal', value: 'metal' },
-    // ... add more as needed
-];
+
 
 const styleOptions: Option[] = [
     { label: '', value: '' },
-    { label: 'Adventure', value: 'adventure' },
-    { label: 'Mystery', value: 'mystery' },
-    { label: 'Romantic', value: 'romantic' },
-    { label: 'Action', value: 'action' },
-    { label: 'Comedy', value: 'comedy' },
-    { label: 'Horror', value: 'horror' },
-    { label: 'Love Song', value: 'love-song' },
-    { label: 'Ballad', value: 'ballad' },
-    { label: 'Anthem', value: 'anthem' },
+    { label: 'Adventure', value: 'adventurous' },
+    { label: 'Holiday', value: 'holiday' },
+    { label: 'Get away', value: 'get away' },
+    { label: 'Honeymoon', value: 'honeymoon' },
+
     // ... add more as needed
 ];
 
-const moodOptions: Option[] = [
+const modeOptions: Option[] = [
     { label: '', value: '' },
-    { label: 'Happy', value: 'happy' },
-    { label: 'Sad', value: 'sad' },
-    { label: 'Excited', value: 'excited' },
-    { label: 'Relaxed', value: 'relaxed' },
-    { label: 'Angry', value: 'angry' },
-    { label: 'Serene', value: 'serene' },
-    { label: 'Nostalgic', value: 'nostalgic' },
-    { label: 'Energetic', value: 'energetic' },
+    { label: 'Air', value: 'air' },
+  { label: 'Train', value: 'train' },
     // ... add more as needed
 ];
 
@@ -71,15 +46,15 @@ const getArticle = (word: string) => {
 };
 
 
-export const LyricWriter: FC = () => {
+export const TravelAgent: FC = () => {
 
 
 
   const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
-  const [genre, setGenre] = useState<string>('');
+  const [destination, setDestination] = useState<string>('');
   const [style, setTheme] = useState<string>('');
-  const [mood, setMood] = useState<string>('');
-  const [duration, setDuration] = useState<number>(2.5);
+  const [mode, setMode] = useState<string>('');
+  const [budget, setBudget] = useState<number>(100);
   const [prompt, setPrompt] = useState<string>('');
 
 
@@ -88,27 +63,21 @@ export const LyricWriter: FC = () => {
 
 
   useEffect(() => {
-    if (genre && style && mood && duration) {
-      let newPrompt = t(tokens.form.writeSong);
-      // Call getArticle as a normal function
-      const genreText = genre !== '' ? `${getArticle(genre)} ${t(genre)} genre` : '';
-      const styleText = style !== '' ? `${getArticle(style)} ${t(style)} style` : '';
-      const moodText = mood !== '' ? `${getArticle(mood)} ${t(mood)} mood` : '';
+    if (destination && style && mode && budget) {
+      let newPrompt = t(tokens.form.writeItinerary);
 
-
-
-      const components = [genreText, styleText, moodText].filter(Boolean).join(', ');
-
+      // Assuming tokens.form.writeItinerary is like "Write an itinerary for [destination] using [mode] with a budget of [budget] dollars"
       newPrompt = newPrompt
-        .replace('[genre][style][mood]', components)
-        .replace('[duration]', `${duration} ${t('minutes')}`);
+        .replace('[destination]', destination)
+        .replace('[style]', style)
+        .replace('[mode]', mode)
+        .replace('[budget]', `${budget} ${t('dollars')}`);
 
       setPrompt(newPrompt.trim());
     } else {
       setPrompt('');
     }
-  }, [genre, style, mood, duration, t]);
-
+  }, [destination, style, mode, budget, t]);
 
 
 
@@ -124,19 +93,14 @@ export const LyricWriter: FC = () => {
       <Stack spacing={3}>
         <TextField
           fullWidth
-          label={t(tokens.form.genre)}
-          name="genre"
-          select
-          SelectProps={{ native: true }}
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
-        >
-          {genreOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
+          label={t(tokens.form.destination)}
+          name="destination"
+          value={destination}
+          onChange={(e) => setDestination(e.target.value)}
+          multiline // Enables multiline input
+          rows={1} // Sets the number of rows
+        />
+
         <TextField
           fullWidth
           label={t(tokens.form.style)}
@@ -154,28 +118,27 @@ export const LyricWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label={t(tokens.form.mood)}
-          name="mood"
+          label={t(tokens.form.mode)}
+          name="mode"
           select
           SelectProps={{ native: true }}
-          value={mood}
-          onChange={(e) => setMood(e.target.value)}
+          value={mode}
+          onChange={(e) => setMode(e.target.value)}
         >
-          {moodOptions.map((option) => (
+          {modeOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
           ))}
         </TextField>
         <div>
-          <label>{t(tokens.form.duration)}</label>
-
+          <label>{t(tokens.form.budget)}</label>
           <Slider
-            value={duration}
-            min={1}
-            max={4}
-            step={0.5}
-            onChange={(_, newValue) => setDuration(newValue as number)}
+            value={budget}
+            min={300}
+            max={2000}
+            step={100}
+            onChange={(_, newValue) => setBudget(newValue as number)}
           />
         </div>
           <TextField
@@ -204,7 +167,7 @@ export const LyricWriter: FC = () => {
         <Box sx={{ mt: 3 }}>
           {openAIResponse && (
             <>
-              <label>Your Lyrics:</label>
+              <label>{t(tokens.form.yourItinerary)}</label>
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>

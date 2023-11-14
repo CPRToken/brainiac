@@ -67,6 +67,7 @@ lyricWriter: '/dashboard/lyric-writer',
     resumeMaker: '/dashboard/resume-maker',
     resumeBuilder: '/dashboard/resume-builder',
     imageGenerator: '/dashboard/image-generator',
+    travelAgent: '/dashboard/travel-agent',
     images: '/dashboard/images',
 
     customers: {

@@ -164,7 +164,7 @@ export const SEOArticleWriter: FC = () => {
       <Stack spacing={3}>
         <TextField
           fullWidth
-          label="Niche"
+          label={t(tokens.form.niche)}
           name="niche"
           select
           SelectProps={{ native: true }}
@@ -179,7 +179,7 @@ export const SEOArticleWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="For"
+          label={t(tokens.form.for)}
           name="for"
           select
           SelectProps={{ native: true }}
@@ -194,7 +194,7 @@ export const SEOArticleWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Style"
+          label={t(tokens.form.style)}
           name="style"
           select
           SelectProps={{ native: true }}
@@ -208,7 +208,7 @@ export const SEOArticleWriter: FC = () => {
           ))}
         </TextField>
         <div>
-          <label>Word count</label>
+          <label>{t(tokens.form.wordCount)}</label>
           <Slider
             value={duration / 500} // Convert the word count to the slider's scale
             min={1}
@@ -220,7 +220,7 @@ export const SEOArticleWriter: FC = () => {
         </div>
           <TextField
               fullWidth
-              label="Prompt"
+              label={t(tokens.form.prompts)}
               name="prompt"
               value={prompt}
               multiline

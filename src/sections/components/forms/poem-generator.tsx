@@ -110,7 +110,7 @@ export const PoemGenerator: FC = () => {
       <Stack spacing={3}>
         <TextField
           fullWidth
-          label="Genre"
+          label={t(tokens.form.genre)}
           name="genre"
           select
           SelectProps={{ native: true }}
@@ -125,7 +125,7 @@ export const PoemGenerator: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Style"
+          label={t(tokens.form.style)}
           name="style"
           select
           SelectProps={{ native: true }}
@@ -140,7 +140,7 @@ export const PoemGenerator: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Mood"
+          label={t(tokens.form.mood)}
           name="mood"
           select
           SelectProps={{ native: true }}
@@ -154,7 +154,7 @@ export const PoemGenerator: FC = () => {
           ))}
         </TextField>
         <div>
-          <label>Words</label>
+          <label>{t(tokens.form.words)}</label>
           <Slider
             value={duration / 100} // Convert the word count to the slider's scale
             min={1}
@@ -165,7 +165,7 @@ export const PoemGenerator: FC = () => {
         </div>
           <TextField
               fullWidth
-              label="Prompt"
+              label={t(tokens.form.prompts)}
               name="prompt"
               value={prompt}
               multiline

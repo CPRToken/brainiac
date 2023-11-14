@@ -94,7 +94,11 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={8}
+              md={9}
+              sx={{
+                paddingLeft: 2, // Add padding here
+                // Or if you prefer margin: marginLeft: 2
+              }}
             >
               <Stack
                 spacing={{
@@ -119,7 +123,11 @@ const Page: NextPage = () => {
                 </Box>
               </Stack>
             </Grid>
-            <Grid xs={12} md={4} sx={{ paddingLeft: 2 }}>
+            <Grid
+              xs={12}
+              md={3} // Changed from 4 to 3 for skinnier My Content
+              sx={{ paddingLeft: 2 }}
+            >
               <Hidden smDown> {/* Hide on small screens and down */}
                 <MyContent />
               </Hidden>

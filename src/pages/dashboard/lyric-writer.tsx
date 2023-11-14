@@ -64,7 +64,11 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={9} // Changed from 8 to 9 for wider LyricWriter
+              md={9}
+              sx={{
+                paddingLeft: 2, // Add padding here
+                // Or if you prefer margin: marginLeft: 2
+              }}
             >
               <Stack
                 spacing={{

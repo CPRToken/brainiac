@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
 import { usePageView } from 'src/hooks/use-page-view';
-import { SEOArticleWriter } from 'src/sections/components/forms/seo-article-writer';
+import { TravelAgent } from 'src/sections/components/forms/travel-agent';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { auth } from '../../libs/firebase';
@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="SEO Article Writer" />
+      <Seo title="Travel Agent" />
       <Box
         component="main"
         sx={{
@@ -50,7 +50,7 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                      variant="h5">{t(tokens.headings.seoArticleWriter)}</Typography>
+                    variant="h5">{t(tokens.headings.travelAgent)}</Typography>
                 </div>
 
                 <Stack
@@ -77,7 +77,7 @@ const Page: NextPage = () => {
                 }}
               >
                 <Box paddingTop={4}>
-                  <SEOArticleWriter />
+                  <TravelAgent />
                 </Box>
               </Stack>
             </Grid>
@@ -93,11 +93,9 @@ const Page: NextPage = () => {
           </Grid>
         </Container>
       </Box>
-
-
-
     </>
   );
+
 
 };
 

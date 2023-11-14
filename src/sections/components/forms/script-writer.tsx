@@ -111,7 +111,7 @@ export const ScriptWriter: FC = () => {
       <Stack spacing={3}>
         <TextField
           fullWidth
-          label="Genre"
+          label={t(tokens.form.genre)}
           name="genre"
           select
           SelectProps={{ native: true }}
@@ -126,7 +126,7 @@ export const ScriptWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Style"
+          label={t(tokens.form.style)}
           name="style"
           select
           SelectProps={{ native: true }}
@@ -141,7 +141,7 @@ export const ScriptWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Mood"
+          label={t(tokens.form.mood)}
           name="mood"
           select
           SelectProps={{ native: true }}
@@ -155,7 +155,7 @@ export const ScriptWriter: FC = () => {
           ))}
         </TextField>
         <div>
-          <label>Duration (minutes)</label>
+          <label>{t(tokens.form.duration)}</label>
           <Slider
             value={duration}
             min={30}
@@ -166,7 +166,7 @@ export const ScriptWriter: FC = () => {
         </div>
         <TextField
           fullWidth
-          label="Prompt"
+          label={t(tokens.form.prompts)}
           name="prompt"
           value={prompt}
           multiline

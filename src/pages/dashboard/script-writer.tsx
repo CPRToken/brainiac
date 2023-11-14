@@ -12,6 +12,7 @@ import { ScriptWriter } from 'src/sections/components/forms/script-writer';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { auth } from '../../libs/firebase';
+import Hidden from "@mui/material/Hidden";
 
 const Page: NextPage = () => {
   usePageView();
@@ -63,7 +64,11 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={8}
+              md={9}
+              sx={{
+                paddingLeft: 2, // Add padding here
+                // Or if you prefer margin: marginLeft: 2
+              }}
             >
               <Stack
                 spacing={{
@@ -78,10 +83,12 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={4} // Adjusted size for StorageStats
-              sx={{ paddingLeft: 2 }} //
+              md={3} // Changed from 4 to 3 for skinnier My Content
+              sx={{ paddingLeft: 2 }}
             >
-              <MyContent />
+              <Hidden smDown> {/* Hide on small screens and down */}
+                <MyContent />
+              </Hidden>
 
             </Grid>
           </Grid>

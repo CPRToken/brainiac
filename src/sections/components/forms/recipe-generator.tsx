@@ -101,7 +101,7 @@ export const RecipeWriter: FC = () => {
       <Stack spacing={3}>
         <TextField
           fullWidth
-          label="Country"
+          label={t(tokens.form.country)}
           name="country"
           select
           SelectProps={{ native: true }}
@@ -116,7 +116,7 @@ export const RecipeWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Dish Type"
+          label={t(tokens.form.dishType)}
           name="dishType"
           select
           SelectProps={{ native: true }}
@@ -131,7 +131,7 @@ export const RecipeWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Difficulty"
+          label={t(tokens.form.difficulty)}
           name="difficulty"
           select
           SelectProps={{ native: true }}
@@ -145,7 +145,7 @@ export const RecipeWriter: FC = () => {
           ))}
         </TextField>
         <div>
-          <label>Cooking Time (minutes)</label>
+          <label>{t(tokens.form.cookingTime)}</label>
           <Slider
             value={cookingTime}
             min={1}
@@ -156,7 +156,7 @@ export const RecipeWriter: FC = () => {
         </div>
         <TextField
           fullWidth
-          label="Prompt"
+          label={t(tokens.form.prompts)}
           name="prompt"
           value={prompt}
           multiline

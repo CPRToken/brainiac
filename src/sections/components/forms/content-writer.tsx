@@ -257,7 +257,7 @@ export const ContentWriter: FC = () => {
         {/* New TextField for Title */}
         <TextField
           fullWidth
-          label="Title: e.g. How to Make Money"
+          label={t(tokens.form.title)}
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -265,7 +265,7 @@ export const ContentWriter: FC = () => {
         {/* New TextField for Keywords */}
         <TextField
           fullWidth
-          label="Keywords: e.g. money, coins, business"
+          label={t(tokens.form.keywords)}
           name="keywords"
           value={keywords}
           onChange={(e) => setKeywords(e.target.value)}
@@ -287,7 +287,7 @@ export const ContentWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Style"
+          label={t(tokens.form.style)}
           name="style"
           select
           SelectProps={{ native: true }}
@@ -302,7 +302,7 @@ export const ContentWriter: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Tone"
+          label={t(tokens.form.tone)}
           name="tone"
           select
           SelectProps={{ native: true }}
@@ -316,7 +316,7 @@ export const ContentWriter: FC = () => {
           ))}
         </TextField>
         <div>
-          <label>Word count</label>
+          <label>{t(tokens.form.words)}</label>
           <Slider
             value={duration / 500} // Convert the word count to the slider's scale
             getAriaValueText={(value) => `${value * 500} words`} // For accessibility

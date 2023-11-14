@@ -90,7 +90,7 @@ export const DietPlanner: FC = () => {
       <Stack spacing={3}>
         <TextField
           fullWidth
-          label="Diet Type"
+          label={t(tokens.form.dietType)}
           name="dietType"
           select
           SelectProps={{ native: true }}
@@ -105,7 +105,7 @@ export const DietPlanner: FC = () => {
         </TextField>
         <TextField
           fullWidth
-          label="Meal Type"
+          label={t(tokens.form.mealType)}
           name="mealType"
           select
           SelectProps={{ native: true }}
@@ -119,7 +119,7 @@ export const DietPlanner: FC = () => {
           ))}
         </TextField>
         <div>
-          <label>Calories</label>
+          <label>{t(tokens.form.calories)}</label>
           <Slider
             value={calories}
             min={100}
@@ -130,7 +130,7 @@ export const DietPlanner: FC = () => {
         </div>
         <TextField
           fullWidth
-          label="Prompt"
+          label={t(tokens.form.prompts)}
           name="prompt"
           value={prompt}
           multiline

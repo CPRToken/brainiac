@@ -312,7 +312,7 @@ export const ImageGenerator: FC = () => {
 
         <Stack direction="row" spacing={2}>
           <TextField
-            label="Artist"
+            label={t(tokens.form.artist)}
             name="artist"
             select
             SelectProps={{ native: true }}
@@ -328,7 +328,7 @@ export const ImageGenerator: FC = () => {
             ))}
           </TextField>
           <TextField
-            label="Style"
+            label={t(tokens.form.style)}
             name="style"
             select
             SelectProps={{ native: true }}
@@ -348,7 +348,7 @@ export const ImageGenerator: FC = () => {
         {/* Theme and Object side by side */}
         <Stack direction="row" spacing={2}>
           <TextField
-            label="Theme"
+            label={t(tokens.form.theme)}
             name="theme"
             select
             SelectProps={{ native: true }}
@@ -364,7 +364,7 @@ export const ImageGenerator: FC = () => {
             ))}
           </TextField>
           <TextField
-            label="Object"
+            label={t(tokens.form.object)}
             name="object"
             select
             SelectProps={{ native: true }}
@@ -383,7 +383,7 @@ export const ImageGenerator: FC = () => {
 
         <TextField
           fullWidth
-          label="Prompt"
+          label={t(tokens.form.prompts)}
           name="prompt"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)} // Add this line
