@@ -11,7 +11,7 @@ import {useTranslation} from "react-i18next";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { tokens } from "../../../locales/tokens";
 import CircularProgress from '@mui/material/CircularProgress';
-import textImageSubmit from "./textimage-submit";
+import TextImageSubmit from "./textimage-submit";
 import React from 'react';
 
 type Option = {
@@ -86,19 +86,13 @@ const garnishOptions: Option[] = [
 
 
 
-const difficultyOptions: Option[] = [
-  { label: '', value: '' },
-  { label: 'Easy', value: 'easy' },
-  { label: 'Medium', value: 'medium' },
-  { label: 'Hard', value: 'hard' },
-  // ... add more
-];
+
 
 export const RecipeWriter: FC = () => {
 
 
 
-  const { combinedSubmit, textResponse, images, isLoading } = textImageSubmit();
+  const { combinedSubmit, textResponse, images, isLoading } = TextImageSubmit();
   const [country, setCountry] = useState<string>('');
   const [dishType, setDishType] = useState<string>('');
   const [protein, setProtein] = useState<string>('');

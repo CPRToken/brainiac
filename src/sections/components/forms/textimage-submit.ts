@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import useHandleSubmit from "./handle-submit";
 import useImageSubmit from './image-submit';
 
-const textImageSubmit = () => {
+const TextImageSubmit = () => {
   const { handleSubmit: handleTextSubmit, openAIResponse: textResponse, isLoading: isTextLoading } = useHandleSubmit();
   const { imageSubmit, openAIResponse: images, isLoading: isImageLoading } = useImageSubmit();
 
@@ -23,4 +23,4 @@ const textImageSubmit = () => {
   };
 };
 
-export default textImageSubmit;
+export default TextImageSubmit;
