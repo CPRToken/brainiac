@@ -82,8 +82,8 @@ export const PoemGenerator: FC = () => {
     if (genre && style && mood && duration) {
       let newPrompt = t(tokens.form.writePoem);
       const genreText = ` ${t(genre)} `;
-      const styleText = ` ${t('in a')} ${t(style)} ${t('style')} `;
-      const moodText = ` ${t('with a')} ${t(mood)} ${t('mood')} `;
+      const styleText = ` ${t('in a')} ${t(style)} ${t('')} `;
+      const moodText = ` ${t('in a')} ${t(mood)} ${t('')} `;
 
       newPrompt = newPrompt
         .replace('[genre]', genreText)
@@ -190,7 +190,7 @@ export const PoemGenerator: FC = () => {
         <Box sx={{ mt: 3 }}>
           {openAIResponse && (
             <>
-              <label>Your Poem:</label>
+              <label>{t(tokens.form.yourPoem)}</label>
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>

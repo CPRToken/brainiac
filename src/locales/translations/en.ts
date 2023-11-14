@@ -164,7 +164,7 @@ export const en = {
   [tokens.form.yourItinerary]: 'Your Itinerary',
   [tokens.form.protein]: 'Protein',
   [tokens.form.garnish]: 'Garnish: e.g. onion, garlic, parsley',
-  [tokens.form.writePoem]: 'write a [genre][style][mood] poem with a duration of [duration]',
+  [tokens.form.writePoem]: 'write a [genre] [style] style [mood] mood poem, with a duration of [duration]',
   [tokens.form.writeItinerary]: 'write an itinerary for a trip to [destination] using [mode] travel, with a budget of [budget]',
   [tokens.form.imagePrompts]: 'Create an image of a [object] with a [artist] in a [style] with a [theme] ',
   [tokens.form.createRecipe]: 'Create an [country] [dishType] recipe with [protein] and [garnish], with a cooking time of [cookingTime] minutes',
@@ -181,6 +181,7 @@ export const en = {
   [tokens.form.style]: 'Style',
   [tokens.form.mood]: 'Mood',
   [tokens.form.minutes]: 'minutes',
+  [tokens.form.yourPoem]: 'Your Poem',
 
 
   [tokens.headings['File Manager']]: 'File Manager',
