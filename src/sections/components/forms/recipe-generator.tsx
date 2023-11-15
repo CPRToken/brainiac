@@ -86,18 +86,8 @@ const dishTypeOptions: Option[] = [
 
 const proteinOptions: Option[] = [
   { label: '', value: '' },
-  { label: tokens.form.Chicken, value: 'Chicken' },
-  { label: tokens.form.Beef, value: 'Beef' },
-  { label: tokens.form.Pork, value: 'Pork' },
-  { label: tokens.form.Salmon, value: 'Salmon' },
-  { label: tokens.form.Tuna, value: 'Tuna' },
-  { label: tokens.form.Crab, value: 'Crab' },
-  { label: tokens.form.Shrimp, value: 'Shrimp' },
-  { label: tokens.form.Tofu, value: 'Tofu' },
-  { label: tokens.form.Lamb, value: 'Lamb' },
-  { label: tokens.form.Turkey, value: 'Turkey' },
-  { label: tokens.form.Cod, value: 'Cod' },
-  { label: tokens.form.Sausage, value: 'Sausage' },
+  { label: 'Chicken', value: 'Chicken' },
+
   // ... add more
 ];
 
@@ -192,17 +182,16 @@ export const RecipeWriter: FC = () => {
           <TextField
             label={t(tokens.form.protein)}
             name="protein"
-            select
-            SelectProps={{ native: true }}
             value={protein}
             onChange={(e) => setProtein(e.target.value)}
-            fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+            multiline
+            rows={1}
+            sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
           >
-            {proteinOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {t(option.label)} {/* Apply translation here */}
-              </option>
+              {proteinOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                      {t(option.label)} {/* Apply translation here */}
+                  </option>
             ))}
           </TextField>
           <TextField

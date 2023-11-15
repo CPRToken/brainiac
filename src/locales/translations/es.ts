@@ -89,7 +89,7 @@ export const es = {
   [tokens.form.style]: 'Estilo',
   [tokens.form.mood]: 'Ánimo',
   [tokens.form.mode]: 'Modo',
-  [tokens.form.protein]: 'Proteína',
+  [tokens.form.protein]: 'Proteína o Base: p.e. pollo, ternera, chocolate',
   [tokens.form.italian]: 'Italiano',
   [tokens.form.Chile]: 'Chile',
   [tokens.form.India]: 'India',

@@ -352,7 +352,7 @@ export const en = {
   [tokens.form.workExperience]: 'Work Experience: e.g. "Company Name, Job Title, Start Date, End Date, Description"',
   [tokens.form.contactNumber]: 'Contact Number',
   [tokens.form.yourItinerary]: 'Your Itinerary',
-  [tokens.form.protein]: 'Protein',
+  [tokens.form.protein]: 'Protein or Base: e.g. chicken, beef, chocolate',
   [tokens.form.garnish]: 'Garnish: e.g. onion, garlic, parsley',
   [tokens.form.object]: 'Object: e.g. "cat, dog, house"',
   [tokens.form.NoArtist]: 'No Artist: for realistic looking images',
