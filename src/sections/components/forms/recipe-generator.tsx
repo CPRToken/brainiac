@@ -21,58 +21,83 @@ type Option = {
 
 const countryOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Italy', value: 'Italian' },
-  { label: 'Chile', value: 'Chile' },
-  { label: 'Thailand', value: 'Thai' },
-  { label: 'India', value: 'Indian' },
-  { label: 'France', value: 'French' },
-  { label: 'Mexico', value: 'Mexican' },
-  { label: 'China', value: 'Chinese' },
-  { label: 'Greek', value: 'Greek' },
-  { label: 'Japan', value: 'Japanese' },
-  { label: 'Spain', value: 'Spanish' },
-  { label: 'USA', value: 'American' },
-  { label: 'Greece', value: 'Greek' },
-  { label: 'Vietnam', value: 'Vietnamese' },
-  { label: 'Korea', value: 'Korean' },
-  { label: 'Brazil', value: 'Brazilian' },
-  { label: 'Peru', value: 'Peru' },
-  { label: 'Turkish', value: 'Turkish' },
-  { label: 'Lebanon', value: 'Lebanese' }
+  { label: tokens.form.Chile, value: 'Chilean' },
+  { label: tokens.form.Spain, value: 'spanish' },
+  { label: tokens.form.French, value: 'french' },
+  { label: tokens.form.German, value: 'german' },
+  { label: tokens.form.Italy, value: 'italian' },
+  { label: tokens.form.Portugal, value: 'portuguese' },
+  { label: tokens.form.Russia, value: 'russian' },
+  { label: tokens.form.India, value: 'indian' },
+  { label: tokens.form.Japan, value: 'japanese' },
+  { label: tokens.form.Korea, value: 'korean' },
+  { label: tokens.form.Brazil, value: 'Brazilian' },
+  { label: tokens.form.Turkish, value: 'turkish' },
+  { label: tokens.form.Dutch, value: 'dutch' },
+  { label: tokens.form.Swedish, value: 'swedish' },
+  { label: tokens.form.Finnish, value: 'finnish' },
+  { label: tokens.form.Danish, value: 'danish' },
+  { label: tokens.form.Norwegian, value: 'norwegian' },
+  { label: tokens.form.Polish, value: 'polish' },
+  { label: tokens.form.Greek, value: 'greek' },
+  { label: tokens.form.Hungarian, value: 'hungarian' },
+  { label: tokens.form.Czech, value: 'czech' },
+  { label: tokens.form.Slovak, value: 'slovak' },
+  { label: tokens.form.Romanian, value: 'romanian' },
+  { label: tokens.form.Bulgarian, value: 'bulgarian' },
+  { label: tokens.form.Serbian, value: 'serbian' },
+  { label: tokens.form.Croatian, value: 'croatian' },
+  { label: tokens.form.Bosnian, value: 'bosnian' },
+  { label: tokens.form.Slovenian, value: 'slovenian' },
+  { label: tokens.form.Albanian, value: 'albanian' },
+  { label: tokens.form.Lithuanian, value: 'lithuanian' },
+  { label: tokens.form.Latvian, value: 'latvian' },
+  { label: tokens.form.Estonian, value: 'estonian' },
+  { label: tokens.form.Maltese, value: 'maltese' },
+  { label: tokens.form.Thai, value: 'thai' },
+  { label: tokens.form.Filipino, value: 'filipino' },
+  { label: tokens.form.Vietnamese, value: 'vietnamese' },
+  { label: tokens.form.Indonesian, value: 'indonesian' },
+  { label: tokens.form.Malay, value: 'malay' },
+  { label: tokens.form.Persian, value: 'persian' },
+  { label: tokens.form.Hebrew, value: 'hebrew' },
   // ... add more
 ];
 
 const dishTypeOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Appetizer', value: 'appetizer' },
-  { label: 'Main Course', value: 'main-course' },
-  { label: 'Dessert', value: 'dessert' },
-  { label: 'Soup', value: 'soup' },
-  { label: 'Salad', value: 'salad' },
-  { label: 'Side Dish', value: 'side-dish' },
-  { label: 'Snack', value: 'snack' },
-  { label: 'Beverage', value: 'beverage' },
-  { label: 'Cocktail', value: 'cocktail' },
-  { label: 'Bread', value: 'bread' },
-  { label: 'Breakfast', value: 'breakfast' },
-  { label: 'Brunch', value: 'brunch' },
-  { label: 'Pastry', value: 'pastry' }
+  { label: tokens.form.Appetizer, value: 'appetizer' },
+  { label: tokens.form.MainCourse, value: 'main-course' },
+  { label: tokens.form.Dessert, value: 'dessert' },
+  { label: tokens.form.Soup, value: 'soup' },
+  { label: tokens.form.Salad, value: 'salad' },
+  { label: tokens.form.SideDish, value: 'side-dish' },
+  { label: tokens.form.Snack, value: 'snack' },
+  { label: tokens.form.Beverage, value: 'beverage' },
+  { label: tokens.form.Cocktail, value: 'cocktail' },
+  { label: tokens.form.Bread, value: 'bread' },
+  { label: tokens.form.Breakfast, value: 'breakfast' },
+  { label: tokens.form.Brunch, value: 'brunch' },
+  { label: tokens.form.Pastry, value: 'pastry' },
+
 
   // ... add more
 ];
 
 const proteinOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Chicken', value: 'Chicken' },
-  { label: 'Beef', value: 'Beef' },
-  { label: 'Pork', value: 'Pork' },
-  { label: 'Salmon', value: 'Salmon' },
-  { label: 'Shrimp', value: 'Shrimp' },
-  { label: 'Tofu', value: 'Tofu' },
-  { label: 'Lamb', value: 'Lamb' },
-  { label: 'Turkey', value: 'Turkey' },
-  { label: 'Cod', value: 'Cod' },
-  { label: 'Sausage', value: 'Sausage' },
+  { label: tokens.form.Chicken, value: 'Chicken' },
+  { label: tokens.form.Beef, value: 'Beef' },
+  { label: tokens.form.Pork, value: 'Pork' },
+  { label: tokens.form.Salmon, value: 'Salmon' },
+  { label: tokens.form.Tuna, value: 'Tuna' },
+  { label: tokens.form.Crab, value: 'Crab' },
+  { label: tokens.form.Shrimp, value: 'Shrimp' },
+  { label: tokens.form.Tofu, value: 'Tofu' },
+  { label: tokens.form.Lamb, value: 'Lamb' },
+  { label: tokens.form.Turkey, value: 'Turkey' },
+  { label: tokens.form.Cod, value: 'Cod' },
+  { label: tokens.form.Sausage, value: 'Sausage' },
   // ... add more
 ];
 
@@ -141,7 +166,7 @@ export const RecipeWriter: FC = () => {
           >
             {countryOptions.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {t(option.label)} {/* Apply translation here */}
               </option>
             ))}
           </TextField>
@@ -157,7 +182,7 @@ export const RecipeWriter: FC = () => {
           >
             {dishTypeOptions.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {t(option.label)} {/* Apply translation here */}
               </option>
             ))}
           </TextField>
@@ -176,7 +201,7 @@ export const RecipeWriter: FC = () => {
           >
             {proteinOptions.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {t(option.label)} {/* Apply translation here */}
               </option>
             ))}
           </TextField>
@@ -191,7 +216,7 @@ export const RecipeWriter: FC = () => {
           >
             {garnishOptions.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {t(option.label)} {/* Apply translation here */}
               </option>
             ))}
           </TextField>

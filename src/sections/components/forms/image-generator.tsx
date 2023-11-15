@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -22,7 +22,7 @@ type Option = {
 
 const artistOptions: Option[] = [
     { label: '', value: '' },
-  { label: 'No Artist (For realistic images)', value: 'neutral' },
+    { label: tokens.form.NoArtist, value: 'neutral' },
     { label: 'Leonardo Da Vinci', value: 'Leonardo Da Vinci' },
   { label: 'Vincent Van Gogh', value: 'Vincent Van Gogh' },
   { label: 'Pablo Picasso', value: 'Pablo Picasso' },
@@ -55,34 +55,32 @@ const artistOptions: Option[] = [
 
 const styleOptions: Option[] = [
     { label: '', value: '' },
-  { label: 'Photorealism', value: 'photorealism' },
-  { label: 'Realism', value: 'realism' },
-  { label: 'Impressionism', value: 'impressionism' },
-    { label: 'Surrealism', value: 'surrealism' },
-  { label: 'Abstract', value: 'abstract' },
-  { label: 'Art Nouveau', value: 'art_nouveau' },
-  { label: 'Baroque', value: 'baroque' },
-  { label: 'Bauhaus', value: 'bauhaus' },
-  { label: 'Cubism', value: 'cubism' },
-  { label: 'Dadaism', value: 'dadaism' },
-  { label: 'Expressionism', value: 'expressionism' },
-  { label: 'Fauvism', value: 'fauvism' },
-  { label: 'Impressionism', value: 'impressionism' },
-  { label: 'Minimalism', value: 'minimalism' },
-  { label: 'Modernism', value: 'modernism' },
-  { label: 'Neo-Classicism', value: 'neo_classicism' },
-  { label: 'Neo-Expressionism', value: 'neo_expressionism' },
-  { label: 'Op Art', value: 'op_art' },
-  { label: 'Pop Art', value: 'pop_art' },
-  { label: 'Post-Impressionism', value: 'post_impressionism' },
-  { label: 'Post-Modernism', value: 'post_modernism' },
-  { label: 'Realism', value: 'realism' },
-  { label: 'Renaissance', value: 'renaissance' },
-  { label: 'Rococo', value: 'rococo' },
-  { label: 'Romanticism', value: 'romanticism' },
-   { label: 'Symbolism', value: 'symbolism' },
-  { label: 'Victorian', value: 'victorian' },
-  { label: 'Abstract Expressionism', value: 'abstract_expressionism' },
+    { label: tokens.form.Photorealism, value: 'photorealism' },
+    { label: tokens.form.Realism, value: 'realism' },
+    { label: tokens.form.Impressionism, value: 'impressionism' },
+    { label: tokens.form.Surrealism, value: 'surrealism' },
+    { label: tokens.form.Abstract, value: 'abstract' },
+    { label: tokens.form.ArtNouveau, value: 'art_nouveau' },
+    { label: tokens.form.Baroque, value: 'baroque' },
+    { label: tokens.form.Bauhaus, value: 'bauhaus' },
+    { label: tokens.form.Cubism, value: 'cubism' },
+    { label: tokens.form.Dadaism, value: 'dadaism' },
+    { label: tokens.form.Expressionism, value: 'expressionism' },
+    { label: tokens.form.Fauvism, value: 'fauvism' },
+    { label: tokens.form.Minimalism, value: 'minimalism' },
+    { label: tokens.form.Modernism, value: 'modernism' },
+    { label: tokens.form.NeoClassicism, value: 'neo_classicism' },
+    { label: tokens.form.NeoExpressionism, value: 'neo_expressionism' },
+    { label: tokens.form.OpArt, value: 'op_art' },
+    { label: tokens.form.PopArt, value: 'pop_art' },
+    { label: tokens.form.PostImpressionism, value: 'post_impressionism' },
+    { label: tokens.form.PostModernism, value: 'post_modernism' },
+   { label: tokens.form.Renaissance, value: 'renaissance' },
+    { label: tokens.form.Rococo, value: 'rococo' },
+    { label: tokens.form.Romanticism, value: 'romanticism' },
+    { label: tokens.form.Symbolism, value: 'symbolism' },
+    { label: tokens.form.Victorian, value: 'victorian' },
+    { label: tokens.form.AbstractExpressionism, value: 'abstract_expressionism' },
 
 
   // ... add more as needed
@@ -90,57 +88,57 @@ const styleOptions: Option[] = [
 
 const themeOptions: Option[] = [
     { label: '', value: '' },
-  { label: 'Adventure', value: 'adventure' },
-  { label: 'Tranquility', value: 'tranquility' },
-  { label: 'Urban', value: 'urban' },
-  { label: 'Love', value: 'love' },
-  { label: 'Conflict', value: 'conflict' },
-  { label: 'Beauty', value: 'beauty' },
-  { label: 'Nature', value: 'nature' },
-  { label: 'Technology', value: 'technology' },
-  { label: 'Time', value: 'time' },
-  { label: 'Identity', value: 'identity' },
-  { label: 'Mythology', value: 'mythology' },
-  { label: 'Adventure', value: 'adventure' },
-  { label: 'Power', value: 'power' },
-  { label: 'Freedom', value: 'freedom' },
-  { label: 'Transformation', value: 'transformation' },
-  { label: 'Desire', value: 'desire' },
-  { label: 'Memory', value: 'memory' },
-  { label: 'Mortality', value: 'mortality' },
-  { label: 'Happiness', value: 'happiness' },
-  { label: 'Spirituality', value: 'spirituality' },
-  { label: 'Humanity', value: 'humanity' },
-  { label: 'Chaos', value: 'chaos' },
-  { label: 'Order', value: 'order' },
-  { label: 'The Future', value: 'the_future' },
-  { label: 'The Past', value: 'the_past' },
-  { label: 'The Present', value: 'the_present' },
-  { label: 'Dreams', value: 'dreams' },
-  { label: 'Fantasy', value: 'fantasy' },
-  { label: 'Landscape', value: 'landscape' },
-  { label: 'Portraiture', value: 'portraiture' },
-  { label: 'Still Life', value: 'still_life' },
-  { label: 'Animals', value: 'animals' },
-  { label: 'Cityscape', value: 'cityscape' },
-  { label: 'Seascape', value: 'seascape' },
-  { label: 'Figurative', value: 'figurative' },
-  { label: 'Cultural', value: 'cultural' },
-  { label: 'Historical', value: 'historical' },
-  { label: 'Political', value: 'political' },
-  { label: 'Symbolic', value: 'symbolic' },
-  { label: 'Geometric', value: 'geometric' },
-  { label: 'Pattern', value: 'pattern' },
-  { label: 'Urban', value: 'urban' },
-  { label: 'Rural', value: 'rural' },
-  { label: 'Industrial', value: 'industrial' },
-  { label: 'Sci-Fi', value: 'sci_fi' },
-  { label: 'Nostalgia', value: 'nostalgia' },
-  { label: 'Minimalism', value: 'minimalism' },
-  { label: 'Expressionism', value: 'expressionism' },
-  { label: 'Pop Art', value: 'pop_art' },
-  { label: 'Surreal', value: 'surreal' },
-  { label: 'Whimsical', value: 'whimsical' },
+  { label: tokens.form.Adventure, value: 'adventure' },
+  { label: tokens.form.Tranquility, value: 'tranquility' },
+  { label: tokens.form.Urban, value: 'urban' },
+  { label: tokens.form.Love, value: 'love' },
+  { label: tokens.form.Conflict, value: 'conflict' },
+  { label: tokens.form.Beauty, value: 'beauty' },
+  { label: tokens.form.Nature, value: 'nature' },
+  { label: tokens.form.Technology, value: 'technology' },
+  { label: tokens.form.Time, value: 'time' },
+  { label: tokens.form.Identity, value: 'identity' },
+  { label: tokens.form.Mythology, value: 'mythology' },
+  { label: tokens.form.Adventure, value: 'adventure' },
+  { label: tokens.form.Power, value: 'power' },
+  { label: tokens.form.Freedom, value: 'freedom' },
+  { label: tokens.form.Transformation, value: 'transformation' },
+  { label: tokens.form.Desire, value: 'desire' },
+  { label: tokens.form.Memory, value: 'memory' },
+  { label: tokens.form.Mortality, value: 'mortality' },
+  { label: tokens.form.Happiness, value: 'happiness' },
+  { label: tokens.form.Spirituality, value: 'spirituality' },
+  { label: tokens.form.Humanity, value: 'humanity' },
+  { label: tokens.form.Chaos, value: 'chaos' },
+  { label: tokens.form.Order, value: 'order' },
+  { label: tokens.form.TheFuture, value: 'the_future' },
+  { label: tokens.form.ThePast, value: 'the_past' },
+  { label: tokens.form.ThePresent, value: 'the_present' },
+  { label: tokens.form.Dreams, value: 'dreams' },
+  { label: tokens.form.Fantasy, value: 'fantasy' },
+  { label: tokens.form.Landscape, value: 'landscape' },
+  { label: tokens.form.Portraiture, value: 'portraiture' },
+  { label: tokens.form.StillLife, value: 'still_life' },
+  { label: tokens.form.Animals, value: 'animals' },
+  { label: tokens.form.Cityscape, value: 'cityscape' },
+  { label: tokens.form.Seascape, value: 'seascape' },
+  { label: tokens.form.Figurative, value: 'figurative' },
+  { label: tokens.form.Cultural, value: 'cultural' },
+  { label: tokens.form.Historical, value: 'historical' },
+  { label: tokens.form.Political, value: 'political' },
+  { label: tokens.form.Symbolic, value: 'symbolic' },
+  { label: tokens.form.Geometric, value: 'geometric' },
+  { label: tokens.form.Pattern, value: 'pattern' },
+  { label: tokens.form.Urban, value: 'urban' },
+  { label: tokens.form.Rural, value: 'rural' },
+  { label: tokens.form.Industrial, value: 'industrial' },
+  { label: tokens.form.SciFi, value: 'sci_fi' },
+  { label: tokens.form.Nostalgia, value: 'nostalgia' },
+  { label: tokens.form.Minimalism, value: 'minimalism' },
+  { label: tokens.form.Expressionism, value: 'expressionism' },
+  { label: tokens.form.PopArt, value: 'pop_art' },
+  { label: tokens.form.Surreal, value: 'surreal' },
+  { label: tokens.form.Whimsical, value: 'whimsical' },
 
   // ... add more as needed
 ];
@@ -151,82 +149,6 @@ const objectOptions: Option[] = [
   { label: 'Kangaroo', value: 'kangaroo' },
   { label: 'Koala', value: 'koala' },
   { label: 'Rainbow lorikeet', value: 'rainbow lorikeet' },
-  { label: 'Lion', value: 'lion' },
-  { label: 'Elephant', value: 'elephant' },
-  { label: 'Giraffe', value: 'giraffe' },
-  { label: 'Tiger', value: 'tiger' },
-  { label: 'Dolphin', value: 'dolphin' }, { label: 'Horse', value: 'horse' },
-  { label: 'Dog', value: 'dog' },
-  { label: 'Cat', value: 'cat' },
-  { label: 'Bird', value: 'bird' },
-  { label: 'Fish', value: 'fish' },
-  { label: 'Whale', value: 'whale' },
-  { label: 'Tyrannosaurus Rex', value: 'tyrannosaurus_rex' },
-  { label: 'Triceratops', value: 'triceratops' },
-  { label: 'Stegosaurus', value: 'stegosaurus' },
-  { label: 'Brachiosaurus', value: 'brachiosaurus' },
-  { label: 'Velociraptor', value: 'velociraptor' },
-  { label: 'Pterodactyl', value: 'pterodactyl' },
-  { label: 'Ankylosaurus', value: 'ankylosaurus' },
-  { label: 'Diplodocus', value: 'diplodocus' },
-  { label: 'Spinosaurus', value: 'spinosaurus' },
-  { label: 'Allosaurus', value: 'allosaurus' },
-  { label: 'Flowers', value: 'flowers' },
-  { label: 'Mountains', value: 'mountains' },
-  { label: 'Desert', value: 'desert' },
-  { label: 'Sunset', value: 'sunset' },
-  { label: 'Cityscape', value: 'cityscape' },
-  { label: 'Beach', value: 'beach' },
-  { label: 'Forest', value: 'forest' },
-  { label: 'Space', value: 'space' },
-  { label: 'Waterfall', value: 'waterfall' },
-  { label: 'Rainforest', value: 'rainforest' },
-  { label: 'Countryside', value: 'countryside' },
-   { label: 'Soccer', value: 'soccer' },
-  { label: 'Basketball', value: 'basketball' },
-  { label: 'Baseball', value: 'baseball' },
-  { label: 'Guitar', value: 'guitar' },
-  { label: 'Piano', value: 'piano' },
-  { label: 'Violin', value: 'violin' },
-  { label: 'Computer', value: 'computer' },
-  { label: 'Book', value: 'book' },
-  { label: 'Camera', value: 'camera' },
-  { label: 'Car', value: 'car' },
-  { label: 'Bicycle', value: 'bicycle' },
-  { label: 'Train', value: 'train' },
-  { label: 'Plane', value: 'plane' },
-  { label: 'Ship', value: 'ship' },
-  { label: 'Sailboat', value: 'sailboat' },
-  { label: 'Sunflower', value: 'sunflower' },
-  { label: 'Butterfly', value: 'butterfly' },
-  { label: 'Dragonfly', value: 'dragonfly' },
-  { label: 'Mountain Bike', value: 'mountain_bike' },
-  { label: 'Surfboard', value: 'surfboard' },
-  { label: 'Snowboard', value: 'snowboard' },
-  { label: 'Skateboard', value: 'skateboard' },
-  { label: 'Pizza', value: 'pizza' },
-  { label: 'Coffee', value: 'coffee' },
-  { label: 'Tea', value: 'tea' },
-  { label: 'Ice Cream', value: 'ice_cream' },
-  { label: 'Pizza', value: 'pizza' },
-  { label: 'Burger', value: 'burger' },
-  { label: 'Hot Dog', value: 'hot_dog' },
-  { label: 'Sushi', value: 'sushi' },
-  { label: 'Taco', value: 'taco' },
-  { label: 'Ferris Wheel', value: 'ferris_wheel' },
-  { label: 'Carousel', value: 'carousel' },
-  { label: 'Roller Coaster', value: 'roller_coaster' },
-  { label: 'Spaceship', value: 'spaceship' },
-  { label: 'Astronaut', value: 'astronaut' },
-  { label: 'Robot', value: 'robot' },
-  { label: 'Rocket', value: 'rocket' },
-  { label: 'UFO', value: 'ufo' },
-  { label: 'Planet', value: 'planet' },
-  { label: 'Aurora', value: 'aurora' },
-  { label: 'Waterfall', value: 'waterfall' },
-  { label: 'Volcano', value: 'volcano' },
-  { label: 'Castle', value: 'castle' },
-  { label: 'Sword', value: 'sword' },
 
 
   // ... add more as needed
@@ -251,9 +173,9 @@ export const ImageGenerator: FC = () => {
 
   useEffect(() => {
     if (artist && style && theme) {
-      const artistText = artist !== '' ? `${t(artist)} artist` : '';
-      const styleText = style !== '' ? `${t(style)} style` : '';
-      const themeText = theme !== '' ? `${t(theme)} theme` : '';
+      const artistText = artist !== '' ? `${t(artist)} ` : '';
+      const styleText = style !== '' ? `${t(style)} ` : '';
+      const themeText = theme !== '' ? `${t(theme)} ` : '';
       const objectText = object !== '' ? `${t(object)}` : '';
 
       const newPrompt = t(tokens.form.imagePrompts)
@@ -323,7 +245,7 @@ export const ImageGenerator: FC = () => {
           >
             {artistOptions.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {t(option.label)} {/* Apply translation here */}
               </option>
             ))}
           </TextField>
@@ -339,7 +261,7 @@ export const ImageGenerator: FC = () => {
           >
             {styleOptions.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {t(option.label)} {/* Apply translation here */}
               </option>
             ))}
           </TextField>
@@ -359,23 +281,22 @@ export const ImageGenerator: FC = () => {
           >
             {themeOptions.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {t(option.label)} {/* Apply translation here */}
               </option>
             ))}
           </TextField>
           <TextField
             label={t(tokens.form.object)}
             name="object"
-            select
-            SelectProps={{ native: true }}
-            value={object}
+             value={object}
             onChange={(e) => setObject(e.target.value)}
-            fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+            multiline
+            rows={1}
+            sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
           >
             {objectOptions.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {t(option.label)} {/* Apply translation here */}
               </option>
             ))}
           </TextField>
