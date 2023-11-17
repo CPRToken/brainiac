@@ -402,8 +402,6 @@ export const th = {
   [tokens.form.Impressionism]: 'อิมเพรสชันนิซึม',
   [tokens.form.OilPainting]: 'วาดภาพน้ำมัน',
     [tokens.form.ConceptualArt]: 'ศิลปะแนวคิด',
-    [tokens.form.ArtDeco]: 'ศิลปะอาร์ตเดโก',
-    [tokens.form.ArtInformel]: 'ศิลปะไม่เป็นทางการ',
     [tokens.form.KineticArt]: 'ศิลปะเคลื่อนไหว',
     [tokens.form.LyricalAbstraction]: 'การแสดงออกทางอารมณ์แบบนามธรรม',
     [tokens.form.NaiveArt]: 'ศิลปะแนวเนี๊ยฟ',
