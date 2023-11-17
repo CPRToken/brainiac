@@ -20,44 +20,45 @@ type Option = {
 
 const genreOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Drama', value: 'drama' },
-  { label: 'Comedy', value: 'comedy' },
-  { label: 'Romance', value: 'romance' },
-  { label: 'Action', value: 'action' },
-  { label: 'Adventure', value: 'adventure' },
-  { label: 'Mystery', value: 'mystery' },
-  { label: 'Science Fiction', value: 'science-fiction' },
-  { label: 'Fantasy', value: 'fantasy' },
-  { label: 'Horror', value: 'horror' },
-  { label: 'Thriller', value: 'thriller' },
-  { label: 'Historical', value: 'historical' },
+  { label: tokens.form.Drama, value: 'drama' },
+  { label: tokens.form.Comedy, value: 'comedy' },
+  { label: tokens.form.Romance, value: 'romance' },
+  { label: tokens.form.Action, value: 'action' },
+  { label: tokens.form.Adventure, value: 'adventure' },
+  { label: tokens.form.Mystery, value: 'mystery' },
+  { label: tokens.form.ScienceFiction, value: 'science-fiction' },
+  { label: tokens.form.Fantasy, value: 'fantasy' },
+  { label: tokens.form.Horror, value: 'horror' },
+  { label: tokens.form.Thriller, value: 'thriller' },
+  { label: tokens.form.Historical, value: 'historical' },
   // ... add more as needed
 ];
 
 const styleOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Epic', value: 'epic' },
-  { label: 'Romantic Comedy', value: 'romantic-comedy' },
-  { label: 'Action-Packed', value: 'action-packed' },
-  { label: 'Musical', value: 'musical' },
-  { label: 'Surreal', value: 'surreal' },
-  { label: 'Dark Comedy', value: 'dark-comedy' },
-  { label: 'Fantasy Adventure', value: 'fantasy-adventure' },
-  { label: 'Historical Drama', value: 'historical-drama' },
-  { label: 'Supernatural', value: 'supernatural' },
+  { label: tokens.form.Epic, value: 'epic' },
+  { label: tokens.form.SciFi, value: 'sci-fi' },
+  { label: tokens.form.RomanticComedy, value: 'romantic-comedy' },
+  { label: tokens.form.ActionPacked, value: 'action-packed' },
+  { label: tokens.form.Musical, value: 'musical' },
+  { label: tokens.form.Surreal, value: 'surreal' },
+  { label: tokens.form.DarkComedy, value: 'dark-comedy' },
+  { label: tokens.form.FantasyAdventure, value: 'fantasy-adventure' },
+  { label: tokens.form.HistoricalDrama, value: 'historical-drama' },
+  { label: tokens.form.SuperNatural, value: 'supernatural' },
+  { label: tokens.form.Lighthearted, value: 'lighthearted' },
   // ... add more as needed
 ];
 
 const moodOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Joyful', value: 'joyful' },
-  { label: 'Tense', value: 'tense' },
-  { label: 'Lighthearted', value: 'lighthearted' },
-  { label: 'Reflective', value: 'reflective' },
-  { label: 'Intense', value: 'intense' },
-  { label: 'Quirky', value: 'quirky' },
-  { label: 'Sentimental', value: 'sentimental' },
-  { label: 'Energetic', value: 'energetic' },
+  { label: tokens.form.Joyful, value: 'joyful' },
+  { label: tokens.form.Tense, value: 'tense' },
+  { label: tokens.form.Reflective, value: 'reflective' },
+  { label: tokens.form.Intense, value: 'intense' },
+  { label: tokens.form.Quirky, value: 'quirky' },
+  { label: tokens.form.Sentimental, value: 'sentimental' },
+  { label: tokens.form.Energetic, value: 'energetic' },
   // ... add more as needed
 ];
 
@@ -120,7 +121,7 @@ export const ScriptWriter: FC = () => {
         >
           {genreOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
@@ -135,7 +136,7 @@ export const ScriptWriter: FC = () => {
         >
           {styleOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
@@ -150,7 +151,7 @@ export const ScriptWriter: FC = () => {
         >
           {moodOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>

@@ -1,11 +1,7 @@
 import type { FC } from 'react';
 import PropTypes from 'prop-types';
-
 import Trash02Icon from '@untitled-ui/icons-react/build/esm/Trash02';
-
-
-
-
+import { firebaseDelete } from "src/utils/firebaseDelete";
 import Menu from '@mui/material/Menu';
 import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 import SvgIcon from '@mui/material/SvgIcon';
@@ -15,17 +11,34 @@ interface ItemMenuProps {
   onClose?: () => void;
   onDelete?: () => void;
   open?: boolean;
-
-
+  uid: string | null;
+  fileName: string;
+  storage: any;
 }
 
-
 export const ImagesMenu: FC<ItemMenuProps> = (props) => {
-  const {anchorEl, onClose, open, onDelete } = props; // <-- Add this line
+  const { anchorEl, onClose, open, onDelete, uid, fileName } = props;
 
+  const deleteFile = async () => {
+    if (uid === null || fileName === null) return;
 
-  let element = <><>
-    <Menu
+    const storagePath = `${uid}/images/${fileName}`;
+    const collectionName = "yourFirestoreCollectionName"; // Replace with your Firestore collection name
+    const documentId = fileName; // Assuming you use fileName as document ID in Firestore
+
+    const { success, error } = await firebaseDelete(storagePath, collectionName, documentId);
+
+    if (success) {
+      console.log("File deleted successfully");
+      // Refresh your UI here if needed
+    } else {
+      console.error("Error deleting file: ", error);
+    }
+  };
+
+  let element = (
+    <>
+      <Menu
         anchorEl={anchorEl}
         anchorOrigin={{
           horizontal: 'right',
@@ -33,7 +46,6 @@ export const ImagesMenu: FC<ItemMenuProps> = (props) => {
         }}
         open={open || false}
         onClose={onClose}
-
         sx={{
           [`& .${menuItemClasses.root}`]: {
             fontSize: 14,
@@ -46,22 +58,24 @@ export const ImagesMenu: FC<ItemMenuProps> = (props) => {
           horizontal: 'right',
           vertical: 'top',
         }}
-    >
-
-      <MenuItem
-          onClick={onDelete}
-          sx={{color: 'error.main'}}
       >
-        <SvgIcon fontSize="small">
-          <Trash02Icon/>
-        </SvgIcon>
-        Delete
-      </MenuItem>
-    </Menu>
+        <MenuItem
+          onClick={() => {
+            console.log("Delete clicked");
+            deleteFile();
+            onDelete?.();
+          }}
+          sx={{color: 'error.main'}}
+        >
+          <SvgIcon fontSize="small">
+            <Trash02Icon/>
+          </SvgIcon>
+          Delete
+        </MenuItem>
+      </Menu>
+    </>
+  );
 
-
-  </>
-  </>;
   return element;
 };
 
@@ -69,6 +83,5 @@ ImagesMenu.propTypes = {
   anchorEl: PropTypes.any,
   onClose: PropTypes.func,
   onDelete: PropTypes.func,
-     open: PropTypes.bool,
-
+  open: PropTypes.bool,
 };

@@ -7,8 +7,13 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Image from 'next/image';
+import { format } from 'date-fns';
 import DotsVerticalIcon from '@untitled-ui/icons-react/build/esm/DotsVertical';
 import Box from '@mui/material/Box';
+import Globe01Icon from '@untitled-ui/icons-react/build/esm/Globe03';
+import Avatar from '@mui/material/Avatar';
+import { storage } from "src/libs/firebase";
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { usePopover } from 'src/hooks/use-popover';
 import type { Item } from 'src/types/file-manager';
@@ -19,15 +24,16 @@ import { ImagesMenu } from './images-menu';
 interface ThumbnailCardProps {
   item: Item;
   imageUrls?: string;
-
   onDelete?: (itemId: string) => void;
   onFavorite?: (itemId: string, value: boolean) => void;
-    onOpen?: () => void;  // Change this line
+  onOpen?: () => void;
 
 }
 
+
 export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
   const {  imageUrls, item, onDelete, onOpen } = props;
+  const uid = item.uid;
   const popover = usePopover<HTMLButtonElement>();
 
   const handleDelete = useCallback((): void => {
@@ -40,11 +46,12 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
   if (item.type === 'folder') {
     size += `• ${item.itemsCount} items`;
   }
-// @ts-ignore
+
+  const createdAt = item.createdAt ? format(new Date(item.createdAt), 'dd MMM, yyyy') : 'N/A';
 
 
-    return (
-        <>
+  return (
+    <>
       <Card
         key={item.id}
         sx={{
@@ -61,17 +68,16 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
           },
         }}
         variant="outlined"
-        onClick={onOpen} // Add onClick event here to trigger onOpen
       >
         <Stack
-            alignItems="center"
-            direction="row"
-            justifyContent="space-between"
-            spacing={3}
-            sx={{
-              pt: 2,
-              px: 2,
-            }}
+          alignItems="center"
+          direction="row"
+          justifyContent="space-between"
+          spacing={3}
+          sx={{
+            pt: 2,
+            px: 2,
+          }}
         >
           {imageUrls && (
             <Image
@@ -107,14 +113,14 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
 
           </Typography>
         </Box>
-          <IconButton
-              onClick={popover.handleOpen}
-              ref={popover.anchorRef}
-          >
-              <SvgIcon fontSize="small">
-                  <DotsVerticalIcon />
-              </SvgIcon>
-          </IconButton>
+        <IconButton
+          onClick={popover.handleOpen}
+          ref={popover.anchorRef}
+        >
+          <SvgIcon fontSize="small">
+            <DotsVerticalIcon />
+          </SvgIcon>
+        </IconButton>
 
       </Card>
       <ImagesMenu
@@ -122,7 +128,11 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
         onClose={popover.handleClose}
         onDelete={handleDelete}
         open={popover.open}
+        uid={uid} // Add this
+        fileName={item.name} // Assuming the file name is item.name
+        storage={storage} // Import and use the storage instance
       />
+
     </>
   );
 };

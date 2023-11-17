@@ -20,45 +20,46 @@ type Option = {
 
 const genreOptions: Option[] = [
     { label: '', value: '' },
-    { label: 'Rock', value: 'rock' },
-    { label: 'Pop', value: 'pop' },
-    { label: 'Jazz', value: 'jazz' },
-    { label: 'Hip-Hop', value: 'hip-hop' },
-    { label: 'Classical', value: 'classical' },
-    { label: 'Country', value: 'country' },
-    { label: 'Reggae', value: 'reggae' },
-    { label: 'Blues', value: 'blues' },
-    { label: 'Electronic', value: 'electronic' },
-    { label: 'Folk', value: 'folk' },
-    { label: 'R&B', value: 'r&b' },
-    { label: 'Metal', value: 'metal' },
+  { label: tokens.form.Rock, value: 'rock' },
+  { label: tokens.form.Pop, value: 'pop' },
+  { label: tokens.form.Jazz, value: 'jazz' },
+  { label: tokens.form.HipHop, value: 'hip-hop' },
+  { label: tokens.form.Rap, value: 'rap' },
+  { label: tokens.form.Classical, value: 'classical' },
+  { label: tokens.form.Country, value: 'country' },
+  { label: tokens.form.Reggae, value: 'reggae' },
+  { label: tokens.form.Blues, value: 'blues' },
+  { label: tokens.form.Latin, value: 'latin' },
+  { label: tokens.form.Salsa, value: 'salsa' },
+  { label: tokens.form.Soul, value: 'soul' },
+  { label: tokens.form.Electronic, value: 'electronic' },
+  { label: tokens.form.Folk, value: 'folk' },
+  { label: tokens.form.RnB, value: 'RnB' },
+  { label: tokens.form.Metal, value: 'metal' },
     // ... add more as needed
 ];
 
 const styleOptions: Option[] = [
     { label: '', value: '' },
-    { label: 'Adventure', value: 'adventure' },
-    { label: 'Mystery', value: 'mystery' },
-    { label: 'Romantic', value: 'romantic' },
-    { label: 'Action', value: 'action' },
-    { label: 'Comedy', value: 'comedy' },
-    { label: 'Horror', value: 'horror' },
-    { label: 'Love Song', value: 'love-song' },
-    { label: 'Ballad', value: 'ballad' },
-    { label: 'Anthem', value: 'anthem' },
+  { label: tokens.form.Adventure, value: 'adventure' },
+  { label: tokens.form.Mystery, value: 'mystery' },
+  { label: tokens.form.Romantic, value: 'romantic' },
+   { label: tokens.form.LoveSong, value: 'love-song' },
+  { label: tokens.form.Ballad, value: 'ballad' },
+  { label: tokens.form.Anthem, value: 'anthem' },
     // ... add more as needed
 ];
 
 const moodOptions: Option[] = [
     { label: '', value: '' },
-    { label: 'Happy', value: 'happy' },
-    { label: 'Sad', value: 'sad' },
-    { label: 'Excited', value: 'excited' },
-    { label: 'Relaxed', value: 'relaxed' },
-    { label: 'Angry', value: 'angry' },
-    { label: 'Serene', value: 'serene' },
-    { label: 'Nostalgic', value: 'nostalgic' },
-    { label: 'Energetic', value: 'energetic' },
+  { label: tokens.form.Happy, value: 'happy' },
+  { label: tokens.form.Sad, value: 'sad' },
+  { label: tokens.form.Excited, value: 'excited' },
+  { label: tokens.form.Relaxed, value: 'relaxed' },
+  { label: tokens.form.Angry, value: 'angry' },
+  { label: tokens.form.Serene, value: 'serene' },
+  { label: tokens.form.Nostalgic, value: 'nostalgic' },
+  { label: tokens.form.Energetic, value: 'energetic' },
     // ... add more as needed
 ];
 
@@ -90,24 +91,28 @@ export const LyricWriter: FC = () => {
   useEffect(() => {
     if (genre && style && mood && duration) {
       let newPrompt = t(tokens.form.writeSong);
-      // Call getArticle as a normal function
-      const genreText = genre !== '' ? `${getArticle(genre)} ${t(genre)} genre` : '';
-      const styleText = style !== '' ? `${getArticle(style)} ${t(style)} style` : '';
-      const moodText = mood !== '' ? `${getArticle(mood)} ${t(mood)} mood` : '';
 
+      const genreText = genre !== '' ? `${getArticle(genre)} ${t(genre)} ` : '';
+      const styleText = style !== '' ? `${t(style)} , ` : '';
+      const moodText = mood !== '' ? `${t(mood)} , ` : '';
+      const durationText = `${duration} ${t('')}`;
 
-
-      const components = [genreText, styleText, moodText].filter(Boolean).join(', ');
-
+      // Replace placeholders with the actual values
       newPrompt = newPrompt
-        .replace('[genre][style][mood]', components)
-        .replace('[duration]', `${duration} ${t('minutes')}`);
+        .replace('[genre]', genreText)
+        .replace('[style]', styleText)
+        .replace('[mood]', moodText)
+        .replace('[duration]', durationText);
+
+      // Remove any trailing commas and spaces
+      newPrompt = newPrompt.replace(/,+\s*$/, '');
 
       setPrompt(newPrompt.trim());
     } else {
       setPrompt('');
     }
   }, [genre, style, mood, duration, t]);
+
 
 
 
@@ -133,7 +138,7 @@ export const LyricWriter: FC = () => {
         >
           {genreOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
@@ -148,7 +153,7 @@ export const LyricWriter: FC = () => {
         >
           {styleOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
@@ -163,7 +168,7 @@ export const LyricWriter: FC = () => {
         >
           {moodOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>

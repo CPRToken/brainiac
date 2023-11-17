@@ -103,7 +103,7 @@ const useChartOptions = (usage: string): ApexOptions => {
 type ChartSeries = number[];
 
 interface Total {
-  extension: 'jpeg' | 'jpg' | 'mp4' | 'pdf' | 'png' | 'doc' | 'docx' | null;
+  extension:  'pdf' | 'doc' | 'docx' | null;
   itemsCount: number;
   label: string;
   size: number;
@@ -121,78 +121,45 @@ export const MyContent: FC = () => {
   useEffect(() => {
     const fetchStorageData = async () => {
       let totalSize = 0;
-      let totalVideos = 0;
       let totalPDFs = 0;
       let totalPDFSize = 0;
-      let totalJPGs = 0;
-      let totalJPGSize = 0;
-      let totalPNGs = 0;
-      let totalPNGSize = 0;
       let totalDOCs = 0;
       let totalDOCSize = 0;
 
 
+
       if (auth.currentUser) {
-        // For Videos
-        const videoStorageRef = ref(storage, `/${auth.currentUser.uid}/videos`);
-        let listResults = await listAll(videoStorageRef);
-        let promises = listResults.items.map((itemRef) => getMetadata(itemRef));
-        let metadataResults = await Promise.all(promises);
+        // For Documents (PDFs, DOCs, DOCXs)
+        const docStorageRef = ref(storage, `/${auth.currentUser.uid}/content`);
+        const listResults = await listAll(docStorageRef);
+        const promises = listResults.items.map((itemRef) => getMetadata(itemRef));
+        const metadataResults = await Promise.all(promises);
 
         metadataResults.forEach((metadata) => {
-          totalSize += metadata.size;
-          totalVideos++;
-        });
-
-        // For PDFs
-        const pdfStorageRef = ref(storage, `/${auth.currentUser.uid}/content`);
-        listResults = await listAll(pdfStorageRef);
-        promises = listResults.items.map((itemRef) => getMetadata(itemRef));
-        metadataResults = await Promise.all(promises);
-
-        metadataResults.forEach((metadata) => {
-          if (metadata.name.endsWith('.docx') || metadata.name.endsWith('.doc')) {
-            totalDOCSize += metadata.size;
-            totalDOCs++;
-          } else {
+          if (metadata.name.endsWith('.pdf')) {
             totalPDFSize += metadata.size;
             totalPDFs++;
+          } else if (metadata.name.endsWith('.doc') || metadata.name.endsWith('.docx')) {
+            totalDOCSize += metadata.size;
+            totalDOCs++;
           }
         });
 
-
-        const imageStorageRef = ref(storage, `/${auth.currentUser.uid}/fotos`);
-        listResults = await listAll(imageStorageRef);
-        promises = listResults.items.map((itemRef) => getMetadata(itemRef));
-        metadataResults = await Promise.all(promises);
-
-        metadataResults.forEach((metadata) => {
-          if (metadata.contentType === 'image/jpeg') {
-            totalJPGSize += metadata.size;
-            totalJPGs++;
-          } else if (metadata.contentType === 'image/png') {
-            totalPNGSize += metadata.size;
-            totalPNGs++;
-          }
-        });
-      } else {
-        // Handle the case where currentUser is null
+        totalSize = totalPDFSize + totalDOCSize; // Update totalSize to be the sum of PDF and DOC sizes
       }
 
 
       setCurrentUsageBytes(totalSize); // Set the total storage used
       setTotals([
-        { extension: 'mp4', itemsCount: totalVideos, label: 'MP4', size: totalSize },
         { extension: 'pdf', itemsCount: totalPDFs, label: 'PDF', size: totalPDFSize },
-        { extension: 'jpg', itemsCount: totalJPGs, label: 'JPG', size: totalJPGSize },
-        { extension: 'png', itemsCount: totalPNGs, label: 'PNG', size: totalPNGSize },
-        { extension: 'docx', itemsCount: totalDOCs, label: 'DOC', size: totalDOCSize },
-
+        { extension: 'doc', itemsCount: totalDOCs, label: 'DOC', size: totalDOCSize },
+        { extension: 'docx', itemsCount: totalDOCs, label: 'DOCX', size: totalDOCSize }, // Assuming the same count for DOC and DOCX
       ]);
     };
 
     fetchStorageData();
   }, []);
+
 
 
 
