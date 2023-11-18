@@ -97,11 +97,12 @@ export const error = withAlphas({
   contrastText: '#FFFFFF',
 });
 
-export const orange = withAlphas({
-  lightest: '#FFF5E6',
-  light: '#FFEBB3',
-  main: '#FFA500',
-  dark: '#FF8A00',
-  darkest: '#FF6F00',
-  contrastText: '#FFFFFF',
+export const pink = withAlphas({
+  lightest: '#FFEBEE', // lightest pink
+  light: '#FFCDD2',    // light pink
+  main: '#FF4081',     // main pink color
+  dark: '#F50057',     // dark pink
+  darkest: '#C51162',  // darkest pink
+  contrastText: '#FFFFFF', // text color for contrast
 });
+

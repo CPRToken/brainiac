@@ -169,137 +169,97 @@ const Page: NextPage = () => {
     setShowPassword(!showPassword);
   };
 
-
   return (
-      <>
-        <Seo title="Register" />
-        <div>
-          <Card elevation={16}>
-            <CardHeader
-                subheader={
-                  currentStep === 1 ? (
-                      <Typography color="text.secondary" variant="body2">
-                        Already have an account? &nbsp;
-                        <Link
-                            component={RouterLink}
-                            href={paths.auth.firebase.login}
-                            underline="hover"
-                            variant="subtitle2"
-                        >
-                         Log in
-                        </Link>
-                      </Typography>
-                  ) : (
-                      currentStep > 1 && (
-                          <Button onClick={prevStep}
-                                  sx={{ alignSelf: 'flex-start' }}>
-                            ← Previous
-                          </Button>
+    <>
+      <Seo title="Register" />
+      <div>
+        <Card elevation={16}>
+          <CardHeader
+            subheader={
+              currentStep === 1 ? (
+                <Typography color="text.secondary" variant="body2">
+                  Already have an account? &nbsp;
+                  <Link
+                    component={RouterLink}
+                    href={paths.auth.firebase.login}
+                    underline="hover"
+                    variant="subtitle2"
+                  >
+                    Log in
+                  </Link>
+                </Typography>
+              ) : (
+                currentStep > 1 && (
+                  <Button onClick={prevStep}
+                          sx={{ alignSelf: 'flex-start' }}>
+                    ← Previous
+                  </Button>
 
-                      )
-                  )
-                }
-                sx={{ pb: 0 }}
-                title={currentStep === 1 ? 'Register' : ''}
-            />
-            <CardContent>
-              <form
-                  noValidate
-                  onSubmit={formik.handleSubmit}
-              >
-                {/* Step 1 */}
-                {currentStep === 1 && (
-                    <Stack spacing={3}>
-                      {currentStep > 1 && <Button onClick={prevStep}>Previous</Button>}
+                )
+              )
+            }
+            sx={{ pb: 0 }}
+            title={currentStep === 1 ? 'Register' : ''}
+          />
+          <CardContent>
+            <form
+              noValidate
+              onSubmit={formik.handleSubmit}
+            >
+              {/* Step 1 */}
+              {currentStep === 1 && (
+                <Stack spacing={3}>
+                  {currentStep > 1 && <Button onClick={prevStep}>Previous</Button>}
                   <TextField
-                      error={Boolean(formik.touched.quote && formik.errors.quote)}
-                      fullWidth
-                      helperText={formik.touched.quote && formik.errors.quote}
-                      label="Favorite Quote"
-                      name="quote"
-                      onBlur={formik.handleBlur}
-                      onChange={formik.handleChange}
-                      value={formik.values.quote}
-                      placeholder="Optional: Share a quote that represents you"
+                    error={Boolean(formik.touched.quote && formik.errors.quote)}
+                    fullWidth
+                    helperText={formik.touched.quote && formik.errors.quote}
+                    label="Favorite Quote"
+                    name="quote"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.quote}
+                    placeholder="Optional: Share a quote that represents you"
                   />
 
                   <TextField
-                      error={Boolean(formik.touched.firstName && formik.errors.firstName)}
-                      fullWidth
-                      helperText={formik.touched.firstName && formik.errors.firstName}
-                      label="Name"
-                      name="firstName"
-                      onBlur={formik.handleBlur}
-                      onChange={formik.handleChange}
-                      value={formik.values.firstName}
+                    error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+                    fullWidth
+                    helperText={formik.touched.firstName && formik.errors.firstName}
+                    label="Name"
+                    name="firstName"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.firstName}
                   />
                   <TextField
-                      error={Boolean(formik.touched.lastName && formik.errors.lastName)}
-                      fullWidth
-                      helperText={formik.touched.lastName && formik.errors.lastName}
-                      label="Surname"
-                      name="lastName"
-                      onBlur={formik.handleBlur}
-                      onChange={formik.handleChange}
-                      value={formik.values.lastName}
+                    error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+                    fullWidth
+                    helperText={formik.touched.lastName && formik.errors.lastName}
+                    label="Surname"
+                    name="lastName"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.lastName}
                   />
 
-                      <Button
-                          disabled={formik.isSubmitting}
-                          fullWidth
-                          size="large"
-                          sx={{ mt: 2 }}
-                          variant="contained"
-                          onClick={nextStep}
-                      >
-                        Next
-                      </Button>
+                  <Button
+                    disabled={formik.isSubmitting}
+                    fullWidth
+                    size="large"
+                    sx={{ mt: 2 }}
+                    variant="contained"
+                    onClick={nextStep}
+                  >
+                    Next
+                  </Button>
 
-                    </Stack>
-                )}
-                {/* Step 2 */}
-                {currentStep === 2 && (
-                    <Stack spacing={3}>
+                </Stack>
+              )}
 
-
-
-                  <TextField
-                      error={Boolean(formik.touched.originCity && formik.errors.originCity)}
-                      fullWidth
-                      helperText={formik.touched.originCity && formik.errors.originCity}
-                      label="City of Origin"
-                      name="originCity"
-                      onBlur={formik.handleBlur}
-                      onChange={formik.handleChange}
-                      value={formik.values.originCity}
-                  />
-
-
-
-
-                      <Button
-                          disabled={formik.isSubmitting}
-                          fullWidth
-                          size="large"
-                          sx={{ mt: 2 }}
-                          variant="contained"
-                          onClick={nextStep}
-                      >
-                        Next
-                      </Button>
-
-                    </Stack>
-                )}
-
-
-
-                {/* ... */}
-                {currentStep === 3 && (
-                    <Stack spacing={3}>
-
-
-
-
+              {/* Step 2 (previously 3) */}
+              {currentStep === 2 && (
+                <Stack spacing={3}>
 
 
                       <TextField
