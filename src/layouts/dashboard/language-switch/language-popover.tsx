@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 
 import { tokens } from 'src/locales/tokens';
 
-type Language = 'en' | 'es' | 'th'
+type Language = 'en' | 'es'
 
 type LanguageOptions = {
   [key in Language]: {
@@ -34,10 +34,6 @@ const languageOptions: LanguageOptions = {
   },
 
 
-  th: {
-    icon: '/assets/flags/flag-th.svg',
-    label: 'Thai',
-  },
 };
 
 interface LanguagePopoverProps {
