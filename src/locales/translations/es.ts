@@ -360,6 +360,7 @@ export const es = {
   [tokens.form.Polish]: 'Polaco',
   [tokens.form.Greek]: 'Griego',
   [tokens.form.Hungary]: 'Hungría',
+    [tokens.form.Hungarian]: 'Húngaro',
   [tokens.form.Czech]: 'Checo',
   [tokens.form.Slovak]: 'Eslovaco',
   [tokens.form.Romanian]: 'Rumano',

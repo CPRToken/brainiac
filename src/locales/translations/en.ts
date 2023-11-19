@@ -286,6 +286,7 @@ export const en = {
   [tokens.form.Polish]: 'polish',
   [tokens.form.Greek]: 'greek',
   [tokens.form.Hungary]: 'Hungary',
+    [tokens.form.Hungarian]: 'hungarian',
   [tokens.form.Czech]: 'czech',
   [tokens.form.Slovak]: 'slovak',
   [tokens.form.Romanian]: 'romanian',
