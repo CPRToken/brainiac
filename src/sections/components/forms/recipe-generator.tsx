@@ -25,7 +25,8 @@ const countryOptions: Option[] = [
   { label: tokens.form.Spain, value: 'spanish' },
   { label: tokens.form.French, value: 'french' },
   { label: tokens.form.German, value: 'german' },
-  { label: tokens.form.Italy, value: 'italian' },
+  { label: tokens.form.Hungary, value: 'hungarian' },
+   { label: tokens.form.Italy, value: 'italian' },
   { label: tokens.form.Portugal, value: 'portuguese' },
   { label: tokens.form.Russia, value: 'russian' },
   { label: tokens.form.India, value: 'indian' },
@@ -40,7 +41,6 @@ const countryOptions: Option[] = [
   { label: tokens.form.Norwegian, value: 'norwegian' },
   { label: tokens.form.Polish, value: 'polish' },
   { label: tokens.form.Greek, value: 'greek' },
-  { label: tokens.form.Hungarian, value: 'hungarian' },
   { label: tokens.form.Czech, value: 'czech' },
   { label: tokens.form.Slovak, value: 'slovak' },
   { label: tokens.form.Romanian, value: 'romanian' },
@@ -64,7 +64,7 @@ const countryOptions: Option[] = [
   // ... add more
 ];
 
-const dishTypeOptions: Option[] = [
+const dishOptions: Option[] = [
   { label: '', value: '' },
   { label: tokens.form.Appetizer, value: 'appetizer' },
   { label: tokens.form.MainCourse, value: 'main-course' },
@@ -109,33 +109,44 @@ export const RecipeWriter: FC = () => {
 
   const { combinedSubmit, textResponse, images, isLoading } = TextImageSubmit();
   const [country, setCountry] = useState<string>('');
-  const [dishType, setDishType] = useState<string>('');
+  const [dish, setDish] = useState<string>('');
   const [protein, setProtein] = useState<string>('');
   const [garnish, setGarnish] = useState<string>('');
-  const [cookingTime, setCookingTime] = useState<number>(30);
+  const [spiciness, setSpiciness] = useState<number>(2);
   const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
   const { t } = useTranslation();
 
 
 
+  type SpicinessLevels = {
+    [key: number]: string;
+  };
+
+  const spicinessLevels: SpicinessLevels = {
+    0: 'Very Spicy',
+    1: 'Spicy',
+    2: 'Sweet & Sour',
+    3: 'Light Spicy',
+    4: 'Non Spicy'
+  };
 
 
   useEffect(() => {
     // Check if all selections are made
-    if (country && dishType && protein  && garnish && cookingTime) {
+    if (country && dish && protein  && garnish && spiciness) {
       let newPrompt = t(tokens.form.createRecipe);
       newPrompt = newPrompt.replace('[country]', country);
-      newPrompt = newPrompt.replace('[dishType]', dishType);
+      newPrompt = newPrompt.replace('[dish]', dish);
       newPrompt = newPrompt.replace('[protein]', protein);
       newPrompt = newPrompt.replace('[garnish]', garnish);
-       newPrompt = newPrompt.replace('[cookingTime]', `${cookingTime}`);
+       newPrompt = newPrompt.replace('[spiciness]', spicinessLevels[spiciness]);
       setPrompt(newPrompt);
     } else {
       // If not all selections are made, keep the prompt empty
       setPrompt('');
     }
-  }, [country, dishType, protein, garnish, cookingTime]);
+  }, [country, dish, protein, garnish, spiciness]);
 
 
 
@@ -161,16 +172,16 @@ export const RecipeWriter: FC = () => {
             ))}
           </TextField>
           <TextField
-            label={t(tokens.form.dishType)}
+            label={t(tokens.form.dish)}
             name="style"
             select
             SelectProps={{ native: true }}
-            value={dishType}
-            onChange={(e) => setDishType(e.target.value)}
+            value={dish}
+            onChange={(e) => setDish(e.target.value)}
             fullWidth
             sx={{ width: 'calc(50% - 8px)' }}
           >
-            {dishTypeOptions.map((option) => (
+            {dishOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {t(option.label)} {/* Apply translation here */}
               </option>
@@ -212,15 +223,23 @@ export const RecipeWriter: FC = () => {
         </Stack>
 
         <div>
-          <label>{t(tokens.form.cookingTime)}</label>
-          <Slider
-            value={cookingTime}
-            min={5}
-            max={120}
-            step={5}
-            onChange={(_, newValue) => setCookingTime(newValue as number)}
-          />
-        </div>
+        <label>{t(tokens.form.spiciness)}</label>
+        <Slider
+            value={spiciness}
+            min={0}
+            max={4}
+            step={1}
+            marks={[
+              { value: 0, label: 'Very Spicy' },
+              { value: 1, label: 'Spicy' },
+              { value: 2, label: 'Sweet & Sour' },
+              { value: 3, label: 'Light Spicy' },
+              { value: 4, label: 'Non Spicy' }
+            ]}
+            onChange={(_, newValue) => setSpiciness(newValue as number)}
+        />
+      </div>
+
         <TextField
           fullWidth
           label={t(tokens.form.prompts)}

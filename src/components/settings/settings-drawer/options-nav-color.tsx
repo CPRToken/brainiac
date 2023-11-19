@@ -2,29 +2,16 @@ import type { FC } from 'react';
 import PropTypes from 'prop-types';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import { tokens } from 'src/locales/tokens';
 import Typography from '@mui/material/Typography';
-
-import type { NavColor } from 'src/types/settings';
+ import type { NavColor } from 'src/types/settings';
+import {useTranslation} from "react-i18next";
 
 interface Option {
   label: string;
   value: NavColor;
 }
 
-const options: Option[] = [
-  {
-    label: 'Blend-in',
-    value: 'blend-in',
-  },
-  {
-    label: 'Discrete',
-    value: 'discrete',
-  },
-  {
-    label: 'Evident',
-    value: 'evident',
-  },
-];
 
 interface OptionsNavColorProps {
   onChange?: (value: NavColor) => void;
@@ -33,14 +20,29 @@ interface OptionsNavColorProps {
 
 export const OptionsNavColor: FC<OptionsNavColorProps> = (props) => {
   const { onChange, value } = props;
+  const { t } = useTranslation();
+
+
+  const options: Option[] = [
+    {
+      label: t(tokens.form.blendIn),
+      value: 'blend-in',
+    },
+    {
+      label: t(tokens.form.discreet),
+      value: 'discrete',
+    },
+    {
+      label: t(tokens.form.evident),
+      value: 'evident',
+    },
+  ];
+
 
   return (
     <Stack spacing={1}>
-      <Typography
-        color="text.secondary"
-        variant="overline"
-      >
-        Nav Color
+      <Typography color="text.secondary" variant="overline">
+        {t(tokens.headings.navColor)}
       </Typography>
       <Stack
         alignItems="center"

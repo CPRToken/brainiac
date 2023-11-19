@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 
 import { Logo } from 'src/components/logo';
 import type { Layout } from 'src/types/settings';
+import {tokens} from "../../../locales/tokens";
 
 interface Option {
   label: string;
@@ -189,14 +191,13 @@ interface OptionsLayoutProps {
 
 export const OptionsLayout: FC<OptionsLayoutProps> = (props) => {
   const { onChange, value } = props;
+  const { t } = useTranslation();
+
 
   return (
     <Stack spacing={1}>
-      <Typography
-        color="text.secondary"
-        variant="overline"
-      >
-        Layout
+      <Typography color="text.secondary" variant="overline">
+        {t(tokens.headings.layout)}
       </Typography>
       <Box
         sx={{

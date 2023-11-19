@@ -5,7 +5,9 @@ import SunIcon from '@untitled-ui/icons-react/build/esm/Sun';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
+import { tokens } from 'src/locales/tokens';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 
 import type { PaletteMode } from 'src/theme';
 
@@ -15,26 +17,6 @@ interface Option {
   icon: ReactElement;
 }
 
-const options: Option[] = [
-  {
-    label: 'Day',
-    value: 'light',
-    icon: (
-      <SvgIcon fontSize="small">
-        <SunIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    label: 'Night',
-    value: 'dark',
-    icon: (
-      <SvgIcon fontSize="small">
-        <Moon01Icon />
-      </SvgIcon>
-    ),
-  },
-];
 
 interface OptionsColorSchemeProps {
   onChange?: (value: PaletteMode) => void;
@@ -42,15 +24,38 @@ interface OptionsColorSchemeProps {
 }
 
 export const OptionsColorScheme: FC<OptionsColorSchemeProps> = (props) => {
-  const { onChange, value } = props;
+    const { onChange, value } = props;
+  const { t } = useTranslation();
+
+  const options: Option[] = [
+    {
+      label: t(tokens.form.light),
+      value: 'light',
+      icon: (
+        <SvgIcon fontSize="small">
+          <SunIcon />
+        </SvgIcon>
+      ),
+    },
+    {
+      label: t(tokens.form.dark),
+      value: 'dark',
+      icon: (
+        <SvgIcon fontSize="small">
+          <Moon01Icon />
+        </SvgIcon>
+      ),
+    },
+  ];
+
+
+
+
 
   return (
     <Stack spacing={1}>
-      <Typography
-        color="text.secondary"
-        variant="overline"
-      >
-        Color Scheme
+      <Typography color="text.secondary" variant="overline">
+        {t(tokens.headings.colorScheme)}
       </Typography>
       <Stack
         alignItems="center"

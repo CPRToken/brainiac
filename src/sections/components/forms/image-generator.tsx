@@ -30,6 +30,8 @@ const artistOptions: Option[] = [
   { label: 'Michelangelo', value: 'Michelangelo' },
   { label: 'Rembrandt', value: 'Rembrandt' },
   { label: 'Salvador Dali', value: 'Salvador Dali' },
+  { label: 'Pedro Lira', value: 'Pedro Lira' },
+  { label: 'Roberto Matta', value: 'Roberto Matta' },
   { label: 'Frida Kahlo', value: 'Frida Kahlo' },
   { label: 'Ansel Adams', value: 'Ansel Adams' },
   { label: 'Georgia O Keeffe', value: 'Georgia OKeeffe' },

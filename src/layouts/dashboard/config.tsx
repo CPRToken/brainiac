@@ -116,6 +116,7 @@ export const useSections = () => {
               { title: t(tokens.headings.uniAnswers), path: paths.dashboard.uniAnswers },
               { title: t(tokens.headings.resumeBuilder), path: paths.dashboard.resumeBuilder },
               { title: t(tokens.headings.travelAgent), path: paths.dashboard.travelAgent },
+              { title: t(tokens.headings.cocktailCrafter), path: paths.dashboard.cocktailCrafter },
             ]
           }
 

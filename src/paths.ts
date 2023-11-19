@@ -69,6 +69,7 @@ lyricWriter: '/dashboard/lyric-writer',
     imageGenerator: '/dashboard/image-generator',
     travelAgent: '/dashboard/travel-agent',
     images: '/dashboard/images',
+      cocktailCrafter: '/dashboard/cocktail-crafter',
 
     customers: {
       index: '/dashboard/customers',
