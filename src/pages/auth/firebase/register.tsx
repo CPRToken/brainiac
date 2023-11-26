@@ -107,34 +107,6 @@ const Page: NextPage = () => {
 // For public data
 
 
-
-        // Create a new folder with the current folder name
-        const userRef = doc(db, 'users', user.uid);
-        const assetRef = collection(userRef, 'folders');
-
-// Create 'videos' and 'Images' folders under 'users/uid/assets'
-        const folderNames = ['Videos', 'Images', 'Content'];
-
-        for (const folderName of folderNames) {
-          await addDoc(assetRef, {
-
-            name: folderName,
-            type: 'folder',
-            createdAt: serverTimestamp(),
-            extension: null,
-            folderId: null,
-            itemsCount: 0
-          });
-        }
-
-
-
-        console.log("Folder created successfully");
-
-
-
-
-
         // Redirect to the user's profile page
         router.push('/auth/firebase/login',);
 
