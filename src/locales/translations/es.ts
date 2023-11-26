@@ -185,6 +185,8 @@ export const es = {
     [tokens.form.Vodka]: 'Vodka',
     [tokens.form.Rum]: 'Ron',
     [tokens.form.Gin]: 'Ginebra',
+  [tokens.form.keynote]: 'Orador Principal',
+  [tokens.form.writeSpeech]: 'escribe un discurso de [topic] con un tono [theme] y una duración de [duration] minutos',
     [tokens.form.Whiskey]: 'Whisky',
     [tokens.form.Tequila]: 'Tequila',
     [tokens.form.Port]: 'Oporto',
