@@ -7,7 +7,7 @@ import {tokens} from "src/locales/tokens";
 import Hidden from '@mui/material/Hidden';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { MyImages } from 'src/sections/dashboard/file-manager/my-images';
+import { ImageList } from 'src/sections/components/image-list';
 import { usePageView } from 'src/hooks/use-page-view';
 import { ImageGenerator } from 'src/sections/components/forms/image-generator';
 import { Seo } from 'src/components/seo';
@@ -64,7 +64,7 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={9}
+              md={8}
               sx={{
                 paddingLeft: 2, // Add padding here
                 // Or if you prefer margin: marginLeft: 2
@@ -81,11 +81,16 @@ const Page: NextPage = () => {
                 </Box>
               </Stack>
             </Grid>
-            <Grid xs={12} md={3} sx={{ paddingLeft: 2 }}> {/* Decreased to 3 for skinnier space */}
-              <Hidden smDown> {/* Hide on small screens and down */}
-                <MyImages />
+            <Grid
+              xs={12}
+              md={4} // Sidebar area
+              sx={{ paddingLeft: 2 }}
+            >
+              <Hidden smDown>
+                {uid && <ImageList uid={uid} />}
               </Hidden>
             </Grid>
+
           </Grid>
         </Container>
       </Box>

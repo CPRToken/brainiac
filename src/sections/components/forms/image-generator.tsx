@@ -115,7 +115,7 @@ const styleOptions: Option[] = [
 const themeOptions: Option[] = [
     { label: '', value: '' },
   { label: tokens.form.Adventure, value: 'adventure' },
-  { label: tokens.form.Tranquility, value: 'tranquility' },
+  { label: tokens.form.Tranquility, value: 'tranquil' },
   { label: tokens.form.Urban, value: 'urban' },
   { label: tokens.form.Love, value: 'love' },
   { label: tokens.form.Conflict, value: 'conflict' },

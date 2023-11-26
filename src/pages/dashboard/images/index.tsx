@@ -13,7 +13,6 @@ import { Layout as DashboardLayout } from "../../../layouts/dashboard";
 import { Grid, Box } from '@mui/material';
 import { useSettings } from "../../../hooks/use-settings";
 import { ItemList } from 'src/sections/dashboard/file-manager/item-list';
-import { ItemSearch } from 'src/sections/dashboard/file-manager/item-search';
 import { useDialog } from "../../../hooks/use-dialog";
 import { MyImages } from "../../../sections/dashboard/file-manager/my-images";
 import {useTranslation} from "react-i18next";

@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import HomeSmileIcon from 'src/icons/untitled-ui/duocolor/home-smile';
 import Lock01Icon from 'src/icons/untitled-ui/duocolor/lock-01';
+import CreditCard01Icon from 'src/icons/untitled-ui/duocolor/credit-card-01';
 import Upload04Icon from 'src/icons/untitled-ui/duocolor/upload-04';
 import Users03Icon from 'src/icons/untitled-ui/duocolor/users-03';
 import XSquareIcon from 'src/icons/untitled-ui/duocolor/x-square';
@@ -117,6 +118,7 @@ export const useSections = () => {
               { title: t(tokens.headings.resumeBuilder), path: paths.dashboard.resumeBuilder },
               { title: t(tokens.headings.travelAgent), path: paths.dashboard.travelAgent },
               { title: t(tokens.headings.cocktailCrafter), path: paths.dashboard.cocktailCrafter },
+              { title: t(tokens.headings.speechWriter), path: paths.dashboard.speechWriter },
             ]
           }
 
@@ -184,6 +186,8 @@ export const useSections = () => {
                 ],
               },
 
+
+
           {
             title: t(tokens.nav.error),
             icon: <SvgIcon fontSize="small"><XSquareIcon /></SvgIcon>,
@@ -198,6 +202,18 @@ export const useSections = () => {
 
             ],
             },
+
+                {
+                  title: t(tokens.nav.pricing),
+                  path: paths.pricing,
+                  icon: (
+                    <SvgIcon fontSize="small">
+                      <CreditCard01Icon />
+                    </SvgIcon>
+                  ),
+                },
+
+
                 {
                   title: t(tokens.nav.components),
                   path: paths.components.index,

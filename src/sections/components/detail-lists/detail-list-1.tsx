@@ -23,17 +23,17 @@ interface Asset {
 
 const assets: Asset[] = [
   {
-    amount: 21500,
+    amount: 1500,
     color: '#6C76C4',
-    name: 'US Dollars',
+    name: 'Credits',
   },
   {
-    amount: 15300,
+    amount: 1300,
     color: '#33BB78',
     name: 'Bitcoin',
   },
   {
-    amount: 1076.81,
+    amount: 100.00,
     color: '#FF4081',
     name: 'XRP Ripple',
   },
@@ -41,7 +41,7 @@ const assets: Asset[] = [
 
 export const DetailList1: FC = () => {
   const totalAmount = assets.reduce((acc, asset) => (acc += asset.amount), 0);
-  const formattedTotalAmount = numeral(totalAmount).format('$0,0.00');
+  const formattedTotalAmount = numeral(totalAmount).format('00');
 
   return (
     <Box
@@ -60,7 +60,7 @@ export const DetailList1: FC = () => {
                 color="text.secondary"
                 variant="overline"
               >
-                Total balance
+                Total credits
               </Typography>
             }
           />
@@ -77,7 +77,7 @@ export const DetailList1: FC = () => {
               sx={{ pt: 2 }}
             >
               {assets.map((currency) => {
-                const amount = numeral(currency.amount).format('$0,0.00');
+                const amount = numeral(currency.amount).format('00');
 
                 return (
                   <ListItem
@@ -139,7 +139,7 @@ export const DetailList1: FC = () => {
                   </SvgIcon>
                 }
               >
-                Add money
+                Get credits
               </Button>
               <Button
                 color="inherit"

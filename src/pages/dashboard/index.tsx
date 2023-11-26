@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-
+import { DetailList1 } from 'src/sections/components/detail-lists/detail-list-1';
 import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
 import { useSettings } from 'src/hooks/use-settings';
@@ -144,7 +144,7 @@ const Page: NextPage = () => {
                   xs={12}
                   md={7}
               >
-                  <ScheduledEmails schedules={schedules} />
+                  <DetailList1  />
 
 
 

@@ -12,10 +12,9 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import useHandleSubmit from './handle-submit';
 import PropTypes from "prop-types";
-import Typography from '@mui/material/Typography';
 import {auth, db }  from "../../../libs/firebase";
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 
 

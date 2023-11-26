@@ -13,9 +13,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({ imageUrl, onClose }) => {
   return (
     <Box
       sx={{
-        backgroundColor: (theme) =>
-          (theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100'),
-        p: 3,
+
       }}
     >
       <Paper
@@ -27,7 +25,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({ imageUrl, onClose }) => {
           maxWidth: '100%',
           mx: 'auto',
           outline: 'none',
-          width: 600,
+          width: 700,
         }}
       >
         <Stack
@@ -43,7 +41,7 @@ export const ImageViewer: FC<ImageViewerProps> = ({ imageUrl, onClose }) => {
             sx={{ flexGrow: 1 }}
             variant="h6"
           >
-           <center> Enjoy!</center>
+           <center> Click to Print</center>
           </Typography>
           <IconButton onClick={onClose}>
             <SvgIcon>

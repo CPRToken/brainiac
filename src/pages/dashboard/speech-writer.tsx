@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
 import { usePageView } from 'src/hooks/use-page-view';
-import { ContentWriter } from 'src/sections/components/forms/content-writer';
+import { SpeechWriter } from 'src/sections/components/forms/speech-writer';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { auth } from '../../libs/firebase';
@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Content Writer" />
+      <Seo title="Lyric Writer" />
       <Box
         component="main"
         sx={{
@@ -50,7 +50,7 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                      variant="h5">{t(tokens.headings.contentWriter)}</Typography>
+                    variant="h5">{t(tokens.headings.speechWriter)}</Typography>
                 </div>
 
                 <Stack
@@ -64,7 +64,7 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={8}
+              md={9}
               sx={{
                 paddingLeft: 2, // Add padding here
                 // Or if you prefer margin: marginLeft: 2
@@ -77,13 +77,13 @@ const Page: NextPage = () => {
                 }}
               >
                 <Box paddingTop={4}>
-                  <ContentWriter />
+                  <SpeechWriter />
                 </Box>
               </Stack>
             </Grid>
             <Grid
               xs={12}
-              md={4} // Changed from 4 to 3 for skinnier My Content
+              md={3} // Changed from 4 to 3 for skinnier My Content
               sx={{ paddingLeft: 2 }}
             >
               <Hidden smDown> {/* Hide on small screens and down */}
@@ -93,11 +93,9 @@ const Page: NextPage = () => {
           </Grid>
         </Container>
       </Box>
-
-
-
     </>
   );
+
 
 };
 
