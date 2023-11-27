@@ -71,6 +71,7 @@ lyricWriter: '/dashboard/lyric-writer',
     travelAgent: '/dashboard/travel-agent',
     images: '/dashboard/images',
       cocktailCrafter: '/dashboard/cocktail-crafter',
+    magicMirror: '/dashboard/magic-mirror',
 
     customers: {
       index: '/dashboard/customers',

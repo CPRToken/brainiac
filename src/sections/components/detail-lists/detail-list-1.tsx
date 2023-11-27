@@ -32,11 +32,7 @@ const assets: Asset[] = [
     color: '#33BB78',
     name: 'Bitcoin',
   },
-  {
-    amount: 100.00,
-    color: '#FF4081',
-    name: 'XRP Ripple',
-  },
+
 ];
 
 export const DetailList1: FC = () => {
@@ -141,16 +137,7 @@ export const DetailList1: FC = () => {
               >
                 Get credits
               </Button>
-              <Button
-                color="inherit"
-                endIcon={
-                  <SvgIcon>
-                    <ArrowRightIcon />
-                  </SvgIcon>
-                }
-              >
-                Withdraw funds
-              </Button>
+
             </Stack>
           </CardContent>
         </Card>

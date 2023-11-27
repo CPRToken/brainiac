@@ -119,6 +119,7 @@ export const useSections = () => {
               { title: t(tokens.headings.travelAgent), path: paths.dashboard.travelAgent },
               { title: t(tokens.headings.cocktailCrafter), path: paths.dashboard.cocktailCrafter },
               { title: t(tokens.headings.speechWriter), path: paths.dashboard.speechWriter },
+              { title: t(tokens.headings.magicMirror), path: paths.dashboard.magicMirror },
             ]
           }
 

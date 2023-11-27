@@ -18,6 +18,34 @@ type Option = {
     value: string;
 };
 
+
+
+const poetOptions: Option[] = [
+  { label: '', value: '' },
+  { label: tokens.form.noPoet, value: 'neutral' },
+  { label: 'William Shakespeare', value: 'William Shakespeare' },
+  { label: 'Pablo Neruda', value: 'Pablo Neruda' },
+  { label: 'Emily Dickinson', value: 'Emily Dickinson' },
+  { label: 'Rumi', value: 'Rumi' },
+  { label: 'Maya Angelou', value: 'Maya Angelou' },
+  { label: 'Robert Frost', value: 'Robert Frost' },
+  { label: 'Langston Hughes', value: 'Langston Hughes' },
+  { label: 'Sylvia Plath', value: 'Sylvia Plath' },
+  { label: 'Walt Whitman', value: 'Walt Whitman' },
+  { label: 'Rabindranath Tagore', value: 'Rabindranath Tagore' },
+  { label: 'John Keats', value: 'John Keats' },
+  { label: 'Lord Byron', value: 'Lord Byron' },
+  { label: 'Edgar Allan Poe', value: 'Edgar Allan Poe' },
+  { label: 'William Wordsworth', value: 'William Wordsworth' },
+  { label: 'Emily Bronte', value: 'Emily Bronte' },
+  { label: 'Lang Leav', value: 'Lang Leav' },
+  { label: 'E.E. Cummings', value: 'E.E. Cummings' },
+  { label: 'T.S. Eliot', value: 'T.S. Eliot' },
+  // ... add more as needed
+];
+
+
+
 const genreOptions: Option[] = [
   { label: '', value: '' },
   { label: 'Sonnet', value: 'sonnet' },
@@ -31,19 +59,25 @@ const genreOptions: Option[] = [
   { label: 'Sestina', value: 'sestina' },
   { label: 'Acrostic', value: 'acrostic' },
   { label: 'Cinquain', value: 'cinquain' },
+  { label: 'Elegy', value: 'elegy' },
+  { label: 'Pastoral', value: 'pastoral' },
+  { label: 'Epigram', value: 'epigram' },
+  { label: 'Satire', value: 'satire' },
+  { label: 'Lyric', value: 'lyric' },
+
 ];
 
 const styleOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Romantic', value: 'romantic' },
-  { label: 'Narrative', value: 'narrative' },
-  { label: 'Descriptive', value: 'descriptive' },
-  { label: 'Reflective', value: 'reflective' },
-  { label: 'Symbolic', value: 'symbolic' },
-  { label: 'Modernist', value: 'modernist' },
-  { label: 'Surreal', value: 'surreal' },
-  { label: 'Humorous', value: 'humorous' },
-  { label: 'Satirical', value: 'satirical' },
+  { label: tokens.form.Romantic, value: 'romantic' },
+  { label: tokens.form.Narrative, value: 'narrative' },
+  { label: tokens.form.Descriptive, value: 'descriptive' },
+  { label: tokens.form.Reflective, value: 'reflective' },
+  { label: tokens.form.Symbolic, value: 'symbolic' },
+  { label: tokens.form.Modernist, value: 'modernist' },
+  { label: tokens.form.Surreal, value: 'surreal' },
+  { label: tokens.form.Humorous, value: 'humorous' },
+  { label: tokens.form.Satirical, value: 'satirical' },
 ];
 
 const moodOptions: Option[] = [
@@ -51,12 +85,17 @@ const moodOptions: Option[] = [
   { label: 'Joyful', value: 'joyful' },
   { label: 'Melancholic', value: 'melancholic' },
   { label: 'Inspirational', value: 'inspirational' },
-  { label: 'Serene', value: 'serene' },
-  { label: 'Nostalgic', value: 'nostalgic' },
-  { label: 'Passionate', value: 'passionate' },
-  { label: 'Triumphant', value: 'triumphant' },
-  { label: 'Pensive', value: 'pensive' },
-  { label: 'Optimistic', value: 'optimistic' },
+  { label: tokens.form.Angry, value: 'angry' },
+  { label: tokens.form.Serene, value: 'serene' },
+  { label: tokens.form.Sad, value: 'sad' },
+  { label: tokens.form.Excited, value: 'excited' },
+  { label: tokens.form.Relaxed, value: 'relaxed' },
+  { label: tokens.form.Angry, value: 'angry' },
+  { label: tokens.form.Serene, value: 'serene' },
+  { label: tokens.form.Nostalgic, value: 'nostalgic' },
+  { label: tokens.form.Energetic, value: 'energetic' },
+  { label: tokens.form.Passionate, value: 'passionate' },
+  { label: tokens.form.Optimistic, value: 'optimistic' },
 ];
 
 
@@ -67,6 +106,7 @@ export const PoemGenerator: FC = () => {
 
 
   const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const [poet, setPoet] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
@@ -81,22 +121,24 @@ export const PoemGenerator: FC = () => {
     // Check if all selections are made
     if (genre && style && mood && duration) {
       let newPrompt = t(tokens.form.writePoem);
+      const poetText = ` ${t(poet)} `;
       const genreText = ` ${t(genre)} `;
-      const styleText = ` ${t('in a')} ${t(style)} ${t('')} `;
-      const moodText = ` ${t('in a')} ${t(mood)} ${t('')} `;
+      const styleText = ` ${t('')} ${t(style)} ${t('')} `;
+      const moodText = ` ${t('')} ${t(mood)} ${t('')} `;
 
       newPrompt = newPrompt
+        .replace('[poet]', poetText)
         .replace('[genre]', genreText)
         .replace('[style]', styleText)
         .replace('[mood]', moodText)
-        .replace('[duration]', `${duration} ${t('words')}`);
+        .replace('[duration]', `${duration} ${t('')}`);
 
       setPrompt(newPrompt.trim());
     } else {
       // If not all selections are made, keep the prompt empty
       setPrompt('');
     }
-  }, [genre, style, mood, duration, t]);
+  }, [poet,  genre, style, mood, duration, t]);
 
 
 
@@ -108,6 +150,21 @@ export const PoemGenerator: FC = () => {
       <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
 
       <Stack spacing={3}>
+        <TextField
+          fullWidth
+          label={t(tokens.form.poet)}
+          name="poet"
+          select
+          SelectProps={{ native: true }}
+          value={poet}
+          onChange={(e) => setPoet(e.target.value)}
+        >
+          {poetOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {t(option.label)} {/* Apply translation here */}
+            </option>
+          ))}
+        </TextField>
         <TextField
           fullWidth
           label={t(tokens.form.genre)}
@@ -134,7 +191,7 @@ export const PoemGenerator: FC = () => {
         >
           {styleOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
@@ -149,7 +206,7 @@ export const PoemGenerator: FC = () => {
         >
           {moodOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
