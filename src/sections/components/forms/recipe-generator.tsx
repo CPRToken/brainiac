@@ -21,65 +21,65 @@ type Option = {
 
 const countryOptions: Option[] = [
   { label: '', value: '' },
-  { label: tokens.form.Chile, value: 'Chilean' },
-  { label: tokens.form.Spain, value: 'spanish' },
-  { label: tokens.form.French, value: 'french' },
-  { label: tokens.form.German, value: 'german' },
-  { label: tokens.form.Hungary, value: 'hungarian' },
-   { label: tokens.form.Italy, value: 'italian' },
-  { label: tokens.form.Portugal, value: 'portuguese' },
-  { label: tokens.form.Russia, value: 'russian' },
-  { label: tokens.form.India, value: 'indian' },
-  { label: tokens.form.Japan, value: 'japanese' },
-  { label: tokens.form.Korea, value: 'korean' },
-  { label: tokens.form.Brazil, value: 'Brazilian' },
-  { label: tokens.form.Turkish, value: 'turkish' },
-  { label: tokens.form.Dutch, value: 'dutch' },
-  { label: tokens.form.Swedish, value: 'swedish' },
-  { label: tokens.form.Finnish, value: 'finnish' },
-  { label: tokens.form.Danish, value: 'danish' },
-  { label: tokens.form.Norwegian, value: 'norwegian' },
-  { label: tokens.form.Polish, value: 'polish' },
-  { label: tokens.form.Greek, value: 'greek' },
-  { label: tokens.form.Czech, value: 'czech' },
-  { label: tokens.form.Slovak, value: 'slovak' },
-  { label: tokens.form.Romanian, value: 'romanian' },
-  { label: tokens.form.Bulgarian, value: 'bulgarian' },
-  { label: tokens.form.Serbian, value: 'serbian' },
-  { label: tokens.form.Croatian, value: 'croatian' },
-  { label: tokens.form.Bosnian, value: 'bosnian' },
-  { label: tokens.form.Slovenian, value: 'slovenian' },
-  { label: tokens.form.Albanian, value: 'albanian' },
-  { label: tokens.form.Lithuanian, value: 'lithuanian' },
-  { label: tokens.form.Latvian, value: 'latvian' },
-  { label: tokens.form.Estonian, value: 'estonian' },
-  { label: tokens.form.Maltese, value: 'maltese' },
-  { label: tokens.form.Thai, value: 'thai' },
-  { label: tokens.form.Filipino, value: 'filipino' },
-  { label: tokens.form.Vietnamese, value: 'vietnamese' },
-  { label: tokens.form.Indonesian, value: 'indonesian' },
-  { label: tokens.form.Malay, value: 'malay' },
-  { label: tokens.form.Persian, value: 'persian' },
-  { label: tokens.form.Hebrew, value: 'hebrew' },
+  { label: tokens.form.Chile, value: tokens.form.Chile },
+  { label: tokens.form.Spain, value: tokens.form.Spanish },
+  { label: tokens.form.French, value: tokens.form.French },
+  // ... add more
+  { label: tokens.form.German, value: tokens.form.German },
+  { label: tokens.form.Hungary, value: tokens.form.Hungarian },
+  { label: tokens.form.Italy, value: tokens.form.Italian },
+  { label: tokens.form.Portugal, value: tokens.form.Portuguese },
+  { label: tokens.form.Russia, value: tokens.form.Russian },
+  { label: tokens.form.India, value: tokens.form.India },
+  { label: tokens.form.Japan, value: tokens.form.Japanese },
+  { label: tokens.form.Korea, value: tokens.form.Korean },
+  { label: tokens.form.Brazil, value: tokens.form.Brazil },
+  { label: tokens.form.Turkish, value: tokens.form.Turkish },
+  { label: tokens.form.Dutch, value: tokens.form.Dutch },
+  { label: tokens.form.Swedish, value: tokens.form.Swedish },
+  { label: tokens.form.Finnish, value: tokens.form.Finnish },
+  { label: tokens.form.Danish, value: tokens.form.Danish },
+  { label: tokens.form.Norwegian, value: tokens.form.Norwegian },
+  { label: tokens.form.Polish, value: tokens.form.Polish },
+  { label: tokens.form.Greek, value: tokens.form.Greek },
+  { label: tokens.form.Czech, value: tokens.form.Czech },
+  { label: tokens.form.Slovak, value: tokens.form.Slovak },
+  { label: tokens.form.Romanian, value: tokens.form.Romanian },
+  { label: tokens.form.Bulgarian, value: tokens.form.Bulgarian },
+  { label: tokens.form.Serbian, value: tokens.form.Serbian },
+  { label: tokens.form.Croatian, value: tokens.form.Croatian },
+  { label: tokens.form.Bosnian, value: tokens.form.Bosnian },
+  { label: tokens.form.Slovenian, value: tokens.form.Slovenian },
+  { label: tokens.form.Albanian, value: tokens.form.Albanian },
+  { label: tokens.form.Lithuanian, value: tokens.form.Lithuanian },
+  { label: tokens.form.Latvian, value: tokens.form.Latvian },
+  { label: tokens.form.Estonian, value: tokens.form.Estonian },
+  { label: tokens.form.Maltese, value: tokens.form.Maltese },
+  { label: tokens.form.Thai, value: tokens.form.Thai },
+  { label: tokens.form.Filipino, value: tokens.form.Filipino },
+  { label: tokens.form.Vietnamese, value: tokens.form.Vietnamese },
+  { label: tokens.form.Indonesian, value: tokens.form.Indonesian },
+  { label: tokens.form.Malay, value: tokens.form.Malay },
+  { label: tokens.form.Persian, value: tokens.form.Persian },
+  { label: tokens.form.Hebrew, value: tokens.form.Hebrew },
   // ... add more
 ];
 
 const dishOptions: Option[] = [
   { label: '', value: '' },
-  { label: tokens.form.Appetizer, value: 'appetizer' },
-  { label: tokens.form.MainCourse, value: 'main-course' },
-  { label: tokens.form.Dessert, value: 'dessert' },
-  { label: tokens.form.Soup, value: 'soup' },
-  { label: tokens.form.Salad, value: 'salad' },
-  { label: tokens.form.SideDish, value: 'side-dish' },
-  { label: tokens.form.Snack, value: 'snack' },
-  { label: tokens.form.Beverage, value: 'beverage' },
-  { label: tokens.form.Cocktail, value: 'cocktail' },
-  { label: tokens.form.Bread, value: 'bread' },
-  { label: tokens.form.Breakfast, value: 'breakfast' },
-  { label: tokens.form.Brunch, value: 'brunch' },
-  { label: tokens.form.Pastry, value: 'pastry' },
-
+  { label: tokens.form.Appetizer, value: tokens.form.Appetizer },
+  { label: tokens.form.MainCourse, value: tokens.form.MainCourse },
+  { label: tokens.form.Dessert, value: tokens.form.Dessert },
+  { label: tokens.form.Soup, value: tokens.form.Soup },
+  { label: tokens.form.Salad, value: tokens.form.Salad },
+  { label: tokens.form.SideDish, value: tokens.form.SideDish },
+  { label: tokens.form.Snack, value: tokens.form.Snack },
+  { label: tokens.form.Beverage, value: tokens.form.Beverage },
+  { label: tokens.form.Cocktail, value: tokens.form.Cocktail },
+  { label: tokens.form.Bread, value: tokens.form.Bread },
+  { label: tokens.form.Breakfast, value: tokens.form.Breakfast },
+  { label: tokens.form.Brunch, value: tokens.form.Brunch },
+  { label: tokens.form.Pastry, value: tokens.form.Pastry },
 
   // ... add more
 ];
@@ -124,30 +124,35 @@ export const RecipeWriter: FC = () => {
   };
 
   const spicinessLevels: SpicinessLevels = {
-    0: 'Very Spicy',
-    1: 'Spicy',
-    2: 'Sweet & Sour',
-    3: 'Light Spicy',
-    4: 'Non Spicy'
+    0: tokens.form.Spicy,
+    1: tokens.form.MildSpicy,
+    2: tokens.form.SweetNSour,
+    3: tokens.form.LightSpicy,
+    4: tokens.form.NonSpicy,
   };
 
-
   useEffect(() => {
-    // Check if all selections are made
-    if (country && dish && protein  && garnish && spiciness) {
+    if (country && dish && protein && garnish && spiciness !== null) {
       let newPrompt = t(tokens.form.createRecipe);
-      newPrompt = newPrompt.replace('[country]', country);
-      newPrompt = newPrompt.replace('[dish]', dish);
-      newPrompt = newPrompt.replace('[protein]', protein);
-      newPrompt = newPrompt.replace('[garnish]', garnish);
-       newPrompt = newPrompt.replace('[spiciness]', spicinessLevels[spiciness]);
-      setPrompt(newPrompt);
+
+      const countryText = ` ${t(country)} `;
+      const dishText = ` ${t(dish)} `;
+      const proteinText = ` ${t(protein)} `;
+      const garnishText = ` ${t(garnish)} `;
+      const spicinessText = ` ${t(spicinessLevels[spiciness])} `;
+
+      newPrompt = newPrompt
+        .replace('[country]', countryText)
+        .replace('[dish]', dishText)
+        .replace('[protein]', proteinText)
+        .replace('[garnish]', garnishText)
+        .replace('[spiciness]', spicinessText);
+
+      setPrompt(newPrompt.trim());
     } else {
-      // If not all selections are made, keep the prompt empty
       setPrompt('');
     }
-  }, [country, dish, protein, garnish, spiciness]);
-
+  }, [country, dish, protein, garnish, spiciness, t]);
 
 
 
@@ -230,11 +235,11 @@ export const RecipeWriter: FC = () => {
             max={4}
             step={1}
             marks={[
-              { value: 0, label: 'Very Spicy' },
-              { value: 1, label: 'Spicy' },
-              { value: 2, label: 'Sweet & Sour' },
-              { value: 3, label: 'Light Spicy' },
-              { value: 4, label: 'Non Spicy' }
+              { value: 0, label: t(tokens.form.Spicy) },
+              { value: 1, label: t(tokens.form.MildSpicy) },
+              { value: 2, label: t(tokens.form.SweetNSour) },
+              { value: 3, label: t(tokens.form.LightSpicy) },
+              { value: 4,label: t(tokens.form.NonSpicy)},
             ]}
             onChange={(_, newValue) => setSpiciness(newValue as number)}
         />

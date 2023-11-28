@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useHandleSubmit from './handle-submit';
 
+
 type Option = {
     label: string;
     value: string;
@@ -20,56 +21,50 @@ type Option = {
 
 const genreOptions: Option[] = [
     { label: '', value: '' },
-  { label: tokens.form.Rock, value: 'rock' },
-  { label: tokens.form.Pop, value: 'pop' },
-  { label: tokens.form.Jazz, value: 'jazz' },
-  { label: tokens.form.HipHop, value: 'hip-hop' },
-  { label: tokens.form.Rap, value: 'rap' },
-  { label: tokens.form.Classical, value: 'classical' },
-  { label: tokens.form.Country, value: 'country' },
-  { label: tokens.form.Reggae, value: 'reggae' },
-  { label: tokens.form.Blues, value: 'blues' },
-  { label: tokens.form.Latin, value: 'latin' },
-  { label: tokens.form.Salsa, value: 'salsa' },
-  { label: tokens.form.Soul, value: 'soul' },
-  { label: tokens.form.Electronic, value: 'electronic' },
-  { label: tokens.form.Folk, value: 'folk' },
-  { label: tokens.form.RnB, value: 'RnB' },
-  { label: tokens.form.Metal, value: 'metal' },
+  { label: tokens.form.Rock, value: tokens.form.Rock },
+  { label: tokens.form.Pop, value: tokens.form.Pop },
+  { label: tokens.form.Jazz, value: tokens.form.Jazz },
+  { label: tokens.form.HipHop, value: tokens.form.HipHop },
+  { label: tokens.form.Rap, value: tokens.form.Rap },
+  { label: tokens.form.Classical, value: tokens.form.Classical },
+  { label: tokens.form.Country, value: tokens.form.Country },
+  { label: tokens.form.Reggae, value: tokens.form.Reggae },
+  { label: tokens.form.Blues, value: tokens.form.Blues },
+  { label: tokens.form.Latin, value: tokens.form.Latin },
+  { label: tokens.form.Salsa, value: tokens.form.Salsa },
+  { label: tokens.form.Soul, value: tokens.form.Soul },
+  { label: tokens.form.Electronic, value: tokens.form.Electronic },
+  { label: tokens.form.Folk, value: tokens.form.Folk },
+  { label: tokens.form.RnB, value: tokens.form.RnB },
+  { label: tokens.form.Metal, value: tokens.form.Metal },
     // ... add more as needed
 ];
 
 const styleOptions: Option[] = [
     { label: '', value: '' },
-  { label: tokens.form.Adventure, value: 'adventure' },
-  { label: tokens.form.Mystery, value: 'mystery' },
-  { label: tokens.form.Romantic, value: 'romantic' },
-   { label: tokens.form.LoveSong, value: 'love-song' },
-  { label: tokens.form.Ballad, value: 'ballad' },
-  { label: tokens.form.Anthem, value: 'anthem' },
+  { label: tokens.form.Adventure, value: tokens.form.Adventure },
+  { label: tokens.form.Mystery, value: tokens.form.Mystery },
+  { label: tokens.form.Romantic, value: tokens.form.Romantic },
+  { label: tokens.form.LoveSong, value: tokens.form.LoveSong },
+  { label: tokens.form.Ballad, value: tokens.form.Ballad },
+  { label: tokens.form.Anthem, value: tokens.form.Anthem },
     // ... add more as needed
 ];
 
 const moodOptions: Option[] = [
     { label: '', value: '' },
-  { label: tokens.form.Happy, value: 'happy' },
-  { label: tokens.form.Sad, value: 'sad' },
-  { label: tokens.form.Excited, value: 'excited' },
-  { label: tokens.form.Relaxed, value: 'relaxed' },
-  { label: tokens.form.Angry, value: 'angry' },
-  { label: tokens.form.Serene, value: 'serene' },
-  { label: tokens.form.Nostalgic, value: 'nostalgic' },
-  { label: tokens.form.Energetic, value: 'energetic' },
+  { label: tokens.form.Happy, value: tokens.form.Happy },
+  { label: tokens.form.Sad, value: tokens.form.Sad },
+  { label: tokens.form.Excited, value: tokens.form.Excited },
+  { label: tokens.form.Relaxed, value: tokens.form.Relaxed },
+  { label: tokens.form.Angry, value: tokens.form.Angry },
+  { label: tokens.form.Serene, value: tokens.form.Serene },
+  { label: tokens.form.Nostalgic, value: tokens.form.Nostalgic },
+  { label: tokens.form.Energetic, value: tokens.form.Energetic },
     // ... add more as needed
 ];
 
-const getArticle = (word: string) => {
-  if (!word) return "";
-  const vowels = ['a', 'e', 'i', 'o', 'u'];
-  // Check for special cases like "hip-hop" which sounds like it starts with a vowel
-  const specialCases = ['hip-hop'];
-  return vowels.includes(word[0].toLowerCase()) || specialCases.includes(word) ? 'an' : 'a';
-};
+
 
 
 export const LyricWriter: FC = () => {
@@ -92,7 +87,7 @@ export const LyricWriter: FC = () => {
     if (genre && style && mood && duration) {
       let newPrompt = t(tokens.form.writeSong);
 
-      const genreText = genre !== '' ? `${getArticle(genre)} ${t(genre)} ` : '';
+      const genreText = genre !== '' ? `${t(genre)} ` : '';
       const styleText = style !== '' ? `${t(style)} , ` : '';
       const moodText = mood !== '' ? `${t(mood)} , ` : '';
       const durationText = `${duration} ${t('')}`;

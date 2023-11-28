@@ -21,86 +21,87 @@ type Option = {
 
 const alcoholOptions: Option[] = [
     { label: '', value: '' },
-  { label: tokens.form.Vodka, value: 'vodka' },
-  { label: tokens.form.Rum, value: 'rum' },
-  { label: tokens.form.Gin, value: 'gin' },
-  { label: tokens.form.Whiskey, value: 'whiskey' },
-  { label: tokens.form.Tequila, value: 'tequila' },
-  { label: tokens.form.Port, value: 'port' },
-  { label: tokens.form.Brandy, value: 'brandy' },
-  { label: tokens.form.Sake, value: 'sake' },
-  { label: tokens.form.Soju, value: 'soju' },
-  { label: tokens.form.Cachaca, value: 'cachaca' },
-  { label: tokens.form.Raki, value: 'raki' },
-  { label: tokens.form.Jenever, value: 'jenever' },
-  { label: tokens.form.Akvavit, value: 'akvavit' },
-  { label: tokens.form.Koskenkorva, value: 'koskenkorva' },
-  { label: tokens.form.Akvavit, value: 'akvavit' },
-  { label: tokens.form.BisonGrassVodka, value: 'bisongrassvodka' },
-  { label: tokens.form.Ouzo, value: 'ouzo' },
-  { label: tokens.form.Palinka, value: 'palinka' },
-  { label: tokens.form.Beherovka, value: 'beherovka' },
-  { label: tokens.form.Slivovitz, value: 'slivovitz' },
-  { label: tokens.form.Tuica, value: 'tuica' },
-  { label: tokens.form.Rakia, value: 'rakia' },
-  { label: tokens.form.LozovaRakia, value: 'lozovarakia' },
-  { label: tokens.form.Travarica, value: 'travarica' },
-  { label: tokens.form.Grappa, value: 'grappa' },
-  { label: tokens.form.Meade, value: 'meade' },
-  { label: tokens.form.Krupnik, value: 'krupnik' },
-  { label: tokens.form.Schnapps, value: 'schnapps' },
-  { label: tokens.form.Singha, value: 'singha' },
-  { label: tokens.form.Lambanog, value: 'lambanog' },
-  { label: tokens.form.Ruou, value: 'ruou' },
-  { label: tokens.form.Arak, value: 'arak' },
-  { label: tokens.form.Toddy, value: 'toddy' },
-  { label: tokens.form.Arrack, value: 'arrack' },
+  { label: tokens.form.Vodka, value: tokens.form.Vodka },
+  { label: tokens.form.Rum, value: tokens.form.Rum },
+  { label: tokens.form.Gin, value: tokens.form.Gin },
+  // ... add more
+  { label: tokens.form.Whiskey, value: tokens.form.Whiskey },
+  { label: tokens.form.Tequila, value: tokens.form.Tequila },
+  { label: tokens.form.Port, value: tokens.form.Port },
+  { label: tokens.form.Brandy, value: tokens.form.Brandy },
+  { label: tokens.form.Sake, value: tokens.form.Sake },
+  { label: tokens.form.Soju, value: tokens.form.Soju },
+  { label: tokens.form.Cachaca, value: tokens.form.Cachaca },
+  { label: tokens.form.Raki, value: tokens.form.Raki },
+  { label: tokens.form.Jenever, value: tokens.form.Jenever },
+  { label: tokens.form.Akvavit, value: tokens.form.Akvavit },
+  { label: tokens.form.Koskenkorva, value: tokens.form.Koskenkorva },
+  { label: tokens.form.BisonGrassVodka, value: tokens.form.BisonGrassVodka },
+  { label: tokens.form.Ouzo, value: tokens.form.Ouzo },
+  { label: tokens.form.Palinka, value: tokens.form.Palinka },
+  { label: tokens.form.Beherovka, value: tokens.form.Beherovka },
+  { label: tokens.form.Slivovitz, value: tokens.form.Slivovitz },
+  { label: tokens.form.Tuica, value: tokens.form.Tuica },
+  { label: tokens.form.Rakia, value: tokens.form.Rakia },
+  { label: tokens.form.LozovaRakia, value: tokens.form.LozovaRakia },
+  { label: tokens.form.Travarica, value: tokens.form.Travarica },
+  { label: tokens.form.Grappa, value: tokens.form.Grappa },
+  { label: tokens.form.Meade, value: tokens.form.Meade },
+  { label: tokens.form.Krupnik, value: tokens.form.Krupnik },
+  { label: tokens.form.Schnapps, value: tokens.form.Schnapps },
+  { label: tokens.form.Singha, value: tokens.form.Singha },
+  { label: tokens.form.Lambanog, value: tokens.form.Lambanog },
+  { label: tokens.form.Ruou, value: tokens.form.Ruou },
+  { label: tokens.form.Arak, value: tokens.form.Arak },
+  { label: tokens.form.Toddy, value: tokens.form.Toddy },
+  { label: tokens.form.Arrack, value: tokens.form.Arrack },
   // ... continue for other countries
 ];
 
 
 const cocktailOptions: Option[] = [
   { label: '', value: '' },
-  { label: tokens.form.ClassicCocktail, value: 'classic-cocktail' },
-  { label: tokens.form.TropicalCocktail, value: 'tropical-cocktail' },
-  { label: tokens.form.Martini, value: 'martini' },
-  { label: tokens.form.Mojito, value: 'mojito' },
-  { label: tokens.form.Margarita, value: 'margarita' },
-  { label: tokens.form.LongDrink, value: 'long-drink' },
-  { label: tokens.form.Shooter, value: 'shooter' },
-  { label: tokens.form.Mocktail, value: 'mocktail' },
-  { label: tokens.form.Highball, value: 'highball' },
-  { label: tokens.form.Lowball, value: 'lowball' },
-  { label: tokens.form.HotCocktail, value: 'hot-cocktail' },
-  { label: tokens.form.CraftCocktail, value: 'craft-cocktail' },
-  { label: tokens.form.Sangria, value: 'sangria' },
+  { label: tokens.form.Cocktail, value: tokens.form.Cocktail },
+  { label: tokens.form.ClassicCocktail, value: tokens.form.ClassicCocktail },
+  { label: tokens.form.TropicalCocktail, value: tokens.form.TropicalCocktail },
+  { label: tokens.form.Martini, value: tokens.form.Martini },
+  // ... add more
+  { label: tokens.form.Mojito, value: tokens.form.Mojito },
+  { label: tokens.form.Margarita, value: tokens.form.Margarita },
+  { label: tokens.form.LongDrink, value: tokens.form.LongDrink },
+  { label: tokens.form.Shooter, value: tokens.form.Shooter },
+  { label: tokens.form.Mocktail, value: tokens.form.Mocktail },
+  { label: tokens.form.Highball, value: tokens.form.Highball },
+  { label: tokens.form.Lowball, value: tokens.form.Lowball },
+  { label: tokens.form.HotCocktail, value: tokens.form.HotCocktail },
+  { label: tokens.form.CraftCocktail, value: tokens.form.CraftCocktail },
+  { label: tokens.form.Sangria, value: tokens.form.Sangria },
   // ... add more as needed
 ];
 
 
 const mixerOptions: Option[] = [
   { label: '', value: '' },
-    { label: tokens.form.Coke, value: 'Coke' },
-    { label: tokens.form.Soda, value: 'Soda' },
-    { label: tokens.form.TonicWater, value: 'Tonic Water' },
-    { label: tokens.form.GingerAle, value: 'Ginger Ale' },
-    { label: tokens.form.ClubSoda, value: 'Club Soda' },
-    { label: tokens.form.Lemonade, value: 'Lemonade' },
-    { label: tokens.form.CranberryJuice, value: 'Cranberry Juice' },
-    { label: tokens.form.GrapefruitJuice, value: 'Grapefruit Juice' },
-    { label: tokens.form.PineappleJuice, value: 'Pineapple Juice' },
-    { label: tokens.form.OrangeJuice, value: 'Orange Juice' },
-    { label: tokens.form.TomatoJuice, value: 'Tomato Juice' },
-    { label: tokens.form.LimeJuice, value: 'Lime Juice' },
-    { label: tokens.form.LemonJuice, value: 'Lemon Juice' },
-    { label: tokens.form.SimpleSyrup, value: 'Simple Syrup' },
-    { label: tokens.form.Grenadine, value: 'Grenadine' },
-    { label: tokens.form.Bitters, value: 'Bitters' },
-    { label: tokens.form.Cream, value: 'Cream' },
-    { label: tokens.form.Milk, value: 'Milk' },
-    { label: tokens.form.EggWhite, value: 'EggWhite' },
-    { label: tokens.form.Honey, value: 'Honey' },
-
+  { label: tokens.form.Coke, value: tokens.form.Coke },
+  { label: tokens.form.Soda, value: tokens.form.Soda },
+  { label: tokens.form.TonicWater, value: tokens.form.TonicWater },
+  { label: tokens.form.GingerAle, value: tokens.form.GingerAle },
+  { label: tokens.form.ClubSoda, value: tokens.form.ClubSoda },
+  { label: tokens.form.Lemonade, value: tokens.form.Lemonade },
+  { label: tokens.form.CranberryJuice, value: tokens.form.CranberryJuice },
+  { label: tokens.form.GrapefruitJuice, value: tokens.form.GrapefruitJuice },
+  { label: tokens.form.PineappleJuice, value: tokens.form.PineappleJuice },
+  { label: tokens.form.OrangeJuice, value: tokens.form.OrangeJuice },
+  { label: tokens.form.TomatoJuice, value: tokens.form.TomatoJuice },
+  { label: tokens.form.LimeJuice, value: tokens.form.LimeJuice },
+  { label: tokens.form.LemonJuice, value: tokens.form.LemonJuice },
+  { label: tokens.form.SimpleSyrup, value: tokens.form.SimpleSyrup },
+  { label: tokens.form.Grenadine, value: tokens.form.Grenadine },
+  { label: tokens.form.Bitters, value: tokens.form.Bitters },
+  { label: tokens.form.Cream, value: tokens.form.Cream },
+  { label: tokens.form.Milk, value: tokens.form.Milk },
+  { label: tokens.form.EggWhite, value: tokens.form.EggWhite },
+  { label: tokens.form.Honey, value: tokens.form.Honey },
   // ... add more
 ];
 
@@ -135,31 +136,38 @@ export const CocktailCrafter: FC = () => {
         [key: number]: string;
     };
 
-    const sweetnessLevels: SweetnessLevels = {
-        0: 'Very Sweet',
-        1: 'Slightly Sweet',
-        2: 'Sweet & Bitter',
-        3: 'Bitter',
-        4: 'Sour'
-    };
+  const sweetnessLevels: SweetnessLevels = {
+    0: tokens.form.Sweet,
+    1: tokens.form.SlightlySweet,
+    2: tokens.form.SweetBitter,
+    3: tokens.form.Bitter,
+    4: tokens.form.Sour
+  };
 
 
+  useEffect(() => {
+    if (alcohol && cocktail && mixer && garnish && sweetness !== null) {
+      let newPrompt = t(tokens.form.createCocktail);
 
+      const alcoholText = ` ${t(alcohol)} `;
+      const cocktailText = ` ${t(cocktail)} `;
+      const mixerText = ` ${t(mixer)} `;
+      const garnishText = ` ${t(garnish)} `;
+      const sweetnessText = ` ${t(sweetnessLevels[sweetness])} `;
 
+      newPrompt = newPrompt
+        .replace('[alcohol]', alcoholText)
+        .replace('[cocktail]', cocktailText)
+        .replace('[mixer]', mixerText)
+        .replace('[garnish]', garnishText)
+        .replace('[sweetness]', sweetnessText);
 
-    useEffect(() => {
-        if (alcohol && cocktail && mixer && garnish && sweetness !== null) {
-            let newPrompt = t(tokens.form.createCocktail);
-            newPrompt = newPrompt.replace('[alcohol]', alcohol);
-            newPrompt = newPrompt.replace('[cocktail]', cocktail);
-            newPrompt = newPrompt.replace('[mixer]', mixer);
-            newPrompt = newPrompt.replace('[garnish]', garnish);
-            newPrompt = newPrompt.replace('[sweetness]', sweetnessLevels[sweetness]);
-            setPrompt(newPrompt);
-        } else {
-            setPrompt('');
-        }
-    }, [alcohol, cocktail, mixer, garnish, sweetness]);
+      setPrompt(newPrompt.trim());
+    } else {
+      setPrompt('');
+    }
+  }, [alcohol, cocktail, mixer, garnish, sweetness, t]);
+
 
 
 
@@ -244,11 +252,11 @@ export const CocktailCrafter: FC = () => {
                   max={4}
                   step={1}
                   marks={[
-                      { value: 0, label: 'Sweet' },
-                      { value: 1, label: 'Slightly Sweet' },
-                      { value: 2, label: 'Sweet & Bitter' },
-                      { value: 3, label: 'Bitter' },
-                      { value: 4, label: 'Sour' }
+                    { value: 0, label: t(tokens.form.Sweet) },
+                    { value: 1, label: t(tokens.form.SlightlySweet) },
+                    { value: 2, label: t(tokens.form.SweetBitter) },
+                    { value: 3, label: t(tokens.form.Bitter) },
+                    { value: 4, label: t(tokens.form.Sour) },
                   ]}
                   onChange={(_, newValue) => setSweetness(newValue as number)}
               />

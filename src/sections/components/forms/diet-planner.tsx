@@ -21,30 +21,39 @@ type Option = {
 
 const dietTypeOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Vegan', value: 'vegan' },
-  { label: 'Vegetarian', value: 'vegetarian' },
-  { label: 'Keto', value: 'keto' },
-  { label: 'Paleo', value: 'paleo' },
-  { label: 'Gluten-Free', value: 'gluten-free' },
+  { label: tokens.form.Vegan, value: tokens.form.Vegan },
+  { label: tokens.form.Vegetarian, value: tokens.form.Vegetarian },
+  { label: tokens.form.Keto, value: tokens.form.Keto },
+  { label: tokens.form.Paleo, value: tokens.form.Paleo },
+  { label: tokens.form.GlutenFree, value: tokens.form.GlutenFree },
+  // Adding more diet options
+  { label: tokens.form.LowCarb, value: tokens.form.LowCarb },
+  { label: tokens.form.Whole30, value: tokens.form.Whole30 },
+  { label: tokens.form.Mediterranean, value: tokens.form.Mediterranean },
+  { label: tokens.form.DairyFree, value: tokens.form.DairyFree },
+  { label: tokens.form.PlantBased, value: tokens.form.PlantBased },
+  { label: tokens.form.LowFat, value: tokens.form.LowFat },
+  { label: tokens.form.HighProtein, value: tokens.form.HighProtein },
   // ... add more
 ];
 
 const mealTypeOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Breakfast', value: 'breakfast' },
-  { label: 'Lunch', value: 'lunch' },
-  { label: 'Dinner', value: 'dinner' },
+  { label: tokens.form.Breakfast, value: tokens.form.Breakfast },
+  { label: tokens.form.Lunch, value: tokens.form.Lunch },
+  { label: tokens.form.Dinner, value: tokens.form.Dinner },
+  // Adding more meal types
+  { label: tokens.form.Snack, value: tokens.form.Snack },
+  { label: tokens.form.Brunch, value: tokens.form.Brunch },
+  { label: tokens.form.Dessert, value: tokens.form.Dessert },
+  { label: tokens.form.TeaTime, value: tokens.form.TeaTime },
+  { label: tokens.form.Supper, value: tokens.form.Supper },
+  { label: tokens.form.MidnightSnack, value: tokens.form.MidnightSnack },
   // ... add more
 ];
 
 
-const getArticle = (word: string) => {
-  if (!word) return "";
-  const vowels = ['a', 'e', 'i', 'o', 'u'];
-  // Check for special cases like "hip-hop" which sounds like it starts with a vowel
-  const specialCases = ['hip-hop'];
-  return vowels.includes(word[0].toLowerCase()) || specialCases.includes(word) ? 'an' : 'a';
-};
+
 
 export const DietPlanner: FC = () => {
 
@@ -63,9 +72,9 @@ export const DietPlanner: FC = () => {
     if (dietType && mealType && calories) {
       let newPrompt = t(tokens.form.dietPlan);
 
-      const dietTypeText = `${getArticle(dietType)} ${t(dietType)} diet`;
-      const mealTypeText = `${getArticle(mealType)} ${t(mealType)} meal`;
-      const caloriesText = `${calories} calories`;
+      const dietTypeText = t(dietType);
+      const mealTypeText = t(mealType);
+      const caloriesText = calories.toString();
 
       // Replace each placeholder with its corresponding text
       newPrompt = newPrompt
@@ -79,8 +88,6 @@ export const DietPlanner: FC = () => {
       setPrompt('');
     }
   }, [dietType, mealType, calories, t]);
-
-
 
 
 
@@ -99,7 +106,7 @@ export const DietPlanner: FC = () => {
         >
           {dietTypeOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
@@ -114,7 +121,7 @@ export const DietPlanner: FC = () => {
         >
           {mealTypeOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>

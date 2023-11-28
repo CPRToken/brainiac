@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
-import ReponseText from '../clipboards/response-text';
+import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -48,54 +48,52 @@ const poetOptions: Option[] = [
 
 const genreOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Sonnet', value: 'sonnet' },
-  { label: 'Haiku', value: 'haiku' },
-  { label: 'Limerick', value: 'limerick' },
-  { label: 'Epic', value: 'epic' },
-  { label: 'Free Verse', value: 'free-verse' },
-  { label: 'Ode', value: 'ode' },
-  { label: 'Ballad', value: 'ballad' },
-  { label: 'Villanelle', value: 'villanelle' },
-  { label: 'Sestina', value: 'sestina' },
-  { label: 'Acrostic', value: 'acrostic' },
-  { label: 'Cinquain', value: 'cinquain' },
-  { label: 'Elegy', value: 'elegy' },
-  { label: 'Pastoral', value: 'pastoral' },
-  { label: 'Epigram', value: 'epigram' },
-  { label: 'Satire', value: 'satire' },
-  { label: 'Lyric', value: 'lyric' },
+  { label: tokens.form.Sonnet, value: tokens.form.Sonnet },
+  { label: tokens.form.Haiku, value: tokens.form.Haiku },
+  { label: tokens.form.Limerick, value: tokens.form.Limerick },
+  { label: tokens.form.Epic, value: tokens.form.Epic },
+  { label: tokens.form.FreeVerse, value: tokens.form.FreeVerse },
+  { label: tokens.form.Ode, value: tokens.form.Ode },
+  { label: tokens.form.Ballad, value: tokens.form.Ballad },
+  { label: tokens.form.Villanelle, value: tokens.form.Villanelle },
+  { label: tokens.form.Sestina, value: tokens.form.Sestina },
+  { label: tokens.form.Acrostic, value: tokens.form.Acrostic },
+  { label: tokens.form.Cinquain, value: tokens.form.Cinquain },
+  { label: tokens.form.Elegy, value: tokens.form.Elegy },
+  { label: tokens.form.Pastoral, value: tokens.form.Pastoral },
+  { label: tokens.form.Epigram, value: tokens.form.Epigram },
+  { label: tokens.form.Satire, value: tokens.form.Satire },
+  { label: tokens.form.Lyric, value: tokens.form.Lyric },
 
 ];
 
 const styleOptions: Option[] = [
   { label: '', value: '' },
-  { label: tokens.form.Romantic, value: 'romantic' },
-  { label: tokens.form.Narrative, value: 'narrative' },
-  { label: tokens.form.Descriptive, value: 'descriptive' },
-  { label: tokens.form.Reflective, value: 'reflective' },
-  { label: tokens.form.Symbolic, value: 'symbolic' },
-  { label: tokens.form.Modernist, value: 'modernist' },
-  { label: tokens.form.Surreal, value: 'surreal' },
-  { label: tokens.form.Humorous, value: 'humorous' },
-  { label: tokens.form.Satirical, value: 'satirical' },
+  { label: tokens.form.Romantic, value: tokens.form.Romantic },
+  { label: tokens.form.Narrative, value: tokens.form.Narrative },
+  { label: tokens.form.Descriptive, value: tokens.form.Descriptive },
+  { label: tokens.form.Reflective, value: tokens.form.Reflective },
+  { label: tokens.form.Symbolic, value: tokens.form.Symbolic },
+  { label: tokens.form.Modernist, value: tokens.form.Modernist },
+  { label: tokens.form.Surreal, value: tokens.form.Surreal },
+  { label: tokens.form.Humorous, value: tokens.form.Humorous },
+  { label: tokens.form.Satirical, value: tokens.form.Satirical },
 ];
 
 const moodOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Joyful', value: 'joyful' },
-  { label: 'Melancholic', value: 'melancholic' },
-  { label: 'Inspirational', value: 'inspirational' },
-  { label: tokens.form.Angry, value: 'angry' },
-  { label: tokens.form.Serene, value: 'serene' },
-  { label: tokens.form.Sad, value: 'sad' },
-  { label: tokens.form.Excited, value: 'excited' },
-  { label: tokens.form.Relaxed, value: 'relaxed' },
-  { label: tokens.form.Angry, value: 'angry' },
-  { label: tokens.form.Serene, value: 'serene' },
-  { label: tokens.form.Nostalgic, value: 'nostalgic' },
-  { label: tokens.form.Energetic, value: 'energetic' },
-  { label: tokens.form.Passionate, value: 'passionate' },
-  { label: tokens.form.Optimistic, value: 'optimistic' },
+  { label: tokens.form.Joyful, value: tokens.form.Joyful },
+  { label: tokens.form.Melancholic, value: tokens.form.Melancholic },
+  { label: tokens.form.Inspirational, value: tokens.form.Inspirational },
+  { label: tokens.form.Angry, value: tokens.form.Angry },
+  { label: tokens.form.Serene, value: tokens.form.Serene },
+  { label: tokens.form.Sad, value: tokens.form.Sad },
+  { label: tokens.form.Excited, value: tokens.form.Excited },
+  { label: tokens.form.Relaxed, value: tokens.form.Relaxed },
+  { label: tokens.form.Nostalgic, value: tokens.form.Nostalgic },
+  { label: tokens.form.Energetic, value: tokens.form.Energetic },
+  { label: tokens.form.Passionate, value: tokens.form.Passionate },
+  { label: tokens.form.Optimistic, value: tokens.form.Optimistic },
 ];
 
 
@@ -113,7 +111,7 @@ export const PoemGenerator: FC = () => {
   const [duration, setDuration] = useState<number>(100);
   const [prompt, setPrompt] = useState<string>('');
   const { t } = useTranslation();
-  const { textRef, handleCopyText } = ReponseText();
+  const { textRef, handleCopyText } = ResponseText();
 
 
 
@@ -176,7 +174,7 @@ export const PoemGenerator: FC = () => {
         >
           {genreOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>

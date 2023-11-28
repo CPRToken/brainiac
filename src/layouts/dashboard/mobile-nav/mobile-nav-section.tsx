@@ -64,7 +64,7 @@ const reduceChildRoutes = ({
       >
         <Stack
           component="ul"
-          spacing={0.5}
+          spacing={2.5}
           sx={{
             listStyle: 'none',
             m: 0,
