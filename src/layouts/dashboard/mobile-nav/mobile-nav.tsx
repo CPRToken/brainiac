@@ -19,7 +19,7 @@ import type { Section } from '../config';
 
 import { MobileNavSection } from './mobile-nav-section';
 
-const MOBILE_NAV_WIDTH = 350;
+const MOBILE_NAV_WIDTH = 370;
 
 const useCssVars = (color: NavColor): Record<string, string> => {
   const theme = useTheme();

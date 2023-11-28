@@ -131,16 +131,15 @@ export const MobileNavItem: FC<MobileNavItemProps> = (props) => {
               color: 'var(--nav-item-color)',
               flexGrow: 1,
               fontFamily: (theme) => theme.typography.fontFamily,
-              fontSize: depth > 0 ? 25: 25,
+              fontSize: depth > 0 ? 23: 23,
               fontWeight: depth > 0 ? 500 : 600,
               lineHeight: '24px',
               whiteSpace: 'nowrap',
               ...(active && {
-                color: 'var(--nav-item-active-color)',
-              }),
-              ...(disabled && {
                 color: 'var(--nav-item-disabled-color)',
               }),
+              paddingRight: '1px', // Adjust right padding here
+              marginRight: '1px', // Adjust right margin here
             }}
           >
             {title}
@@ -228,7 +227,7 @@ export const MobileNavItem: FC<MobileNavItemProps> = (props) => {
             color: 'var(--nav-item-color)',
             flexGrow: 1,
             fontFamily: (theme) => theme.typography.fontFamily,
-            fontSize: depth > 0 ? 25: 25,
+            fontSize: depth > 0 ? 23: 23,
             fontWeight: depth > 0 ? 500 : 600,
             lineHeight: '27px',
             whiteSpace: 'nowrap',

@@ -72,6 +72,7 @@ lyricWriter: '/dashboard/lyric-writer',
     images: '/dashboard/images',
       cocktailCrafter: '/dashboard/cocktail-crafter',
     magicMirror: '/dashboard/magic-mirror',
+    philosophyWriter: '/dashboard/philosophy-writer',
 
     customers: {
       index: '/dashboard/customers',

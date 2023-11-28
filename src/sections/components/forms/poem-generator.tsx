@@ -121,8 +121,8 @@ export const PoemGenerator: FC = () => {
       let newPrompt = t(tokens.form.writePoem);
       const poetText = ` ${t(poet)} `;
       const genreText = ` ${t(genre)} `;
-      const styleText = ` ${t('')} ${t(style)} ${t('')} `;
-      const moodText = ` ${t('')} ${t(mood)} ${t('')} `;
+      const styleText = ` ${t('')} ${t(style)} ${t('')}`;
+      const moodText = ` ${t('')} ${t(mood)} ${t('')}`;
 
       newPrompt = newPrompt
         .replace('[poet]', poetText)

@@ -69,6 +69,10 @@ const reduceChildRoutes = ({
             listStyle: 'none',
             m: 0,
             p: 0,
+            // Add a top margin to the first dropdown item
+            '&:first-of-type': {
+              mt: 2.5, // Adjust this value as needed
+            },
           }}
         >
           {renderItems({
@@ -123,7 +127,7 @@ export const MobileNavSection: FC<MobileNavSectionProps> = (props) => {
           component="li"
           sx={{
             color: 'var(--nav-section-title-color)',
-            fontSize: 20,
+            fontSize: 19,
             fontWeight: 700,
             lineHeight: 2.4,
             mb: 2,
