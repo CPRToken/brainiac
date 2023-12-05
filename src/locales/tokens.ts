@@ -8,6 +8,7 @@ export const tokens = {
 
     contentManager: 'nav.contentManager',
     contentWriter: 'nav.contentWriter',
+    dessertGen: 'nav.dessertGen',
     analytics: 'nav.analytics',
     auth: 'nav.auth',
     capsules: 'nav.capsules',
@@ -68,6 +69,7 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+    dessertGenerator: 'headings.dessertGenerator',
     yourDesign: 'headings.yourDesign',
   magicMirror: 'headings.magicMirror',
   philosophyWriter: 'headings.philosophyWriter',
@@ -138,7 +140,25 @@ headings: {
 
     form: {
         title: 'form.title',
+      base: 'form.base',
+        Rich: 'form.Rich',
+        createDessert: 'form.createDessert',
+      toppings: 'form.toppings',
       branch: 'form.branch',
+      Cake: 'form.Cake',
+      Cookie: 'form.Cookie',
+      Pie: 'form.Pie',
+      IceCream: 'form.IceCream',
+      Pudding: 'form.Pudding',
+      Sorbet: 'form.Sorbet',
+      Tart: 'form.Tart',
+      Pastry: 'form.Pastry',
+      Chocolate: 'form.Chocolate',
+      FruitDessert: 'form.FruitDessert',
+      Cupcake: 'form.Cupcake',
+      FrozenDessert: 'form.FrozenDessert',
+      Custard: 'form.Custard',
+      Candy: 'form.Candy',
       tradition: 'form.tradition',
       Stoicism: 'form.Stoicism',
       Existentialism: 'form.Existentialism',
@@ -184,6 +204,7 @@ headings: {
       poet: 'form.poet',
       Sour: 'form.Sour',
       Sweet: 'form.Sweet',
+        Savory: 'form.Savory',
       SlightlySweet: 'form.SlightlySweet',
 
       SweetBitter: 'form.SweetBitter',
@@ -294,6 +315,7 @@ headings: {
         spicy: 'form.spicy',
         sweetness: 'form.sweetness',
         spiciness: 'form.spiciness',
+        tasteMeter: 'form.tasteMeter',
         mixer: 'form.mixer',
         cocktailGarnish: 'form.cocktailGarnish',
       alcohol: 'form.alcohol',
@@ -374,7 +396,7 @@ headings: {
       Cocktail: 'form.cocktail',
       Bread: 'form.bread',
       Breakfast: 'form.breakfast',
-     Pastry: 'form.pastry',
+
       Vodka: 'form.Vodka',
       Rum: 'form.Rum',
       Gin: 'form.Gin',
