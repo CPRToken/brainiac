@@ -69,7 +69,6 @@ const dishOptions: Option[] = [
   { label: '', value: '' },
   { label: tokens.form.Appetizer, value: tokens.form.Appetizer },
   { label: tokens.form.MainCourse, value: tokens.form.MainCourse },
-  { label: tokens.form.Dessert, value: tokens.form.Dessert },
   { label: tokens.form.Soup, value: tokens.form.Soup },
   { label: tokens.form.Salad, value: tokens.form.Salad },
   { label: tokens.form.SideDish, value: tokens.form.SideDish },

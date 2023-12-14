@@ -105,21 +105,25 @@ export const ScriptWriter: FC = () => {
   useEffect(() => {
     if (genre && style && mood && duration !== 2.5) {
       let newPrompt = t(tokens.form.writeScript);
-      const genreText = genre ? `${getArticle(genre)} ${t(genre)} genre` : '';
-      const styleText = style ? `${getArticle(style)} ${t(style)} style` : '';
-      const moodText = mood ? `${getArticle(mood)} ${t(mood)} mood` : '';
-
-      const components = [genreText, styleText, moodText].filter(Boolean).join(', ');
+      const genreText = genre ? `${t(genre)}` : '';
+      const styleText = style ? `${t(style)}` : '';
+      const moodText = mood ? `${t(mood)}` : '';
 
       newPrompt = newPrompt
-        .replace('[genre][style][mood]', components)
-        .replace('[duration]', `${duration} ${t('minutes')}`);
+          .replace('[genre]', genreText)
+          .replace('[style]', styleText)
+          .replace('[mood]', moodText)
+          .replace('[duration]', `${duration} ${t('minutes')}`);
+
+
 
       setPrompt(newPrompt.trim());
     } else {
       setPrompt('');
     }
   }, [genre, style, mood, duration, t]);
+
+
 
 
   return (

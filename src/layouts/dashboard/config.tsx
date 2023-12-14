@@ -122,6 +122,7 @@ export const useSections = () => {
               { title: t(tokens.headings.magicMirror), path: paths.dashboard.magicMirror },
               { title: t(tokens.headings.philosophyWriter), path: paths.dashboard.philosophyWriter },
               { title: t(tokens.headings.dessertGenerator), path: paths.dashboard.dessertGenerator },
+              { title: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser },
             ]
           }
 

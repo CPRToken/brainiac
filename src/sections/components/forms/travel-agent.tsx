@@ -22,28 +22,36 @@ type Option = {
 
 const styleOptions: Option[] = [
     { label: '', value: '' },
-    { label: 'Adventure', value: 'adventurous' },
-    { label: 'Holiday', value: 'holiday' },
-    { label: 'Get away', value: 'get away' },
-    { label: 'Honeymoon', value: 'honeymoon' },
+  { label: tokens.form.Adventure, value: tokens.form.Adventure },
+  { label: tokens.form.Holiday, value: tokens.form.Holiday },
+  { label: tokens.form.GetAway, value: tokens.form.GetAway },
+  { label: tokens.form.Honeymoon, value: tokens.form.Honeymoon },
+  { label: tokens.form.Business, value: tokens.form.Business },
+  { label: tokens.form.Leisure, value: tokens.form.Leisure },
+  { label: tokens.form.Family, value: tokens.form.Family },
+  { label: tokens.form.Cultural, value: tokens.form.Cultural },
+  { label: tokens.form.EcoTourism, value: tokens.form.EcoTourism },
+  { label: tokens.form.Luxury, value: tokens.form.Luxury }
 
     // ... add more as needed
 ];
 
 const modeOptions: Option[] = [
     { label: '', value: '' },
-    { label: 'Air', value: 'air' },
-  { label: 'Train', value: 'train' },
+  { label: tokens.form.Air, value: tokens.form.Air },
+  { label: tokens.form.Train, value: tokens.form.Train },
+  { label: tokens.form.Bus, value: tokens.form.Bus },
+  { label: tokens.form.Car, value: tokens.form.Car },
+  { label: tokens.form.Boat, value: tokens.form.Boat },
+  { label: tokens.form.Bicycle, value: tokens.form.Bicycle },
+  { label: tokens.form.Motorcycle, value: tokens.form.Motorcycle },
+  { label: tokens.form.Walking, value: tokens.form.Walking },
+  { label: tokens.form.Subway, value: tokens.form.Subway },
+  { label: tokens.form.Tram, value: tokens.form.Tram }
     // ... add more as needed
 ];
 
-const getArticle = (word: string) => {
-  if (!word) return "";
-  const vowels = ['a', 'e', 'i', 'o', 'u'];
-  // Check for special cases like "hip-hop" which sounds like it starts with a vowel
-  const specialCases = ['hip-hop'];
-  return vowels.includes(word[0].toLowerCase()) || specialCases.includes(word) ? 'an' : 'a';
-};
+
 
 
 export const TravelAgent: FC = () => {
@@ -62,32 +70,37 @@ export const TravelAgent: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
 
-  useEffect(() => {
-    if (destination && style && mode && budget) {
-      let newPrompt = t(tokens.form.writeItinerary);
+    useEffect(() => {
+        if (destination && style && mode && budget) {
+            let newPrompt = t(tokens.form.writeItinerary);
 
-      // Assuming tokens.form.writeItinerary is like "Write an itinerary for [destination] using [mode] with a budget of [budget] dollars"
-      newPrompt = newPrompt
-        .replace('[destination]', destination)
-        .replace('[style]', style)
-        .replace('[mode]', mode)
-        .replace('[budget]', `${budget} ${t('dollars')}`);
+            const destinationText = ` ${t(destination)} `;
+            const styleText = ` ${t(style)} `;
+            const modeText = ` ${t(mode)} `;
+            const budgetText = ` ${budget} ${t('dollars')} `;
 
-      setPrompt(newPrompt.trim());
-    } else {
-      setPrompt('');
-    }
-  }, [destination, style, mode, budget, t]);
+            newPrompt = newPrompt
+                .replace('[destination]', destinationText)
+                .replace('[style]', styleText)
+                .replace('[mode]', modeText)
+                .replace('[budget]', budgetText);
 
-
-
-
-
-
+            setPrompt(newPrompt.trim());
+        } else {
+            setPrompt('');
+        }
+    }, [destination, style, mode, budget, t]);
 
 
 
-  return (
+
+
+
+
+
+
+
+    return (
       <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
 
       <Stack spacing={3}>
@@ -103,7 +116,7 @@ export const TravelAgent: FC = () => {
 
         <TextField
           fullWidth
-          label={t(tokens.form.style)}
+          label={t(tokens.form.typeHoliday)}
           name="style"
           select
           SelectProps={{ native: true }}
@@ -112,13 +125,13 @@ export const TravelAgent: FC = () => {
         >
           {styleOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
         <TextField
           fullWidth
-          label={t(tokens.form.mode)}
+          label={t(tokens.form.modeTransport)}
           name="mode"
           select
           SelectProps={{ native: true }}
@@ -127,7 +140,7 @@ export const TravelAgent: FC = () => {
         >
           {modeOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>

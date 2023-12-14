@@ -251,7 +251,7 @@ Work Experience: ${placesWorked}
 
         <Stack direction="row" spacing={2}>
           <TextField
-            label={t(tokens.form.highSchool)}
+            label={t(tokens.form.collegeTAFE)}
             name="highSchool"
             value={highSchoolEducation} // Use state here
             onChange={(e) => setHighSchoolEducation(e.target.value)} // Update state with user input
@@ -262,7 +262,7 @@ Work Experience: ${placesWorked}
             rows={2}
           />
           <TextField
-            label={t(tokens.form.highestYearCompleted)}
+            label={t(tokens.form.course)}
             name="highestYearCompleted"
             value={highestYear} // Use state here
             onChange={(e) => setHighestYearCompleted(e.target.value)} // Update state with user input
@@ -277,7 +277,7 @@ Work Experience: ${placesWorked}
 
         <Stack direction="row" spacing={2}>
           <TextField
-            label={t(tokens.form.university)}
+            label={t(tokens.form.universityList)}
             name="university"
             value={universitySchool} // Ensures the value is not undefined
             onChange={(e) => setUniversity(e.target.value)}

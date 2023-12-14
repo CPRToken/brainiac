@@ -74,6 +74,7 @@ lyricWriter: '/dashboard/lyric-writer',
     magicMirror: '/dashboard/magic-mirror',
     philosophyWriter: '/dashboard/philosophy-writer',
     dessertGenerator: '/dashboard/dessert-generator',
+    bookSummariser: '/dashboard/book-summariser',
 
     customers: {
       index: '/dashboard/customers',
