@@ -123,6 +123,7 @@ export const useSections = () => {
               { title: t(tokens.headings.philosophyWriter), path: paths.dashboard.philosophyWriter },
               { title: t(tokens.headings.dessertGenerator), path: paths.dashboard.dessertGenerator },
               { title: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser },
+              { title: t(tokens.headings.translator), path: paths.dashboard.translator },
             ]
           }
 

@@ -70,6 +70,7 @@ export const tokens = {
 headings: {
   primaryColor: 'headings.primaryColor',
   bookSummariser: 'headings.bookSummariser',
+  translator: 'headings.translator',
     dessertGenerator: 'headings.dessertGenerator',
     yourDesign: 'headings.yourDesign',
   magicMirror: 'headings.magicMirror',
@@ -142,6 +143,7 @@ headings: {
     form: {
         title: 'form.title',
       bookTitle: 'form.bookTitle',
+      translateInstructions: 'form.translateInstructions',
         summaryLength: 'form.summaryLength',
       bookSummary: 'form.bookSummary',
       author: 'form.author',
@@ -687,6 +689,7 @@ headings: {
     workExperience: 'form.workExperience',
     skills: 'form.skills',
     pasteQuestion: 'form.pasteQuestion',
+      pasteText: 'form.pasteText',
     imagePrompts: 'form.imagePrompts',
     language: 'form.language',
     informative: 'form.informative',
