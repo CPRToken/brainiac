@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useDavinciSubmit from './davinci-submit';
+import useHandleSubmit from './handle-submit';
 import Typography from "@mui/material/Typography";
 
 
@@ -78,51 +78,25 @@ const languageOptions: Option[] = [
 
 export const Translator: FC = () => {
   const { t } = useTranslation();
-  const { davinciSubmit, openAIResponse, isLoading } = useDavinciSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
   const [language, setLanguage] = useState<string>('');
   const [text, setText] = useState<string>('');
 
-  const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
-
-
-  const maxTokensForResume = 2000;
+  const maxTokensForTrans = 4000;
 
   const submitToOpenAI = () => {
-    // Construct a prompt that OpenAI can use to generate an article
-    const newPrompt = `Translate the below ${text} into ${t(language)}`;
-    setPrompt(newPrompt); // Update the prompt state
-    davinciSubmit(newPrompt, maxTokensForResume)
-      .then(() => {
-        // Handle successful submission if needed
-      })
-      .catch(error => {
-        console.error("Error submitting to OpenAI:", error);
-      });
-  };
-
-
-
-
-  useEffect(() => {
-    if (language && text ) {
-      // Use the translation tokens to create the prompt
-      let newPrompt = t(tokens.form.writeContent, {
-
-        language: t(language),
-        text: text,
-
-      });
-
-      // Update the prompt state with the new prompt
-      setPrompt(newPrompt.trim());
-    } else {
-      setPrompt('');
+    if (language && text) {
+      const newPrompt = `Translate the below text '${text}' into ${t(language)}`;
+      handleSubmit(newPrompt, maxTokensForTrans)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
     }
-  }, [language, text, t]);
-
-
-
+  };
 
 
   return (
