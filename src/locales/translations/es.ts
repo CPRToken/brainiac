@@ -155,7 +155,7 @@ export const es = {
   [tokens.form.writeSong]: 'Escribe una canción de [genre] con estilo [style][mood] con una duración de [duration] minutos',
     [tokens.form.writeItinerary]: 'escribe un itinerario para un viaje de [mode] a [destination] con un presupuesto de [budget]',
 
-    [tokens.form.writePoem]: 'Compón un poema de [duration] palabras, del género [genre], que capture la esencia y el estilo característico de [poet], en un tono [mood], sin mencionar el nombre del poeta',
+    [tokens.form.writePoem]: 'Compón un poema de [duration] palabras, del género [genre], que refleje elementos y temas típicos en la obra de [poet], en un tono [mood], evitando mencionar el nombre del poeta',
   [tokens.form.writePhilosophy]: 'Desarrolla un nuevo concepto filosófico inspirado en [tradition], con base en la rama [branch] y enfocado en el tema de [theme]. La exposición debe ser de aproximadamente [duration] palabras de longitud.',
 
     [tokens.form.SEOWriter]: 'escribe un artículo SEO de [niche][topic][style] con una duración de [duration]',
