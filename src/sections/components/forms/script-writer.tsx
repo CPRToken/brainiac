@@ -10,7 +10,7 @@ import ResponseText from '../clipboards/response-text';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import useHandleSubmit from './handle-submit';
+import useGPT4Submit from './gpt4-submit';
 import CircularProgress from "@mui/material/CircularProgress";
 
 type Option = {
@@ -92,7 +92,7 @@ export const ScriptWriter: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
@@ -198,7 +198,7 @@ export const ScriptWriter: FC = () => {
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-          onClick={() => handleSubmit(prompt, 1000)}
+          onClick={() => handleSubmit(prompt, 2000)}
           type="submit"
           variant="contained"
           fullWidth

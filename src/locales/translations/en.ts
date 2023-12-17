@@ -680,7 +680,7 @@ export const en = {
   [tokens.form.Nostalgic]: 'Nostalgic',
   [tokens.form.Energetic]: 'Energetic',
     [tokens.form.era]: 'Era',
-  [tokens.form.writePoem]: 'Compose a [duration] word [genre] poem, capturing the essence and style reminiscent of [poet], in a [mood] mood, without mentioning the poet\'s name.',
+  [tokens.form.writePoem]: 'Compose a [duration] word [genre] poem, capturing the essence and style reminiscent of [poet], in a[mood] mood, without mentioning the poet\'s name.',
 
     [tokens.form.writeItinerary]: 'write an itinerary for a [style] trip to [destination] using [mode] travel, with a budget of [budget]',
 

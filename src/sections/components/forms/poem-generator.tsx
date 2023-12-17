@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
+import useGPT4Submit from './gpt4-submit';
 
 type Option = {
     label: string;
@@ -103,7 +103,7 @@ export const PoemGenerator: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [poet, setPoet] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
@@ -119,8 +119,8 @@ export const PoemGenerator: FC = () => {
     // Check if all selections are made
     if (genre && style && mood && duration) {
       let newPrompt = t(tokens.form.writePoem);
-      const poetText = ` ${t(poet)} `;
-      const genreText = ` ${t(genre)} `;
+      const poetText = ` ${t(poet)}`;
+      const genreText = ` ${t(genre)}`;
       const styleText = ` ${t('')} ${t(style)} ${t('')}`;
       const moodText = ` ${t('')} ${t(mood)} ${t('')}`;
 
