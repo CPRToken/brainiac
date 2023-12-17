@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
+import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
 
 
@@ -78,12 +78,12 @@ const languageOptions: Option[] = [
 
 export const Translator: FC = () => {
   const { t } = useTranslation();
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [language, setLanguage] = useState<string>('');
   const [text, setText] = useState<string>('');
 
   const { textRef, handleCopyText } = ResponseText();
-  const maxTokensForTrans = 4000;
+  const maxTokensForTrans = 3000;
 
   const submitToOpenAI = () => {
     if (language && text) {

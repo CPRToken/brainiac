@@ -249,7 +249,7 @@ export const en = {
   [tokens.form.type]: 'Type',
   [tokens.form.imageInstructions]: 'Select the desired options to generate an image. Choose an artist, a visual style, a theme & an object.\nSelect \'No Artist\' for realistic looking images.\n' +
   '\n',
-  [tokens.form.translateInstructions]: 'To initiate a translation, please paste your text below. Subsequently, choose your language from the dropdown menu and click \'Submit\' to proceed.\n' ,
+  [tokens.form.translateInstructions]: 'To initiate a translation, please paste your text below. Then, select the language you wish your text to be translated to and click \'Submit\' to proceed.\n' ,
   [tokens.form.magicMirror]: 'Ask the Magic Mirror to find the perfect outfit for any event. Select your preferences from the menu options and click \'Submit\'.',
   [tokens.form.email]: 'Email',
   [tokens.form.alcohol]: 'Alcohol',
