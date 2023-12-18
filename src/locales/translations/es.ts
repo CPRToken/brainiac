@@ -161,7 +161,7 @@ export const es = {
   [tokens.form.DarkComedy]: 'Comedia Negra',
   [tokens.form.writeSong]: 'Escribe una canción de [genre] con estilo [style][mood] con una duración de [duration] minutos',
     [tokens.form.writeItinerary]: 'escribe un itinerario para un viaje de [mode] a [destination] con un presupuesto de [budget]',
-    [tokens.form.writeStory]: 'Redacta un relato infantil de género [genre], inspirado en el estilo de [author], compuesto por [duration] palabras, ambientado en un tono [mood] y desarrollado en un estilo [style].',
+    [tokens.form.writeStory]: 'Redacta un relato infantil de género [genre], inspirado en el estilo de [author], compuesto por [duration] palabras, ambientado en un tono[mood] y desarrollado en un estilo[style], evitando mencionar el nombre del autor.',
   [tokens.form.writePoem]: 'Compón un poema de [duration] palabras, del género [genre], que refleje elementos y temas típicos en la obra de [poet], en un tono [mood], evitando mencionar el nombre del poeta',
   [tokens.form.writePhilosophy]: 'Desarrolla un nuevo concepto filosófico inspirado en [tradition], con base en la rama [branch] y enfocado en el tema de [theme]. La exposición debe ser de aproximadamente [duration] palabras de longitud.',
 

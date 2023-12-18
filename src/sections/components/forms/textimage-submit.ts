@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
-import useHandleSubmit from "./handle-submit";
+import useGPT4Submit from "./gpt4-submit";
 import useImageSubmit from './image-submit';
 
 const TextImageSubmit = () => {
-  const { handleSubmit: handleTextSubmit, openAIResponse: textResponse, isLoading: isTextLoading } = useHandleSubmit();
+  const { handleSubmit: handleTextSubmit, openAIResponse: textResponse, isLoading: isTextLoading } = useGPT4Submit();
   const { imageSubmit, openAIResponse: images, isLoading: isImageLoading } = useImageSubmit();
 
   const [combinedLoading, setCombinedLoading] = useState(false);

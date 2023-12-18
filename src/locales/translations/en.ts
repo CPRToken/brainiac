@@ -706,7 +706,7 @@ export const en = {
   [tokens.form.Energetic]: 'Energetic',
     [tokens.form.era]: 'Era',
   [tokens.form.writePoem]: 'Compose a [duration] word [genre] poem, capturing the essence and style reminiscent of [poet], in a[mood] mood, without mentioning the poet\'s name.',
-    [tokens.form.writeStory]: 'Compose a [genre] story for children, styled after [author], spanning [duration] words, infused with a [mood] mood, and crafted in a [style] style.',
+    [tokens.form.writeStory]: 'Compose a [genre] story for children, styled after [author], spanning [duration] words, infused with a[mood] mood, and crafted in a[style] style, without mentioning the author\'s name.',
 
         [tokens.form.writeItinerary]: 'write an itinerary for a [style] trip to [destination] using [mode] travel, with a budget of [budget]',
 

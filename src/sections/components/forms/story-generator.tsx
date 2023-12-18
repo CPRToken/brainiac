@@ -77,7 +77,6 @@ const styleOptions: Option[] = [
   { label: tokens.form.Narrative, value: tokens.form.Narrative },
   { label: tokens.form.Descriptive, value: tokens.form.Descriptive },
   { label: tokens.form.Humorous, value: tokens.form.Humorous },
-  { label: tokens.form.Fantasy, value: tokens.form.Fantasy },
   { label: tokens.form.Scary, value: tokens.form.Scary },
   { label: tokens.form.Adventure, value: tokens.form.Adventure },
   { label: tokens.form.FairyTale, value: tokens.form.FairyTale },
@@ -177,11 +176,20 @@ export const StoryGenerator: FC = () => {
         });
   };
 
+    const handleSliderChange = (_: Event, newValue: number | number[]) => {
+        // If newValue is an array, you can decide how to handle it.
+        // For a single thumb slider, it should be just a number.
+        if (typeof newValue === 'number') {
+            setDuration(newValue * 100); // Update word count based on slider
+        }
+    };
+
+// Calculate max tokens based on the slider value (duration)
+    const maxTokens = duration * 4; // Since 1 word is approx. 4 tokens
 
 
 
-
-  return (
+    return (
       <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
 
       <Stack spacing={3}>
@@ -252,7 +260,7 @@ export const StoryGenerator: FC = () => {
             min={1}
             max={4}
             step={0.5} // The slider's step
-            onChange={(_, newValue) => setDuration(newValue as number * 100)} // Convert back to words on change
+            onChange={handleSliderChange}
           />
         </div>
           <TextField
@@ -268,7 +276,7 @@ export const StoryGenerator: FC = () => {
       </Stack>
           <Box sx={{ mt: 3 }}>
               <Button
-                  onClick={() => combinedSubmit(prompt, 700)}
+                  onClick={() => combinedSubmit(prompt, maxTokens)}
                   type="submit"
                   variant="contained"
                   fullWidth
