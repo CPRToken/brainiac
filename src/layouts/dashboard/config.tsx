@@ -125,6 +125,8 @@ export const useSections = () => {
               { title: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser },
               { title: t(tokens.headings.translator), path: paths.dashboard.translator },
               { title: t(tokens.headings.storyGenerator), path: paths.dashboard.storyGenerator },
+              { title: t(tokens.headings.fruitsNVeges), path: paths.dashboard.fruitsNVeges },
+
             ]
           }
 

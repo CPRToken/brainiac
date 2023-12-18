@@ -77,6 +77,7 @@ lyricWriter: '/dashboard/lyric-writer',
     bookSummariser: '/dashboard/book-summariser',
     translator: '/dashboard/translator',
       storyGenerator: '/dashboard/story-generator',
+      fruitsNVeges: '/dashboard/fruits-n-veges',
 
     customers: {
       index: '/dashboard/customers',

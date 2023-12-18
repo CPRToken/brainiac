@@ -69,6 +69,7 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+    fruitsNVeges: 'headings.fruitsNVeges',
     yourStory: 'headings.yourStory',
   bookSummariser: 'headings.bookSummariser',
     storyGenerator: 'headings.storyGenerator',
@@ -144,6 +145,10 @@ headings: {
 
     form: {
         title: 'form.title',
+        fruit: 'form.fruit',
+        healthBenefits: 'form.healthBenefits',
+        fruitOrVege: 'form.fruitOrVege',
+        fruitInstructions: 'form.fruitInstructions',
       bookTitle: 'form.bookTitle',
       translateInstructions: 'form.translateInstructions',
         summaryLength: 'form.summaryLength',
@@ -222,7 +227,7 @@ headings: {
       SweetBitter: 'form.SweetBitter',
       Bitter: 'form.Bitter',
 
-
+        fruitBenefits: 'form.fruitBenefits',
         era: 'form.era',
         sexy: 'form.sexy',
         doucheBag: 'form.doucheBag',
