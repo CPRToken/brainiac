@@ -76,6 +76,7 @@ lyricWriter: '/dashboard/lyric-writer',
     dessertGenerator: '/dashboard/dessert-generator',
     bookSummariser: '/dashboard/book-summariser',
     translator: '/dashboard/translator',
+      storyGenerator: '/dashboard/story-generator',
 
     customers: {
       index: '/dashboard/customers',
