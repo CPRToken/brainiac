@@ -130,6 +130,9 @@ export const RecipeWriter: FC = () => {
     4: tokens.form.NonSpicy,
   };
 
+
+
+
   useEffect(() => {
     if (country && dish && protein && garnish && spiciness !== null) {
       let newPrompt = t(tokens.form.createRecipe);

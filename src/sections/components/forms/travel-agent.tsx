@@ -70,30 +70,40 @@ export const TravelAgent: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
 
-    useEffect(() => {
+  const maxTokens = 1000;
+  const submitToOpenAI = () => {
+    // Construct a prompt that OpenAI can use to generate an article
+    const  newPrompt = t(tokens.form.writeItinerary);
+    setPrompt(newPrompt); // Update the prompt state
+    handleSubmit(newPrompt, maxTokens)
+      .then(() => {
+        // Handle successful submission if needed
+      })
+      .catch(error => {
+        console.error("Error submitting to OpenAI:", error);
+      });
+  };
+
+
+
+
+
+  useEffect(() => {
         if (destination && style && mode && budget) {
-            let newPrompt = t(tokens.form.writeItinerary);
+            let newPrompt = t(tokens.form.writeItinerary, {
 
-            const destinationText = ` ${t(destination)} `;
-            const styleText = ` ${t(style)} `;
-            const modeText = ` ${t(mode)} `;
-            const budgetText = ` ${budget} ${t('dollars')} `;
+              budget: `${budget} ${t('dollars')}`,
+                destination: t(destination),
+                style: t(style),
+                mode: t(mode),
+            });
 
-            newPrompt = newPrompt
-                .replace('[destination]', destinationText)
-                .replace('[style]', styleText)
-                .replace('[mode]', modeText)
-                .replace('[budget]', budgetText);
 
             setPrompt(newPrompt.trim());
         } else {
             setPrompt('');
         }
     }, [destination, style, mode, budget, t]);
-
-
-
-
 
 
 
@@ -154,52 +164,39 @@ export const TravelAgent: FC = () => {
             onChange={(_, newValue) => setBudget(newValue as number)}
           />
         </div>
-          <TextField
-              fullWidth
-              label={t(tokens.form.prompts)}
-              name="prompt"
-              value={prompt}
-              multiline
-              rows={4}
-          />
+
 
 
       </Stack>
-          <Box sx={{ mt: 3 }}>
-              <Button
-                  onClick={() => handleSubmit(prompt, 1000)}
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  disabled={isLoading}  // Disable the button while loading
-              >
-                  {isLoading ? <CircularProgress size={24} /> : 'Submit'}
-              </Button>
-          </Box>
-
         <Box sx={{ mt: 3 }}>
-          {openAIResponse && (
-            <>
+          <Button
+            onClick={submitToOpenAI}
+            type="submit"
+            variant="contained"
+            fullWidth
+            disabled={isLoading}
+          >
+            {isLoading ? <CircularProgress size={24} /> : 'Submit'}
+          </Button>
+        </Box>
+
+        {openAIResponse && (
+        <Box sx={{ mt: 3 }}>
               <label>{t(tokens.form.yourItinerary)}</label>
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>
-            </>
-          )}
-
-          <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
-            {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
-              index === array.length - 1 ? str : <>
+          <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
+            {openAIResponse.split('\n').map((str, index, array) => (
+              <React.Fragment key={index}>
                 {str}
-                <br />
-              </>
-            )}
+                {index < array.length - 1 ? <br /> : null}
+              </React.Fragment>
+            ))}
           </Paper>
         </Box>
-
-
+        )}
       </Box>
+    );
 
-);
 };
-

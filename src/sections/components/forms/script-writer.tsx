@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -101,20 +101,35 @@ export const ScriptWriter: FC = () => {
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
+  const maxTokens = 1000;
+  const submitToOpenAI = () => {
+    // Construct a prompt that OpenAI can use to generate an article
+    const  newPrompt = t(tokens.form.writeSong);
+    setPrompt(newPrompt); // Update the prompt state
+    handleSubmit(newPrompt, maxTokens)
+      .then(() => {
+        // Handle successful submission if needed
+      })
+      .catch(error => {
+        console.error("Error submitting to OpenAI:", error);
+      });
+  };
+
+
+
+
 
   useEffect(() => {
-    if (genre && style && mood && duration !== 2.5) {
-      let newPrompt = t(tokens.form.writeScript);
-      const genreText = genre ? `${t(genre)}` : '';
-      const styleText = style ? `${t(style)}` : '';
-      const moodText = mood ? `${t(mood)}` : '';
+    if (genre && style && mood && duration) {
 
-      newPrompt = newPrompt
-          .replace('[genre]', genreText)
-          .replace('[style]', styleText)
-          .replace('[mood]', moodText)
-          .replace('[duration]', `${duration} ${t('minutes')}`);
+        let newPrompt = t(tokens.form.writeScript, {
 
+      duration: `${duration} mins`,
+        genre: t(genre),
+        style: t(style),
+        mood: t(mood),
+
+      });
 
 
       setPrompt(newPrompt.trim());
@@ -185,52 +200,43 @@ export const ScriptWriter: FC = () => {
             onChange={(_, newValue) => setDuration(newValue as number)}
           />
         </div>
-        <TextField
-          fullWidth
-          label={t(tokens.form.prompts)}
-          name="prompt"
-          value={prompt}
-          multiline
-          rows={4}
-        />
+
 
 
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-          onClick={() => handleSubmit(prompt, 2000)}
+          onClick={submitToOpenAI}
           type="submit"
           variant="contained"
           fullWidth
-          disabled={isLoading}  // Disable the button while loading
+          disabled={isLoading}
         >
           {isLoading ? <CircularProgress size={24} /> : 'Submit'}
         </Button>
       </Box>
 
 
+      {openAIResponse && (
+        <Box sx={{ mt: 3 }}>
 
-      <Box sx={{ mt: 3 }}>
-        {openAIResponse && (
-          <>
         <label>Your Script:</label>
         <Button onClick={handleCopyText} title="Copy response text">
           <FileCopyIcon />
         </Button>
-          </>
-        )}
 
-        <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
-          {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
-            index === array.length - 1 ? str : <>
-              {str}
-              <br />
-            </>
-          )}
-        </Paper>
-
-      </Box>
+          <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
+            {openAIResponse.split('\n').map((str, index, array) => (
+              <React.Fragment key={index}>
+                {str}
+                {index < array.length - 1 ? <br /> : null}
+              </React.Fragment>
+            ))}
+          </Paper>
+        </Box>
+      )}
     </Box>
+
 
 
   );

@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ResponseText from '../clipboards/response-text';
@@ -12,7 +12,7 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useHandleSubmit from './handle-submit';
-
+import {CustomSlider} from "../slider/slider";
 
 type Option = {
     label: string;
@@ -82,37 +82,40 @@ export const LyricWriter: FC = () => {
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
+  const maxTokens = 1000;
+  const submitToOpenAI = () => {
+    // Construct a prompt that OpenAI can use to generate an article
+   const  newPrompt = t(tokens.form.writeSong);
+    setPrompt(newPrompt); // Update the prompt state
+    handleSubmit(newPrompt, maxTokens)
+      .then(() => {
+        // Handle successful submission if needed
+      })
+      .catch(error => {
+        console.error("Error submitting to OpenAI:", error);
+      });
+  };
+
+
 
   useEffect(() => {
     if (genre && style && mood && duration) {
-      let newPrompt = t(tokens.form.writeSong);
+      let newPrompt = t(tokens.form.writeSong, {
 
-      const genreText = genre !== '' ? `${t(genre)} ` : '';
-      const styleText = style !== '' ? `${t(style)} , ` : '';
-      const moodText = mood !== '' ? `${t(mood)} , ` : '';
-      const durationText = `${duration} ${t('')}`;
+      duration: `${duration} mins`,
+        genre: t(genre),
+        style: t(style),
+        mood: t(mood),
+      });
 
       // Replace placeholders with the actual values
-      newPrompt = newPrompt
-        .replace('[genre]', genreText)
-        .replace('[style]', styleText)
-        .replace('[mood]', moodText)
-        .replace('[duration]', durationText);
 
-      // Remove any trailing commas and spaces
-      newPrompt = newPrompt.replace(/,+\s*$/, '');
 
       setPrompt(newPrompt.trim());
     } else {
       setPrompt('');
     }
   }, [genre, style, mood, duration, t]);
-
-
-
-
-
-
 
 
 
@@ -170,7 +173,7 @@ export const LyricWriter: FC = () => {
         <div>
           <label>{t(tokens.form.duration)}</label>
 
-          <Slider
+          <CustomSlider
             value={duration}
             min={1}
             max={4}
@@ -178,52 +181,40 @@ export const LyricWriter: FC = () => {
             onChange={(_, newValue) => setDuration(newValue as number)}
           />
         </div>
-          <TextField
-              fullWidth
-              label={t(tokens.form.prompts)}
-              name="prompt"
-              value={prompt}
-              multiline
-              rows={4}
-          />
+
 
 
       </Stack>
           <Box sx={{ mt: 3 }}>
-              <Button
-                  onClick={() => handleSubmit(prompt, 1000)}
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  disabled={isLoading}  // Disable the button while loading
-              >
+            <Button
+              onClick={submitToOpenAI}
+              type="submit"
+              variant="contained"
+              fullWidth
+              disabled={isLoading}
+            >
                   {isLoading ? <CircularProgress size={24} /> : 'Submit'}
               </Button>
           </Box>
 
-        <Box sx={{ mt: 3 }}>
+
           {openAIResponse && (
-            <>
+            <Box sx={{ mt: 3 }}>
               <label>Your Lyrics:</label>
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>
-            </>
+              <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
+                {openAIResponse.split('\n').map((str, index, array) => (
+                  <React.Fragment key={index}>
+                    {str}
+                    {index < array.length - 1 ? <br /> : null}
+                  </React.Fragment>
+                ))}
+              </Paper>
+            </Box>
           )}
-
-          <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
-            {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
-              index === array.length - 1 ? str : <>
-                {str}
-                <br />
-              </>
-            )}
-          </Paper>
         </Box>
+        );
 
-
-      </Box>
-
-);
-};
-
+        };

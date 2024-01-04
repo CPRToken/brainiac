@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ResponseText from '../clipboards/response-text';
@@ -133,22 +133,35 @@ export const SEOArticleWriter: FC = () => {
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
+  const maxTokensForResume = 1500;
+
+  const submitToOpenAI = () => {
+    // Construct a prompt that OpenAI can use to generate an article
+    const  newPrompt = t(tokens.form.SEOWriter);
+    setPrompt(newPrompt); // Update the prompt state
+    handleSubmit(newPrompt, maxTokensForResume)
+      .then(() => {
+        // Handle successful submission if needed
+      })
+      .catch(error => {
+        console.error("Error submitting to OpenAI:", error);
+      });
+  };
+
+
+
+
+
   useEffect(() => {
     if (niche && purpose && style && duration) {
-      let newPrompt = t(tokens.form.SEOWriter);
+      let  newPrompt = t(tokens.form.SEOWriter, {
 
-      const nicheText = niche ? `${t(niche)}` : ''; // "technology" in your case
-      const purposeText = purpose ? `${t(purpose)}` : ''; // "on-page-seo" in your case
-      const styleText = style ? `${t(style)}` : ''; // "informative" in your case
-      // No need for the useArticle function because "a" is already correct before "500-word"
-      const wordCountText = `${duration}`; // Always 500 in your case
+        duration: `${duration} mins`,
+        niche: t(niche),
+        purpose: t(purpose),
+        style: t(style),
+      });
 
-      // Replace the placeholders with the actual values
-      newPrompt = newPrompt
-        .replace('[niche]', nicheText)
-        .replace('[purpose]', purposeText)
-        .replace('[style]', styleText)
-        .replace('[duration]', wordCountText);
 
       setPrompt(newPrompt.trim());
     } else {
@@ -218,54 +231,39 @@ export const SEOArticleWriter: FC = () => {
           />
 
         </div>
-          <TextField
-              fullWidth
-              label={t(tokens.form.prompts)}
-              name="prompt"
-              value={prompt}
-              multiline
-              rows={4}
-          />
 
 
       </Stack>
         <Box sx={{ mt: 3 }}>
           <Button
-            onClick={() => handleSubmit(prompt, 1000)}
+            onClick={submitToOpenAI}
             type="submit"
             variant="contained"
             fullWidth
-            disabled={isLoading}  // Disable the button while loading
+            disabled={isLoading}
           >
             {isLoading ? <CircularProgress size={24} /> : 'Submit'}
           </Button>
         </Box>
 
 
-        <Box sx={{ mt: 3 }}>
-          {openAIResponse && (
-            <>
+        {openAIResponse && (
+          <Box sx={{ mt: 3 }}>
               <label>{t(tokens.form.yourSEOArticle)}</label>
-              <Button onClick={handleCopyText} title="Copy response text">
-                <FileCopyIcon />
-              </Button>
-            </>
-          )}
-
-          <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
-            {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
-              index === array.length - 1 ? str : <>
-                {str}
-                <br />
-              </>
-            )}
-          </Paper>
-        </Box>
-
-
-
+            <Button onClick={handleCopyText} title="Copy response text">
+              <FileCopyIcon />
+            </Button>
+            <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
+              {openAIResponse.split('\n').map((str, index, array) => (
+                <React.Fragment key={index}>
+                  {str}
+                  {index < array.length - 1 ? <br /> : null}
+                </React.Fragment>
+              ))}
+            </Paper>
+          </Box>
+        )}
       </Box>
+  );
 
-);
 };
-
