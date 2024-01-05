@@ -78,7 +78,8 @@ lyricWriter: '/dashboard/lyric-writer',
     translator: '/dashboard/translator',
       storyGenerator: '/dashboard/story-generator',
       fruitsNVeges: '/dashboard/fruits-n-veges',
-
+      stockSelector: '/dashboard/stock-selector',
+        dreamInterpretation: '/dashboard/dream-interpretation',
     customers: {
       index: '/dashboard/customers',
       details: '/dashboard/customers/:customerId',

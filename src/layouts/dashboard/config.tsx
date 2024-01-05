@@ -122,7 +122,8 @@ export const useSections = () => {
               { title: t(tokens.headings.translator), path: paths.dashboard.translator },
               { title: t(tokens.headings.storyGenerator), path: paths.dashboard.storyGenerator },
               { title: t(tokens.headings.fruitsNVeges), path: paths.dashboard.fruitsNVeges },
-
+              { title: t(tokens.headings.stockSelector), path: paths.dashboard.stockSelector },
+              { title: t(tokens.headings.dreamInterpretation), path: paths.dashboard.dreamInterpretation },
             ]
           }
 

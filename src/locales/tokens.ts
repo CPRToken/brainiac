@@ -69,6 +69,8 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+    dreamInterpretation: 'headings.dreamInterpretation',
+  stockSelector: 'headings.stockSelector',
     fruitsNVeges: 'headings.fruitsNVeges',
     yourStory: 'headings.yourStory',
   bookSummariser: 'headings.bookSummariser',
@@ -145,9 +147,24 @@ headings: {
 
     form: {
         title: 'form.title',
+        realTimeStocks: 'form.realTimeStocks',
+        interpretation: 'form.interpretation',
+        dreamInterpretation: 'form.dreamInterpretation',
+        dreamInstructions: 'form.dreamInstructions',
+        yourDream: 'form.yourDream',
+        stockType: 'form.stockType',
+        AlphaIntelligence: 'form.AlphaIntelligence',
+        fundamentalData: 'form.fundamentalData',
+        PhysicalNDigitalCryptoCurrencies: 'form.PhysicalNDigitalCryptoCurrencies',
+        Commodities: 'form.Commodities',
+        EconomicIndicators: 'form.EconomicIndicators',
+        TechnicalIndicators: 'form.TechnicalIndicators',
         fruit: 'form.fruit',
+      budget: 'form.budget',
+      stockTips: 'form.stockTips',
       yourLyrics: 'form.yourLyrics',
       yourSpeech: 'form.yourSpeech',
+      stockPrompts: 'form.stockPrompts',
       yourScript: 'form.yourScript',
         healthBenefits: 'form.healthBenefits',
         fruitOrVege: 'form.fruitOrVege',
@@ -626,7 +643,7 @@ headings: {
       India: 'form.India',
     protein: 'form.protein',
     garnish: 'form.garnish',
-    budget: 'form.budget',
+
     mode: 'form.mode',
       modeTransport: 'form.modeTransport',
     wordCount: 'form.wordCount',
