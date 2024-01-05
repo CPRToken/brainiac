@@ -1,19 +1,17 @@
 import type { FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Slider from '@mui/material/Slider';
+import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
-import {CustomSlider} from "../slider/slider";
-
+import useGPT4Submit from './gpt4-submit';
 type Option = {
     label: string;
     value: string;
@@ -122,7 +120,7 @@ export const SpeechWriter: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [topic, setTopic] = useState<string>('');
   const [style, setStyle] = useState<string>('');
   const [theme, setTheme] = useState<string>('');
@@ -134,40 +132,36 @@ export const SpeechWriter: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
 
-  const maxTokens = 1000;
-  const submitToOpenAI = () => {
-    // Construct a prompt that OpenAI can use to generate an article
-    const  newPrompt = t(tokens.form.writeSpeech);
-    setPrompt(newPrompt); // Update the prompt state
-    handleSubmit(newPrompt, maxTokens)
-      .then(() => {
-        // Handle successful submission if needed
-      })
-      .catch(error => {
-        console.error("Error submitting to OpenAI:", error);
-      });
-  };
-
-
-
-
   useEffect(() => {
     if (topic && style && theme && duration) {
-      let newPrompt = t(tokens.form.writeSpeech,{
+      let newPrompt = t(tokens.form.writeSpeech);
 
-      duration:  `${duration} mins`,
-      topic: t(topic),
-      style: t(style),
-      theme: t(theme),
-    });
+      const topicText = topic !== '' ? `${t(topic)} ` : '';
+      const styleText = style !== '' ? `${t(style)} ` : '';
+      const themeText = theme !== '' ? `${t(theme)} ` : '';
+      const durationText = `${duration} ${t('')}`;
+
       // Replace placeholders with the actual values
+      newPrompt = newPrompt
+        .replace('[topic]', topicText)
+        .replace('[style]', styleText)
+        .replace('[theme]', themeText)
+        .replace('[duration]', durationText);
 
+      // Remove any trailing commas and spaces
+      newPrompt = newPrompt.replace(/,+\s*$/, '');
 
       setPrompt(newPrompt.trim());
     } else {
       setPrompt('');
     }
   }, [topic, style, theme, duration, t]);
+
+
+
+
+
+
 
 
 
@@ -238,37 +232,41 @@ export const SpeechWriter: FC = () => {
 
 
       </Stack>
+          <Box sx={{ mt: 3 }}>
+              <Button
+                  onClick={() => handleSubmit(prompt, 1300)}
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  disabled={isLoading}  // Disable the button while loading
+              >
+                  {isLoading ? <CircularProgress size={24} /> : 'Submit'}
+              </Button>
+          </Box>
+
         <Box sx={{ mt: 3 }}>
-          <Button
-            onClick={submitToOpenAI}
-            type="submit"
-            variant="contained"
-            fullWidth
-            disabled={isLoading}
-          >
-            {isLoading ? <CircularProgress size={24} /> : 'Submit'}
-          </Button>
+          {openAIResponse && (
+            <>
+              <label>Your Speech:</label>
+              <Button onClick={handleCopyText} title="Copy response text">
+                <FileCopyIcon />
+              </Button>
+            </>
+          )}
+
+          <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+            {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
+              index === array.length - 1 ? str : <>
+                {str}
+                <br />
+              </>
+            )}
+          </Paper>
         </Box>
 
 
-        {openAIResponse && (
-          <Box sx={{ mt: 3 }}>
-            <label>{t(tokens.form.yourSpeech)}</label>
-            <Button onClick={handleCopyText} title="Copy response text">
-              <FileCopyIcon />
-            </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
-              {openAIResponse.split('\n').map((str, index, array) => (
-                <React.Fragment key={index}>
-                  {str}
-                  {index < array.length - 1 ? <br /> : null}
-                </React.Fragment>
-              ))}
-            </Paper>
-          </Box>
-        )}
       </Box>
-  );
 
+);
 };
 
