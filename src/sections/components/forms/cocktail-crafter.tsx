@@ -146,13 +146,16 @@ export const CocktailCrafter: FC = () => {
 
 
   useEffect(() => {
-    if (alcohol && cocktail && mixer && garnish && sweetness !== null) {
+    let ingredientsFilled = alcohol && cocktail && mixer && sweetness !== null;
+    let garnishFilled = garnish !== ''; // Checks if garnish is filled
+
+    if (ingredientsFilled && (garnishFilled || garnish === '')) {
       let newPrompt = t(tokens.form.createCocktail);
 
       const alcoholText = ` ${t(alcohol)} `;
       const cocktailText = ` ${t(cocktail)} `;
       const mixerText = ` ${t(mixer)} `;
-      const garnishText = ` ${t(garnish)} `;
+      const garnishText = garnish ? ` ${t(garnish)} ` : ''; // Include garnish text only if filled
       const sweetnessText = ` ${t(sweetnessLevels[sweetness])} `;
 
       newPrompt = newPrompt
@@ -172,7 +175,7 @@ export const CocktailCrafter: FC = () => {
 
 
 
-    return (
+  return (
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
       <Stack spacing={3}>
         <Stack direction="row" spacing={2}>

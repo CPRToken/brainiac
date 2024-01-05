@@ -6,7 +6,7 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Slider from '@mui/material/Slider';
+import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
@@ -108,7 +108,7 @@ export const PoemGenerator: FC = () => {
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
-  const [duration, setDuration] = useState<number>(100);
+  const [duration, setDuration] = useState<number>(200);
   const [prompt, setPrompt] = useState<string>('');
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
@@ -221,11 +221,11 @@ export const PoemGenerator: FC = () => {
         </TextField>
         <div>
           <label>{t(tokens.form.words)}</label>
-          <Slider
-            value={duration / 100} // Convert the word count to the slider's scale
-            min={1}
-            max={4}
-            step={0.5} // The slider's step
+          <CustomSlider
+            value={duration / 200} // Convert the word count to the slider's scale
+            min={50}
+            max={1000}
+            step={50} // The slider's step
             onChange={(_, newValue) => setDuration(newValue as number * 100)} // Convert back to words on change
           />
         </div>
@@ -247,7 +247,7 @@ export const PoemGenerator: FC = () => {
 
         {openAIResponse && (
           <Box sx={{ mt: 3 }}>
-            <label>Your Lyrics:</label>
+            <label>{t(tokens.form.yourPoem)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
               <FileCopyIcon />
             </Button>

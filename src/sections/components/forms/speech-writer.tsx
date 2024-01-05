@@ -253,7 +253,7 @@ export const SpeechWriter: FC = () => {
 
         {openAIResponse && (
           <Box sx={{ mt: 3 }}>
-              <label>Your Speech:</label>
+            <label>{t(tokens.form.yourSpeech)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
               <FileCopyIcon />
             </Button>

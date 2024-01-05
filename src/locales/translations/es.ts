@@ -360,6 +360,9 @@ export const es = {
   [tokens.form.SweetBitter]: 'Dulce-Amargo',
   [tokens.form.Sour]: 'Ácido',
   [tokens.form.Sweet]: 'Dulce',
+  [tokens.form.yourLyrics]: 'Tus Letras',
+  [tokens.form.yourSpeech]: 'Tu Discurso',
+  [tokens.form.yourScript]: 'Tu Guión',
 
     [tokens.form.Port]: 'Oporto',
     [tokens.form.Brandy]: 'Brandy',

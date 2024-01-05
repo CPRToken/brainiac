@@ -6,7 +6,6 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
@@ -82,19 +81,23 @@ export const LyricWriter: FC = () => {
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
-  const maxTokens = 1000;
+
   const submitToOpenAI = () => {
-    // Construct a prompt that OpenAI can use to generate an article
-   const  newPrompt = t(tokens.form.writeSong);
-    setPrompt(newPrompt); // Update the prompt state
-    handleSubmit(newPrompt, maxTokens)
-      .then(() => {
-        // Handle successful submission if needed
-      })
-      .catch(error => {
-        console.error("Error submitting to OpenAI:", error);
-      });
+    const maxTokens = 1000;
+    if (prompt) {
+      // Submit the prompt that is updated by the useEffect hook
+      handleSubmit(prompt, maxTokens)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
+    }
   };
+
 
 
 
@@ -200,7 +203,7 @@ export const LyricWriter: FC = () => {
 
           {openAIResponse && (
             <Box sx={{ mt: 3 }}>
-              <label>Your Lyrics:</label>
+              <label>{t(tokens.form.yourLyrics)}</label>
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>

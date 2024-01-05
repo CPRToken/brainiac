@@ -18,9 +18,13 @@ const StyledSlider = styled(Slider)({
         left: 'calc(-50% - 4px)',
         '& *': {
             background: 'transparent',
-            color: '#000',
+            color: '#000000',
             // Additional styles...
         },
+      // Set the background of the small arrow beneath the label to transparent
+      '&::before': {
+        backgroundColor: 'transparent',
+      },
     }
 });
 

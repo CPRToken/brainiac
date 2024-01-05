@@ -272,14 +272,7 @@ export const MagicMirror: FC = () => {
           </div>
 
 
-        <TextField
-          fullWidth
-          label={t(tokens.form.prompts)}
-          name="prompt"
-          value={prompt}
-          multiline
-          rows={4}
-        />
+
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button

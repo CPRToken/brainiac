@@ -146,6 +146,9 @@ headings: {
     form: {
         title: 'form.title',
         fruit: 'form.fruit',
+      yourLyrics: 'form.yourLyrics',
+      yourSpeech: 'form.yourSpeech',
+      yourScript: 'form.yourScript',
         healthBenefits: 'form.healthBenefits',
         fruitOrVege: 'form.fruitOrVege',
         fruitInstructions: 'form.fruitInstructions',

@@ -83,11 +83,7 @@ export const useSections = () => {
             path: paths.dashboard.account,
             icon: <SvgIcon fontSize="small"><AccountBox /></SvgIcon>,
           },
-          {
-            title: t(tokens.nav.profile),
-            path: `/dashboard/${userUrl}`,
-            icon: <SvgIcon fontSize="small"><Face /></SvgIcon>,
-          },
+
           {
             title: t(tokens.nav.contentManager),
             path: paths.dashboard.contentManager,
