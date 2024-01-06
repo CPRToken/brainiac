@@ -80,6 +80,8 @@ lyricWriter: '/dashboard/lyric-writer',
       fruitsNVeges: '/dashboard/fruits-n-veges',
       stockSelector: '/dashboard/stock-selector',
         dreamInterpretation: '/dashboard/dream-interpretation',
+    essayWriter: '/dashboard/essay-writer',
+    financialAdvisor: '/dashboard/financial-advisor',
     customers: {
       index: '/dashboard/customers',
       details: '/dashboard/customers/:customerId',

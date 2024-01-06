@@ -315,12 +315,13 @@ export const SideNav: FC<SideNavProps> = (props) => {
               fontWeight: 800,
               letterSpacing: '0.3px',
               lineHeight: 2.5,
+              mb: 2, // This applies a bottom margin of 2 units
               '& span': {
                 color: 'primary.main',
               },
             }}
           >
-            Devias Kit <span>PRO</span>
+            Brainiac <span>Media</span>
           </Box>
         </Stack>
       </Box>

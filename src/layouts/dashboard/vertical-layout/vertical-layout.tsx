@@ -13,13 +13,14 @@ import { TopNav } from './top-nav';
 import { useMobileNav } from './use-mobile-nav';
 
 const SIDE_NAV_WIDTH = 280;
-
+const BOTTOM_NAV_PADDING = 80;
 const VerticalLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
   flex: '1 1 auto',
   maxWidth: '100%',
   [theme.breakpoints.up('lg')]: {
     paddingLeft: SIDE_NAV_WIDTH,
+    paddingBottom: BOTTOM_NAV_PADDING,
   },
 }));
 
@@ -28,6 +29,7 @@ const VerticalLayoutContainer = styled('div')({
   flex: '1 1 auto',
   flexDirection: 'column',
   width: '100%',
+
 });
 
 interface VerticalLayoutProps {
