@@ -288,6 +288,7 @@ export const es = {
   [tokens.form.Ballad]: 'Balada',
   [tokens.form.Musical]: 'Musical',
   [tokens.form.epic]: 'épico',
+  [tokens.form.Epic]: 'Épico',
   [tokens.form.ActionPacked]: 'Llena de Acción',
   [tokens.form.Anthem]: 'Himno',
   [tokens.form.RomanticComedy]: 'Comedia Romántica',
