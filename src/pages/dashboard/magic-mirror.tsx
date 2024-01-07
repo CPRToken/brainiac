@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Recipe Generator" />
+      <Seo title="Magic Mirror" />
       <Box
         component="main"
         sx={{

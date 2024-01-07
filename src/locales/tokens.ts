@@ -150,6 +150,9 @@ headings: {
     form: {
         title: 'form.title',
         realTimeStocks: 'form.realTimeStocks',
+      lowRisk: 'form.lowRisk',
+      medRisk: 'form.medRisk',
+      highRisk: 'form.highRisk',
       income: 'form.income',
         anyDependents: 'form.anyDependents',
         yourFinancialPlan: 'form.yourFinancialPlan',
@@ -248,7 +251,7 @@ headings: {
       PhilosophyOfReligion: 'form.PhilosophyOfReligion',
 
       Phenomenology: 'form.Phenomenology',
-
+        financialAdvisorDescription: 'form.financialAdvisorDescription',
       Marxism: 'form.Marxism',
       AnalyticPhilosophy: 'form.AnalyticPhilosophy',
       poet: 'form.poet',
@@ -365,6 +368,7 @@ headings: {
         spicy: 'form.spicy',
         sweetness: 'form.sweetness',
         spiciness: 'form.spiciness',
+        riskLevel: 'form.riskLevel',
         tasteMeter: 'form.tasteMeter',
         mixer: 'form.mixer',
         cocktailGarnish: 'form.cocktailGarnish',

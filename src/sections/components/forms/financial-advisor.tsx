@@ -13,6 +13,8 @@ import { tokens } from "../../../locales/tokens";
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import React from 'react';
+import Slider from '@mui/material/Slider';
+import Typography from "@mui/material/Typography";
 
 type Option = {
   label: string;
@@ -93,13 +95,22 @@ export const FinancialAdvisor: FC = () => {
   const [assets, setAssets] = useState<string>('');
  const [maritalStatus , setMaritalStatus] = useState<string>('');
   const [dependents , setDependents] = useState<string>('');
-
+const [ risk , setRisk] = useState<number>(1);
   const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
   const { t } = useTranslation();
 
 
+  type RiskLevel = {
+    [key: number]: string;
+  };
 
+  const riskLevel: RiskLevel = {
+    0: tokens.form.lowRisk,
+    1: tokens.form.medRisk,
+    2: tokens.form.highRisk,
+
+  };
 
     const maxTokens = 3000;
 
@@ -115,24 +126,39 @@ export const FinancialAdvisor: FC = () => {
         }
     };
     useEffect(() => {
+      if (shortGoals || longGoals || income || expenses || liabilities || assets || maritalStatus || dependents || risk !== null) {
         // Constructing the new prompt with dynamic values
         let newPrompt = t(tokens.form.createFinancialPlan)
-            .replace('[shortGoals]', shortGoals)
-            .replace('[longGoals]', longGoals)
-            .replace('[income]', income)
-            .replace('[expenses]', expenses)
-            .replace('[assets]', assets)
-            .replace('[liabilities]', liabilities)
-            .replace('[maritalStatus]', maritalStatus)
-            .replace('[dependents]', dependents);
 
-        // Only update the prompt if all fields have values
-        if (shortGoals || longGoals || income || expenses || liabilities || assets || maritalStatus || dependents) {
-            setPrompt(newPrompt.trim());
-        } else {
-            setPrompt('');
-        }
-    }, [shortGoals, longGoals, income, expenses, liabilities, assets, maritalStatus, dependents, t, tokens.form.createFinancialPlan]);
+          const shortGoalText =  ` ${t(shortGoals)}`;
+          const longGoalText = ` ${t(longGoals)}`;
+          const incomeText = ` ${t(income)}`;
+          const expensesText = ` ${t(expenses)}`;
+          const assetsText = ` ${t(assets)}`;
+          const liabilitiesText = ` ${t(liabilities)}`;
+          const maritalStatusText = ` ${t(maritalStatus)}`;
+          const dependentsText = ` ${t(dependents)}`;
+          const riskText = ` ${t(riskLevel[risk])}`;
+
+          newPrompt = newPrompt
+
+            .replace('[shortGoals]', shortGoalText)
+            .replace('[longGoals]', longGoalText)
+            .replace('[income]', incomeText)
+            .replace('[expenses]', expensesText)
+            .replace('[assets]', assetsText)
+            .replace('[liabilities]', liabilitiesText)
+            .replace('[maritalStatus]', maritalStatusText)
+            .replace('[dependents]', dependentsText)
+          .replace('[risk]', riskText);
+
+      // Only update the prompt if all fields have values
+
+        setPrompt(newPrompt.trim());
+      } else {
+        setPrompt('');
+      }
+    }, [shortGoals, longGoals, income, expenses, liabilities, assets, maritalStatus, dependents, risk, t, tokens.form.createFinancialPlan]);
 
 
 
@@ -141,6 +167,9 @@ export const FinancialAdvisor: FC = () => {
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
       <Stack spacing={3}>
 
+          <Typography variant="body2">
+              {t(tokens.form.financialAdvisorDescription)}
+          </Typography>
         <Stack direction="row" spacing={2}>
           <TextField
             label={t(tokens.form.shortGoals)}
@@ -270,6 +299,24 @@ export const FinancialAdvisor: FC = () => {
                   ))}
               </TextField>
           </Stack>
+          <div style={{ width: '100%', textAlign: 'center' }}>
+              <label>{t(tokens.form.riskLevel)}</label>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+              <Slider
+                  value={risk}
+                  min={0}
+                  max={2}
+                  step={1}
+                  marks={[
+                      { value: 0, label: t(tokens.form.lowRisk) },
+                      { value: 1, label: t(tokens.form.medRisk) },
+                      { value: 2, label: t(tokens.form.highRisk) },
+                  ]}
+                  onChange={(e, newValue) => setRisk(newValue as number)}
+                  sx={{ width: '92%' }}
+              />
+          </div>
 
 
 
