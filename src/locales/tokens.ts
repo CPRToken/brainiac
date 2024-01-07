@@ -470,7 +470,7 @@ headings: {
       Sonnet: 'form.Sonnet',
       Haiku: 'form.Haiku',
       Limerick: 'form.Limerick',
-      Epic: 'form.Epic',
+      epic: 'form.epic',
       FreeVerse: 'form.FreeVerse',
       Ode: 'form.Ode',
       Ballad: 'form.Ballad',

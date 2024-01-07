@@ -401,7 +401,7 @@ export const en = {
     [tokens.form.Eloquent]: 'eloquent',
     [tokens.form.Empathetic]: 'empathetic',
     [tokens.form.Entertaining]: 'entertaining',
-    [tokens.form.Epic]: 'epic',
+    [tokens.form.epic]: 'epic',
     [tokens.form.Evocative]: 'evocative',
     [tokens.form.Explanatory]: 'explanatory',
     [tokens.form.Factual]: 'factual',
@@ -628,7 +628,7 @@ export const en = {
   [tokens.form.Sonnet]: 'Sonnet',
   [tokens.form.Haiku]: 'Haiku',
   [tokens.form.Limerick]: 'Limerick',
-  [tokens.form.Epic]: 'Epic',
+
   [tokens.form.FreeVerse]: 'Free Verse',
   [tokens.form.Melancholic]: 'Melancholic',
   [tokens.form.Ode]: 'Ode',
