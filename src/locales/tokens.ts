@@ -7,6 +7,11 @@ export const tokens = {
     account: 'nav.account',
 
     contentManager: 'nav.contentManager',
+    plannersNOrganisers: 'nav.plannersNOrganisers',
+    creativeCorner: 'nav.creativeCorner',
+    contentGenerators: 'nav.contentGenerators',
+    proServices: 'nav.proServices',
+    lifestyleNLeisure: 'nav.lifestyleNLeisure',
     contentWriter: 'nav.contentWriter',
     dessertGen: 'nav.dessertGen',
     analytics: 'nav.analytics',
@@ -51,6 +56,7 @@ export const tokens = {
 
 
     pages: 'nav.pages',
+    AIStudio: 'nav.AIStudio',
     postCreate: 'nav.postCreate',
     postDetails: 'nav.postDetails',
     postList: 'nav.postList',

@@ -82,6 +82,7 @@ export const en = {
   [tokens.nav.orderList]: 'Orders',
   [tokens.nav.overview]: 'Overview',
   [tokens.nav.pages]: 'Admin Pages',
+  [tokens.nav.AIStudio]: 'AI Studio',
   [tokens.nav.postCreate]: 'Create Capsule',
   [tokens.nav.postDetails]: 'Post Details',
   [tokens.nav.postList]: 'Post List',
@@ -914,6 +915,9 @@ export const en = {
 
     [tokens.nav.settings]: 'Settings',
     [tokens.nav.billing]: 'Billing',
-
-
+  [tokens.nav.contentGenerators]: 'Content Generators',
+  [tokens.nav.plannersNOrganisers]: 'Planners & Organisers',
+  [tokens.nav.creativeCorner]: 'Creative Corner',
+  [tokens.nav.proServices]: 'Professional Services',
+  [tokens.nav.lifestyleNLeisure]: 'Lifestyle & Leisure',
 };
