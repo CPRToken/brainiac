@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
+import useGPT4Submit from './handle-submit';
 
 
 
@@ -25,47 +25,47 @@ type Option = {
 
 const languageOptions: Option[] = [
   { label: '', value: '' },
-  { label: tokens.form.English, value: 'english' },
-  { label: tokens.form.Spanish, value: 'spanish' },
-  { label: tokens.form.French, value: 'french' },
-  { label: tokens.form.German, value: 'german' },
-  { label: tokens.form.Italian, value: 'italian' },
-  { label: tokens.form.Portuguese, value: 'portuguese' },
-  { label: tokens.form.Russian, value: 'russian' },
-  { label: tokens.form.Japanese, value: 'japanese' },
-  { label: tokens.form.Korean, value: 'korean' },
-  { label: tokens.form.Arabic, value: 'arabic' },
-  { label: tokens.form.Hindi, value: 'hindi' },
-  { label: tokens.form.Turkish, value: 'turkish' },
-  { label: tokens.form.Dutch, value: 'dutch' },
-  { label: tokens.form.Swedish, value: 'swedish' },
-  { label: tokens.form.Finnish, value: 'finnish' },
-  { label: tokens.form.Danish, value: 'danish' },
-  { label: tokens.form.Norwegian, value: 'norwegian' },
-  { label: tokens.form.Polish, value: 'polish' },
-  { label: tokens.form.Greek, value: 'greek' },
-  { label: tokens.form.Hungarian, value: 'hungarian' },
-  { label: tokens.form.Czech, value: 'czech' },
-  { label: tokens.form.Slovak, value: 'slovak' },
-  { label: tokens.form.Romanian, value: 'romanian' },
-  { label: tokens.form.Bulgarian, value: 'bulgarian' },
-  { label: tokens.form.Serbian, value: 'serbian' },
-  { label: tokens.form.Croatian, value: 'croatian' },
-  { label: tokens.form.Bosnian, value: 'bosnian' },
-  { label: tokens.form.Slovenian, value: 'slovenian' },
-  { label: tokens.form.Albanian, value: 'albanian' },
-  { label: tokens.form.Lithuanian, value: 'lithuanian' },
-  { label: tokens.form.Latvian, value: 'latvian' },
-  { label: tokens.form.Estonian, value: 'estonian' },
-  { label: tokens.form.Maltese, value: 'maltese' },
-  { label: tokens.form.Thai, value: 'thai' },
-  { label: tokens.form.Filipino, value: 'filipino' },
-  { label: tokens.form.Vietnamese, value: 'vietnamese' },
-  { label: tokens.form.Indonesian, value: 'indonesian' },
-  { label: tokens.form.Malay, value: 'malay' },
-  { label: tokens.form.Persian, value: 'persian' },
-  { label: tokens.form.Hebrew, value: 'hebrew' },
-  { label: tokens.form.Zulu, value: 'zulu' },
+  { label: tokens.form.English, value: tokens.form.English },
+  { label: tokens.form.Spanish, value: tokens.form.Spanish },
+  { label: tokens.form.French, value: tokens.form.French },
+  { label: tokens.form.German, value: tokens.form.German },
+  { label: tokens.form.Italian, value: tokens.form.Italian },
+  { label: tokens.form.Portuguese, value: tokens.form.Portuguese },
+  { label: tokens.form.Russian, value: tokens.form.Russian },
+  { label: tokens.form.Japanese, value: tokens.form.Japanese },
+  { label: tokens.form.Korean, value: tokens.form.Korean },
+  { label: tokens.form.Arabic, value: tokens.form.Arabic },
+  { label: tokens.form.Hindi, value: tokens.form.Hindi },
+  { label: tokens.form.Turkish, value: tokens.form.Turkish },
+  { label: tokens.form.Dutch, value: tokens.form.Dutch },
+  { label: tokens.form.Swedish, value: tokens.form.Swedish },
+  { label: tokens.form.Finnish, value: tokens.form.Finnish },
+  { label: tokens.form.Danish, value: tokens.form.Danish },
+  { label: tokens.form.Norwegian, value: tokens.form.Norwegian },
+  { label: tokens.form.Polish, value: tokens.form.Polish },
+  { label: tokens.form.Greek, value: tokens.form.Greek },
+  { label: tokens.form.Hungarian, value: tokens.form.Hungarian },
+  { label: tokens.form.Czech, value: tokens.form.Czech },
+  { label: tokens.form.Slovak, value: tokens.form.Slovak },
+  { label: tokens.form.Romanian, value: tokens.form.Romanian },
+  { label: tokens.form.Bulgarian, value: tokens.form.Bulgarian },
+  { label: tokens.form.Serbian, value: tokens.form.Serbian },
+  { label: tokens.form.Croatian, value: tokens.form.Croatian },
+  { label: tokens.form.Bosnian, value: tokens.form.Bosnian },
+  { label: tokens.form.Slovenian, value: tokens.form.Slovenian },
+  { label: tokens.form.Albanian, value: tokens.form.Albanian },
+  { label: tokens.form.Lithuanian, value: tokens.form.Lithuanian },
+  { label: tokens.form.Latvian, value: tokens.form.Latvian },
+  { label: tokens.form.Estonian, value: tokens.form.Estonian },
+  { label: tokens.form.Maltese, value: tokens.form.Maltese },
+  { label: tokens.form.Thai, value: tokens.form.Thai },
+  { label: tokens.form.Filipino, value: tokens.form.Filipino },
+  { label: tokens.form.Vietnamese, value: tokens.form.Vietnamese },
+  { label: tokens.form.Indonesian, value: tokens.form.Indonesian },
+  { label: tokens.form.Malay, value: tokens.form.Malay },
+  { label: tokens.form.Persian, value: tokens.form.Persian },
+  { label: tokens.form.Hebrew, value: tokens.form.Hebrew },
+  { label: tokens.form.Zulu, value: tokens.form.Zulu },
   // ... add more as needed
 ];
 
@@ -73,117 +73,114 @@ const languageOptions: Option[] = [
 const styleOptions: Option[] = [
 
     { label: '', value: '' },
-  { label: tokens.form.informative, value: 'informative' },
-  { label: tokens.form.academic, value: 'academic' },
-  { label: tokens.form.analytical, value: 'analytical' },
-  { label: tokens.form.argumentative, value: 'argumentative' },
-  { label: tokens.form.articulate, value: 'articulate' },
-  { label: tokens.form.essay, value: 'essay' },
-  { label: tokens.form.blog, value: 'blog' },
-  { label: tokens.form.biographical, value: 'biographical' },
-  { label: tokens.form.conversational, value: 'conversational' },
-  { label: tokens.form.Didactic, value: 'didactic' },
-  { label: tokens.form.Educational, value: 'educational' },
-  { label: tokens.form.Eloquent, value: 'eloquent' },
-  { label: tokens.form.Empathetic, value: 'empathetic' },
-  { label: tokens.form.Entertaining, value: 'entertaining' },
-  { label: tokens.form.Epic, value: 'epic' },
-  { label: tokens.form.Evocative, value: 'evocative' },
-  { label: tokens.form.Explanatory, value: 'explanatory' },
-  { label: tokens.form.Factual, value: 'factual' },
-  { label: tokens.form.Figurative, value: 'figurative' },
-  { label: tokens.form.Inspirational, value: 'inspirational' },
-  { label: tokens.form.Investigative, value: 'investigative' },
-  { label: tokens.form.Lyrical, value: 'lyrical' },
-  { label: tokens.form.Motivational, value: 'motivational' },
-  { label: tokens.form.Objective, value: 'objective' },
-  { label: tokens.form.Persuasive, value: 'persuasive' },
-  { label: tokens.form.Poetic, value: 'poetic' },
-  { label: tokens.form.Pragmatic, value: 'pragmatic' },
-  { label: tokens.form.Provocative, value: 'provocative' },
-  { label: tokens.form.Quirky, value: 'quirky' },
-  { label: tokens.form.Rhetorical, value: 'rhetorical' },
-  { label: tokens.form.Scholarly, value: 'scholarly' },
-  { label: tokens.form.Simplistic, value: 'simplistic' },
-  { label: tokens.form.Speculative, value: 'speculative' },
-  { label: tokens.form.Subjective, value: 'subjective' },
-  { label: tokens.form.Succinct, value: 'succinct' },
-  { label: tokens.form.Technical, value: 'technical' },
-  { label: tokens.form.Casual, value: 'casual' },
-  { label: tokens.form.Colloquial, value: 'colloquial' },
-  { label: tokens.form.Comparative, value: 'comparative' },
-  { label: tokens.form.Concise, value: 'concise' },
-  { label: tokens.form.Creative, value: 'creative' },
-  { label: tokens.form.Critical, value: 'critical' },
-  { label: tokens.form.Descriptive, value: 'descriptive' },
-  { label: tokens.form.Dramatic, value: 'dramatic' },
-  { label: tokens.form.Editorial, value: 'editorial' },
-  { label: tokens.form.Expository, value: 'expository' },
-  { label: tokens.form.Formal, value: 'formal' },
-  { label: tokens.form.Humorous, value: 'humorous' },
-  { label: tokens.form.Informative, value: 'informative' },
-  { label: tokens.form.Journalistic, value: 'journalistic' },
-  { label: tokens.form.Narrative, value: 'narrative' },
-  { label: tokens.form.Opinionated, value: 'opinionated' },
-  { label: tokens.form.Persuasive, value: 'persuasive' },
-  { label: tokens.form.Professional, value: 'professional' },
-  { label: tokens.form.Reflective, value: 'reflective' },
-  { label: tokens.form.Satirical, value: 'satirical' },
-  { label: tokens.form.Scientific, value: 'scientific' },
-  { label: tokens.form.SEO, value: 'seo' },
-  { label: tokens.form.Technical, value: 'technical' },
+  { label: tokens.form.informative, value: tokens.form.informative },
+  { label: tokens.form.academic, value: tokens.form.academic },
+  { label: tokens.form.analytical, value: tokens.form.analytical },
+  { label: tokens.form.argumentative, value: tokens.form.argumentative },
+  { label: tokens.form.articulate, value: tokens.form.articulate },
+  { label: tokens.form.essay, value: tokens.form.essay },
+  { label: tokens.form.blog, value: tokens.form.blog },
+  { label: tokens.form.biographical, value: tokens.form.biographical },
+  { label: tokens.form.conversational, value: tokens.form.conversational },
+  { label: tokens.form.Didactic, value: tokens.form.Didactic },
+  { label: tokens.form.Educational, value: tokens.form.Educational },
+  { label: tokens.form.Eloquent, value: tokens.form.Eloquent },
+  { label: tokens.form.Empathetic, value: tokens.form.Empathetic },
+  { label: tokens.form.Entertaining, value: tokens.form.Entertaining },
+  { label: tokens.form.Epic, value: tokens.form.Epic },
+  { label: tokens.form.Evocative, value: tokens.form.Evocative },
+  { label: tokens.form.Explanatory, value: tokens.form.Explanatory },
+  { label: tokens.form.Factual, value: tokens.form.Factual },
+  { label: tokens.form.Figurative, value: tokens.form.Figurative },
+  { label: tokens.form.Inspirational, value: tokens.form.Inspirational },
+  { label: tokens.form.Investigative, value: tokens.form.Investigative },
+  { label: tokens.form.Lyrical, value: tokens.form.Lyrical },
+  { label: tokens.form.Motivational, value: tokens.form.Motivational },
+  { label: tokens.form.Objective, value: tokens.form.Objective },
+  { label: tokens.form.Persuasive, value: tokens.form.Persuasive },
+  { label: tokens.form.Poetic, value: tokens.form.Poetic },
+  { label: tokens.form.Pragmatic, value: tokens.form.Pragmatic },
+  { label: tokens.form.Provocative, value: tokens.form.Provocative },
+  { label: tokens.form.Quirky, value: tokens.form.Quirky },
+  { label: tokens.form.Rhetorical, value: tokens.form.Rhetorical },
+  { label: tokens.form.Scholarly, value: tokens.form.Scholarly },
+  { label: tokens.form.Simplistic, value: tokens.form.Simplistic },
+  { label: tokens.form.Speculative, value: tokens.form.Speculative },
+  { label: tokens.form.Subjective, value: tokens.form.Subjective },
+  { label: tokens.form.Succinct, value: tokens.form.Succinct },
+  { label: tokens.form.Technical, value: tokens.form.Technical },
+  { label: tokens.form.Casual, value: tokens.form.Casual },
+  { label: tokens.form.Colloquial, value: tokens.form.Colloquial },
+  { label: tokens.form.Comparative, value: tokens.form.Comparative },
+  { label: tokens.form.Concise, value: tokens.form.Concise },
+  { label: tokens.form.Creative, value: tokens.form.Creative },
+  { label: tokens.form.Critical, value: tokens.form.Critical },
+  { label: tokens.form.Descriptive, value: tokens.form.Descriptive },
+  { label: tokens.form.Dramatic, value: tokens.form.Dramatic },
+  { label: tokens.form.Editorial, value: tokens.form.Editorial },
+  { label: tokens.form.Expository, value: tokens.form.Expository },
+  { label: tokens.form.Formal, value: tokens.form.Formal },
+  { label: tokens.form.Humorous, value: tokens.form.Humorous },
+  { label: tokens.form.Informative, value: tokens.form.Informative },
+  { label: tokens.form.Journalistic, value: tokens.form.Journalistic },
+  { label: tokens.form.Narrative, value: tokens.form.Narrative },
+  { label: tokens.form.Opinionated, value: tokens.form.Opinionated },
+  { label: tokens.form.Persuasive, value: tokens.form.Persuasive },
+  { label: tokens.form.Professional, value: tokens.form.Professional },
+  { label: tokens.form.Reflective, value: tokens.form.Reflective },
+  { label: tokens.form.Satirical, value: tokens.form.Satirical },
+  { label: tokens.form.Scientific, value: tokens.form.Scientific },
+  { label: tokens.form.SEO, value: tokens.form.SEO },
+  { label: tokens.form.Technical, value: tokens.form.Technical },
+  { label: tokens.form.Vivid, value: tokens.form.Vivid },
 
-  { label: tokens.form.Vivid, value: 'vivid' },
 
     // ... add more as needed
 ];
 
 const toneOptions: Option[] = [
   { label: '', value: '' },
-    { label: tokens.form.Formal, value: 'formal' },
-    { label: tokens.form.Assertive, value: 'assertive' },
-    { label: tokens.form.Friendly, value: 'friendly' },
-    { label: tokens.form.Informal, value: 'informal' },
-    { label: tokens.form.Inspiring, value: 'inspiring' },
-    { label: tokens.form.Professional, value: 'professional' },
-    { label: tokens.form.Warm, value: 'warm' },
-    { label: tokens.form.Candid, value: 'candid' },
-    { label: tokens.form.Cheerful, value: 'cheerful' },
-    { label: tokens.form.Compassionate, value: 'compassionate' },
-    { label: tokens.form.Confident, value: 'confident' },
-    { label: tokens.form.Conversational, value: 'conversational' },
-    { label: tokens.form.Encouraging, value: 'encouraging' },
-    { label: tokens.form.Enthusiastic, value: 'enthusiastic' },
-    { label: tokens.form.Honest, value: 'honest' },
-    { label: tokens.form.Hopeful, value: 'hopeful' },
-    { label: tokens.form.Humorous, value: 'humorous' },
-    { label: tokens.form.Inquisitive, value: 'inquisitive' },
-    { label: tokens.form.Intimate, value: 'intimate' },
-    { label: tokens.form.Lighthearted, value: 'lighthearted' },
-    { label: tokens.form.Optimistic, value: 'optimistic' },
-    { label: tokens.form.Passionate, value: 'passionate' },
-    { label: tokens.form.Placid, value: 'placid' },
-    { label: tokens.form.Playful, value: 'playful' },
-    { label: tokens.form.Poignant, value: 'poignant' },
-    { label: tokens.form.Provocative, value: 'provocative' },
-    { label: tokens.form.Reassuring, value: 'reassuring' },
-    { label: tokens.form.Reflective, value: 'reflective' },
-    { label: tokens.form.Respectful, value: 'respectful' },
-    { label: tokens.form.Reverent, value: 'reverent' },
-    { label: tokens.form.Sarcastic, value: 'sarcastic' },
-    { label: tokens.form.Sincere, value: 'sincere' },
-    { label: tokens.form.Solemn, value: 'solemn' },
-    { label: tokens.form.Thoughtful, value: 'thoughtful' },
-    { label: tokens.form.Uplifting, value: 'uplifting' },
-    { label: tokens.form.Whimsical, value: 'whimsical' },
-    { label: tokens.form.Witty, value: 'witty' },
-    { label: tokens.form.Zealous, value: 'zealous' },
-    { label: tokens.form.Neutral, value: 'neutral' },
-    { label: tokens.form.Melancholic, value: 'melancholic' },
-    { label: tokens.form.Eloquent, value: 'eloquent' },
-    { label: tokens.form.Empathetic, value: 'empathetic' },
-    { label: tokens.form.Gentle, value: 'gentle' },
-    // ... add more as needed
+   { label: tokens.form.Formal, value: tokens.form.Formal },
+    { label: tokens.form.Assertive, value: tokens.form.Assertive },
+    { label: tokens.form.Authoritative, value: tokens.form.Authoritative },
+    { label: tokens.form.Friendly, value: tokens.form.Friendly },
+    { label: tokens.form.Informal, value: tokens.form.Informal },
+    { label: tokens.form.Inspirational, value: tokens.form.Inspirational },
+    { label: tokens.form.Professional, value: tokens.form.Professional },
+    { label: tokens.form.Warm, value: tokens.form.Warm },
+    { label: tokens.form.Candid, value: tokens.form.Candid },
+    { label: tokens.form.Cheerful, value: tokens.form.Cheerful },
+    { label: tokens.form.Compassionate, value: tokens.form.Compassionate },
+    { label: tokens.form.Confident, value: tokens.form.Confident },
+    { label: tokens.form.Conversational, value: tokens.form.Conversational },
+    { label: tokens.form.Encouraging, value: tokens.form.Encouraging },
+    { label: tokens.form.Enthusiastic, value: tokens.form.Enthusiastic },
+    { label: tokens.form.Humorous, value: tokens.form.Humorous },
+    { label: tokens.form.Inquisitive, value: tokens.form.Inquisitive },
+    { label: tokens.form.Intimate, value: tokens.form.Intimate },
+    { label: tokens.form.Lighthearted, value: tokens.form.Lighthearted },
+    { label: tokens.form.Optimistic, value: tokens.form.Optimistic },
+    { label: tokens.form.Passionate, value: tokens.form.Passionate },
+    { label: tokens.form.Playful, value: tokens.form.Playful },
+    { label: tokens.form.Poignant, value: tokens.form.Poignant },
+    { label: tokens.form.Provocative, value: tokens.form.Provocative },
+    { label: tokens.form.Romantic, value: tokens.form.Romantic },
+    { label: tokens.form.Reflective, value: tokens.form.Reflective },
+   { label: tokens.form.Sarcastic, value: tokens.form.Sarcastic },
+    { label: tokens.form.Sincere, value: tokens.form.Sincere },
+    { label: tokens.form.Skeptical, value: tokens.form.Skeptical },
+    { label: tokens.form.Sympathetic, value: tokens.form.Sympathetic },
+    { label: tokens.form.Whimsical, value: tokens.form.Whimsical },
+    { label: tokens.form.Witty, value: tokens.form.Witty },
+    { label: tokens.form.Zealous, value: tokens.form.Zealous },
+   { label: tokens.form.Melancholic, value: tokens.form.Melancholic },
+    { label: tokens.form.Eloquent, value: tokens.form.Eloquent },
+    { label: tokens.form.Empathetic, value: tokens.form.Empathetic },
+
+    // ... any other entries you have
+
+
+  // ... add more as needed
 ];
 
 
@@ -191,54 +188,45 @@ const toneOptions: Option[] = [
 
 export const ContentWriter: FC = () => {
   const { t } = useTranslation();
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [language, setLanguage] = useState<string>('');
   const [style, setStyle] = useState<string>('');
   const [tone, setTone] = useState<string>('');
-  const [duration, setDuration] = useState<number>(500);
+  const [words, setWords] = useState<number>(500);
   const [title, setTitle] = useState<string>(''); // New state for the title
   const [keywords, setKeywords] = useState<string>(''); // New state for the keywords
   const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
 
 
-  const maxTokensForResume = 2000;
-
-  const submitToOpenAI = () => {
-    // Construct a prompt that OpenAI can use to generate an article
-    const newPrompt = `Write a ${duration}-word article titled "${title}" in ${t(language)} ${t(style)} style and ${t(tone)} tone, using the following keywords: ${keywords}`;
-    setPrompt(newPrompt); // Update the prompt state
-    handleSubmit(newPrompt, maxTokensForResume)
-        .then(() => {
-          // Handle successful submission if needed
-        })
-        .catch(error => {
-          console.error("Error submitting to OpenAI:", error);
-        });
-  };
-
-
-
+  const maxTokens = 2000;
 
   useEffect(() => {
-    if (language && style && tone && duration && title && keywords) {
-      // Use the translation tokens to create the prompt
-      let newPrompt = t(tokens.form.writeContent, {
-        duration: `${duration} words`,
+    if (language && style && tone && words && title && keywords) {
+      // Update the prompt state with the new prompt
+      setPrompt(t(tokens.form.writeContent, {
+        words: `${words} words`,
         language: t(language),
         style: t(style),
         tone: t(tone),
         title: title,
         keywords: keywords
-      });
-
-      // Update the prompt state with the new prompt
-      setPrompt(newPrompt.trim());
+      }).trim());
     } else {
       setPrompt('');
     }
-  }, [language, style, tone, duration, title, keywords, t]);
+  }, [language, style, tone, words, title, keywords, t]);
 
+  const submitToOpenAI = () => {
+    // Use the prompt state directly
+    handleSubmit(prompt, maxTokens)
+      .then(() => {
+        // Handle successful submission if needed
+      })
+      .catch(error => {
+        console.error("Error submitting to OpenAI:", error);
+      });
+  };
 
 
 
@@ -312,7 +300,7 @@ export const ContentWriter: FC = () => {
         <div>
           <label>{t(tokens.form.words)}</label>
           <Slider
-            value={duration / 500} // Convert the word count to the slider's scale
+            value={words / 500} // Convert the word count to the slider's scale
             getAriaValueText={(value) => `${value * 500} words`} // For accessibility
             valueLabelDisplay="on" // This enables the value label
             valueLabelFormat={(value) => `${value * 500}`} // This formats the label to show the word count
@@ -320,7 +308,7 @@ export const ContentWriter: FC = () => {
             max={4}
             step={0.5} // The slider's step
             marks // This adds marks at each step
-            onChange={(_, newValue) => setDuration(newValue as number * 500)} // Convert back to words on change
+            onChange={(_, newValue) => setWords(newValue as number * 500)} // Convert back to words on change
           />
 
         </div>

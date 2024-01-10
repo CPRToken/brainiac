@@ -5,22 +5,23 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
-    const { prompt } = req.body;
+    try {
+      const { prompt } = req.body;
+      const content = Array.isArray(prompt) ? prompt[0] : prompt;
 
-    // Extract the first element of the prompt array
-    const content = Array.isArray(prompt) ? prompt[0] : prompt;
+      const completion = await openai.chat.completions.create({
+        model: 'gpt-4',
+        messages: [{ role: 'user', content }],
+        max_tokens: 2000,
+      });
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [{ role: 'user', content }],
-      max_tokens: 2000, // Add max_tokens to the API call
-    });
-
-    const responseContent = completion?.choices?.[0]?.message?.content?.trim() ?? "No response generated.";
-
-    res.status(200).json({ content: responseContent });
+      const responseContent = completion?.choices?.[0]?.message?.content?.trim() ?? "No response generated.";
+      res.status(200).json({ content: responseContent });
+    } catch (error) {
+      console.error("Error during OpenAI API call:", error);
+      res.status(500).json({ error: "Error processing your request." });
+    }
   } else {
     res.status(405).end(); // Method Not Allowed
   }
 };
-

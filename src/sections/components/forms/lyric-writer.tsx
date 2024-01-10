@@ -1,17 +1,18 @@
 import type { FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import Slider from '@mui/material/Slider';
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
-import {CustomSlider} from "../slider/slider";
+import useGPT4Submit from './gpt4-submit';
+
 
 type Option = {
     label: string;
@@ -70,7 +71,7 @@ export const LyricWriter: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
@@ -82,43 +83,36 @@ export const LyricWriter: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
 
-  const submitToOpenAI = () => {
-    const maxTokens = 1000;
-    if (prompt) {
-      // Submit the prompt that is updated by the useEffect hook
-      handleSubmit(prompt, maxTokens)
-        .then(() => {
-          // Handle successful submission if needed
-        })
-        .catch(error => {
-          console.error("Error submitting to OpenAI:", error);
-        });
-    } else {
-      console.error("Prompt is empty or not updated, cannot submit.");
-    }
-  };
-
-
-
-
   useEffect(() => {
     if (genre && style && mood && duration) {
-      let newPrompt = t(tokens.form.writeSong, {
+      let newPrompt = t(tokens.form.writeSong);
 
-      duration: `${duration} mins`,
-        genre: t(genre),
-        style: t(style),
-        mood: t(mood),
-      });
+      const genreText = genre !== '' ? `${t(genre)} ` : '';
+      const styleText = style !== '' ? `${t(style)} , ` : '';
+      const moodText = mood !== '' ? `${t(mood)} , ` : '';
+      const durationText = `${duration} ${t('')}`;
 
       // Replace placeholders with the actual values
+      newPrompt = newPrompt
+        .replace('[genre]', genreText)
+        .replace('[style]', styleText)
+        .replace('[mood]', moodText)
+        .replace('[duration]', durationText);
 
+      // Remove any trailing commas and spaces
+      newPrompt = newPrompt.replace(/,+\s*$/, '');
 
       setPrompt(newPrompt.trim());
     } else {
       setPrompt('');
     }
   }, [genre, style, mood, duration, t]);
+
+
+
+
+
+
 
 
 
@@ -176,7 +170,7 @@ export const LyricWriter: FC = () => {
         <div>
           <label>{t(tokens.form.duration)}</label>
 
-          <CustomSlider
+          <Slider
             value={duration}
             min={1}
             max={4}
@@ -184,40 +178,52 @@ export const LyricWriter: FC = () => {
             onChange={(_, newValue) => setDuration(newValue as number)}
           />
         </div>
-
+          <TextField
+              fullWidth
+              label={t(tokens.form.prompts)}
+              name="prompt"
+              value={prompt}
+              multiline
+              rows={4}
+          />
 
 
       </Stack>
           <Box sx={{ mt: 3 }}>
-            <Button
-              onClick={submitToOpenAI}
-              type="submit"
-              variant="contained"
-              fullWidth
-              disabled={isLoading}
-            >
+              <Button
+                  onClick={() => handleSubmit(prompt, 1000)}
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  disabled={isLoading}  // Disable the button while loading
+              >
                   {isLoading ? <CircularProgress size={24} /> : 'Submit'}
               </Button>
           </Box>
 
-
+        <Box sx={{ mt: 3 }}>
           {openAIResponse && (
-            <Box sx={{ mt: 3 }}>
-              <label>{t(tokens.form.yourLyrics)}</label>
+            <>
+              <label>Your Lyrics:</label>
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>
-              <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
-                {openAIResponse.split('\n').map((str, index, array) => (
-                  <React.Fragment key={index}>
-                    {str}
-                    {index < array.length - 1 ? <br /> : null}
-                  </React.Fragment>
-                ))}
-              </Paper>
-            </Box>
+            </>
           )}
-        </Box>
-        );
 
-        };
+          <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+            {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
+              index === array.length - 1 ? str : <>
+                {str}
+                <br />
+              </>
+            )}
+          </Paper>
+        </Box>
+
+
+      </Box>
+
+);
+};
+

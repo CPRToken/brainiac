@@ -10,8 +10,8 @@ import ResponseText from '../clipboards/response-text';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import useHandleSubmit from './handle-submit';
 import CircularProgress from "@mui/material/CircularProgress";
+import useGPT4Submit from "./gpt4-submit";
 
 type Option = {
   label: string;
@@ -81,7 +81,7 @@ export const ScriptWriter: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');

@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 
+
 type Option = {
     label: string;
     value: string;
@@ -108,37 +109,44 @@ export const PoemGenerator: FC = () => {
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
-  const [duration, setDuration] = useState<number>(200);
+  const [duration, setDuration] = useState<number>(100);
   const [prompt, setPrompt] = useState<string>('');
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
-  const maxTokens = 1000;
   const submitToOpenAI = () => {
-    // Construct a prompt that OpenAI can use to generate an article
-    const  newPrompt = t(tokens.form.writeSong);
-    setPrompt(newPrompt); // Update the prompt state
-    handleSubmit(newPrompt, maxTokens)
-      .then(() => {
-        // Handle successful submission if needed
-      })
-      .catch(error => {
-        console.error("Error submitting to OpenAI:", error);
-      });
+    const maxTokens = 1000;
+    if (prompt) {
+      // Submit the prompt that is updated by the useEffect hook
+      handleSubmit(prompt, maxTokens)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
+    }
   };
-
 
   useEffect(() => {
     // Check if all selections are made
     if (genre && style && mood && duration) {
+      let newPrompt = t(tokens.form.writePoem);
 
-      let newPrompt = t(tokens.form.writePoem, {
+    const poetText  = ` ${t(poet)} `;
+    const genreText = ` ${t(genre)} `;
+    const styleText = ` ${t(style)} `;
+    const moodText  = ` ${t(mood)} `;
+    const durationText = ` ${duration} `;
 
-        duration: `${duration} mins`,
-        genre: t(genre),
-        style: t(style),
-        mood: t(mood),
-      });
+      newPrompt = newPrompt
+        .replace('[poet]',poetText)
+         .replace('[genre]',genreText)
+          .replace('[style]',styleText)
+            .replace('[mood]',moodText)
+              .replace('[duration]',durationText);
 
 
 
@@ -222,13 +230,14 @@ export const PoemGenerator: FC = () => {
         <div>
           <label>{t(tokens.form.words)}</label>
           <CustomSlider
-            value={duration / 200} // Convert the word count to the slider's scale
+            value={duration} // Convert the word count to the slider's scale
             min={50}
-            max={1000}
+            max={600}
             step={50} // The slider's step
-            onChange={(_, newValue) => setDuration(newValue as number * 100)} // Convert back to words on change
+            onChange={(_, newValue) => setDuration(newValue as number)} // Convert back to words on change
           />
         </div>
+
 
 
 
@@ -251,7 +260,7 @@ export const PoemGenerator: FC = () => {
             <Button onClick={handleCopyText} title="Copy response text">
               <FileCopyIcon />
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
               {openAIResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}

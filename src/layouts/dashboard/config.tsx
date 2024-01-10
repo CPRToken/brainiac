@@ -90,6 +90,11 @@ export const useSections = () => {
           subheader: t(tokens.nav.AIStudio),
           items: [
             {
+              title: t(tokens.nav.chatGPT),
+              path: paths.dashboard.chatGPT,
+              icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
+            },
+            {
               title: t(tokens.nav.contentManager),
               path: paths.dashboard.contentManager,
               icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
@@ -126,7 +131,7 @@ export const useSections = () => {
                   title: t(tokens.nav.plannersNOrganisers),
                   items: [
                     { title: t(tokens.headings.dietPlanner), path: paths.dashboard.dietPlanner },
-                    { title: t(tokens.headings.financialAdvisor), path: paths.dashboard.financialAdvisor },
+
                   ]
                 },
                 {
@@ -144,6 +149,7 @@ export const useSections = () => {
                     { title: t(tokens.headings.resumeBuilder), path: paths.dashboard.resumeBuilder },
                     { title: t(tokens.headings.speechWriter), path: paths.dashboard.speechWriter },
                     { title: t(tokens.headings.translator), path: paths.dashboard.translator },
+                    { title: t(tokens.headings.careerDeveloper), path: paths.dashboard.careerDeveloper },
                   ]
                 },
                 {

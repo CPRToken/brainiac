@@ -18,7 +18,7 @@ import { paths } from 'src/paths';
 import type { NavColor } from 'src/types/settings';
 
 import { AccountButton } from '../account-button';
-import { ContactsButton } from '../contacts-button';
+
 import type { Section } from '../config';
 import { LanguageSwitch } from '../language-switch';
 

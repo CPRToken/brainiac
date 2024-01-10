@@ -4,15 +4,15 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
+import Hidden from '@mui/material/Hidden';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
 import { usePageView } from 'src/hooks/use-page-view';
-import { PoemGenerator } from 'src/sections/components/forms/poem-generator';
+import { CareerDeveloper } from 'src/sections/components/forms/career-developer';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { auth } from '../../libs/firebase';
-import Hidden from "@mui/material/Hidden";
 
 const Page: NextPage = () => {
   usePageView();
@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Poem Generator" />
+      <Seo title="Travel Agent" />
       <Box
         component="main"
         sx={{
@@ -50,7 +50,7 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                      variant="h5">{t(tokens.headings.poemGenerator)}</Typography>
+                    variant="h5">{t(tokens.headings.careerDeveloper)}</Typography>
                 </div>
 
                 <Stack
@@ -66,7 +66,7 @@ const Page: NextPage = () => {
               xs={12}
               md={9}
               sx={{
-                paddingLeft: 4, // Add padding here
+                paddingLeft: 2, // Add padding here
                 // Or if you prefer margin: marginLeft: 2
               }}
             >
@@ -77,7 +77,7 @@ const Page: NextPage = () => {
                 }}
               >
                 <Box paddingTop={4}>
-                  <PoemGenerator />
+                  <CareerDeveloper />
                 </Box>
               </Stack>
             </Grid>
@@ -89,16 +89,13 @@ const Page: NextPage = () => {
               <Hidden smDown> {/* Hide on small screens and down */}
                 <MyContent />
               </Hidden>
-
             </Grid>
           </Grid>
         </Container>
       </Box>
-
-
-
     </>
   );
+
 
 };
 

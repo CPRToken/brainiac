@@ -4,15 +4,15 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
+import Hidden from '@mui/material/Hidden';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
 import { usePageView } from 'src/hooks/use-page-view';
-import { PoemGenerator } from 'src/sections/components/forms/poem-generator';
+import { ChatGPT } from 'src/sections/components/forms/chatgpt';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { auth } from '../../libs/firebase';
-import Hidden from "@mui/material/Hidden";
 
 const Page: NextPage = () => {
   usePageView();
@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Poem Generator" />
+      <Seo title="Content Writer" />
       <Box
         component="main"
         sx={{
@@ -50,7 +50,7 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                      variant="h5">{t(tokens.headings.poemGenerator)}</Typography>
+                      variant="h5">{t(tokens.headings.chatGPT)}</Typography>
                 </div>
 
                 <Stack
@@ -64,9 +64,9 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={9}
+              md={8}
               sx={{
-                paddingLeft: 4, // Add padding here
+                paddingLeft: 2, // Add padding here
                 // Or if you prefer margin: marginLeft: 2
               }}
             >
@@ -77,19 +77,18 @@ const Page: NextPage = () => {
                 }}
               >
                 <Box paddingTop={4}>
-                  <PoemGenerator />
+                  < ChatGPT/>
                 </Box>
               </Stack>
             </Grid>
             <Grid
               xs={12}
-              md={3} // Changed from 4 to 3 for skinnier My Content
+              md={4} // Changed from 4 to 3 for skinnier My Content
               sx={{ paddingLeft: 2 }}
             >
               <Hidden smDown> {/* Hide on small screens and down */}
                 <MyContent />
               </Hidden>
-
             </Grid>
           </Grid>
         </Container>

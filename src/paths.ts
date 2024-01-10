@@ -82,6 +82,8 @@ lyricWriter: '/dashboard/lyric-writer',
         dreamInterpretation: '/dashboard/dream-interpretation',
     essayWriter: '/dashboard/essay-writer',
     financialAdvisor: '/dashboard/financial-advisor',
+    careerDeveloper: '/dashboard/career-developer',
+    chatGPT: '/dashboard/chatgpt',
     customers: {
       index: '/dashboard/customers',
       details: '/dashboard/customers/:customerId',
