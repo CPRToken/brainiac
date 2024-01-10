@@ -409,7 +409,7 @@ export const en = {
     [tokens.form.yourFinancialPlan]: 'Your Financial Plan',
 
         [tokens.form.writeSpeech]: 'Write a [theme]speech about [topic], in a [style]style, with a duration of [duration] minutes',
-  [tokens.form.writeEssay]: 'Write an [style]essay about [topic], in a [style]style, with a duration of [duration] words',
+  [tokens.form.writeEssay]: 'Write an essay about [topic], in a [style]style, with a duration of [duration] words',
   [tokens.form.writePhilosophy]: 'Develop a new philosophical concept inspired by [tradition], rooted in the [branch] branch, and focusing on the theme of [theme]. The exposition should be approximately [duration] words in length.',
     [tokens.form.createFinancialPlan]: 'Create a comprehensive financial plan considering [shortGoals], [longGoals], [income], [expenses], [assets], [liabilities], their marital status: [maritalStatus], and number of dependents, = [dependents] .',
 

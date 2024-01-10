@@ -206,7 +206,7 @@ export const es = {
     [tokens.form.dreamInstructions]: 'Para iniciar la interpretación de tu sueño, por favor ingrese su sueño aquí. A continuación, haga clic en \'Submit\' para proceder.',
         [tokens.form.SEOWriter]: 'escribe un artículo SEO de [niche][topic][style] con una duración de [duration]',
     [tokens.form.writeScript]: 'escribe un guión de género [genre], estilo [style] y ánimo [mood], con una duración de [duration]',
-  [tokens.form.writeEssay]: 'Escribe un ensayo [style]sobre [topic], en un estilo [style], con una duración de [duration] palabras',
+  [tokens.form.writeEssay]: 'Escribe un ensayo sobre [topic], en un estilo [style], con una duración de [duration] palabras',
     [tokens.form.createFinancialPlan]: 'Crear un plan financiero integral considerando [shortGoals], [longGoals], [income], [expenses], [assets], [liabilities], estado civil: [maritalStatus], y número de dependientes: [dependents].',
   [tokens.form.careerDevelopmentPrompts]: 'Proporcione un plan de desarrollo de carrera completo, basado en la industria del individuo: [industry], profesión: [profession], experiencia: [experience], basado en la elección del área de desarrollo de [development].',
 
