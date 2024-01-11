@@ -291,7 +291,7 @@ export const en = {
   '\n',
   [tokens.form.translateInstructions]: 'To initiate a translation, please paste your text below. Then, select the language you wish your text to be translated to and click \'Submit\' to proceed.\n' ,
   [tokens.form.magicMirror]: 'Ask the Magic Mirror to find the perfect outfit for any event. Select your preferences from the menu options and click \'Submit\'.',
-    [tokens.form.interiorDesignerTip]: 'Consult the Interior Designer to envision the perfect space for any property type. Choose your preferences for property type, style, color theme, room, and the number of images you would like to see. Then click \'Submit\' to generate your custom interior design.',
+    [tokens.form.interiorDesignerTip]: 'Consult the Interior Designer by selecting your preferences for property type, style, color theme, room, and the number of options you would like to see.',
 
     [tokens.form.financialAdvisorDescription]: 'For optimal advice from our financial advisor, please provide detailed and accurate information in all the fields.',
 
@@ -809,7 +809,7 @@ export const en = {
   [tokens.form.createRecipe]: 'Create an [country] [dish] dish with [protein] and [garnish], that is [spiciness] ',
     [tokens.form.createDessert]: 'Create a [country] [dish] dessert, with [base] and [toppings], that is [spiciness]',
     [tokens.form.createFashion]: 'Magic Mirror, design me a trendy outfit for a [age] year old, [gender] for a [occasion] occasion, with a [style] style from [era] era.',
-    [tokens.form.createInteriorDesign]:'cREATE a [propertyType] interior Design concept with a [style] flair, incorporating a [colorTheme] palette. Provide [numberImages] visual concepts',
+    [tokens.form.createInteriorDesign]:'Design me a [propertyType] interior Design concept with a [style] flair, that has a[colorTheme] color theme.',
   [tokens.form.SEOWriter]: 'Write a [duration]-word, SEO-optimized article, on the latest [niche] advancements, crafted with an [style] style and structured for [purpose] effectiveness.',
   [tokens.form.writeContent]: 'Write a [words]-word article, with [style] , in [language] and [tone] . ',
     [tokens.form.fruitBenefits]: 'List all the nutritional benefits of the following fruit or vegetable: "{{fruit}}"',

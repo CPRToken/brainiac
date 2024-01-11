@@ -66,9 +66,10 @@ export const es = {
   [tokens.form.imageInstructions]: 'Selecciona las opciones deseadas para generar una imagen. Elige un estilo de artista, un estilo visual y un tema. Deja "Artista" como "Sin artista específico" para imágenes realistas.',
   [tokens.form.translateInstructions]: 'Para iniciar la traducción de texto, por favor ingrese su texto aquí. A continuación, elija su idioma preferido del menú desplegable y haga clic en \'Submit\' para proceder..',
   [tokens.form.magicMirror]: 'Consulta al Espejo Mágico para encontrar el atuendo perfecto para cualquier evento. Selecciona tus preferencias de las opciones del menú y haz clic en "Submit".',
-  [tokens.form.createInteriorDesign]: 'Consulta al Diseñador de Interiores para visualizar el espacio perfecto para cualquier tipo de propiedad. Elige tus preferencias para el tipo de propiedad, estilo, tema de color, habitación y el número de imágenes que te gustaría ver. Luego haz clic en \'Submit\' para generar tu diseño de interiores personalizado.',
+  [tokens.form.createInteriorDesign]: 'Diseñame un concepto de diseño de interiores para un [propertyType] y enfocando en la habitacion [room], usando [colorTheme] para el tema de colores, y con un estilo [style].',
 
-      [tokens.form.forgotPassword]: '¿Olvidaste tu contraseña?',
+
+  [tokens.form.forgotPassword]: '¿Olvidaste tu contraseña?',
   [tokens.form.quote]: 'Cita',
   [tokens.form.chatGPT]: 'Chat GPT',
   [tokens.form.firstName]: 'Nombres',
@@ -301,7 +302,7 @@ export const es = {
     [tokens.form.property]: 'Propiedad',
   [tokens.form.propertyType]: 'Tipo de Propiedad',
       [tokens.form.industrialChic]: 'Industrial Chic',
-  [tokens.form.numberImages]: 'Número de Opcciones]',
+  [tokens.form.numberImages]: 'Número de Opciones',
   [tokens.form.room]: 'Habitación',
   [tokens.form.livingRoom]: 'Sala de Estar',
 
@@ -390,6 +391,7 @@ export const es = {
     [tokens.headings.dessertGenerator]: 'Taller de Postres',
   [tokens.headings.financialAdvisor]: 'Asesor Financiero',
   [tokens.headings.interiorDesigner]: 'Diseñador de Interiores',
+  [tokens.form.interiorDesignerTip]: 'Para obtener los mejores resultados, elige un estilo de propiedad, un estilo de diseño, un tema de color, una habitación y el número de opciones que te gustaría ver.',
       [tokens.headings.bookSummariser]: 'Resumidor de Libros',
     [tokens.form.summaryLength]: 'Longitud del Resumen',
   [tokens.form.collegeTAFE]: 'colegio/instituto',

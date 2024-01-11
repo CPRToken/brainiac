@@ -149,8 +149,8 @@ export const StoryGenerator: FC = () => {
 
       newPrompt = newPrompt
         .replace('[author]', authorText)
-        .replace('[genre]', genreText)
-        .replace('[style]', styleText)
+          .replace('[genre]', genreText)
+          .replace('[style]', styleText)
         .replace('[mood]', moodText)
         .replace('[duration]', `${duration} ${t('')}`);
 
