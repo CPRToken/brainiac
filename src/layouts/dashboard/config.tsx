@@ -141,6 +141,8 @@ export const useSections = () => {
                     { title: t(tokens.headings.dreamInterpretation), path: paths.dashboard.dreamInterpretation },
                     { title: t(tokens.headings.magicMirror), path: paths.dashboard.magicMirror },
                     { title: t(tokens.headings.philosophyWriter), path: paths.dashboard.philosophyWriter },
+                    { title: t(tokens.headings.interiorDesigner), path: paths.dashboard.interiorDesigner },
+
                   ]
                 },
                 {
