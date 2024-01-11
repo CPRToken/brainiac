@@ -6,13 +6,12 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Slider from '@mui/material/Slider';
+import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
-
+import useGPT4Submit from './gpt4-submit';
 
 type Option = {
     label: string;
@@ -83,11 +82,11 @@ export const PhilosophyWriter: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [branch, setBranch] = useState<string>('');
   const [tradition, setTradition] = useState<string>('');
   const [theme, setTheme] = useState<string>('');
-  const [duration, setDuration] = useState<number>(100);
+  const [words, setWords] = useState<number>(100);
   const [prompt, setPrompt] = useState<string>('');
 
 
@@ -95,21 +94,37 @@ export const PhilosophyWriter: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
 
+  const submitToOpenAI = () => {
+
+    if (prompt) {
+      // Submit the prompt that is updated by the useEffect hook
+      handleSubmit(prompt, maxTokens)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
+    }
+  };
+
   useEffect(() => {
-    if (branch && tradition && theme && duration) {
+    if (branch && tradition && theme && words) {
       let newPrompt = t(tokens.form.writePhilosophy);
 
       const branchText = branch !== '' ? `${t(branch)} ` : '';
       const traditionText = tradition !== '' ? `${t(tradition)}  ` : '';
       const themeText = theme !== '' ? `${t(theme)} ` : '';
-      const durationText = `${duration} ${t('')}`;
+      const wordsText = `${words} ${t('')}`;
 
       // Replace placeholders with the actual values
       newPrompt = newPrompt
         .replace('[branch]', branchText)
         .replace('[tradition]', traditionText)
         .replace('[theme]', themeText)
-        .replace('[duration]', durationText);
+        .replace('[words]', wordsText);
 
       // Remove any trailing commas and spaces
       newPrompt = newPrompt.replace(/,+\s*$/, '');
@@ -118,9 +133,19 @@ export const PhilosophyWriter: FC = () => {
     } else {
       setPrompt('');
     }
-  }, [branch, tradition, theme, duration, t]);
+  }, [branch, tradition, theme, words, t]);
 
 
+  const handleSliderChange = (_: Event, newValue: number | number[]) => {
+    // If newValue is an array, you can decide how to handle it.
+    // For a single thumb slider, it should be just a number.
+    if (typeof newValue === 'number') {
+      setWords(newValue); // Directly set the new value
+    }
+  };
+
+// Corrected maxTokens calculation
+  const maxTokens = words * 4; // 1 word is approx. 4 tokens
 
 
 
@@ -179,35 +204,28 @@ export const PhilosophyWriter: FC = () => {
             </option>
           ))}
         </TextField>
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.wordCount)}</label>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <CustomSlider
+            value={words} // Convert the word count to the slider's scale
 
-          <Slider
-            value={duration / 100} // Convert the word count to the slider's scale
-            getAriaValueText={(value) => `${value * 100} words`} // For accessibility
-            valueLabelDisplay="on" // This enables the value label
-            valueLabelFormat={(value) => `${value * 100}`} // This formats the label to show the word count
-            min={1}
-            max={4}
-            step={0.5} // The slider's step
+            min={100}
+            max={1000}
+            step={100} // The slider's step
             marks // This adds marks at each step
-            onChange={(_, newValue) => setDuration(newValue as number * 100)} // Convert back to words on change
+            onChange={handleSliderChange} //slider change determines amount of tokens used
+            sx={{ width: '95%' }}
           />
         </div>
-          <TextField
-              fullWidth
-              label={t(tokens.form.prompts)}
-              name="prompt"
-              value={prompt}
-              multiline
-              rows={4}
-          />
 
 
       </Stack>
-          <Box sx={{ mt: 3 }}>
-              <Button
-                  onClick={() => handleSubmit(prompt, 800)}
+        <Box sx={{ mt: 3 }}>
+          {/* Button to submit the prompt to OpenAI */}
+          <Button
+            onClick={submitToOpenAI}
                   type="submit"
                   variant="contained"
                   fullWidth
@@ -217,29 +235,24 @@ export const PhilosophyWriter: FC = () => {
               </Button>
           </Box>
 
-        <Box sx={{ mt: 3 }}>
-          {openAIResponse && (
-            <>
-              <label>Your Philosophy:</label>
-              <Button onClick={handleCopyText} title="Copy response text">
-                <FileCopyIcon />
-              </Button>
-            </>
-          )}
-
-          <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
-            {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
-              index === array.length - 1 ? str : <>
-                {str}
-                <br />
-              </>
-            )}
-          </Paper>
-        </Box>
-
-
+        {openAIResponse && (
+          <Box sx={{ mt: 3 }}>
+            <label>{t(tokens.form.yourLyrics)}</label>
+            <Button onClick={handleCopyText} title="Copy response text">
+              <FileCopyIcon />
+            </Button>
+            <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+              {openAIResponse.split('\n').map((str, index, array) => (
+                <React.Fragment key={index}>
+                  {str}
+                  {index < array.length - 1 ? <br /> : null}
+                </React.Fragment>
+              ))}
+            </Paper>
+          </Box>
+        )}
       </Box>
+  );
 
-);
 };
 

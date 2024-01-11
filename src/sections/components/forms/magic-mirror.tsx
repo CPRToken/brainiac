@@ -253,8 +253,10 @@ export const MagicMirror: FC = () => {
           </TextField>
         </Stack>
 
-          <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
               <label>{t(tokens.form.era)}</label>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
               <Slider
                   value={era}
                   min={0}
@@ -268,6 +270,7 @@ export const MagicMirror: FC = () => {
                       { value: 4, label: '2020s' }
                   ]}
                   onChange={(_, newValue) => setEra(newValue as number)}
+                  sx={{ width: '93%' }}
               />
           </div>
 

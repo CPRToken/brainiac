@@ -6,7 +6,7 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Slider from '@mui/material/Slider';
+import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
@@ -70,18 +70,20 @@ export const TravelAgent: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
 
-  const maxTokens = 1000;
   const submitToOpenAI = () => {
-    // Construct a prompt that OpenAI can use to generate an article
-    const  newPrompt = t(tokens.form.writeItinerary);
-    setPrompt(newPrompt); // Update the prompt state
-    handleSubmit(newPrompt, maxTokens)
-      .then(() => {
-        // Handle successful submission if needed
-      })
-      .catch(error => {
-        console.error("Error submitting to OpenAI:", error);
-      });
+
+    if (prompt) {
+      // Submit the prompt that is updated by the useEffect hook
+      handleSubmit(prompt, maxTokens)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
+    }
   };
 
 
@@ -90,14 +92,21 @@ export const TravelAgent: FC = () => {
 
   useEffect(() => {
         if (destination && style && mode && budget) {
-            let newPrompt = t(tokens.form.writeItinerary, {
+            let newPrompt = t(tokens.form.writeItinerary);
 
-              budget: `${budget} ${t('dollars')}`,
-                destination: t(destination),
-                style: t(style),
-                mode: t(mode),
-            });
+              const destinationText =  destination !== '' ? `${t(destination)} ` : '';
+              const styleText = style !== '' ? `${t(style)} ` : '';
+              const modeText = mode !== '' ? `${t(mode)} ` : '';
+              const budgetText = `${budget} ${t('')}`;
 
+
+               newPrompt = newPrompt
+                .replace('{destination}', destinationText)
+                .replace('{style}', styleText)
+                .replace('{mode}', modeText)
+                .replace('{budget}', budgetText);
+
+          newPrompt = newPrompt.replace(/,+\s*$/, '');
 
             setPrompt(newPrompt.trim());
         } else {
@@ -106,6 +115,16 @@ export const TravelAgent: FC = () => {
     }, [destination, style, mode, budget, t]);
 
 
+  const handleSliderChange = (_: Event, newValue: number | number[]) => {
+    // If newValue is an array, you can decide how to handle it.
+    // For a single thumb slider, it should be just a number.
+    if (typeof newValue === 'number') {
+      setBudget(newValue); // Directly set the new value
+    }
+  };
+
+// Corrected maxTokens calculation
+  const maxTokens = budget * 4; // 1 word is approx. 4 tokens
 
 
 
@@ -154,14 +173,17 @@ export const TravelAgent: FC = () => {
             </option>
           ))}
         </TextField>
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.budget)}</label>
-          <Slider
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <CustomSlider
             value={budget}
             min={300}
-            max={2000}
+            max={10000}
             step={100}
-            onChange={(_, newValue) => setBudget(newValue as number)}
+            onChange={handleSliderChange} //slider change determines amount of tokens used
+            sx={{ width: '95%' }}
           />
         </div>
 

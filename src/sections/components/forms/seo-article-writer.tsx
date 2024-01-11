@@ -6,7 +6,7 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Slider from '@mui/material/Slider';
+import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
@@ -220,14 +220,17 @@ export const SEOArticleWriter: FC = () => {
             </option>
           ))}
         </TextField>
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.wordCount)}</label>
-          <Slider
-            value={duration / 500} // Convert the word count to the slider's scale
-            min={1}
-            max={4}
-            step={0.5} // The slider's step
-            onChange={(_, newValue) => setDuration(newValue as number * 500)} // Convert back to words on change
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <CustomSlider
+            value={duration}
+            min={500}
+            max={2000}
+            step={100} // The slider's step
+            onChange={(_, newValue) => setDuration(newValue as number)} // Convert back to words on change
+            sx={{ width: '95%' }}
           />
 
         </div>

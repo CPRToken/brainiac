@@ -133,7 +133,7 @@ export const SpeechWriter: FC = () => {
 
 
   const submitToOpenAI = () => {
-    const maxTokens = 1000;
+
     if (prompt) {
       // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
@@ -178,6 +178,16 @@ export const SpeechWriter: FC = () => {
 
 
 
+  const handleSliderChange = (_: Event, newValue: number | number[]) => {
+    // If newValue is an array, you can decide how to handle it.
+    // For a single thumb slider, it should be just a number.
+    if (typeof newValue === 'number') {
+      setDuration(newValue); // Directly set the new value
+    }
+  };
+
+// Corrected maxTokens calculation
+  const maxTokens = duration * 4; // 1 word is approx. 4 tokens
 
 
 
@@ -235,15 +245,17 @@ export const SpeechWriter: FC = () => {
           ))}
         </TextField>
 
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.duration)}</label>
-
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           <CustomSlider
             value={duration}
             min={5}
             max={60}
             step={5}
-            onChange={(_, newValue) => setDuration(newValue as number)}
+            onChange={handleSliderChange}
+            sx={{ width: '95%' }}
           />
         </div>
 

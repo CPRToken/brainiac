@@ -227,14 +227,17 @@ export const PoemGenerator: FC = () => {
             </option>
           ))}
         </TextField>
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.words)}</label>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           <CustomSlider
             value={duration} // Convert the word count to the slider's scale
             min={50}
             max={600}
             step={50} // The slider's step
             onChange={(_, newValue) => setDuration(newValue as number)} // Convert back to words on change
+            sx={{ width: '95%' }}
           />
         </div>
 

@@ -262,7 +262,7 @@ export const DessertWriter: FC = () => {
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-          onClick={() => combinedSubmit(prompt, 700)}
+          onClick={() => combinedSubmit(prompt, 800)}
           type="submit"
           variant="contained"
           fullWidth
@@ -279,7 +279,7 @@ export const DessertWriter: FC = () => {
             <Button onClick={handleCopyText} title="Copy response text">
               <FileCopyIcon />
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef} style={{ padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
               {textResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}

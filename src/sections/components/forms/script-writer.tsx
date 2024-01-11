@@ -174,8 +174,10 @@ export const ScriptWriter: FC = () => {
             </option>
           ))}
         </TextField>
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.duration)}</label>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           <CustomSlider
             value={duration}
             min={30}

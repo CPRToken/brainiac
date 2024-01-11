@@ -194,9 +194,11 @@ export const EssayWriter: FC = () => {
           ))}
         </TextField>
 
-        <div>
-          <label>{t(tokens.form.words)}</label>
 
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
+          <label>{t(tokens.form.words)}</label>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
           <CustomSlider
 
             value={duration}
@@ -204,7 +206,8 @@ export const EssayWriter: FC = () => {
             max={2000}
             step={100}
             onChange={(_, newValue) => setDuration(newValue as number)}
-          />
+            sx={{ width: '93%' }}
+         />
         </div>
 
 

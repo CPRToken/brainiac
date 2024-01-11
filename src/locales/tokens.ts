@@ -159,6 +159,9 @@ headings: {
     form: {
         title: 'form.title',
       industry: 'form.industry',
+      saveStoryAndImage: 'form.saveStoryAndImage',
+      yourPhilosophy: 'form.yourPhilosophy',
+      yourContent: 'form.yourContent',
       chatInstructions: 'form.chatInstructions',
       Authoritative: 'form.Authoritative',
       Skeptical: 'form.Skeptical',

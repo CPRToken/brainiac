@@ -7,12 +7,12 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Slider from '@mui/material/Slider';
+import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGPT4Submit from './handle-submit';
+import useGPT4Submit from './gpt4-submit';
 
 
 
@@ -187,7 +187,7 @@ const toneOptions: Option[] = [
 
 
 export const ContentWriter: FC = () => {
-  const { t } = useTranslation();
+
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [language, setLanguage] = useState<string>('');
   const [style, setStyle] = useState<string>('');
@@ -196,38 +196,66 @@ export const ContentWriter: FC = () => {
   const [title, setTitle] = useState<string>(''); // New state for the title
   const [keywords, setKeywords] = useState<string>(''); // New state for the keywords
   const [prompt, setPrompt] = useState<string>('');
+
+
+  const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
 
-  const maxTokens = 2000;
+  const submitToOpenAI = () => {
+
+    if (prompt) {
+      // Submit the prompt that is updated by the useEffect hook
+      handleSubmit(prompt, maxTokens)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
+    }
+  };
 
   useEffect(() => {
     if (language && style && tone && words && title && keywords) {
-      // Update the prompt state with the new prompt
-      setPrompt(t(tokens.form.writeContent, {
-        words: `${words} words`,
-        language: t(language),
-        style: t(style),
-        tone: t(tone),
-        title: title,
-        keywords: keywords
-      }).trim());
+     let newPrompt = t(tokens.form.writeContent);
+
+      const languageText= language !== '' ? `${t(language)} ` : '';
+      const styleText = style !== '' ? `${t(style)} ` : '';
+      const toneText = tone !== '' ? `${t(tone)} ` : '';
+       const wordsText = `${words} ${t('')}`;
+
+
+      newPrompt = newPrompt
+        .replace('[language]', languageText)
+        .replace('[style]', styleText)
+        .replace('[tone]', toneText)
+        .replace('[words]', wordsText)
+        .replace('[title]', title)
+        .replace('[keywords]', keywords);
+
+      newPrompt = newPrompt.replace(/,+\s*$/, '');
+
+      setPrompt(newPrompt.trim());
     } else {
       setPrompt('');
     }
   }, [language, style, tone, words, title, keywords, t]);
 
-  const submitToOpenAI = () => {
-    // Use the prompt state directly
-    handleSubmit(prompt, maxTokens)
-      .then(() => {
-        // Handle successful submission if needed
-      })
-      .catch(error => {
-        console.error("Error submitting to OpenAI:", error);
-      });
+
+
+  const handleSliderChange = (_: Event, newValue: number | number[]) => {
+    // If newValue is an array, you can decide how to handle it.
+    // For a single thumb slider, it should be just a number.
+    if (typeof newValue === 'number') {
+      setWords(newValue); // Directly set the new value
+    }
   };
 
+// Corrected maxTokens calculation
+  const maxTokens = words * 4; // 1 word is approx. 4 tokens
 
 
 
@@ -297,22 +325,23 @@ export const ContentWriter: FC = () => {
           ))}
         </TextField>
 
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.words)}</label>
-          <Slider
-            value={words / 500} // Convert the word count to the slider's scale
-            getAriaValueText={(value) => `${value * 500} words`} // For accessibility
-            valueLabelDisplay="on" // This enables the value label
-            valueLabelFormat={(value) => `${value * 500}`} // This formats the label to show the word count
-            min={1}
-            max={4}
-            step={0.5} // The slider's step
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <CustomSlider
+            value={words}
+            min={500}
+            max={2000}
+            step={100} // The slider's step
             marks // This adds marks at each step
-            onChange={(_, newValue) => setWords(newValue as number * 500)} // Convert back to words on change
+            onChange={handleSliderChange} //slider change determines amount of tokens used
+            sx={{ width: '95%' }}
           />
 
         </div>
-        {/* Removed the TextField for Prompt as per your instructions */}
+
+
       </Stack>
       <Box sx={{ mt: 3 }}>
         {/* Button to submit the prompt to OpenAI */}
@@ -327,13 +356,14 @@ export const ContentWriter: FC = () => {
         </Button>
       </Box>
 
+
       {openAIResponse && (
         <Box sx={{ mt: 3 }}>
-          <label>Your Content:</label>
+          <label>{t(tokens.form.yourContent)}</label>
           <Button onClick={handleCopyText} title="Copy response text">
             <FileCopyIcon />
           </Button>
-          <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
+          <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
             {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
@@ -347,4 +377,3 @@ export const ContentWriter: FC = () => {
   );
 
 };
-

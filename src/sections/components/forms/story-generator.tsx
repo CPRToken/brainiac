@@ -6,7 +6,7 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Slider from '@mui/material/Slider';
+import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
@@ -121,6 +121,22 @@ export const StoryGenerator: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
 
+  const submitToOpenAI = () => {
+
+    if (prompt) {
+      // Submit the prompt that is updated by the useEffect hook
+      combinedSubmit(prompt, maxTokens)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
+    }
+  };
+
 
   useEffect(() => {
     // Check if all selections are made
@@ -180,7 +196,7 @@ export const StoryGenerator: FC = () => {
         // If newValue is an array, you can decide how to handle it.
         // For a single thumb slider, it should be just a number.
         if (typeof newValue === 'number') {
-            setDuration(newValue * 100); // Update word count based on slider
+            setDuration(newValue);  // Update word count based on slider
         }
     };
 
@@ -253,35 +269,32 @@ export const StoryGenerator: FC = () => {
             </option>
           ))}
         </TextField>
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.words)}</label>
-          <Slider
-            value={duration / 100} // Convert the word count to the slider's scale
-            min={1}
-            max={4}
-            step={0.5} // The slider's step
-            onChange={handleSliderChange}
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <CustomSlider
+            value={duration} // Convert the word count to the slider's scale
+            min={100}
+            max={1000}
+            step={100} // The slider's step
+            marks // This adds marks at each step
+            onChange={handleSliderChange} //slider change determines amount of tokens used
+            sx={{ width: '95%' }}
           />
         </div>
-          <TextField
-              fullWidth
-              label={t(tokens.form.prompts)}
-              name="prompt"
-              value={prompt}
-              multiline
-              rows={4}
-          />
+
 
 
       </Stack>
           <Box sx={{ mt: 3 }}>
-              <Button
-                  onClick={() => combinedSubmit(prompt, maxTokens)}
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  disabled={isLoading}  // Disable the button while loading
-              >
+            <Button
+              onClick={submitToOpenAI}
+              type="submit"
+              variant="contained"
+              fullWidth
+              disabled={isLoading}  // Disable the button while loading
+            >
                   {isLoading ? <CircularProgress size={24} /> : 'Submit'}
               </Button>
           </Box>
@@ -326,7 +339,7 @@ export const StoryGenerator: FC = () => {
                               }
                             }}
                         >
-                          Save Story and Image
+                          {t(tokens.form.saveStoryAndImage)}
                         </Button>
                       </Box>
                   ))}

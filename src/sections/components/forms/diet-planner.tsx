@@ -1,17 +1,18 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import ReponseText from '../clipboards/response-text';
-import Slider from '@mui/material/Slider';
+import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
 import { useTranslation } from 'react-i18next';
 import { tokens } from 'src/locales/tokens';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import useHandleSubmit from './handle-submit';
+import useGPT4Submit from './gpt4-submit';
 import CircularProgress from '@mui/material/CircularProgress';
+
 
 
 type Option = {
@@ -58,7 +59,7 @@ const mealTypeOptions: Option[] = [
 export const DietPlanner: FC = () => {
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [dietType, setDietType] = useState<string>('');
   const [mealType, setMealType] = useState<string>('');
   const [calories, setCalories] = useState<number>(500);
@@ -66,6 +67,22 @@ export const DietPlanner: FC = () => {
  const { textRef, handleCopyText } = ReponseText();
   const { t } = useTranslation();
 
+
+  const submitToOpenAI = () => {
+    const maxTokens = 1000;
+    if (prompt) {
+      // Submit the prompt that is updated by the useEffect hook
+      handleSubmit(prompt, maxTokens)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
+    }
+  };
 
   useEffect(() => {
     // Only construct the prompt if all fields are filled
@@ -125,32 +142,28 @@ export const DietPlanner: FC = () => {
             </option>
           ))}
         </TextField>
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.calories)}</label>
-          <Slider
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <CustomSlider
             value={calories}
             min={100}
             max={2000}
             step={50}
             onChange={(_, newValue) => setCalories(newValue as number)}
+            sx={{ width: '95%' }}
           />
         </div>
-        <TextField
-          fullWidth
-          label={t(tokens.form.prompts)}
-          name="prompt"
-          value={prompt}
-          multiline
-          rows={4}
-        />
+
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-          onClick={() => handleSubmit(prompt, 1000)}
+          onClick={submitToOpenAI}
           type="submit"
           variant="contained"
           fullWidth
-          disabled={isLoading}  // Disable the button while loading
+          disabled={isLoading}
         >
           {isLoading ? <CircularProgress size={24} /> : 'Submit'}
         </Button>
@@ -158,32 +171,24 @@ export const DietPlanner: FC = () => {
 
 
 
-
-      <Box sx={{ mt: 3 }}>
-        {openAIResponse && (
-          <>
-        <label>{t(tokens.headings.yourMealPlan)}</label>
-        <Button onClick={handleCopyText} title="Copy response text">
-          <FileCopyIcon />
-        </Button>
-
-          </>
-        )}
-
-
-
-        <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
-          {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
-            index === array.length - 1 ? str : <>
-              {str}
-              <br />
-            </>
-          )}
-        </Paper>
-      </Box>
-
-
+      {openAIResponse && (
+        <Box sx={{ mt: 3 }}>
+          <label>{t(tokens.form.yourLyrics)}</label>
+          <Button onClick={handleCopyText} title="Copy response text">
+            <FileCopyIcon />
+          </Button>
+          <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+            {openAIResponse.split('\n').map((str, index, array) => (
+              <React.Fragment key={index}>
+                {str}
+                {index < array.length - 1 ? <br /> : null}
+              </React.Fragment>
+            ))}
+          </Paper>
+        </Box>
+      )}
     </Box>
-
   );
+
 };
+

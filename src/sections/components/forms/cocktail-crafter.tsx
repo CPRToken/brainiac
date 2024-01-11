@@ -13,6 +13,7 @@ import { tokens } from "../../../locales/tokens";
 import CircularProgress from '@mui/material/CircularProgress';
 import TextImageSubmit from "./textimage-submit";
 import React from 'react';
+import {auth} from "../../../libs/firebase";
 
 type Option = {
   label: string;
@@ -145,6 +146,8 @@ export const CocktailCrafter: FC = () => {
   };
 
 
+
+
   useEffect(() => {
     let ingredientsFilled = alcohol && cocktail && mixer && sweetness !== null;
     let garnishFilled = garnish !== ''; // Checks if garnish is filled
@@ -172,6 +175,35 @@ export const CocktailCrafter: FC = () => {
   }, [alcohol, cocktail, mixer, garnish, sweetness, t]);
 
 
+  const handleSaveStoryAndImage = (text: string, imageUrl: string, index: number) => {
+    const user = auth.currentUser;
+    const uid = user ? user.uid : null;
+
+    if (uid === null) {
+      alert('User is not authenticated');
+      return;
+    }
+
+    // Send a POST request to your server with the text, image URL, and UID
+    fetch('/api/upload-recipe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ story: text, imageUrl: imageUrl, uid }),
+    })
+        .then(response => response.json())
+        .then(data => {
+          if (data.url) {
+            console.log(`Story and image saved. Image URL: ${data.url}`);
+          } else {
+            console.error('Failed to save story and image:', data.error);
+          }
+        })
+        .catch(error => {
+          console.error('Error saving story and image:', error);
+        });
+  };
 
 
 
@@ -247,8 +279,10 @@ export const CocktailCrafter: FC = () => {
           </TextField>
         </Stack>
 
-          <div>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
               <label>{t(tokens.form.sweetness)}</label>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
               <Slider
                   value={sweetness}
                   min={0}
@@ -262,26 +296,20 @@ export const CocktailCrafter: FC = () => {
                     { value: 4, label: t(tokens.form.Sour) },
                   ]}
                   onChange={(_, newValue) => setSweetness(newValue as number)}
+                  sx={{ width: '95%' }}
               />
           </div>
 
 
-        <TextField
-          fullWidth
-          label={t(tokens.form.prompts)}
-          name="prompt"
-          value={prompt}
-          multiline
-          rows={4}
-        />
+
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-          onClick={() => combinedSubmit(prompt, 700)}
-          type="submit"
-          variant="contained"
-          fullWidth
-          disabled={isLoading}  // Disable the button while loading
+            onClick={() => combinedSubmit(prompt, 700)}
+            type="submit"
+            variant="contained"
+            fullWidth
+            disabled={isLoading}  // Disable the button while loading
         >
           {isLoading ? <CircularProgress size={24} /> : 'Submit'}
         </Button>
@@ -296,10 +324,10 @@ export const CocktailCrafter: FC = () => {
             </Button>
             <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
               {textResponse.split('\n').map((str, index, array) => (
-                <React.Fragment key={index}>
-                  {str}
-                  {index < array.length - 1 && <br />}
-                </React.Fragment>
+                  <React.Fragment key={index}>
+                    {str}
+                    {index < array.length - 1 && <br />}
+                  </React.Fragment>
               ))}
             </Paper>
           </Box>
@@ -307,11 +335,30 @@ export const CocktailCrafter: FC = () => {
 
         {/* Display the images */}
         {images && (
-          <Box sx={{ mt: 3 }}>
-            {images.map((image, index) => (
-              <img key={index} src={image} alt={`Generated Image ${index}`} style={{ maxWidth: '100%', height: 'auto' }} />
-            ))}
-          </Box>
+            <Box sx={{ mt: 3 }}>
+              {images.map((image, index) => (
+                  <Box key={index} sx={{ mt: 2 }}>
+                    <img src={image} alt={`Generated Art ${index + 1}`} style={{ width: '100%', marginBottom: '10px' }} />
+
+                    {/* Button for saving story and image */}
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          if (textResponse !== null) {
+                            handleSaveStoryAndImage(textResponse, image, index);
+                          } else {
+                            // Handle the case where textResponse is null
+                            // For example, display an alert or pass an empty string
+                            console.log("No story to save");
+                          }
+                        }}
+                    >
+                      {t(tokens.form.saveStoryAndImage)}
+                    </Button>
+                  </Box>
+              ))}
+            </Box>
         )}
       </Box>
     </Box>

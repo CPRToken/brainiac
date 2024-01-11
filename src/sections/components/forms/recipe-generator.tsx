@@ -229,8 +229,10 @@ export const RecipeWriter: FC = () => {
           </TextField>
         </Stack>
 
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
         <label>{t(tokens.form.spiciness)}</label>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <Slider
             value={spiciness}
             min={0}
@@ -244,6 +246,7 @@ export const RecipeWriter: FC = () => {
               { value: 4,label: t(tokens.form.NonSpicy)},
             ]}
             onChange={(_, newValue) => setSpiciness(newValue as number)}
+            sx={{ width: '95%' }}
         />
       </div>
 
@@ -268,7 +271,7 @@ export const RecipeWriter: FC = () => {
             <Button onClick={handleCopyText} title="Copy response text">
               <FileCopyIcon />
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef} style={{ padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
               {textResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
