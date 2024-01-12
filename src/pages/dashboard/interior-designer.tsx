@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Interior Designer" />
+      <Seo title={t(tokens.headings.interiorDesigner)} />
       <Box
         component="main"
         sx={{

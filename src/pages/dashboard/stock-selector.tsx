@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Stock Selector" />
+      <Seo title={t(tokens.headings.stockSelector)} />
       <Box
         component="main"
         sx={{

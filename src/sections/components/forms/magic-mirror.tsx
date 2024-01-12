@@ -292,11 +292,11 @@ export const MagicMirror: FC = () => {
       <Box sx={{ mt: 3 }}>
         {textResponse && (
           <Box sx={{ mt: 3 }}>
-            <label>{t(tokens.headings.yourDesign)}</label>
+            <label>{t(tokens.form.yourOutFit)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
               <FileCopyIcon />
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef} style={{ padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
               {textResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}

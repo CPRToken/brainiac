@@ -211,7 +211,7 @@ export const ScriptWriter: FC = () => {
           <FileCopyIcon />
         </Button>
 
-          <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
+          <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
             {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}

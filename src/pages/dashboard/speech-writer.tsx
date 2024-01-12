@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Lyric Writer" />
+      <Seo title={t(tokens.headings.speechWriter)} />
       <Box
         component="main"
         sx={{

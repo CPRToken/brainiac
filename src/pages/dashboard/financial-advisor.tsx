@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Recipe Generator" />
+      <Seo title={t(tokens.headings.financialAdvisor)} />
       <Box
         component="main"
         sx={{

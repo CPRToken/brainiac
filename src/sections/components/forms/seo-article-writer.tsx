@@ -1,17 +1,19 @@
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
+import { tokens } from 'src/locales/tokens';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+
 import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
-import { tokens } from 'src/locales/tokens';
+
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
+import useGPT4Submit from './gpt4-submit';
 
 type Option = {
     label: string;
@@ -20,46 +22,38 @@ type Option = {
 
 const nicheOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Health', value: 'health' },
-  { label: 'AI', value: 'artificial intelligence' },
-  { label: 'Technology', value: 'technology' },
-  { label: 'Finance', value: 'finance' },
-  { label: 'Travel', value: 'travel' },
-  { label: 'Education', value: 'education' },
-  { label: 'Fashion', value: 'fashion' },
-  { label: 'Food', value: 'food' },
-  { label: 'Sports', value: 'sports' },
-  { label: 'Entertainment', value: 'entertainment' },
-  { label: 'Home and Garden', value: 'home-and-garden' },
-  { label: 'Business', value: 'business' },
-  { label: 'Lifestyle', value: 'lifestyle' },
-  { label: 'Health', value: 'health' },
-  { label: 'Technology', value: 'technology' },
-  { label: 'Finance', value: 'finance' },
-  { label: 'Travel', value: 'travel' },
-  { label: 'Fashion', value: 'fashion' },
-  { label: 'Food', value: 'food' },
-  { label: 'Sports', value: 'sports' },
-  { label: 'Entertainment', value: 'entertainment' },
-  { label: 'Home and Garden', value: 'home-and-garden' },
-  { label: 'Gaming', value: 'gaming' },
-  { label: 'Science', value: 'science' },
-  { label: 'Art and Culture', value: 'art-and-culture' },
-  { label: 'Music', value: 'music' },
-  { label: 'Pets', value: 'pets' },
-  { label: 'Fitness', value: 'fitness' },
-  { label: 'Automotive', value: 'automotive' },
-  { label: 'Travel Tips', value: 'travel-tips' },
-  { label: 'Tech Gadgets', value: 'tech-gadgets' },
-  { label: 'Home Improvement', value: 'home-improvement' },
-  { label: 'Cooking', value: 'cooking' },
-  { label: 'Parenting', value: 'parenting' },
-  { label: 'Photography', value: 'photography' },
-  { label: 'DIY Projects', value: 'diy-projects' },
-  { label: 'Movies', value: 'movies' },
-  { label: 'Books', value: 'books' },
-  { label: 'Outdoor Activities', value: 'outdoor-activities' },
-  { label: 'Green Living', value: 'green-living' }
+  { label: tokens.form.health, value: tokens.form.health },
+  { label: tokens.form.artificialIntelligence, value: tokens.form.artificialIntelligence },
+  { label: tokens.form.technology, value: tokens.form.technology },
+  { label: tokens.form.finance, value: tokens.form.finance },
+  { label: tokens.form.travel, value: tokens.form.travel },
+  { label: tokens.form.education, value: tokens.form.education },
+  { label: tokens.form.fashion, value: tokens.form.fashion },
+  { label: tokens.form.food, value: tokens.form.food },
+  { label: tokens.form.sports, value: tokens.form.sports },
+  { label: tokens.form.entertainment, value: tokens.form.entertainment },
+  { label: tokens.form.homeAndGarden, value: tokens.form.homeAndGarden },
+  { label: tokens.form.business, value: tokens.form.business },
+  { label: tokens.form.lifestyle, value: tokens.form.lifestyle },
+  { label: tokens.form.gaming, value: tokens.form.gaming },
+  { label: tokens.form.science, value: tokens.form.science },
+  { label: tokens.form.artAndCulture, value: tokens.form.artAndCulture },
+  { label: tokens.form.music, value: tokens.form.music },
+  { label: tokens.form.pets, value: tokens.form.pets },
+  { label: tokens.form.fitness, value: tokens.form.fitness },
+  { label: tokens.form.automotive, value: tokens.form.automotive },
+  { label: tokens.form.travelTips, value: tokens.form.travelTips },
+  { label: tokens.form.techGadgets, value: tokens.form.techGadgets },
+  { label: tokens.form.homeImprovement, value: tokens.form.homeImprovement },
+  { label: tokens.form.cooking, value: tokens.form.cooking },
+  { label: tokens.form.parenting, value: tokens.form.parenting },
+  { label: tokens.form.photography, value: tokens.form.photography },
+  { label: tokens.form.diyProjects, value: tokens.form.diyProjects },
+  { label: tokens.form.movies, value: tokens.form.movies },
+  { label: tokens.form.books, value: tokens.form.books },
+  { label: tokens.form.outdoorActivities, value: tokens.form.outdoorActivities },
+  { label: tokens.form.greenLiving, value: tokens.form.greenLiving },
+
 
 
   // ... add more as needed
@@ -67,108 +61,145 @@ const nicheOptions: Option[] = [
 
 const purposeOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'On-page SEO', value: 'on-page-seo' },
-  { label: 'Link Building', value: 'link-building' },
-  { label: 'Technical SEO', value: 'technical-seo' },
-  { label: 'Local SEO', value: 'local-seo' },
-  { label: 'Content Marketing', value: 'content-marketing' },
-  { label: 'Keyword Research', value: 'keyword-research' },
-  { label: 'Social Media Marketing', value: 'social-media-marketing' },
-  { label: 'Email Marketing', value: 'email-marketing' },
-  { label: 'Video Marketing', value: 'video-marketing' },
-  { label: 'Conversion Rate Optimization', value: 'conversion-rate-optimization' },
-  { label: 'E-commerce SEO', value: 'e-commerce-seo' },
-  { label: 'Mobile SEO', value: 'mobile-seo' },
-  { label: 'Analytics and Reporting', value: 'analytics-and-reporting' },
-  { label: 'Voice Search Optimization', value: 'voice-search-optimization' },
-  { label: 'Affiliate Marketing', value: 'affiliate-marketing' },
-  { label: 'Blogging', value: 'blogging' },
-  { label: 'User Experience (UX)', value: 'user-experience-ux' },
-  { label: 'Web Design', value: 'web-design' },
-  { label: 'AI and SEO', value: 'ai-and-seo' },
-  { label: 'Local Business Marketing', value: 'local-business-marketing' },
-  { label: 'Online Advertising', value: 'online-advertising' },
-  { label: 'Content Strategy', value: 'content-strategy' },
-  { label: 'Influencer Marketing', value: 'influencer-marketing' },
-  { label: 'Brand Building', value: 'brand-building' },
-  { label: 'PPC Advertising', value: 'ppc-advertising' },
-  { label: 'Web Development', value: 'web-development' },
-  { label: 'Customer Relationship Management (CRM)', value: 'crm' },
+  { label: tokens.form.onPageSeo, value: tokens.form.onPageSeo },
+  { label: tokens.form.linkBuilding, value: tokens.form.linkBuilding },
+  { label: tokens.form.technicalSeo, value: tokens.form.technicalSeo },
+  { label: tokens.form.localSeo, value: tokens.form.localSeo },
+  { label: tokens.form.contentMarketing, value: tokens.form.contentMarketing },
+  { label: tokens.form.keywordResearch, value: tokens.form.keywordResearch },
+  { label: tokens.form.socialMediaMarketing, value: tokens.form.socialMediaMarketing },
+  { label: tokens.form.emailMarketing, value: tokens.form.emailMarketing },
+  { label: tokens.form.videoMarketing, value: tokens.form.videoMarketing },
+  { label: tokens.form.conversionRateOptimization, value: tokens.form.conversionRateOptimization },
+  { label: tokens.form.ecommerceSeo, value: tokens.form.ecommerceSeo },
+  { label: tokens.form.mobileSeo, value: tokens.form.mobileSeo },
+  { label: tokens.form.analyticsAndReporting, value: tokens.form.analyticsAndReporting },
+  { label: tokens.form.voiceSearchOptimization, value: tokens.form.voiceSearchOptimization },
+  { label: tokens.form.affiliateMarketing, value: tokens.form.affiliateMarketing },
+  { label: tokens.form.blogging, value: tokens.form.blogging },
+  { label: tokens.form.userExperienceUx, value: tokens.form.userExperienceUx },
+  { label: tokens.form.webDesign, value: tokens.form.webDesign },
+  { label: tokens.form.aiAndSeo, value: tokens.form.aiAndSeo },
+  { label: tokens.form.localBusinessMarketing, value: tokens.form.localBusinessMarketing },
+  { label: tokens.form.onlineAdvertising, value: tokens.form.onlineAdvertising },
+  { label: tokens.form.contentStrategy, value: tokens.form.contentStrategy },
+  { label: tokens.form.influencerMarketing, value: tokens.form.influencerMarketing },
+  { label: tokens.form.brandBuilding, value: tokens.form.brandBuilding },
+  { label: tokens.form.ppcAdvertising, value: tokens.form.ppcAdvertising },
+  { label: tokens.form.webDevelopment, value: tokens.form.webDevelopment },
+  { label: tokens.form.customerRelationshipManagementCrm, value: tokens.form.customerRelationshipManagementCrm },
+
   // ... add more as needed
 ];
 
 const styleOptions: Option[] = [
   { label: '', value: '' },
-  { label: 'Informative', value: 'informative' },
-  { label: 'Engaging', value: 'engaging' },
-  { label: 'Persuasive', value: 'persuasive' },
-  { label: 'Educational', value: 'educational' },
-  { label: 'Entertaining', value: 'entertaining' },
-  { label: 'Inspirational', value: 'inspirational' },
-  { label: 'Technical', value: 'technical' },
-  { label: 'Storytelling', value: 'storytelling' },
-  { label: 'Conversational', value: 'conversational' },
-  { label: 'Formal', value: 'formal' },
-  { label: 'Casual', value: 'casual' },
-  { label: 'Humorous', value: 'humorous' },
-  { label: 'Professional', value: 'professional' },
-  { label: 'Opinionated', value: 'opinionated' },
-  { label: 'Sensational', value: 'sensational' },
-  { label: 'Thought-provoking', value: 'thought-provoking' },
+    { label: tokens.form.informative, value: tokens.form.informative },
+    { label: tokens.form.engaging, value: tokens.form.engaging },
+    { label: tokens.form.persuasive, value: tokens.form.persuasive },
+    { label: tokens.form.educational, value: tokens.form.educational },
+    { label: tokens.form.entertaining, value: tokens.form.entertaining },
+    { label: tokens.form.inspirational, value: tokens.form.inspirational },
+    { label: tokens.form.technical, value: tokens.form.technical },
+    { label: tokens.form.storytelling, value: tokens.form.storytelling },
+    { label: tokens.form.conversational, value: tokens.form.conversational },
+    { label: tokens.form.formal, value: tokens.form.formal },
+    { label: tokens.form.casual, value: tokens.form.casual },
+    { label: tokens.form.humorous, value: tokens.form.humorous },
+    { label: tokens.form.professional, value: tokens.form.professional },
+    { label: tokens.form.opinionated, value: tokens.form.opinionated },
+    { label: tokens.form.sensational, value: tokens.form.sensational },
+    { label: tokens.form.thoughtProvoking, value: tokens.form.thoughtProvoking },
+
+    // ... add more as needed
+];
+
+const keyWordsOptions: Option[] = [
+  { label: '', value: '' },
+
+
+
   // ... add more as needed
 ];
 
 
-
-
 export const SEOArticleWriter: FC = () => {
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [niche, setNiche] = useState<string>('');  // changed from genre
   const [purpose, setPurpose] = useState<string>('');  // changed from style
   const [style, setMood] = useState<string>('');
+  const [keyWords, setKeyWords] = useState<string>('');
   const [duration, setDuration] = useState<number>(500);
   const [prompt, setPrompt] = useState<string>('');
 
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
-  const maxTokensForResume = 1500;
+
 
   const submitToOpenAI = () => {
-    // Construct a prompt that OpenAI can use to generate an article
-    const  newPrompt = t(tokens.form.SEOWriter);
-    setPrompt(newPrompt); // Update the prompt state
-    handleSubmit(newPrompt, maxTokensForResume)
-      .then(() => {
-        // Handle successful submission if needed
-      })
-      .catch(error => {
-        console.error("Error submitting to OpenAI:", error);
-      });
+
+
+    if (prompt) {
+      // Submit the prompt that is updated by the useEffect hook
+      handleSubmit(prompt, maxTokens)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
+    }
   };
 
 
 
-
-
   useEffect(() => {
-    if (niche && purpose && style && duration) {
-      let  newPrompt = t(tokens.form.SEOWriter, {
+    if (niche && purpose && style && keyWords && duration) {
+      let newPrompt = t(tokens.form.SEOWriter);
 
-        duration: `${duration} mins`,
-        niche: t(niche),
-        purpose: t(purpose),
-        style: t(style),
-      });
+
+      const nicheText = niche !== '' ? `${t(niche)} ` : '';
+      const purposeText = purpose !== '' ? `${t(purpose)} ` : '';
+      const styleText = style !== '' ? `${t(style)} ` : '';
+      const keyWordsText = keyWords !== '' ? `${t(keyWords)} ` : '';
+      const durationText = `${duration} ${t('')}`;
+
+      newPrompt = newPrompt
+        .replace('[niche]', nicheText)
+        .replace('[purpose]', purposeText)
+        .replace('[style]', styleText)
+        .replace('[keyWords]', keyWordsText)
+        .replace('[duration]', `${durationText}`);
+
+      newPrompt = newPrompt.replace(/,+\s*$/, '');
 
 
       setPrompt(newPrompt.trim());
     } else {
+      // If not all selections are made, keep the prompt empty
       setPrompt('');
     }
-  }, [niche, purpose, style, duration, t]);
 
+
+  }, [niche, purpose, style, keyWords, duration, t]);
+
+
+
+
+  const handleSliderChange = (_: Event, newValue: number | number[]) => {
+    // If newValue is an array, you can decide how to handle it.
+    // For a single thumb slider, it should be just a number.
+    if (typeof newValue === 'number') {
+      setDuration(newValue); // Directly set the new value
+    }
+  };
+
+// Corrected maxTokens calculation
+  const maxTokens = duration * 4; // 1 word is approx. 4 tokens
 
 
   return (
@@ -186,14 +217,14 @@ export const SEOArticleWriter: FC = () => {
         >
           {nicheOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
         <TextField
           fullWidth
           label={t(tokens.form.for)}
-          name="for"
+          name="purpose"
           select
           SelectProps={{ native: true }}
           value={purpose}
@@ -201,7 +232,7 @@ export const SEOArticleWriter: FC = () => {
         >
           {purposeOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
@@ -216,10 +247,28 @@ export const SEOArticleWriter: FC = () => {
         >
           {styleOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
         </TextField>
+
+        <TextField
+          fullWidth
+          label={t(tokens.form.keyWords)}
+          name="keywords"
+          value={keyWords}
+          onChange={(e) => setKeyWords(e.target.value)}
+          multiline
+          rows={1}
+        >
+          {keyWordsOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {t(option.label)} {/* Apply translation here */}
+            </option>
+          ))}
+        </TextField>
+
+
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.wordCount)}</label>
         </div>
@@ -229,7 +278,7 @@ export const SEOArticleWriter: FC = () => {
             min={500}
             max={2000}
             step={100} // The slider's step
-            onChange={(_, newValue) => setDuration(newValue as number)} // Convert back to words on change
+            onChange={handleSliderChange}
             sx={{ width: '95%' }}
           />
 
@@ -256,7 +305,7 @@ export const SEOArticleWriter: FC = () => {
             <Button onClick={handleCopyText} title="Copy response text">
               <FileCopyIcon />
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
               {openAIResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}

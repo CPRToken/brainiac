@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Magic Mirror" />
+      <Seo title={t(tokens.headings.magicMirror)} />
       <Box
         component="main"
         sx={{

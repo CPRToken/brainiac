@@ -48,6 +48,17 @@ const styleOptions: Option[] = [
   { label: tokens.form.LoveSong, value: tokens.form.LoveSong },
   { label: tokens.form.Ballad, value: tokens.form.Ballad },
   { label: tokens.form.Anthem, value: tokens.form.Anthem },
+  { label: tokens.form.Uplifting, value: tokens.form.Uplifting },
+  { label: tokens.form.Melancholic, value: tokens.form.Melancholic },
+  { label: tokens.form.Energetic, value: tokens.form.Energetic },
+  { label: tokens.form.Soothing, value: tokens.form.Soothing },
+  { label: tokens.form.Acoustic, value: tokens.form.Acoustic },
+  { label: tokens.form.Synthetic, value: tokens.form.Synthetic },
+  { label: tokens.form.Experimental, value: tokens.form.Experimental },
+  { label: tokens.form.Nostalgic, value: tokens.form.Nostalgic },
+  { label: tokens.form.Groovy, value: tokens.form.Groovy },
+  { label: tokens.form.Rhythmic, value: tokens.form.Rhythmic },
+  { label: tokens.form.Orchestral, value: tokens.form.Orchestral },
     // ... add more as needed
 ];
 
@@ -61,10 +72,25 @@ const moodOptions: Option[] = [
   { label: tokens.form.Serene, value: tokens.form.Serene },
   { label: tokens.form.Nostalgic, value: tokens.form.Nostalgic },
   { label: tokens.form.Energetic, value: tokens.form.Energetic },
+  { label: tokens.form.Romantic, value: tokens.form.Romantic },
+  { label: tokens.form.Melancholic, value: tokens.form.Melancholic },
+  { label: tokens.form.Motivational, value: tokens.form.Motivational },
+
+  { label: tokens.form.Mysterious, value: tokens.form.Mysterious },
+  { label: tokens.form.Intense, value: tokens.form.Intense },
+ { label: tokens.form.Soothing, value: tokens.form.Soothing },
+  { label: tokens.form.Groovy, value: tokens.form.Groovy },
+  { label: tokens.form.Chill, value: tokens.form.Chill }
     // ... add more as needed
 ];
 
+const tempoOptions: Option[] = [
+  { label: '', value: '' },
+  { label: tokens.form.slow, value: tokens.form.slow },
+  { label: tokens.form.medium, value: tokens.form.medium },
+  { label: tokens.form.fast, value: tokens.form.fast },
 
+];
 
 
 export const LyricWriter: FC = () => {
@@ -75,6 +101,7 @@ export const LyricWriter: FC = () => {
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
+  const [tempo, setTempo] = useState<string>('');
   const [duration, setDuration] = useState<number>(2);
   const [prompt, setPrompt] = useState<string>('');
 
@@ -84,7 +111,7 @@ export const LyricWriter: FC = () => {
 
 
   const submitToOpenAI = () => {
-    const maxTokens = 1000;
+
     if (prompt) {
       // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
@@ -101,12 +128,13 @@ export const LyricWriter: FC = () => {
 
 
   useEffect(() => {
-    if (genre && style && mood && duration) {
+    if (genre && style && mood && tempo && duration) {
       let newPrompt = t(tokens.form.writeSong);
 
       const genreText = genre !== '' ? `${t(genre)} ` : '';
       const styleText = style !== '' ? `${t(style)} , ` : '';
       const moodText = mood !== '' ? `${t(mood)} , ` : '';
+      const tempoText = tempo !== '' ? `${t(tempo)} , ` : '';
       const durationText = `${duration} ${t('')}`;
 
       // Replace placeholders with the actual values
@@ -114,6 +142,7 @@ export const LyricWriter: FC = () => {
         .replace('[genre]', genreText)
         .replace('[style]', styleText)
         .replace('[mood]', moodText)
+        .replace('[tempo]', tempoText)
         .replace('[duration]', durationText);
 
 
@@ -121,11 +150,20 @@ export const LyricWriter: FC = () => {
     } else {
       setPrompt('');
     }
-  }, [genre, style, mood, duration, t]);
+  }, [genre, style, mood, tempo, duration, t]);
 
 
 
+  const handleSliderChange = (_: Event, newValue: number | number[]) => {
+    // If newValue is an array, you can decide how to handle it.
+    // For a single thumb slider, it should be just a number.
+    if (typeof newValue === 'number') {
+      setDuration(newValue); // Directly set the new value
+    }
+  };
 
+// Corrected maxTokens calculation
+  const maxTokens = duration * 4; // 1 word is approx. 4 tokens
 
 
 
@@ -178,6 +216,23 @@ export const LyricWriter: FC = () => {
             </option>
           ))}
         </TextField>
+
+        <TextField
+          fullWidth
+          label={t(tokens.form.tempo)}
+          name="tempo"
+          select
+          SelectProps={{ native: true }}
+          value={tempo}
+          onChange={(e) => setTempo(e.target.value)}
+        >
+          {tempoOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {t(option.label)} {/* Apply translation here */}
+            </option>
+          ))}
+        </TextField>
+
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.duration)}</label>
         </div>
@@ -185,9 +240,9 @@ export const LyricWriter: FC = () => {
           <CustomSlider
             value={duration}
             min={1}
-            max={4}
+            max={5}
             step={0.5}
-            onChange={(_, newValue) => setDuration(newValue as number)}
+            onChange={handleSliderChange}
             sx={{ width: '95%' }}
           />
         </div>

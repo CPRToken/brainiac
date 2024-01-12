@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Image Generator" />
+      <Seo title={t(tokens.headings.imageGenerator)} />
       <Box
         component="main"
         sx={{
@@ -66,7 +66,7 @@ const Page: NextPage = () => {
               xs={12}
               md={8}
               sx={{
-                paddingLeft: 2, // Add padding here
+                paddingLeft: 4, // Add padding here
                 // Or if you prefer margin: marginLeft: 2
               }}
             >

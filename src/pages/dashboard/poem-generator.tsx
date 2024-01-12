@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Poem Generator" />
+      <Seo title={t(tokens.headings.poemGenerator)} />
       <Box
         component="main"
         sx={{

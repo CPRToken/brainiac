@@ -149,10 +149,8 @@ export const CocktailCrafter: FC = () => {
 
 
   useEffect(() => {
-    let ingredientsFilled = alcohol && cocktail && mixer && sweetness !== null;
-    let garnishFilled = garnish !== ''; // Checks if garnish is filled
+ if (alcohol && cocktail && mixer && sweetness !== null) {
 
-    if (ingredientsFilled && (garnishFilled || garnish === '')) {
       let newPrompt = t(tokens.form.createCocktail);
 
       const alcoholText = ` ${t(alcohol)} `;
