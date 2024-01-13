@@ -1,5 +1,3 @@
-import {number} from "yup";
-
 export const tokens = {
   common: {
     languageChanged: 'common.languageChanged',
@@ -78,6 +76,7 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+  startABusiness: 'headings.startABusiness',
   chatGPT: 'headings.chatGPT',
   essayWriter: 'headings.essayWriter',
   interiorDesigner: 'headings.interiorDesigner',
@@ -162,6 +161,20 @@ headings: {
     form: {
         title: 'form.title',
       industry: 'form.industry',
+      interests: 'form.interests',
+      yourBusinessPlan: 'form.yourBusinessPlan',
+      haveBusinessIdea: 'form.haveBusinessIdea',
+      typeofBusiness: 'form.typeofBusiness',
+      startBusinessTip: 'form.startBusinessTip',
+      fieldExperience: 'form.fieldExperience',
+      targetMarket: 'form.targetMarket',
+      inOrOut: 'form.inOrOut',
+      blueOrWhite: 'form.blueOrWhite',
+      blueCollar: 'form.blueCollar',
+      whiteCollar: 'form.whiteCollar',
+      indoors: 'form.indoors',
+      outdoors: 'form.outdoors',
+      startABusinessPrompts: 'form.startABusinessPrompts',
       keyWords: 'form.keyWords',
       health: 'form.health',
 
@@ -179,7 +192,7 @@ headings: {
         opinionated: 'form.opinionated',
         sensational: 'form.sensational',
         thoughtProvoking: 'form.thoughtProvoking',
-
+        modern: 'form.modern',
         onPageSeo: 'form.onPageSeo',
         linkBuilding: 'form.linkBuilding',
         technicalSeo: 'form.technicalSeo',
@@ -210,6 +223,14 @@ headings: {
 
         technology: 'form.technology',
       finance: 'form.finance',
+      retail: 'form.retail',
+      hospitality: 'form.hospitality',
+      services: 'form.services',
+      manufacturing: 'form.manufacturing',
+      agriculture: 'form.agriculture',
+      healthcare: 'form.healthcare',
+      construction: 'form.construction',
+
       travel: 'form.travel',
       education: 'form.education',
       fashion: 'form.fashion',
