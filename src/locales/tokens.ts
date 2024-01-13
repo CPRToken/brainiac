@@ -165,6 +165,7 @@ headings: {
       yourBusinessPlan: 'form.yourBusinessPlan',
       haveBusinessIdea: 'form.haveBusinessIdea',
       typeofBusiness: 'form.typeofBusiness',
+      educationIndustry: 'form.educationIndustry',
       startBusinessTip: 'form.startBusinessTip',
       fieldExperience: 'form.fieldExperience',
       targetMarket: 'form.targetMarket',

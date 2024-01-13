@@ -346,6 +346,7 @@ export const en = {
   [tokens.form.fieldExperience]: 'Do you have any experience in this field? if so provide details',
   [tokens.form.blueOrWhite]: 'Blue or White Collar?',
     [tokens.form.blueCollar]: 'blue collar',
+  [tokens.form.educationIndustry]: 'Education',
   [tokens.form.whiteCollar]: 'white collar',
   [tokens.form.haveBusinessIdea]: 'Do you have a business idea?',
   [tokens.form.targetMarket]: 'Who is your target market?',

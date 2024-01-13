@@ -30,7 +30,7 @@ const industryOptions: Option[] = [
   { label: tokens.form.agriculture, value: tokens.form.agriculture },
   { label: tokens.form.healthcare, value: tokens.form.healthcare },
   { label: tokens.form.construction, value: tokens.form.construction },
-  { label: tokens.form.education, value: tokens.form.education },
+  { label: tokens.form.educationIndustry, value: tokens.form.educationIndustry },
   { label: tokens.form.finance, value: tokens.form.finance },
 
 

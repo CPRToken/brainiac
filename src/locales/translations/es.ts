@@ -1021,6 +1021,7 @@ export const es = {
     [tokens.form.email]: 'Correo electrónico',
   [tokens.form.highestYearCompleted]: 'Año más alto completado',
   [tokens.form.education]: 'Educación: p. ej.Nombre de la Escuela, Título, Campo de Estudio',
+  [tokens.form.educationIndustry]: 'Educación',
   [tokens.form.degree]: 'Título',
   [tokens.form.theme]: 'Tema',
   [tokens.form.title]: 'Título: p. ej. Cómo ganar dinero',
