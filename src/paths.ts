@@ -85,6 +85,7 @@ lyricWriter: '/dashboard/lyric-writer',
     careerDeveloper: '/dashboard/career-developer',
       interiorDesigner: '/dashboard/interior-designer',
     startABusiness: '/dashboard/start-a-business',
+      investmentAdvisor: '/dashboard/investment-advisor',
     chatGPT: '/dashboard/chatgpt',
     customers: {
       index: '/dashboard/customers',
