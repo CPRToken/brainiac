@@ -434,7 +434,7 @@ export const en = {
   [tokens.form.investmentExperience]: 'How many years of investment experience do you have?',
   [tokens.form.hasInvestmentGoals]: 'Do you have any investment goals?',
     [tokens.form.timeFrame]: 'How long do you plan to keep your money invested?',
-  [tokens.form.riskTolerance]: 'Risk Tolerance',
+  [tokens.form.riskTolerance]: 'Risk Tolerance: (The percentage of financial risk you are willing to take on your investment).',
     [tokens.form.desiredIndustry]: 'Which industry you would like to invest in? e.g. technology',
     [tokens.form.whyInvest]: 'What prompted you to consider investing?',
   [tokens.form.chatGPT]: 'Chat GPT',
@@ -628,7 +628,7 @@ export const en = {
   [tokens.form.language]: 'Language',
   [tokens.form.skills]: 'Skills: e.g. "HTML, Team management, JavaScript"',
   [tokens.form.startBusinessTip]: 'Struggling to start a business or lacking ideas? Fill out the form below, and we\'ll provide a customized business plan to get you going. Let\'s make your business dream a reality!.',
-    [tokens.form.investmentAdviceTip]: 'Unsure about how to invest or manage your finances? Complete the form below, and AI will geneerate personalized investment advice tailored to your goals and financial situation.',
+    [tokens.form.investmentAdviceTip]: 'Unsure about how to invest your hard earned money? Complete the form below, and AI geneerate personalized investment advice tailored to your goals and financial situation.',
 
     [tokens.form.destination]: 'Destination: City, region, or country',
   [tokens.form.age]: 'Age',

@@ -1003,7 +1003,7 @@ export const es = {
   [tokens.form.pasteText]: 'Pega tu texto aquí y presiona Submit',
     [tokens.form.imagePrompts]: 'Genera una representación artística de [object] en el estilo inconfundible de [artist]. La obra debe reflejar el estilo [style] y estar imbuida con el tema de [theme]',
     [tokens.form.investmentAdvicePrompts]: 'Proporcione asesoramiento de inversión personalizado basado en la siguiente información:\n\nObjetivo de inversión principal: [investmentGoals]\nInterés específico en el negocio: [businessInterest]\nPasivos financieros: [financialLiabilities]\nActivos financieros: [financialAssets]\nObjetivos de inversión detallados: [investmentGoals]\nExperiencia en inversión: [investmentExperience]\nIngresos anuales: [annualIncome]\nGastos anuales: [annualExpenses]\nPresupuesto disponible para la inversión: [budget]\nNivel de tolerancia al riesgo: [riskTolerance]\n\nSi no se proporcionan detalles financieros, sugiera un enfoque conservador inicialmente. Además, ofrezca información sobre posibles oportunidades de inversión que coincidan con sus objetivos y tolerancia al riesgo, y brinde orientación sobre cómo gestionar activos y pasivos de manera efectiva.',
-
+    [tokens.form.investmentAdviceTip]: '¿No está seguro de cómo invertir su dinero? Complete el formulario a continuación, y la IA generará un asesoramiento de inversión personalizado adaptado a sus objetivos y situación financiera.',
         [tokens.form.skills]: 'Habilidades: p. ej. programación, diseño gráfico, marketing',
   [tokens.form.saveImage]: 'Guardar Imagen',
   [tokens.form.saveText]: 'Guardar Texto',
@@ -1021,7 +1021,7 @@ export const es = {
     [tokens.form.hasInvestmentGoals]: '¿Tienes objetivos de inversión?',
         [tokens.form.investmentExperience]: 'Cuantos años de experiencia tienes invirtiendo?',
     [tokens.form.desiredIndustry]: 'En qué industria le gustaría invertir? Por ejemplo, tecnología',
-        [tokens.form.riskTolerance]: 'Tolerancia al Riesgo',
+    [tokens.form.riskTolerance]: 'Tolerancia al riesgo: (El porcentaje de riesgo financiero que estás dispuesto a asumir en tu inversión).',
     [tokens.form.stockTips]: 'consejos sobre acciones',
         [tokens.form.sexy]: 'Sexy',
   [tokens.form.lowRisk]: 'Bajo Riesgo',

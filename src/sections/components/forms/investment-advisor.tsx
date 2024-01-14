@@ -254,32 +254,36 @@ export const InvestmentAdvisor: FC = () => {
 
 
               <TextField
+                  label={t(tokens.form.riskTolerance)}
+                  name="riskTolerance"
+                  select
+                  SelectProps={{ native: true }}
+                  value={riskTolerance}
+                  onChange={(e) => setRiskTolerance(e.target.value)}
                   fullWidth
-                  label={t(tokens.form.annualIncome)}
-                  name="annualIncome"
-                  value={annualIncome}
-                  onChange={(e) => setAnnualIncome(e.target.value)}
-                  multiline
-                  rows={1}
-              />
+
+              >
+                  {riskToleranceOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                          {t(option.label)}
+                      </option>
+                  ))}
+              </TextField>
+
+
+
 
               <Stack direction="row" spacing={2}>
                   <TextField
-                      label={t(tokens.form.riskTolerance)}
-                      name="riskTolerance"
-                      select
-                      SelectProps={{ native: true }}
-                      value={riskTolerance}
-                      onChange={(e) => setRiskTolerance(e.target.value)}
                       fullWidth
+                      label={t(tokens.form.annualIncome)}
+                      name="annualIncome"
+                      value={annualIncome}
+                      onChange={(e) => setAnnualIncome(e.target.value)}
+                      multiline
+                      rows={1}
                       sx={{ width: 'calc(50% - 8px)' }}
-                  >
-                      {riskToleranceOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                              {t(option.label)}
-                          </option>
-                      ))}
-                  </TextField>
+                  />
 
                   <TextField
                       label={t(tokens.form.budget)}
@@ -288,7 +292,7 @@ export const InvestmentAdvisor: FC = () => {
                       onChange={(e) => setBudget(e.target.value)}
                       multiline
                       rows={1}
-                      sx={{ width: '50%' }}
+                      sx={{ width: 'calc(50% - 8px)' }}
                   />
               </Stack>
           </>
@@ -361,36 +365,37 @@ export const InvestmentAdvisor: FC = () => {
                       rows={1} // Sets the number of rows
                   />
 
-
-
-
                   <TextField
+                      label={t(tokens.form.riskTolerance)}
+                      name="riskTolerance"
+                      select
+                      SelectProps={{ native: true }}
+                      value={riskTolerance}
+                      onChange={(e) => setRiskTolerance(e.target.value)}
                       fullWidth
-                      label={t(tokens.form.annualIncome)}
-                      name="annualIncome"
-                      value={annualIncome}
-                      onChange={(e) => setAnnualIncome(e.target.value)}
-                      multiline
-                      rows={1}
-                  />
+
+                  >
+                      {riskToleranceOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                              {t(option.label)}
+                          </option>
+                      ))}
+                  </TextField>
+
+
+
 
                   <Stack direction="row" spacing={2}>
                       <TextField
-                          label={t(tokens.form.riskTolerance)}
-                          name="riskTolerance"
-                          select
-                          SelectProps={{ native: true }}
-                          value={riskTolerance}
-                          onChange={(e) => setRiskTolerance(e.target.value)}
                           fullWidth
+                          label={t(tokens.form.annualIncome)}
+                          name="annualIncome"
+                          value={annualIncome}
+                          onChange={(e) => setAnnualIncome(e.target.value)}
+                          multiline
+                          rows={1}
                           sx={{ width: 'calc(50% - 8px)' }}
-                      >
-                          {riskToleranceOptions.map((option) => (
-                              <option key={option.value} value={option.value}>
-                                  {t(option.label)}
-                              </option>
-                          ))}
-                      </TextField>
+                      />
 
                       <TextField
                           label={t(tokens.form.budget)}
@@ -399,7 +404,7 @@ export const InvestmentAdvisor: FC = () => {
                           onChange={(e) => setBudget(e.target.value)}
                           multiline
                           rows={1}
-                          sx={{ width: '50%' }}
+                          sx={{ width: 'calc(50% - 8px)' }}
                       />
                   </Stack>
               </>
