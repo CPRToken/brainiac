@@ -234,6 +234,7 @@ headings: {
         ppcAdvertising: 'form.ppcAdvertising',
         webDevelopment: 'form.webDevelopment',
         customerRelationshipManagementCrm: 'form.customerRelationship',
+        none: 'form.none',
 
         technology: 'form.technology',
       finance: 'form.finance',

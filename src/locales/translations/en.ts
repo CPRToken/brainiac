@@ -871,7 +871,7 @@ export const en = {
     [tokens.form.opinionated]: 'Opinionated',
     [tokens.form.sensational]: 'Sensational',
     [tokens.form.thoughtProvoking]: 'Thought-Provoking',
-
+    [tokens.form.none]: 'None',
         [tokens.form.technology]: 'Technology',
   [tokens.form.retail]: 'Retail',
   [tokens.form.hospitality]: 'Hospitality',
@@ -919,7 +919,7 @@ export const en = {
 
         [tokens.form.writeItinerary]: 'write an itinerary for a [style] trip to [destination] using [mode] travel, with a budget of [budget]',
   [tokens.form.startABusinessPrompts]: 'Provide a comprehensive business plan based on the available information: Industry: [industry], Business Idea: [typeofBusiness], for a [blueOrWhite] worker, that prefers to work [inOrOut], that has the following skillset: [skills], that has these Interests: [interests], Field Experience: [fieldExperience], and that has a target market of [targetMarket], but if they leave the field [targetMarket] empty, please provide them with a list of their possible target market. And the user has a Budget of: [budget].',
-    [tokens.form.investmentAdvicePrompts]: 'Provide tailored investment advice based on the following information:\n\nPrimary Investment Goal: [investmentGoals]\nSpecific Business Interest: [businessInterest]\nFinancial Liabilities: [financialLiabilities]\nFinancial Assets: [financialAssets]\nDetailed Investment Goals: [investmentGoals]\nInvestment Experience: [investmentExperience]\nAnnual Income: [annualIncome]\nAnnual Expenses: [annualExpenses]\nAvailable Budget for Investment: [budget]\nRisk Tolerance Level: [riskTolerance]\n\nIf any financial details are not provided, suggest a conservative approach initially. Additionally, offer insights on potential investment opportunities matching their goals and risk tolerance, and provide guidance on managing assets and liabilities effectively.',
+    [tokens.form.investmentAdvicePrompts]: 'Provide tailored investment advice based on the following information:\n\nPrimary Investment Goal: [investmentGoals]\nSpecific industry: [industry]\n their industry experience of [industryExperience]\n Why they want to invest: [why]\n Also, take into account their Investment Experience of : [investmentExperience]\nAnnual Income: [annualIncome] \n Their time frame of [time]\n Available Budget for Investment: [budget]\nRisk Tolerance Level: [riskTolerance]\n\n. It is very important they get a detailed ROI as a percentage rate and on a per annum basis too. If any financial details are not provided, suggest a conservative approach initially. Additionally, offer insights on potential investment opportunities matching their goals and risk tolerance.',
 
 
     [tokens.form.imagePrompts]: 'Craft a visual depiction of a [object] in the unique style of [artist], blending elements of [style] and infused with a theme of [theme]',

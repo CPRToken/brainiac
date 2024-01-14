@@ -68,6 +68,7 @@ const timeOptions: Option[] = [
 
 const investmentExperienceOptions: Option[] = [
     { label: '', value: '' },
+    { label: tokens.form.none, value: tokens.form.none },
   { label: tokens.form.lessThanYear, value: tokens.form.lessThanYear },
   { label: tokens.form.Between1N3, value: tokens.form.Between1N3 },
   { label: tokens.form.Between3N5, value: tokens.form.Between3N5 },
@@ -314,6 +315,22 @@ export const InvestmentAdvisor: FC = () => {
                   <TextField
                       fullWidth
 
+                      label={t(tokens.form.investmentExperience)}
+                      name="investmentExperience"
+                      select
+                      SelectProps={{ native: true }}
+                      value={investmentExperience}
+                      onChange={(e) => setInvestmentExperience(e.target.value)}
+                  >
+                      {investmentExperienceOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                              {t(option.label)}
+                          </option>
+                      ))}
+                  </TextField>
+                  <TextField
+                      fullWidth
+
                       label={t(tokens.form.desiredIndustry)}
                       name="industry"
                       select
@@ -344,7 +361,7 @@ export const InvestmentAdvisor: FC = () => {
                       name="time"
                       select
                       SelectProps={{ native: true }}
-                      value={industry}
+                      value={time}
                       onChange={(e) => setTime(e.target.value)}
                   >
                       {timeOptions.map((option) => (
