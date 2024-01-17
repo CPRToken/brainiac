@@ -233,7 +233,15 @@ export const InvestmentAdvisor: FC = () => {
                       </option>
                   ))}
               </TextField>
-
+              <TextField
+                  fullWidth
+                  label={t(tokens.form.fieldExperience)}
+                  name="industryExperience"
+                  value={industryExperience}
+                  onChange={(e) => setIndustryExperience(e.target.value)}
+                  multiline
+                  rows={1}
+              />
 
               <TextField
                   fullWidth
@@ -446,7 +454,7 @@ export const InvestmentAdvisor: FC = () => {
 
         {openAIResponse && (
             <Box sx={{ mt: 3 }}>
-                <label>{t(tokens.form.yourBusinessPlan)}</label>
+                <label>{t(tokens.form.yourInvestmentPlan)}</label>
                 <Button onClick={handleCopyText} title="Copy response text">
                     <FileCopyIcon />
                 </Button>

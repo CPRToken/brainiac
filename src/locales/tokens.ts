@@ -165,6 +165,7 @@ headings: {
       industry: 'form.industry',
         timeFrame: 'form.timeFrame',
       hasInvestmentGoals: 'form.hasInvestmentGoals',
+        yourInvestmentPlan: 'form.yourInvestmentPlan',
         desiredIndustry: 'form.desiredIndustry',
         whyInvest: 'form.whyInvest',
       riskTolerance: 'form.riskTolerance',

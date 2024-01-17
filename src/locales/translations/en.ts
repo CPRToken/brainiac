@@ -303,7 +303,7 @@ export const en = {
   '\n',
   [tokens.form.translateInstructions]: 'To initiate a translation, please paste your text below. Then, select the language you wish your text to be translated to and click \'Submit\' to proceed.\n' ,
   [tokens.form.magicMirror]: 'Ask the Magic Mirror to find the perfect outfit for any event. Select your preferences from the menu options and click \'Submit\'.',
-    [tokens.form.interiorDesignerTip]: 'Consult the Interior Designer by selecting your preferences for property type, style, color theme, room, and the number of options you would like to see.',
+    [tokens.form.interiorDesignerTip]: 'Consult the Interior Designer by selecting your preferences of property type, desired room, your preferred style, and color theme.',
 
     [tokens.form.financialAdvisorDescription]: 'For optimal advice from our financial advisor, please provide detailed and accurate information in all the fields.',
 
@@ -866,6 +866,7 @@ export const en = {
     [tokens.form.inspirational]: 'Inspirational',
     [tokens.form.technical]: 'Technical',
     [tokens.form.storytelling]: 'Storytelling',
+
     [tokens.form.humorous]: 'Humorous',
     [tokens.form.professional]: 'Professional',
     [tokens.form.opinionated]: 'Opinionated',
@@ -874,13 +875,15 @@ export const en = {
     [tokens.form.none]: 'None',
         [tokens.form.technology]: 'Technology',
   [tokens.form.retail]: 'Retail',
+
   [tokens.form.hospitality]: 'Hospitality',
+
   [tokens.form.services]: 'Services',
   [tokens.form.manufacturing]: 'Manufacturing',
   [tokens.form.agriculture]: 'Agriculture',
   [tokens.form.healthcare]: 'Healthcare',
   [tokens.form.construction]: 'Construction',
-
+    [tokens.form.yourInvestmentPlan]: 'Your Investment Plan',
   [tokens.form.finance]: 'Finance',
   [tokens.form.travel]: 'Travel',
   [tokens.form.education]: 'Education',
@@ -927,7 +930,7 @@ export const en = {
   [tokens.form.createRecipe]: 'Create an [country] [dish] dish with [protein] and [garnish], that is [spiciness] ',
     [tokens.form.createDessert]: 'Create a [country] [dish] dessert, with [base] and [toppings], that is [spiciness]',
     [tokens.form.createFashion]: 'Magic Mirror, design me a trendy outfit for a [age] year old, [gender] for a [occasion] occasion, with a [style] style from [era] era.',
-  [tokens.form.createInteriorDesign]: 'Design an interior for a [propertyType], for the [room], with a [style] style, that has a [colorTheme] color scheme.',
+  [tokens.form.createInteriorDesign]: 'Create an interior design, using the following information:\n Property Type: [propertyType] \nRoom: [room],\nStyle: [style]\n Color Scheme: [colorTheme]\n Total number of images: [numImages]\n.',
   [tokens.form.SEOWriter]: 'Write a [duration]-word, SEO-optimized article, on the selected [niche] niche and [purpose] into account. Also, using the provided keywords of: [keyWords] , at a keywords density of around 1 - 2%, crafted with an [style] style .',
   [tokens.form.writeContent]: 'Write a [words]-word article, with [style] , in [language] and [tone] . ',
     [tokens.form.fruitBenefits]: 'List all the nutritional benefits of the following fruit or vegetable: "{{fruit}}"',

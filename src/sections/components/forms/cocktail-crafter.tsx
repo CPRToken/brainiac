@@ -303,14 +303,15 @@ export const CocktailCrafter: FC = () => {
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-            onClick={() => combinedSubmit(prompt, 700)}
-            type="submit"
-            variant="contained"
-            fullWidth
-            disabled={isLoading}  // Disable the button while loading
+          onClick={() => combinedSubmit(prompt, 1)} // 1 for one image
+          type="submit"
+          variant="contained"
+          fullWidth
+          disabled={isLoading}
         >
           {isLoading ? <CircularProgress size={24} /> : 'Submit'}
         </Button>
+
       </Box>
 
       <Box sx={{ mt: 3 }}>

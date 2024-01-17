@@ -12,7 +12,7 @@ const useImageSubmit = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({prompt, n}),
+        body: JSON.stringify({ prompt, n: 1, size, model }), // Set n to 1 as required by the API
       });
 
       const data = await response.json();

@@ -121,7 +121,7 @@ export const InteriorDesigner: FC = () => {
     const [room , setRoom] = useState<string>('');
   const [style, setStyle] = useState<string>('');
   const [colorTheme, setColorTheme] = useState<string>('');
-  const [numImages, setNumImages] = useState<number>(2); // Default to 1 image
+
 
   const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
@@ -129,40 +129,12 @@ export const InteriorDesigner: FC = () => {
 
 
 
-  type NumberImages = {
-    [key: number]: string;
-  };
-
-  const numberImages: NumberImages = {
-    0: '1',
-    1: '2',
-    2: '3',
-    3: '4',
-    4: '5',
-  };
-
-
-  const submitToOpenAI = () => {
-
-    if (prompt) {
-      // Submit the prompt that is updated by the useEffect hook
-      combinedSubmit(prompt, maxTokens)
-        .then(() => {
-          // Handle successful submission if needed
-        })
-        .catch(error => {
-          console.error("Error submitting to OpenAI:", error);
-        });
-    } else {
-      console.error("Prompt is empty or not updated, cannot submit.");
-    }
-  };
 
 
 
 
-    useEffect(() => {
-    if (propertyType && room && colorTheme && style && numImages !== null) {
+  useEffect(() => {
+    if (propertyType && room && colorTheme && style !== null) {
       let newPrompt = t(tokens.form.createInteriorDesign);
 
 
@@ -173,27 +145,18 @@ export const InteriorDesigner: FC = () => {
       newPrompt = newPrompt.replace('[room]', t(room.replace(/\s/g,'')));
       newPrompt = newPrompt.replace('[colorTheme]', t(colorTheme.replace(/\s/g,'')));
       newPrompt = newPrompt.replace('[style]', t(style.replace(/\s/g,'')));
-      newPrompt = newPrompt.replace('[numberImages]', t(numberImages[numImages].replace(/\s/g,'')));
+
 
 
       setPrompt(newPrompt);
     } else {
       setPrompt('');
     }
-  }, [propertyType, room, colorTheme, style, numImages,  t]);
+  }, [propertyType, room, colorTheme, style,  t]);
 
 
 
-  const handleSliderChange = (_: Event, newValue: number | number[]) => {
-    // If newValue is an array, you can decide how to handle it.
-    // For a single thumb slider, it should be just a number.
-    if (typeof newValue === 'number') {
-      setNumImages(newValue);  // Update word count based on slider
-    }
-  };
 
-// Calculate max tokens based on the slider value (duration)
-  const maxTokens = numImages * 4; // Since 1 word is approx. 4 tokens
 
 
     return (
@@ -275,38 +238,19 @@ export const InteriorDesigner: FC = () => {
           </TextField>
         </Stack>
 
-          <div style={{ display: 'flex', justifyContent: 'center', width: '100%', paddingTop: '10px' }}>
-            <label>{t(tokens.form.numberImages)}</label>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-            <Slider
-              value={numImages}
-              min={0}
-              max={4}
-              step={1}
-              marks={[
-                { value: 0, label: '1' },
-                { value: 1, label: '2' },
-                { value: 2, label: '3' },
-                { value: 3, label: '4' },
-                { value: 4, label: '5' }
-              ]}
-              onChange={handleSliderChange} //slider change determines amount of tokens used
-              sx={{ width: '95%' }}
-            />
-          </div>
+
 
             </Stack>
             <Box sx={{ mt: 3 }}>
               <Button
-                onClick={submitToOpenAI}
+                onClick={() => combinedSubmit(prompt, 1)} // 1 for one image
                 type="submit"
                 variant="contained"
-                    fullWidth
-                    disabled={isLoading}  // Disable the button while loading
-                >
-                    {isLoading ? <CircularProgress size={24} /> : 'Submit'}
-                </Button>
+                fullWidth
+                disabled={isLoading}
+              >
+                {isLoading ? <CircularProgress size={24} /> : 'Submit'}
+              </Button>
             </Box>
 
 

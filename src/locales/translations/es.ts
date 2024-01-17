@@ -486,7 +486,7 @@ export const es = {
   [tokens.headings.financialAdvisor]: 'Asesor Financiero',
     [tokens.headings.investmentAdvisor]: 'Asesor de Inversiones',
   [tokens.headings.interiorDesigner]: 'Diseñador de Interiores',
-  [tokens.form.interiorDesignerTip]: 'Para obtener los mejores resultados, elige un estilo de propiedad, un estilo de diseño, un tema de color, una habitación y el número de opciones que te gustaría ver.',
+  [tokens.form.interiorDesignerTip]: 'Consulte al Diseñador de Interiores seleccionando sus preferencias de tipo de propiedad, habitación deseada, su estilo preferido y tema de color',
       [tokens.headings.bookSummariser]: 'Resumidor de Libros',
     [tokens.form.summaryLength]: 'Longitud del Resumen',
   [tokens.form.collegeTAFE]: 'colegio/instituto',
@@ -983,6 +983,8 @@ export const es = {
     [tokens.form.mealType]: 'Tipo de comida',
   [tokens.form.dish]: 'Tipo de plato',
     [tokens.form.calories]: 'Calorías',
+
+
   [tokens.form.country]: 'País',
   [tokens.form.words]: 'Palabras',
   [tokens.form.language]: 'Idioma',
@@ -997,7 +999,8 @@ export const es = {
     [tokens.form.listLiabilities]: 'Enumera tus pasivos',
     [tokens.form.listAssets]: 'Enumera tus activos',
     [tokens.form.none]: 'Ninguno',
-    [tokens.form.duration]: 'Duración (minutos)',
+    [tokens.form.yourInvestmentPlan]: 'Tu Plan de Inversión',
+        [tokens.form.duration]: 'Duración (minutos)',
   [tokens.form.yourEssay]: 'Tu Ensayo',
   [tokens.form.yourBusinessPlan]: 'Tu Plan de Negocios',
   [tokens.form.pasteQuestion]: 'Pega tus preguntas universitarias aquí y haz clic en \'Submit\'.',
