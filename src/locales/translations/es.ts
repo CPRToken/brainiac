@@ -66,7 +66,7 @@ export const es = {
   [tokens.form.imageInstructions]: 'Selecciona las opciones deseadas para generar una imagen. Elige un estilo de artista, un estilo visual y un tema. Deja "Artista" como "Sin artista específico" para imágenes realistas.',
   [tokens.form.translateInstructions]: 'Para iniciar la traducción de texto, por favor ingrese su texto aquí. A continuación, elija su idioma preferido del menú desplegable y haga clic en \'Submit\' para proceder..',
   [tokens.form.magicMirror]: 'Consulta al Espejo Mágico para encontrar el atuendo perfecto para cualquier evento. Selecciona tus preferencias de las opciones del menú y haz clic en "Submit".',
-  [tokens.form.createInteriorDesign]: 'Diseña un interior para un(a) [propertyType], para el(la) [room], con un estilo [style], que tenga una paleta de colores [colorTheme].',
+  [tokens.form.createInteriorDesign]: 'Para GPT4, NO te disculpes en la respuesta, crea lo que se solicita en las siguientes indicaciones y eso es todo, ya que dalle3 se encarga de la imagen. \n Crea un concepto detallado de diseño interior, utilizando la siguiente información:\n Tipo de propiedad: [propertyType] \n Habitación: [room], \n Estilo: [style] \n y el esquema de color: [colorTheme] \n.',
   [tokens.form.retail]: 'Venta al por menor',
   [tokens.form.hospitality]: 'Hospitalidad',
   [tokens.form.services]: 'Servicios',

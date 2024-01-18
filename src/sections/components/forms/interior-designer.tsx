@@ -11,7 +11,7 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { tokens } from "../../../locales/tokens";
 import CircularProgress from '@mui/material/CircularProgress';
 import TextImageSubmit from "./textimage-submit";
-import Slider from '@mui/material/Slider';
+
 import Typography from "@mui/material/Typography";
 
 type Option = {
@@ -122,7 +122,6 @@ export const InteriorDesigner: FC = () => {
   const [style, setStyle] = useState<string>('');
   const [colorTheme, setColorTheme] = useState<string>('');
 
-
   const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
   const { t } = useTranslation();
@@ -133,11 +132,12 @@ export const InteriorDesigner: FC = () => {
 
 
 
-  useEffect(() => {
-    if (propertyType && room && colorTheme && style !== null) {
+
+
+    useEffect(() => {
+    if (propertyType && room && colorTheme && style  !== null) {
+
       let newPrompt = t(tokens.form.createInteriorDesign);
-
-
 
 
 
@@ -152,8 +152,7 @@ export const InteriorDesigner: FC = () => {
     } else {
       setPrompt('');
     }
-  }, [propertyType, room, colorTheme, style,  t]);
-
+  }, [propertyType, room, colorTheme, style, t ]);
 
 
 
@@ -243,14 +242,14 @@ export const InteriorDesigner: FC = () => {
             </Stack>
             <Box sx={{ mt: 3 }}>
               <Button
-                onClick={() => combinedSubmit(prompt, 1)} // 1 for one image
+                onClick={() => combinedSubmit(prompt, 1500)}
                 type="submit"
                 variant="contained"
-                fullWidth
-                disabled={isLoading}
-              >
-                {isLoading ? <CircularProgress size={24} /> : 'Submit'}
-              </Button>
+                    fullWidth
+                    disabled={isLoading}  // Disable the button while loading
+                >
+                    {isLoading ? <CircularProgress size={24} /> : 'Submit'}
+                </Button>
             </Box>
 
 

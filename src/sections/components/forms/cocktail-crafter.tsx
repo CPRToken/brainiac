@@ -303,15 +303,14 @@ export const CocktailCrafter: FC = () => {
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-          onClick={() => combinedSubmit(prompt, 1)} // 1 for one image
-          type="submit"
-          variant="contained"
-          fullWidth
-          disabled={isLoading}
+            onClick={() => combinedSubmit(prompt, 700)}
+            type="submit"
+            variant="contained"
+            fullWidth
+            disabled={isLoading}  // Disable the button while loading
         >
           {isLoading ? <CircularProgress size={24} /> : 'Submit'}
         </Button>
-
       </Box>
 
       <Box sx={{ mt: 3 }}>
@@ -321,7 +320,7 @@ export const CocktailCrafter: FC = () => {
             <Button onClick={handleCopyText} title="Copy response text">
               <FileCopyIcon />
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef} style={{ padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
               {textResponse.split('\n').map((str, index, array) => (
                   <React.Fragment key={index}>
                     {str}

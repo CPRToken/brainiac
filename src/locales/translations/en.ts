@@ -930,7 +930,7 @@ export const en = {
   [tokens.form.createRecipe]: 'Create an [country] [dish] dish with [protein] and [garnish], that is [spiciness] ',
     [tokens.form.createDessert]: 'Create a [country] [dish] dessert, with [base] and [toppings], that is [spiciness]',
     [tokens.form.createFashion]: 'Magic Mirror, design me a trendy outfit for a [age] year old, [gender] for a [occasion] occasion, with a [style] style from [era] era.',
-  [tokens.form.createInteriorDesign]: 'Create an interior design, using the following information:\n Property Type: [propertyType] \nRoom: [room],\nStyle: [style]\n Color Scheme: [colorTheme]\n Total number of images: [numImages]\n.',
+  [tokens.form.createInteriorDesign]: 'To GPT4, do NOT apologize in the response, create what is requested in the following prompts and that is it, as dalle3 is hanlding the image.\n Create a detailed interior design concept, using the following information:\n Property Type: [propertyType] \nRoom: [room],\nStyle: [style]\n  and chosen color Scheme: [colorTheme]\n.',
   [tokens.form.SEOWriter]: 'Write a [duration]-word, SEO-optimized article, on the selected [niche] niche and [purpose] into account. Also, using the provided keywords of: [keyWords] , at a keywords density of around 1 - 2%, crafted with an [style] style .',
   [tokens.form.writeContent]: 'Write a [words]-word article, with [style] , in [language] and [tone] . ',
     [tokens.form.fruitBenefits]: 'List all the nutritional benefits of the following fruit or vegetable: "{{fruit}}"',
