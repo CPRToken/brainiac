@@ -1,4 +1,6 @@
 import { tokens } from '../tokens';
+import TextField from "@mui/material/TextField";
+import React from "react";
 
 export const en = {
   [tokens.common.languageChanged]: 'Language changed',
@@ -14,6 +16,7 @@ export const en = {
     [tokens.headings['File Manager']]: 'File Manager',
     [tokens.headings.TimeFrame]: 'Investment Time Frame',
   [tokens.headings.chatGPT]: 'Chat GPT',
+  [tokens.headings.formCreator]: 'Form Creator',
     [tokens.headings.dreamInterpretation]: 'Dream Interpretation',
   [tokens.headings.startABusiness]: 'Start a Business',
   [tokens.headings.careerDeveloper]: 'Career Developer',
@@ -30,6 +33,7 @@ export const en = {
   [tokens.headings.navColor]: "NAV COLOR",
     [tokens.headings.layout]: "layout",
   [tokens.headings.myContent]: "My Content",
+  [tokens.headings.editor]: "Editor",
     [tokens.headings.fruitsNVeges]: "Fruits & Veges",
   [tokens.headings.lyricWriter]: "Lyric Writer",
   [tokens.headings.yourRecipe]: "Your Recipe",
@@ -156,8 +160,10 @@ export const en = {
   [tokens.form.industry]: 'Industry: e.g. Technology',
   [tokens.form.profession]: 'Profession: e.g. Software Engineer',
   [tokens.form.experience]: 'Experience',
+  [tokens.form.Quantity]: 'Select the number of revisions or options',
   [tokens.form.indoors]: 'Indoors',
   [tokens.form.outdoors]: 'Outdoors',
+  [tokens.form.yourRevisions]: 'Your Revisions',
   [tokens.form.inOrOut]: 'Do you prefer indoors or outdoors?',
   [tokens.form.development]: 'Development Area',
   [tokens.form.lessThanYear]: 'Less than a year',
@@ -165,7 +171,7 @@ export const en = {
     [tokens.form.between5And10Percent]: '5% to 10%',
     [tokens.form.between10And20Percent]: '10% to 20%',
     [tokens.form.moreThan20Percent]: 'More than 20%',
-
+  [tokens.form.editorInstructions]: 'To have your writings revised and rewritten by our editor, just paste your text below, & select how many revisions or options you would like.',
     [tokens.form.Between1N3]: 'Between 1 and 3 years',
   [tokens.form.Between3N5]: 'Between 3 and 5 years',
   [tokens.form.Between5N10]: 'Between 5 and 10 years',
@@ -433,6 +439,7 @@ export const en = {
   [tokens.form.investmentGoals]: 'Investment Goals: e.g. retirement',
   [tokens.form.investmentExperience]: 'How many years of investment experience do you have?',
   [tokens.form.hasInvestmentGoals]: 'Do you have any investment goals?',
+  [tokens.form.haveOptions]: 'Do you have selectable options?',
     [tokens.form.timeFrame]: 'How long do you plan to keep your money invested?',
   [tokens.form.riskTolerance]: 'Risk Tolerance: (The percentage of financial risk you are willing to take on your investment).',
     [tokens.form.desiredIndustry]: 'Which industry you would like to invest in? e.g. technology',
@@ -443,8 +450,8 @@ export const en = {
   [tokens.form.writeSong]: 'Write [genre] song in [style] and [mood] with a duration of [duration] minutes',
     [tokens.form.writeScript]: 'Write a screenplay in [genre] [style] [mood] with a duration of [duration]',
   [tokens.form.careerDevelopmentPrompts]: 'Provide a comprehensive career development plan based on the individual\'s industry: [industry], profession: [profession], experience: [experience], and the choice of development area of [development].',
-  [tokens.form.startABusinessPrompts]: 'Provide a comprehensive business plan based on the available information: Industry: [industry], Business Idea: [typeofBusiness], for a [blueOrWhite] worker, that prefers to work [inOrOut], that has the following skillset: [skills], that has these Interests: [interests], Field Experience: [fieldExperience], and that has a target market of [targetMarket], but if they leave the field [targetMarket] empty, please provide them with a list of their possible target market. And the user has a Budget of: [budget].'
-,
+  [tokens.form.startABusinessPrompts]: 'Provide a comprehensive business plan based on the available information: Industry: [industry], Business Idea: [typeofBusiness], for a [blueOrWhite] worker, that prefers to work [inOrOut], that has the following skillset: [skills], that has these Interests: [interests], Field Experience: [fieldExperience], and that has a target market of [targetMarket], but if they leave the field [targetMarket] empty, please provide them with a list of their possible target market. And the user has a Budget of: [budget].',
+  [tokens.form.reviseOrEdit]: 'Provide [quantity] revisions or options for the following [text], to be rewritten in the selected [style] style and [mood] mood.',
   [tokens.form.bookSummary]: 'Write a [length]-length, book summary for [title], written by [author].',
     [tokens.form.stockPrompts]: 'Provide predictions and analysis for [stock] stocks with a budget of [duration]. Include trends, performance forecasts, and key financial indicators.',
     [tokens.form.yourFinancialPlan]: 'Your Financial Plan',
@@ -877,7 +884,7 @@ export const en = {
   [tokens.form.retail]: 'Retail',
 
   [tokens.form.hospitality]: 'Hospitality',
-
+  [tokens.form.ReactJS]: 'ReactJS',
   [tokens.form.services]: 'Services',
   [tokens.form.manufacturing]: 'Manufacturing',
   [tokens.form.agriculture]: 'Agriculture',
@@ -924,6 +931,7 @@ export const en = {
   [tokens.form.startABusinessPrompts]: 'Provide a comprehensive business plan based on the available information: Industry: [industry], Business Idea: [typeofBusiness], for a [blueOrWhite] worker, that prefers to work [inOrOut], that has the following skillset: [skills], that has these Interests: [interests], Field Experience: [fieldExperience], and that has a target market of [targetMarket], but if they leave the field [targetMarket] empty, please provide them with a list of their possible target market. And the user has a Budget of: [budget].',
     [tokens.form.investmentAdvicePrompts]: 'Provide tailored investment advice based on the following information:\n\nPrimary Investment Goal: [investmentGoals]\nSpecific industry: [industry]\n their industry experience of [industryExperience]\n Why they want to invest: [why]\n Also, take into account their Investment Experience of : [investmentExperience]\nAnnual Income: [annualIncome] \n Their time frame of [time]\n Available Budget for Investment: [budget]\nRisk Tolerance Level: [riskTolerance]\n\n. It is very important they get a detailed ROI as a percentage rate and on a per annum basis too. If any financial details are not provided, suggest a conservative approach initially. Additionally, offer insights on potential investment opportunities matching their goals and risk tolerance.',
 
+  [tokens.form.formCreatorPrompts]: 'create tokens for ReactJS, NextJS for TypeScript,  like this: \nFormToken:( title: \'form.title\',) \nheadingsToken: (name: \'headings.name\',)\nlabels: { label: tokens.form.name, value: tokens.form.name }, using [labelCode] and [textFields], tokens for both: en.ts and es.ts. Also provide translated labels into Spanish or any other language provided [language], if selected .',
 
     [tokens.form.imagePrompts]: 'Craft a visual depiction of a [object] in the unique style of [artist], blending elements of [style] and infused with a theme of [theme]',
     [tokens.form.createCocktail]: 'Create a [alcohol] [cocktail] with [mixer] and [garnish] , that is [sweetness]',
@@ -950,8 +958,12 @@ export const en = {
   [tokens.form.slow]: 'Slow',
   [tokens.form.fast]: 'Fast',
   [tokens.form.medium]: 'Medium',
+  [tokens.form.codeLanguage]: 'Code Language',
     [tokens.form.pasteQuestion]: 'Paste your University, assessment questions here & click Submit',
   [tokens.form.pasteText]: 'Paste your text here & click Submit',
+  [tokens.form.writeOptions]: 'Write your selectable options here, separated by a comma',
+  [tokens.form.textFields]: 'Write your text field options here, separated by a comma',
+  [tokens.form.needTranslation]: 'Do you need the tokens translated into other languages?',
   [tokens.form.constructResume]: 'Construct a resume in [name] with [age] age, [education] education, [workExperience] work experience, and [skills] skills.',
   [tokens.form.Photorealism]: 'photorealism',
   [tokens.form.Realism]: 'realism',

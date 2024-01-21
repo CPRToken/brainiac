@@ -125,6 +125,7 @@ export const useSections = () => {
                     { title: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator },
                     { title: t(tokens.headings.seoArticleWriter), path: paths.dashboard.seoArticleWriter },
                     { title: t(tokens.headings.essayWriter), path: paths.dashboard.essayWriter },
+                    { title: t(tokens.headings.editor), path: paths.dashboard.editor },
                   ]
                 },
                 {
