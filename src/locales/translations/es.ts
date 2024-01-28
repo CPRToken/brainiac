@@ -503,6 +503,7 @@ export const es = {
   [tokens.form.alcohol]: 'Alcohol',
     [tokens.form.yourFinancialPlan]: 'Tu Plan Financiero',
   [tokens.headings.navColor]: 'Color Nav',
+
   [tokens.headings.chatGPT]: 'Chat GPT',
     [tokens.headings.layout]: 'Disposición',
   [tokens.headings.editor]: 'Editor',
@@ -1106,7 +1107,9 @@ export const es = {
     [tokens.headings.yourDesign]: 'Tu Diseño',
         [tokens.headings.aboutUs]: 'Acerca de Nosotros',
   [tokens.nav.fileManager]: 'Administrador de Archivos',
+  [tokens.nav.AImodules]: 'Módulos de IA',
   [tokens.nav.chatGPT]: 'Chat GPT',
+  [tokens.nav.modules]: 'Módulos',
   [tokens.nav.contentGenerators]: 'Generadores de Contenido',
   [tokens.nav.plannersNOrganisers]: 'Planificadores',
     [tokens.headings.usedStorage]: 'Has usado el {percentage}% de tu almacenamiento disponible.',

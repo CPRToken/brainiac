@@ -5,6 +5,8 @@ export const tokens = {
   nav: {
     academy: 'nav.academy',
     account: 'nav.account',
+    AImodules: 'nav.AImodules',
+    modules: 'nav.modules',
 
     contentManager: 'nav.contentManager',
     plannersNOrganisers: 'nav.plannersNOrganisers',
@@ -76,6 +78,7 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+  AImodules: 'headings.AImodules',
   templateReplicator: 'headings.templateReplicator',
   yourInstructions: 'headings.yourInstructions',
     TimeFrame: 'headings.TimeFrame',

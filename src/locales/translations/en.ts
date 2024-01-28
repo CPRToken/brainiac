@@ -13,9 +13,12 @@ export const en = {
   [tokens.nav.account]: 'Account',
   [tokens.form.Assertive]: 'Assertive',
   [tokens.nav.auth]: 'Auth',
+  [tokens.nav.AImodules]: 'AI Modules',
 
   [tokens.headings.yourInstructions]: 'Your Instructions',
+
     [tokens.headings.TimeFrame]: 'Investment Time Frame',
+  [tokens.headings.AImodules]: 'AI Modules',
   [tokens.headings.howToMake]: 'How to make a',
   [tokens.headings.templateReplicator]: 'Template Replicator',
   [tokens.headings.chatGPT]: 'Chat GPT',
@@ -66,7 +69,7 @@ export const en = {
   [tokens.nav.course]: 'Course',
   [tokens.nav.create]: 'Create',
   [tokens.nav.imageGenerator]: 'Image Generator',
-
+  [tokens.nav.modules]: 'Modules',
   [tokens.nav.myContent ]: 'AI Modules',
   [tokens.nav.contentWriter]: 'Content Writer',
   [tokens.nav.contentManager]: 'My Content',

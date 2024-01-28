@@ -90,10 +90,17 @@ export const useSections = () => {
           subheader: t(tokens.nav.AIStudio),
           items: [
             {
+              title: t(tokens.nav.modules),
+              path: paths.dashboard.modules,
+              icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
+            },
+
+            {
               title: t(tokens.nav.chatGPT),
               path: paths.dashboard.chatGPT,
               icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
             },
+
             {
               title: t(tokens.nav.contentManager),
               path: paths.dashboard.contentManager,

@@ -39,6 +39,9 @@ export const paths = {
   },
   dashboard: {
     index: '/dashboard',
+
+
+
     academy: {
       index: '/dashboard/academy',
       courseDetails: '/dashboard/academy/courses/:courseId',
@@ -55,6 +58,7 @@ export const paths = {
     chat: '/dashboard/chat',
     crypto: '/dashboard/crypto',
     contentManager: '/dashboard/content-manager',
+    modules: '/dashboard/modules',
 
 lyricWriter: '/dashboard/lyric-writer',
     scriptWriter: '/dashboard/script-writer',
