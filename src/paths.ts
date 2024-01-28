@@ -87,6 +87,8 @@ lyricWriter: '/dashboard/lyric-writer',
     startABusiness: '/dashboard/start-a-business',
       investmentAdvisor: '/dashboard/investment-advisor',
     editor: '/dashboard/editor',
+    templateReplicator: `/dashboard/template-replicator`,
+    howToMake: '/dashboard/how-to-make',
 
     chatGPT: '/dashboard/chatgpt',
     customers: {

@@ -206,11 +206,7 @@ export const RecipeWriter: FC = () => {
             rows={1}
             sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
           >
-              {proteinOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                      {t(option.label)} {/* Apply translation here */}
-                  </option>
-            ))}
+
           </TextField>
           <TextField
              label={t(tokens.form.garnish)}
@@ -221,11 +217,7 @@ export const RecipeWriter: FC = () => {
              rows={1}
              sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
           >
-            {garnishOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {t(option.label)} {/* Apply translation here */}
-              </option>
-            ))}
+
           </TextField>
         </Stack>
 

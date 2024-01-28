@@ -143,6 +143,7 @@ export const useSections = () => {
                     { title: t(tokens.headings.magicMirror), path: paths.dashboard.magicMirror },
                     { title: t(tokens.headings.philosophyWriter), path: paths.dashboard.philosophyWriter },
                     { title: t(tokens.headings.interiorDesigner), path: paths.dashboard.interiorDesigner },
+                    { title: t(tokens.headings.howToMake), path: paths.dashboard.howToMake },
 
                   ]
                 },
@@ -185,6 +186,11 @@ export const useSections = () => {
                     { title: t(tokens.nav.list),
                       path: paths.dashboard.customers.index },
                   ],
+                },
+                {
+                  title: t(tokens.headings.templateReplicator),
+                  path: paths.dashboard.templateReplicator,
+                  icon: <SvgIcon fontSize="small"><HomeSmileIcon /></SvgIcon>,
                 },
 
             {
