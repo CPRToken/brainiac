@@ -77,6 +77,7 @@ export const tokens = {
 headings: {
   primaryColor: 'headings.primaryColor',
   templateReplicator: 'headings.templateReplicator',
+  yourInstructions: 'headings.yourInstructions',
     TimeFrame: 'headings.TimeFrame',
   howToMake: 'headings.howToMake',
   editor: 'headings.editor',
@@ -170,6 +171,8 @@ headings: {
       dimensions: 'form.dimensions',
       whatToMake: 'form.whatToMake',
       replicaPrompts: 'form.replicaPrompts',
+      paper: 'form.paper',
+      cardboard: 'form.cardboard',
       pasteList: 'form.pasteList',
       codeLanguage: 'form.codeLanguage',
       editorInstructions: 'form.editorInstructions',

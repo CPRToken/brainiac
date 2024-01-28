@@ -22,31 +22,23 @@ type Option = {
 
 const materialOptions: Option[] = [
     { label: '', value: '' },
-  { label: tokens.form.wood, value: tokens.form.wood},
-  { label: tokens.form.steel, value: tokens.form.steel},
-  { label: tokens.form.nails, value: tokens.form.nails},
-  { label: tokens.form.screws, value: tokens.form.screws},
-  { label: tokens.form.glue, value: tokens.form.glue},
-  { label: tokens.form.saw, value: tokens.form.saw},
-  { label: tokens.form.hammer, value: tokens.form.hammer},
-  { label: tokens.form.brackets, value: tokens.form.brackets},
-  { label: tokens.form.bolts, value: tokens.form.bolts},
-  { label: tokens.form.staples, value: tokens.form.staples},
-  { label: tokens.form.chrome, value: tokens.form.chrome},
-  { label: tokens.form.aluminum, value: tokens.form.aluminum},
-  { label: tokens.form.mdf, value: tokens.form.mdf},
-  { label: tokens.form.plywood, value: tokens.form.plywood},
-  { label: tokens.form.paint, value: tokens.form.paint},
-  { label: tokens.form.varnish, value: tokens.form.varnish},
-  { label: tokens.form.glass, value: tokens.form.glass},
-  { label: tokens.form.rubber, value: tokens.form.rubber},
-  { label: tokens.form.plastic, value: tokens.form.plastic},
-  { label: tokens.form.cement, value: tokens.form.cement},
-  { label: tokens.form.brick, value: tokens.form.brick},
-  { label: tokens.form.tile, value: tokens.form.tile},
-  { label: tokens.form.foam, value: tokens.form.foam},
-  { label: tokens.form.granite, value: tokens.form.granite},
-  { label: tokens.form.marble, value: tokens.form.marble},
+  { label: tokens.form.wood, value: tokens.form.wood },
+  { label: tokens.form.cement, value: tokens.form.cement },
+  { label: tokens.form.steel, value: tokens.form.steel },
+  { label: tokens.form.chrome, value: tokens.form.chrome },
+  { label: tokens.form.aluminum, value: tokens.form.aluminum },
+  { label: tokens.form.mdf, value: tokens.form.mdf },
+  { label: tokens.form.plywood, value: tokens.form.plywood },
+  { label: tokens.form.glass, value: tokens.form.glass },
+  { label: tokens.form.rubber, value: tokens.form.rubber },
+  { label: tokens.form.plastic, value: tokens.form.plastic },
+  { label: tokens.form.brick, value: tokens.form.brick },
+  { label: tokens.form.tile, value: tokens.form.tile },
+  { label: tokens.form.foam, value: tokens.form.foam },
+  { label: tokens.form.granite, value: tokens.form.granite },
+  { label: tokens.form.marble, value: tokens.form.marble },
+  { label: tokens.form.paper, value: tokens.form.paper },
+  { label: tokens.form.cardboard, value: tokens.form.cardboard },
   // ... add more
 
   // ... continue for other countries
@@ -92,7 +84,6 @@ export const HowToMake: FC = () => {
 
   useEffect(() => {
  if (what && material && dimensions && difficulty !== null) {
-
       let newPrompt = t(tokens.form.createWhatPrompts);
 
       const materialText = ` ${t(material)} `;
@@ -103,7 +94,6 @@ export const HowToMake: FC = () => {
       newPrompt = newPrompt
         .replace('[material]', materialText)
         .replace('[what]', whatText)
-
         .replace('[dimensions]', dimensionsText)
         .replace('[difficulty]', difficultyText);
 
@@ -162,11 +152,10 @@ export const HowToMake: FC = () => {
 
           >
 
-
           </TextField>
 
 
-          <Stack direction="row" spacing={2}>
+
           <TextField
             label={t(tokens.form.material)}
             name="material"
@@ -175,7 +164,7 @@ export const HowToMake: FC = () => {
             value={material}
             onChange={(e) => setMaterial(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {materialOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -184,19 +173,20 @@ export const HowToMake: FC = () => {
             ))}
           </TextField>
             <TextField
+
               label={t(tokens.form.dimensions)}
               name="dimensions"
               value={dimensions}
               onChange={(e) => setDimensions(e.target.value)}
               multiline
               rows={1}
-              sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
+
             >
 
 
             </TextField>
 
-        </Stack>
+
 
 
 
@@ -239,7 +229,7 @@ export const HowToMake: FC = () => {
       <Box sx={{ mt: 3 }}>
         {textResponse && (
           <Box sx={{ mt: 3 }}>
-            <label>{t(tokens.headings.yourRecipe)}</label>
+            <label>{t(tokens.headings.yourInstructions)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
               <FileCopyIcon />
             </Button>
