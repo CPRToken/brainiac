@@ -1110,6 +1110,7 @@ export const es = {
   [tokens.nav.AImodules]: 'Módulos de IA',
   [tokens.nav.chatGPT]: 'Chat GPT',
   [tokens.nav.modules]: 'Módulos',
+  [tokens.nav.categories]: 'Categorías',
   [tokens.nav.contentGenerators]: 'Generadores de Contenido',
   [tokens.nav.plannersNOrganisers]: 'Planificadores',
     [tokens.headings.usedStorage]: 'Has usado el {percentage}% de tu almacenamiento disponible.',

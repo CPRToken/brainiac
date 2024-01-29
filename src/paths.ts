@@ -59,6 +59,7 @@ export const paths = {
     crypto: '/dashboard/crypto',
     contentManager: '/dashboard/content-manager',
     modules: '/dashboard/modules',
+    categories: '/dashboard/categories',
 
 lyricWriter: '/dashboard/lyric-writer',
     scriptWriter: '/dashboard/script-writer',

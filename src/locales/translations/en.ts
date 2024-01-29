@@ -62,6 +62,7 @@ export const en = {
   [tokens.headings.contentWriter]: "Content Writer",
   [tokens.nav.browse]: 'Browse',
   [tokens.nav.calendar]: 'Calendar',
+  [tokens.nav.categories]: 'Categories',
   [tokens.nav.components]: 'Components',
     [tokens.nav.capsules]: 'Time Capsules',
   [tokens.nav.concepts]: 'Concepts',

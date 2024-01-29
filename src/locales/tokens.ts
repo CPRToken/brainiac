@@ -7,6 +7,7 @@ export const tokens = {
     account: 'nav.account',
     AImodules: 'nav.AImodules',
     modules: 'nav.modules',
+    categories: 'nav.categories',
 
     contentManager: 'nav.contentManager',
     plannersNOrganisers: 'nav.plannersNOrganisers',

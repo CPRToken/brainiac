@@ -16,7 +16,7 @@ import { db, auth } from 'src/libs/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import {Image01, Pencil02, Atom01, File01, File04, File03, File05} from "@untitled-ui/icons-react";
 
-import {Face, Notes, AccountBox} from "@mui/icons-material";
+import {Face, Notes, AccountBox, Android, Work} from "@mui/icons-material";
 
 
 
@@ -92,7 +92,13 @@ export const useSections = () => {
             {
               title: t(tokens.nav.modules),
               path: paths.dashboard.modules,
-              icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
+              icon: <SvgIcon fontSize="small"><Work /></SvgIcon>,
+            },
+
+            {
+              title: t(tokens.nav.categories),
+              path: paths.dashboard.categories,
+              icon: <SvgIcon fontSize="small"><Atom01 /></SvgIcon>,
             },
 
             {
