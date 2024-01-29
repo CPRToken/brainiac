@@ -962,7 +962,7 @@ export const en = {
   [tokens.form.books]: 'Books',
   [tokens.form.outdoorActivities]: 'Outdoor Activities',
   [tokens.form.greenLiving]: 'Green Living',
-
+  [tokens.form.brandNew]: 'Brand New',
     [tokens.form.writePoem]: 'Compose a [duration] word [genre] poem, capturing the essence and style reminiscent of [poet], in a[mood] mood, without mentioning the poet\'s name.',
   [tokens.form.writeScript]: 'Write a screenplay in [genre] [style] [mood] with a duration of [duration]',
 
@@ -974,7 +974,7 @@ export const en = {
     [tokens.form.investmentAdvicePrompts]: 'Provide tailored investment advice based on the following information:\n\nPrimary Investment Goal: [investmentGoals]\nSpecific industry: [industry]\n their industry experience of [industryExperience]\n Why they want to invest: [why]\n Also, take into account their Investment Experience of : [investmentExperience]\nAnnual Income: [annualIncome] \n Their time frame of [time]\n Available Budget for Investment: [budget]\nRisk Tolerance Level: [riskTolerance]\n\n. It is very important they get a detailed ROI as a percentage rate and on a per annum basis too. If any financial details are not provided, suggest a conservative approach initially. Additionally, offer insights on potential investment opportunities matching their goals and risk tolerance.',
   [tokens.form.realEstateTip]:'To receive a property valuation anywhere in the world, please fill out the form below and click \'Submit\' to proceed.',
   [tokens.form.formCreatorPrompts]: 'create tokens for ReactJS, NextJS for TypeScript,  like this: \nFormToken:( title: \'form.title\',) \nheadingsToken: (name: \'headings.name\',)\nlabels: { label: tokens.form.name, value: tokens.form.name }, using [labelCode] and [textFields], tokens for both: en.ts and es.ts. Also provide translated labels into Spanish or any other language provided [language], if selected .',
-  [tokens.form.realEstatePrompts]: 'Generate a comprehensive valuation of a [propertyType] property, located in [location], which is about [age] old. This property has features such as [place]. Additionally, based on local data analysis: [propertyData].',
+  [tokens.form.realEstatePrompts]: 'Generate a comprehensive valuation in the local currency, of a [propertyType] , located in [location], which has an age of [age] . This property has features such as [place]. Additionally, based on local data analysis: [propertyData].',
 
     [tokens.form.imagePrompts]: 'Craft a visual depiction of a [object] in the unique style of [artist], blending elements of [style] and infused with a theme of [theme]',
     [tokens.form.createCocktail]: 'Create a [alcohol] [cocktail] with [mixer] and [garnish] , that is [sweetness]',

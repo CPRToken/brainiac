@@ -177,6 +177,7 @@ headings: {
       yourValuation: 'form.yourValuation',
       realEstateTip: 'form.realEstateTip',
       place: 'form.place',
+      brandNew: 'form.brandNew',
       location: 'form.location',
       dimensions: 'form.dimensions',
       whatToMake: 'form.whatToMake',

@@ -52,6 +52,7 @@ const propertyTypeOptions: Option[] = [
 
 const ageOptions: Option[] = [
     { label: '', value: '' },
+  { label: tokens.form.brandNew, value: tokens.form.brandNew },
     { label: tokens.form.lessThanYear, value: tokens.form.lessThanYear },
     { label: tokens.form.Between1N3, value: tokens.form.Between1N3 },
     { label: tokens.form.Between3N5, value: tokens.form.Between3N5 },
