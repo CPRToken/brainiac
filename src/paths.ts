@@ -94,6 +94,7 @@ lyricWriter: '/dashboard/lyric-writer',
     editor: '/dashboard/editor',
     templateReplicator: `/dashboard/template-replicator`,
     howToMake: '/dashboard/how-to-make',
+    realEstate: '/dashboard/real-estate',
 
     chatGPT: '/dashboard/chatgpt',
     customers: {

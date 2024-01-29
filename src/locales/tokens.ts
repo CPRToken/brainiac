@@ -79,6 +79,7 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+  realEstate: 'headings.realEstate',
   AImodules: 'headings.AImodules',
   templateReplicator: 'headings.templateReplicator',
   yourInstructions: 'headings.yourInstructions',
@@ -172,6 +173,11 @@ headings: {
     form: {
         title: 'form.title',
       ReactJS: 'form.ReactJS',
+      realEstatePrompts: 'form.realEstatePrompts',
+      yourValuation: 'form.yourValuation',
+      realEstateTip: 'form.realEstateTip',
+      place: 'form.place',
+      location: 'form.location',
       dimensions: 'form.dimensions',
       whatToMake: 'form.whatToMake',
       replicaPrompts: 'form.replicaPrompts',

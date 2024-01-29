@@ -1,10 +1,10 @@
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField } from '@mui/material';
+import { Box, Button, Stack, TextField } from '@mui/material';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ResponseText from '../clipboards/response-text';
 
-
+import axios from 'axios';
 
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
@@ -18,34 +18,29 @@ type Option = {
     value: string;
 };
 
-const industryOptions: Option[] = [
-    { label: '', value: '' },
-    { label: tokens.form.retail, value: tokens.form.retail },
-    { label: tokens.form.hospitality, value: tokens.form.hospitality },
-    { label: tokens.form.fashion, value: tokens.form.fashion },
-    { label: tokens.form.services, value: tokens.form.services }, // Services like beauty or cleaning
-    { label: tokens.form.technology, value: tokens.form.technology },
-    { label: tokens.form.manufacturing, value: tokens.form.manufacturing },
-    { label: tokens.form.agriculture, value: tokens.form.agriculture },
-    { label: tokens.form.healthcare, value: tokens.form.healthcare },
-    { label: tokens.form.construction, value: tokens.form.construction },
-    { label: tokens.form.educationIndustry, value: tokens.form.educationIndustry },
-    { label: tokens.form.finance, value: tokens.form.finance },
+interface PropertyData {
+  elements: Array<{
+    type: string;
+    id: number;
+    tags: {
+      [key: string]: string; // Example: name, building type, etc.
+    };
+    // Add other properties as needed based on the Overpass API response
+  }>;
+}
 
 
-    // ... add more as needed
-];
+    // ... add more as neede
 
-const riskToleranceOptions: Option[] = [
+const propertyTypeOptions: Option[] = [
   { label: '', value: '' },
-    { label: tokens.form.lessThan5Percent, value: tokens.form.lessThan5Percent },
-    { label: tokens.form.between5And10Percent, value: tokens.form.between5And10Percent },
-    { label: tokens.form.between10And20Percent, value: tokens.form.between10And20Percent },
-    { label: tokens.form.moreThan20Percent, value: tokens.form.moreThan20Percent },
+  { label: tokens.form.house, value: tokens.form.house },
+  { label: tokens.form.condo, value: tokens.form.condo },
+  { label: tokens.form.apartment, value: tokens.form.apartment },
+  { label: tokens.form.townhouse, value: tokens.form.townhouse },
 
 
-
-  // ... add more as needed
+  // ... continue for other countries
 ];
 
 
@@ -55,7 +50,7 @@ const riskToleranceOptions: Option[] = [
     // ... add more as needed
 
 
-const timeOptions: Option[] = [
+const ageOptions: Option[] = [
     { label: '', value: '' },
     { label: tokens.form.lessThanYear, value: tokens.form.lessThanYear },
     { label: tokens.form.Between1N3, value: tokens.form.Between1N3 },
@@ -66,74 +61,102 @@ const timeOptions: Option[] = [
 ];
 
 
-const investmentExperienceOptions: Option[] = [
-    { label: '', value: '' },
-    { label: tokens.form.none, value: tokens.form.none },
-  { label: tokens.form.lessThanYear, value: tokens.form.lessThanYear },
-  { label: tokens.form.Between1N3, value: tokens.form.Between1N3 },
-  { label: tokens.form.Between3N5, value: tokens.form.Between3N5 },
-  { label: tokens.form.Between5N10, value: tokens.form.Between5N10 },
-  { label: tokens.form.moreThan10, value: tokens.form.moreThan10 },
-    // ... add more as needed
-];
 
 
 
-export const InvestmentAdvisor: FC = () => {
+export const RealEstate: FC = () => {
 
+  const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
-  const [hasInvestmentGoals, setHasInvestmentGoals] = useState('');
-  const [investmentGoals, setInvestmentGoals] = useState('');
-  const [industryExperience, setIndustryExperience] = useState('');
-    const [industry, setIndustry] = useState<string>('');
-    const [why, setWhy] = useState<string>('');
 
-    const [time, setTime] = useState<string>('');
 
-  const [annualIncome, setAnnualIncome] = useState('');
-
- const [investmentExperience, setInvestmentExperience] = useState('');
-  const [riskTolerance, setRiskTolerance] = useState('');
-  const [budget, setBudget]= useState<string>('');
+    const [propertyType, setPropertyType] = useState<string>('');
+    const [place, setPlace] = useState<string>('');
+    const [location, setLocation] = useState<string>('');
+    const [age, setAge] = useState<string>('');
+    const [propertyData, setPropertyData] = useState<any>(null);
   const [prompt, setPrompt] = useState<string>('');
 
 
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
+  const fetchCoordinates = async (address: string): Promise<{ lat: number; lng: number } | null> => {
+    try {
+      const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${googleMapsApiKey}`);
+      const data = response.data.results[0].geometry.location; // latitude and longitude
+      return { lat: data.lat, lng: data.lng };
+    } catch (error) {
+      console.error("Error fetching coordinates:", error);
+      return null;
+    }
+  };
+
+
   useEffect(() => {
-    let newPrompt = t(tokens.form.investmentAdvicePrompts);
+    if (location) {
+      fetchCoordinates(location).then((coords) => {
+        if (coords) {
+          // Now TypeScript knows that coords is not null
+          const { lat, lng } = coords;
 
-    const investmentGoalsText = investmentGoals ? `${t(investmentGoals)} ` : '';
-    const whyText = why ? `${t(why)} ` : '';
+          // Use lat and lng to construct your Overpass API query
+          const overpassQuery = `
+           [out:json][timeout:25];
+          (
+            node["building"](${lat},${lng},${lat + 0.01},${lng + 0.01});
+            way["building"](${lat},${lng},${lat + 0.01},${lng + 0.01});
+            relation["building"](${lat},${lng},${lat + 0.01},${lng + 0.01});
+          );
+          out body;
+          >;
+          out skel qt;
+        `;
 
-    const industryText = industry ? `${t(industry)} ` : '';
-    const industryExperienceText = industryExperience ? `${t(industryExperience)} ` : '';
+          // ... rest of your axios.post call
+        } else {
+          console.error("Coordinates could not be fetched for the address.");
+        }
+      }).catch(error => {
+        console.error("Error in geocoding:", error);
+      });
+    }
+  }, [location]); // Add other dependencies as needed
 
-   const investmentExperienceText = investmentExperience ? `${t(investmentExperience)} ` : '';
-    const annualIncomeText = annualIncome ? `${t(annualIncome)} ` : '';
+  useEffect(() => {
+    const propertyTypeText = propertyType ? `${t(propertyType)} ` : '';
+    const placeText = place ? `${t(place)} ` : '';
+    const locationText = location ? `${t(location)} ` : '';
+    const ageText = age ? `${t(age)} ` : '';
 
-    const timeText = time ? `${t(time)} ` : '';
-    const budgetText = budget ? `${t(budget)} ` : '';
-    const riskToleranceText = riskTolerance ? `${t(riskTolerance)} ` : '';
+    const processedPropertyData = propertyData ? processPropertyData(propertyData) : '';
+    console.log("Processed property data:", processedPropertyData); // Debugging line
 
-    newPrompt = newPrompt
-      .replace('[investmentGoals]', investmentGoalsText)
-        .replace('[why]', whyText)
-      .replace('[industry]', industryText)
-      .replace('[industryExperience]', industryExperienceText)
-      .replace('[investmentGoals]', investmentGoalsText)
-      .replace('[investmentExperience]', investmentExperienceText)
-      .replace('[annualIncome]', annualIncomeText)
 
-      .replace('[time]', timeText)
-      .replace('[budget]', budgetText)
-      .replace('[riskTolerance]', riskToleranceText);
+    let newPrompt = t(tokens.form.realEstatePrompts)
+      .replace('[propertyType]', propertyTypeText)
+      .replace('[place]', placeText)
+      .replace('[location]', locationText)
+      .replace('[age]', ageText)
+      .replace('[propertyData]', processedPropertyData);
 
     setPrompt(newPrompt.trim());
-  }, [investmentGoals, why,  industry, industryExperience,  investmentGoals, time, annualIncome, riskTolerance, budget, t]);
+  }, [propertyType, propertyData, place, location, age, t]);
+
+  function processPropertyData(data: PropertyData | null): string {
+    if (!data || !data.elements) {
+      return 'No data available';
+    }
+
+    const info = data.elements.map(element => {
+      return `Type: ${element.type}, ID: ${element.id}, Tags: ${JSON.stringify(element.tags)}`;
+    }).join('; ');
+
+    return info;
+  }
+
 
   const submitToOpenAI = () => {
     const maxTokens = 2000;
@@ -152,290 +175,86 @@ export const InvestmentAdvisor: FC = () => {
 
 
 
+
   return (
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
 
-      <Stack spacing={3}>
-
-        <Typography variant="body2" sx={{ pb: 4 }}>
-          {t(tokens.form.investmentAdviceTip)}
+        <Typography variant="body2"sx={{ paddingBottom: '20px' }}>
+          {t(tokens.form.realEstateTip)}
         </Typography>
 
 
+      <Stack spacing={3}>
+        <TextField
 
-        {/* InvestmentGoal selection - always shown */}
+          label={t(tokens.form.location)}
+          name="location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          multiline
+          rows={1}
 
-
-
-
-
-
-
-        {/* Radio buttons for business idea */}
-          <FormControl component="fieldset">
-              <FormLabel component="legend">{t(tokens.form.hasInvestmentGoals)}</FormLabel>
-              <RadioGroup
-                  row
-                  aria-label="hasInvestmentGoals"
-                  name="hasInvestmentGoals"
-                  value={hasInvestmentGoals}
-                  onChange={(e) => setHasInvestmentGoals(e.target.value)}
-              >
-                  <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                  <FormControlLabel value="no" control={<Radio />} label="No" />
-              </RadioGroup>
-          </FormControl>
+        >
 
 
-        {/* TextField for 'riskTolerance' appears when 'yes' is selected */}
-        {hasInvestmentGoals === 'yes' && (
-          <>
+        </TextField>
+        <Stack direction="row" spacing={2}>
+          <TextField
+            label={t(tokens.form.propertyType)}
+            name="propertyType"
+            select
+            SelectProps={{ native: true }}
+            value={propertyType}
+            onChange={(e) => setPropertyType(e.target.value)}
+            fullWidth
+            sx={{ width: 'calc(50% - 8px)' }}
+          >
+            {propertyTypeOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {t(option.label)} {/* Apply translation here */}
+              </option>
+            ))}
+          </TextField>
 
-              <TextField
-
-                  label={t(tokens.form.investmentGoals)}
-                  name="investmentGoals"
-
-                  value={investmentGoals}
-                  onChange={(e) => setInvestmentGoals(e.target.value)}
-                  multiline
-                  rows={2}
-              />
-              <TextField
-                  fullWidth
-
-                  label={t(tokens.form.investmentExperience)}
-                  name="investmentExperience"
-                  select
-                  SelectProps={{ native: true }}
-                  value={investmentExperience}
-                  onChange={(e) => setInvestmentExperience(e.target.value)}
-              >
-                  {investmentExperienceOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                          {t(option.label)}
-                      </option>
-                  ))}
-              </TextField>
-              <TextField
-                  fullWidth
-
-                  label={t(tokens.form.desiredIndustry)}
-                  name="industry"
-                  select
-                  SelectProps={{ native: true }}
-                  value={industry}
-                  onChange={(e) => setIndustry(e.target.value)}
-              >
-                  {industryOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                          {t(option.label)}
-                      </option>
-                  ))}
-              </TextField>
-              <TextField
-                  fullWidth
-                  label={t(tokens.form.fieldExperience)}
-                  name="industryExperience"
-                  value={industryExperience}
-                  onChange={(e) => setIndustryExperience(e.target.value)}
-                  multiline
-                  rows={1}
-              />
-
-              <TextField
-                  fullWidth
-
-                  label={t(tokens.form.timeFrame)}
-                  name="time"
-                  select
-                  SelectProps={{ native: true }}
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-              >
-                  {timeOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                          {t(option.label)}
-                      </option>
-                  ))}
-              </TextField>
+        <TextField
+          label={t(tokens.form.age)}
+          name="propertyType"
+          select
+          SelectProps={{ native: true }}
+           value={age}
+          onChange={(e) => setAge(e.target.value)}
+          fullWidth
+          sx={{ width: 'calc(50% - 8px)' }}
+        >
+          {ageOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {t(option.label)} {/* Apply translation here */}
+            </option>
+          ))}
 
 
+        </TextField>
 
-              <TextField
-                  label={t(tokens.form.riskTolerance)}
-                  name="riskTolerance"
-                  select
-                  SelectProps={{ native: true }}
-                  value={riskTolerance}
-                  onChange={(e) => setRiskTolerance(e.target.value)}
-                  fullWidth
+        </Stack>
+          <TextField
 
-              >
-                  {riskToleranceOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                          {t(option.label)}
-                      </option>
-                  ))}
-              </TextField>
+            label={t(tokens.form.place)}
+            name="place"
+            value={place}
+            onChange={(e) => setPlace(e.target.value)}
+            multiline
+            rows={1}
+            sx={{ paddingBottom: '20px' }}
+
+          >
+
+
+          </TextField>
 
 
 
 
-              <Stack direction="row" spacing={2}>
-                  <TextField
-                      fullWidth
-                      label={t(tokens.form.annualIncome)}
-                      name="annualIncome"
-                      value={annualIncome}
-                      onChange={(e) => setAnnualIncome(e.target.value)}
-                      multiline
-                      rows={1}
-                      sx={{ width: 'calc(50% - 8px)' }}
-                  />
 
-                  <TextField
-                      label={t(tokens.form.budget)}
-                      name="budget"
-                      value={budget}
-                      onChange={(e) => setBudget(e.target.value)}
-                      multiline
-                      rows={1}
-                      sx={{ width: 'calc(50% - 8px)' }}
-                  />
-              </Stack>
-          </>
-
-        )}
-
-        {/* Conditional fields based on radio button selection */}
-          {hasInvestmentGoals === 'no' && (
-              <>
-                  <TextField
-                      fullWidth
-                      label={t(tokens.form.whyInvest)}
-                      name="why"
-                      value={why}
-                      onChange={(e) => setWhy(e.target.value)}
-                      multiline
-                      rows={1}
-                  />
-                  <TextField
-                      fullWidth
-
-                      label={t(tokens.form.investmentExperience)}
-                      name="investmentExperience"
-                      select
-                      SelectProps={{ native: true }}
-                      value={investmentExperience}
-                      onChange={(e) => setInvestmentExperience(e.target.value)}
-                  >
-                      {investmentExperienceOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                              {t(option.label)}
-                          </option>
-                      ))}
-                  </TextField>
-                  <TextField
-                      fullWidth
-
-                      label={t(tokens.form.desiredIndustry)}
-                      name="industry"
-                      select
-                      SelectProps={{ native: true }}
-                      value={industry}
-                      onChange={(e) => setIndustry(e.target.value)}
-                  >
-                      {industryOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                              {t(option.label)}
-                          </option>
-                      ))}
-                  </TextField>
-                  <TextField
-                      fullWidth
-                      label={t(tokens.form.fieldExperience)}
-                      name="industryExperience"
-                      value={industryExperience}
-                      onChange={(e) => setIndustryExperience(e.target.value)}
-                      multiline
-                      rows={1}
-                  />
-
-                  <TextField
-                      fullWidth
-
-                      label={t(tokens.form.timeFrame)}
-                      name="time"
-                      select
-                      SelectProps={{ native: true }}
-                      value={time}
-                      onChange={(e) => setTime(e.target.value)}
-                  >
-                      {timeOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                              {t(option.label)}
-                          </option>
-                      ))}
-                  </TextField>
-
-
-                  <TextField
-                      fullWidth
-                      label={t(tokens.form.investmentGoals)}
-                      name="investmentGoals"
-                      value={investmentGoals}
-                      onChange={(e) => setInvestmentGoals(e.target.value)}
-                      multiline // Enables multiline input
-                      rows={1} // Sets the number of rows
-                  />
-
-                  <TextField
-                      label={t(tokens.form.riskTolerance)}
-                      name="riskTolerance"
-                      select
-                      SelectProps={{ native: true }}
-                      value={riskTolerance}
-                      onChange={(e) => setRiskTolerance(e.target.value)}
-                      fullWidth
-
-                  >
-                      {riskToleranceOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                              {t(option.label)}
-                          </option>
-                      ))}
-                  </TextField>
-
-
-
-
-                  <Stack direction="row" spacing={2}>
-                      <TextField
-                          fullWidth
-                          label={t(tokens.form.annualIncome)}
-                          name="annualIncome"
-                          value={annualIncome}
-                          onChange={(e) => setAnnualIncome(e.target.value)}
-                          multiline
-                          rows={1}
-                          sx={{ width: 'calc(50% - 8px)' }}
-                      />
-
-                      <TextField
-                          label={t(tokens.form.budget)}
-                          name="budget"
-                          value={budget}
-                          onChange={(e) => setBudget(e.target.value)}
-                          multiline
-                          rows={1}
-                          sx={{ width: 'calc(50% - 8px)' }}
-                      />
-                  </Stack>
-              </>
-          )}
-
-          {/* Fields always visible: 'riskTolerance' and 'budget' */}
 
       </Stack>
 
@@ -454,7 +273,7 @@ export const InvestmentAdvisor: FC = () => {
 
         {openAIResponse && (
             <Box sx={{ mt: 3 }}>
-                <label>{t(tokens.form.yourInvestmentPlan)}</label>
+                <label>{t(tokens.form.yourValuation)}</label>
                 <Button onClick={handleCopyText} title="Copy response text">
                     <FileCopyIcon />
                 </Button>

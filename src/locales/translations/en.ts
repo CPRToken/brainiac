@@ -16,6 +16,7 @@ export const en = {
   [tokens.nav.AImodules]: 'AI Modules',
 
   [tokens.headings.yourInstructions]: 'Your Instructions',
+  [tokens.headings.realEstate]: 'Property Evaluator',
 
     [tokens.headings.TimeFrame]: 'Investment Time Frame',
   [tokens.headings.AImodules]: 'AI Modules',
@@ -146,6 +147,7 @@ export const en = {
   [tokens.form.chatInstructions]: 'Ask away',
   [tokens.form.house]: 'House',
   [tokens.form.yourOutFit]: 'Your Outfit',
+  [tokens.form.location]: 'Location: e.g. Country, city, street, postcode,',
   [tokens.form.condo]: 'Condo',
   [tokens.form.apartment]: 'Apartment',
 [tokens.form.townhouse]: 'Townhouse',
@@ -154,6 +156,7 @@ export const en = {
   [tokens.form.industrialChic]: 'Industrial Chic',
     [tokens.form.colorTheme]: 'Color Theme: e.g. Grey & White',
     [tokens.form.numberImages]: 'Number of Options',
+  [tokens.form.place]: 'Describe the place: e.g. floors, rooms, dimensions',
   [tokens.form.Uplifting]: 'Uplifting',
   [tokens.form.emailSentMessage]: 'If an account exists with this email, please check your inbox and follow the instructions.',
   [tokens.form.sendResetLink]: 'Send reset link',
@@ -676,7 +679,7 @@ export const en = {
     [tokens.form.investmentAdviceTip]: 'Unsure about how to invest your hard earned money? Complete the form below, and AI geneerate personalized investment advice tailored to your goals and financial situation.',
 
     [tokens.form.destination]: 'Destination: City, region, or country',
-  [tokens.form.age]: 'Age',
+  [tokens.form.age]: 'Age of the property',
   [tokens.form.degree]: 'Degree(s)',
   [tokens.form.duration]: 'Duration (mins)',
   [tokens.form.words]: 'Words',
@@ -965,12 +968,13 @@ export const en = {
 
 
     [tokens.form.writeStory]: 'Compose a [genre] story for children, styled after [author], spanning [duration] words, infused with a[mood] mood, and crafted in a[style] style, without mentioning the author\'s name.',
-
+  [tokens.form.yourValuation]: 'Your Valuation',
         [tokens.form.writeItinerary]: 'write an itinerary for a [style] trip to [destination] using [mode] travel, with a budget of [budget]',
   [tokens.form.startABusinessPrompts]: 'Provide a comprehensive business plan based on the available information: Industry: [industry], Business Idea: [typeofBusiness], for a [blueOrWhite] worker, that prefers to work [inOrOut], that has the following skillset: [skills], that has these Interests: [interests], Field Experience: [fieldExperience], and that has a target market of [targetMarket], but if they leave the field [targetMarket] empty, please provide them with a list of their possible target market. And the user has a Budget of: [budget].',
     [tokens.form.investmentAdvicePrompts]: 'Provide tailored investment advice based on the following information:\n\nPrimary Investment Goal: [investmentGoals]\nSpecific industry: [industry]\n their industry experience of [industryExperience]\n Why they want to invest: [why]\n Also, take into account their Investment Experience of : [investmentExperience]\nAnnual Income: [annualIncome] \n Their time frame of [time]\n Available Budget for Investment: [budget]\nRisk Tolerance Level: [riskTolerance]\n\n. It is very important they get a detailed ROI as a percentage rate and on a per annum basis too. If any financial details are not provided, suggest a conservative approach initially. Additionally, offer insights on potential investment opportunities matching their goals and risk tolerance.',
-
+  [tokens.form.realEstateTip]:'To receive a property valuation anywhere in the world, please fill out the form below and click \'Submit\' to proceed.',
   [tokens.form.formCreatorPrompts]: 'create tokens for ReactJS, NextJS for TypeScript,  like this: \nFormToken:( title: \'form.title\',) \nheadingsToken: (name: \'headings.name\',)\nlabels: { label: tokens.form.name, value: tokens.form.name }, using [labelCode] and [textFields], tokens for both: en.ts and es.ts. Also provide translated labels into Spanish or any other language provided [language], if selected .',
+  [tokens.form.realEstatePrompts]: 'Generate a comprehensive valuation of a [propertyType] property, located in [location], which is about [age] old. This property has features such as [place]. Additionally, based on local data analysis: [propertyData].',
 
     [tokens.form.imagePrompts]: 'Craft a visual depiction of a [object] in the unique style of [artist], blending elements of [style] and infused with a theme of [theme]',
     [tokens.form.createCocktail]: 'Create a [alcohol] [cocktail] with [mixer] and [garnish] , that is [sweetness]',

@@ -170,6 +170,8 @@ export const useSections = () => {
                     { title: t(tokens.headings.startABusiness), path: paths.dashboard.startABusiness },
                     { title: t(tokens.headings.investmentAdvisor), path: paths.dashboard.investmentAdvisor },
                     { title: t(tokens.headings.uniAnswers), path: paths.dashboard.uniAnswers },
+                    { title: t(tokens.headings.realEstate), path: paths.dashboard.realEstate },
+
                   ]
                 },
                 {
