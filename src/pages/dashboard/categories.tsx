@@ -163,13 +163,13 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
             src={module.icon}
             color={hovered ? theme.palette.primary.main : 'info'} // Change icon color on hover to primary color
             sx={{
-              width: 48,
-              height: 48,
+              width: 60,
+              height: 60,
             }}
           />
         </Box>
 
-        <Typography sx={{ ...typography.subtitle1, color: 'text.primary', mt: 3, mb: 3 }}>
+        <Typography sx={{ ...typography.subtitle1, color: 'text.primary', mt: 1, mb: 1 }}>
           {module.name}
         </Typography>
       </Stack>
