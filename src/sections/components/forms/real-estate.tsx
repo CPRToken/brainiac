@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, TextField } from '@mui/material';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ResponseText from '../clipboards/response-text';
-
 import axios from 'axios';
-
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
@@ -46,7 +44,6 @@ const propertyTypeOptions: Option[] = [
 
 
 
-
     // ... add more as needed
 
 
@@ -63,32 +60,60 @@ const ageOptions: Option[] = [
 
 
 
+interface PropertyDetails {
+  // Define the structure of your property details here
+}
+
+interface PropertyComparables {
+  // Define the structure of your property comparables here
+}
+
+interface PropertyData {
+  details?: PropertyDetails;
+  comparables?: PropertyComparables;
+}
 
 
 export const RealEstate: FC = () => {
 
   const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
-
+  const attomApiKey = process.env.ATTOM_API_KEY;
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
 
 
     const [propertyType, setPropertyType] = useState<string>('');
-    const [place, setPlace] = useState<string>('');
-    const [location, setLocation] = useState<string>('');
-    const [age, setAge] = useState<string>('');
-    const [propertyData, setPropertyData] = useState<any>(null);
+  const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
+  const [street, setStreet] = useState<string>('');
+  const [postCode, setPostCode] = useState<string>('');
+  const [place, setPlace] = useState<string>('');
+  const [age, setAge] = useState<string>('');
+  const [propertyData, setPropertyData] = useState<PropertyData>({} as PropertyData);
   const [prompt, setPrompt] = useState<string>('');
 
 
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
-  const fetchCoordinates = async (address: string): Promise<{ lat: number; lng: number } | null> => {
+
+
+
+
+  const fetchCoordinates = async (city: string): Promise<{ lat: number; lng: number } | null> => {
     try {
+      // You may need to format the address query with country and state if necessary
+      const address = `${city}, ${state}, ${country} , ${street} , ${postCode}`;
       const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${googleMapsApiKey}`);
-      const data = response.data.results[0].geometry.location; // latitude and longitude
-      return { lat: data.lat, lng: data.lng };
+
+      if (response.data.results && response.data.results.length > 0) {
+        const data = response.data.results[0].geometry.location;
+        return { lat: data.lat, lng: data.lng };
+      } else {
+        console.error("No valid results found for the address.");
+        return null;
+      }
     } catch (error) {
       console.error("Error fetching coordinates:", error);
       return null;
@@ -96,55 +121,91 @@ export const RealEstate: FC = () => {
   };
 
 
+  const fetchPropertyDetails = async (lat: number, lng: number) => {
+    try {
+      const response = await axios.get('/property/detail', {
+        headers: {
+          'apikey': attomApiKey
+        },
+        params: {
+          latitude: lat,
+          longitude: lng,
+          // Include other parameters as needed
+        }
+      });
+      console.log("Property Details:", response.data);
+      setPropertyData(response.data); // Update the state with the fetched data
+    } catch (error) {
+      console.error("Error fetching property details:", error);
+    }
+  };
+
+  const fetchPropertyComparables = async (address: string) => {
+    try {
+      const response = await axios.get(`/salescomparables/address/${encodeURIComponent(address)}`, {
+        headers: {
+          'apikey': attomApiKey
+        },
+        // Include other parameters or query customization as needed
+      });
+      console.log("Property Comparables:", response.data);
+      setPropertyData((prevData: PropertyData) => ({ ...prevData, comparables: response.data }));
+    } catch (error) {
+      console.error("Error fetching property comparables:", error);
+    }
+  };
+
   useEffect(() => {
-    if (location) {
-      fetchCoordinates(location).then((coords) => {
+    if (city) {
+      fetchCoordinates(city).then((coords) => {
         if (coords) {
-          // Now TypeScript knows that coords is not null
-          const { lat, lng } = coords;
-
-          // Use lat and lng to construct your Overpass API query
-          const overpassQuery = `
-           [out:json][timeout:25];
-          (
-            node["building"](${lat},${lng},${lat + 0.01},${lng + 0.01});
-            way["building"](${lat},${lng},${lat + 0.01},${lng + 0.01});
-            relation["building"](${lat},${lng},${lat + 0.01},${lng + 0.01});
-          );
-          out body;
-          >;
-          out skel qt;
-        `;
-
-          // ... rest of your axios.post call
-        } else {
-          console.error("Coordinates could not be fetched for the address.");
+          fetchPropertyDetails(coords.lat, coords.lng);
+          fetchPropertyComparables(`${city}, ${state}, ${country}`);
         }
       }).catch(error => {
         console.error("Error in geocoding:", error);
       });
     }
-  }, [location]); // Add other dependencies as needed
+  }, [city, state, country]); // Update dependencies here
 
   useEffect(() => {
+    if (propertyType && place && city && state && country && street && postCode && age && propertyData) {
+      let newPrompt = t(tokens.form.realEstatePrompts);
+
+
     const propertyTypeText = propertyType ? `${t(propertyType)} ` : '';
+    const countryText = country ? `${country} ` : '';
+    const stateText = state ? `${state} ` : '';
+    const cityText = city ? `${city} ` : '';
+     const streetText = street ? `${street} ` : '';
+    const postCodeText = postCode ? `${postCode} ` : '';
     const placeText = place ? `${t(place)} ` : '';
-    const locationText = location ? `${t(location)} ` : '';
     const ageText = age ? `${t(age)} ` : '';
 
     const processedPropertyData = propertyData ? processPropertyData(propertyData) : '';
-    console.log("Processed property data:", processedPropertyData); // Debugging line
+    console.log("Processed property data:", processedPropertyData);
 
+  newPrompt = newPrompt
 
-    let newPrompt = t(tokens.form.realEstatePrompts)
       .replace('[propertyType]', propertyTypeText)
+      .replace('[country]', countryText)
+      .replace('[state]', stateText)
+      .replace('[city]', cityText)
+      .replace('[street]', streetText)
+      .replace('[postCode]', postCodeText)
       .replace('[place]', placeText)
-      .replace('[location]', locationText)
       .replace('[age]', ageText)
       .replace('[propertyData]', processedPropertyData);
 
+    newPrompt = newPrompt.replace(/,+\s*$/, '');
+
     setPrompt(newPrompt.trim());
-  }, [propertyType, propertyData, place, location, age, t]);
+  } else {
+    setPrompt('');
+  }
+
+  }, [propertyType, place, city, state, country,street, postCode, age, propertyData, t]);
+
 
   function processPropertyData(data: PropertyData | null): string {
     if (!data || !data.elements) {
@@ -158,10 +219,9 @@ export const RealEstate: FC = () => {
     return info;
   }
 
-
+  const maxTokens = 2000;
   const submitToOpenAI = () => {
-    const maxTokens = 2000;
-    if (prompt) {
+      if (prompt) {
       handleSubmit(prompt, maxTokens)
         .then(() => {
           // Handle successful submission if needed
@@ -176,30 +236,73 @@ export const RealEstate: FC = () => {
 
 
 
-
   return (
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
 
-        <Typography variant="body2"sx={{ paddingBottom: '20px' }}>
-          {t(tokens.form.realEstateTip)}
-        </Typography>
-
+      <Typography variant="body2" sx={{ paddingBottom: '20px' }}>
+        {t(tokens.form.realEstateTip)}
+      </Typography>
 
       <Stack spacing={3}>
+        {/* Country Dropdown */}
         <TextField
+          fullWidth
+          label={t(tokens.form.country)}
+           name="country"
+           value={country}
+          onChange={(e) => setCountry(e.target.value)}
+            multiline
+            rows={1}
+            />
 
-          label={t(tokens.form.location)}
-          name="location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          multiline
-          rows={1}
-
-        >
-
-
-        </TextField>
         <Stack direction="row" spacing={2}>
+
+          <TextField
+            fullWidth
+            label={t(tokens.form.State)}
+          name="state"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+              multiline
+              rows={1}
+            sx={{ width: 'calc(50% - 8px)' }}
+              />
+
+
+          <TextField
+            label={t(tokens.form.City)}
+            name="city"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            multiline
+            rows={1}
+            sx={{ width: 'calc(50% - 8px)' }}
+          />
+        </Stack>
+
+        <Stack direction="row" spacing={2}>
+          <TextField
+            label={t(tokens.form.street)}
+            name="street"
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+            multiline
+            rows={1}
+            sx={{ width: 'calc(50% - 8px)' }}
+          />
+
+          {/* PostCode TextField */}
+          <TextField
+            label={t(tokens.form.postCode)}
+            name="postCode"
+            value={postCode}
+            onChange={(e) => setPostCode(e.target.value)}
+            sx={{ width: 'calc(50% - 8px)' }}
+          />
+        </Stack>
+
+        <Stack direction="row" spacing={2}>
+          {/* Property Type Dropdown */}
           <TextField
             label={t(tokens.form.propertyType)}
             name="propertyType"
@@ -207,57 +310,45 @@ export const RealEstate: FC = () => {
             SelectProps={{ native: true }}
             value={propertyType}
             onChange={(e) => setPropertyType(e.target.value)}
-            fullWidth
             sx={{ width: 'calc(50% - 8px)' }}
           >
             {propertyTypeOptions.map((option) => (
               <option key={option.value} value={option.value}>
-                {t(option.label)} {/* Apply translation here */}
+                {t(option.label)}
               </option>
             ))}
           </TextField>
 
-        <TextField
-          label={t(tokens.form.age)}
-          name="propertyType"
-          select
-          SelectProps={{ native: true }}
-           value={age}
-          onChange={(e) => setAge(e.target.value)}
-          fullWidth
-          sx={{ width: 'calc(50% - 8px)' }}
-        >
-          {ageOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {t(option.label)} {/* Apply translation here */}
-            </option>
-          ))}
-
-
-        </TextField>
-
-        </Stack>
+          {/* Age Dropdown */}
           <TextField
-
-            label={t(tokens.form.place)}
-            name="place"
-            value={place}
-            onChange={(e) => setPlace(e.target.value)}
-            multiline
-            rows={1}
-            sx={{ paddingBottom: '20px' }}
-
+            label={t(tokens.form.age)}
+            name="age"
+            select
+            SelectProps={{ native: true }}
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            sx={{ width: 'calc(50% - 8px)' }}
           >
-
-
+            {ageOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {t(option.label)}
+              </option>
+            ))}
           </TextField>
+        </Stack>
 
-
-
-
-
-
+        {/* Place TextField */}
+        <TextField
+          label={t(tokens.form.place)}
+          name="place"
+          value={place}
+          onChange={(e) => setPlace(e.target.value)}
+          multiline
+          rows={1}
+          sx={{ paddingBottom: '20px' }}
+        />
       </Stack>
+
 
         {/* Submit button */}
         <Box sx={{ mt: 3 }}>
