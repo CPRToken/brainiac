@@ -24,7 +24,7 @@ type Option = {
 
 
 
-const languageOptions: Option[] = [
+const translationLanguageOptions: Option[] = [
   { label: '', value: '' },
   { label: tokens.form.English, value: tokens.form.English },
   { label: tokens.form.Spanish, value: tokens.form.Spanish },
@@ -79,24 +79,48 @@ const languageOptions: Option[] = [
 export const Translator: FC = () => {
   const { t } = useTranslation();
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
-  const [language, setLanguage] = useState<string>('');
+  const [translationLanguage, setTranslationLanguage] = useState<string>('');
   const [text, setText] = useState<string>('');
-
+ const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
-  const maxTokensForTrans = 3000;
+
 
   const submitToOpenAI = () => {
-    if (language && text) {
-      const newPrompt = `Translate the below text '${text}' into ${t(language)}`;
-      handleSubmit(newPrompt, maxTokensForTrans)
+    const maxTokens = 2000;
+    if (prompt) {
+      // Submit the prompt that is updated by the useEffect hook
+      handleSubmit(prompt, maxTokens)
         .then(() => {
           // Handle successful submission if needed
         })
         .catch(error => {
           console.error("Error submitting to OpenAI:", error);
         });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
     }
   };
+
+  useEffect(() => {
+
+    if (translationLanguage && text) {
+      let newPrompt = t(tokens.form.translationPrompts);
+
+      const translationLanguageText = ` ${t(translationLanguage)} `;
+      const textText = ` ${text} `;
+      newPrompt = newPrompt
+        .replace('[translationLanguage]', translationLanguageText)
+        .replace('[text]', textText);
+
+
+      setPrompt(newPrompt.trim());
+    } else {
+      // If not all selections are made, keep the prompt empty
+      setPrompt('');
+    }
+  }, [translationLanguage, text, t]);
+
+
 
 
   return (
@@ -106,23 +130,6 @@ export const Translator: FC = () => {
         <Typography variant="body2">
           {t(tokens.form.translateInstructions)}
         </Typography>
-
-
-        <TextField
-          fullWidth
-          label={t(tokens.form.language)} // Translates the label
-          name="language"
-          select
-          SelectProps={{ native: true }}
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-        >
-          {languageOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {t(option.label)} {/* Apply translation here */}
-            </option>
-          ))}
-        </TextField>
 
         <TextField
           fullWidth
@@ -134,7 +141,21 @@ export const Translator: FC = () => {
           rows={15}
         />
 
-
+        <TextField
+          fullWidth
+          label={t(tokens.form.translationLanguage)} // Translates the label
+          name="translationLanguage"
+          select
+          SelectProps={{ native: true }}
+          value={translationLanguage}
+          onChange={(e) => setTranslationLanguage(e.target.value)}
+        >
+          {translationLanguageOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {t(option.label)} {/* Apply translation here */}
+            </option>
+          ))}
+        </TextField>
 
         {/* Removed the TextField for Prompt as per your instructions */}
       </Stack>

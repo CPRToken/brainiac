@@ -101,17 +101,14 @@ export const useSections = () => {
               icon: <SvgIcon fontSize="small"><Atom01 /></SvgIcon>,
             },
 
+
             {
               title: t(tokens.nav.chatGPT),
               path: paths.dashboard.chatGPT,
               icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
             },
 
-            {
-              title: t(tokens.nav.contentManager),
-              path: paths.dashboard.contentManager,
-              icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
-            },
+
             {
               title: t(tokens.nav.imageGenerator),
               path: paths.dashboard.imageGenerator,
@@ -123,7 +120,7 @@ export const useSections = () => {
               icon: <SvgIcon fontSize="small"><Pencil02 /></SvgIcon>,
             },
             {
-              title: t(tokens.nav.myContent),
+              title: t(tokens.nav.myTools),
               path: '', // empty or undefined since it's a parent menu item
               icon: <SvgIcon fontSize="small"><Atom01 /></SvgIcon>,
               items: [
@@ -170,7 +167,6 @@ export const useSections = () => {
                     { title: t(tokens.headings.startABusiness), path: paths.dashboard.startABusiness },
                     { title: t(tokens.headings.investmentAdvisor), path: paths.dashboard.investmentAdvisor },
                     { title: t(tokens.headings.uniAnswers), path: paths.dashboard.uniAnswers },
-                    { title: t(tokens.headings.realEstate), path: paths.dashboard.realEstate },
 
                   ]
                 },
@@ -182,6 +178,7 @@ export const useSections = () => {
                     { title: t(tokens.headings.dessertGenerator), path: paths.dashboard.dessertGenerator },
                     { title: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser },
                     { title: t(tokens.headings.fruitsNVeges), path: paths.dashboard.fruitsNVeges },
+                    { title: t(tokens.headings.tweetGenerator), path: paths.dashboard.tweetGenerator },
                   ]
                 }
               ]
@@ -193,6 +190,20 @@ export const useSections = () => {
             {
               subheader: t(tokens.nav.pages),
               items: [
+
+                {
+                  title: t(tokens.nav.content),
+                  path: paths.dashboard.content.index,
+                  icon: <SvgIcon fontSize="small"><File05 /></SvgIcon>,
+
+                },
+
+                {
+                  title: t(tokens.nav.myImages),
+                  path: paths.dashboard.myImages,
+                  icon: <SvgIcon fontSize="small"><Image01 /></SvgIcon>,
+
+                },
                 {
                   title: t(tokens.nav.customers),
                   path: paths.dashboard.customers.index,
@@ -202,11 +213,27 @@ export const useSections = () => {
                       path: paths.dashboard.customers.index },
                   ],
                 },
+
+
                 {
-                  title: t(tokens.headings.templateReplicator),
-                  path: paths.dashboard.templateReplicator,
-                  icon: <SvgIcon fontSize="small"><HomeSmileIcon /></SvgIcon>,
+                  title: t(tokens.nav.adminModules),
+                  path: '',
+                  icon: <SvgIcon fontSize="small"><Android /></SvgIcon>,
+                  items: [
+                    {title: t(tokens.headings.templateReplicator),  path: paths.dashboard.templateReplicator},
+                    { title: t(tokens.headings.codeConverter), path: paths.dashboard.codeConverter },
+
+
+                  ]
                 },
+
+
+                {
+                  title: t(tokens.nav.health),
+                  path: paths.dashboard.health,
+                  icon: <SvgIcon fontSize="small"><Atom01 /></SvgIcon>,
+                },
+
 
             {
               title: t(tokens.nav.auth),

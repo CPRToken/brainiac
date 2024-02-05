@@ -2,26 +2,18 @@ import React from "react";
 import type { NextPage } from 'next';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import { RouterLink } from 'src/components/router-link';
-import  TextMaxLine  from 'src/components/text-max-line/text-max-line';
-import Iconify from 'src/components/iconify';
 import SvgColor from "src/components/svg-color";
-import Grid from '@mui/material/Grid';
 
 import Typography from '@mui/material/Typography';
 import {typography } from "src/theme/typography";
-import IconButton from '@mui/material/IconButton';
 import { useRouter } from 'next/router';
 import { useTranslation } from "react-i18next";
-import { usePageView } from 'src/hooks/use-page-view';
-import { Seo } from 'src/components/seo';
 import {useTheme} from "@mui/material/styles";
-import { alpha } from '@mui/system/colorManipulator';
+
 import Paper from '@mui/material/Paper';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import { auth } from '../../libs/firebase';
+
 import { paths } from 'src/paths';
 import {tokens} from "../../locales/tokens"; // Ensure paths are correctly imported
 
@@ -65,7 +57,7 @@ const modules: ModuleItem[] = [
   { name: t(tokens.headings.dessertGenerator), path: paths.dashboard.dessertGenerator, icon: '/assets/icons/dessert.svg' },
   { name: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser, icon: '/assets/icons/book.svg' },
   { name: t(tokens.headings.fruitsNVeges), path: paths.dashboard.fruitsNVeges, icon: '/assets/icons/fruits.svg' },
-  { name: t(tokens.headings.realEstate), path: paths.dashboard.realEstate, icon: '/assets/icons/property.svg' },
+
 ];
 
 
@@ -86,7 +78,7 @@ const modules: ModuleItem[] = [
           display: 'grid',
           my: { xs: 8, md: 10 },
           gridTemplateColumns: {
-            xs: 'repeat(1, 1fr)',
+            xs: 'repeat(2, 1fr)',
             sm: 'repeat(2, 1fr)',
             md: 'repeat(4, 1fr)',
           },
@@ -151,8 +143,8 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
           className="svg-color"
           sx={{
             mb: 2.5,
-            width: 72,
-            height: 72,
+            width: 70,
+            height: 70,
             mx: 'auto',
             display: 'flex',
             borderRadius: '50%',

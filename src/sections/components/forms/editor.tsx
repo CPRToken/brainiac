@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
+import {saveDoc} from "../buttons/saveDoc";
 
 type Option = {
     label: string;
@@ -112,6 +113,7 @@ export const Editor: FC = () => {
   const [text, setText] = useState<string>('');
   const [style, setStyle] = useState<string>('');
   const [mood, setMood] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(2);
   const [prompt, setPrompt] = useState<string>('');
 
@@ -154,6 +156,10 @@ export const Editor: FC = () => {
       const styleText = style !== '' ? `${t(style)} ` : '';
 
 
+      const textWords = textText.split(' ');
+      const title = textWords.slice(0, 3).join(' ');
+
+
       // Replace placeholders with the actual values
       newPrompt = newPrompt
         .replace('[text]', textText)
@@ -165,10 +171,13 @@ export const Editor: FC = () => {
       newPrompt = newPrompt.replace(/,+\s*$/, '');
 
       setPrompt(newPrompt.trim());
+      setTitle(title); // Set the title based on the first 3 words
     } else {
       setPrompt('');
+      setTitle('');
     }
   }, [text, mood, style, quantity, t]);
+
 
 
 
@@ -275,10 +284,20 @@ export const Editor: FC = () => {
               {openAIResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
-                  {index < array.length - 1 ? <br /> : null}
+                  {index < array.length - 1 ? <br/> : null}
                 </React.Fragment>
               ))}
             </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.edits))}
+                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              >
+                {t(tokens.form.saveText)}
+              </Button>
+            </div>
           </Box>
         )}
       </Box>

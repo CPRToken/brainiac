@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, TextField } from '@mui/material';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ResponseText from '../clipboards/response-text';
+
 import axios from 'axios';
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
@@ -76,8 +77,6 @@ interface PropertyData {
 
 export const RealEstate: FC = () => {
 
-  const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
-  const attomApiKey = process.env.ATTOM_API_KEY;
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
 
@@ -101,19 +100,12 @@ export const RealEstate: FC = () => {
 
 
 
-  const fetchCoordinates = async (city: string): Promise<{ lat: number; lng: number } | null> => {
+  const fetchCoordinates = async () => {
     try {
-      // You may need to format the address query with country and state if necessary
-      const address = `${city}, ${state}, ${country} , ${street} , ${postCode}`;
-      const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${googleMapsApiKey}`);
-
-      if (response.data.results && response.data.results.length > 0) {
-        const data = response.data.results[0].geometry.location;
-        return { lat: data.lat, lng: data.lng };
-      } else {
-        console.error("No valid results found for the address.");
-        return null;
-      }
+      const address = `${street}, ${city}, ${state}, ${country}, ${postCode}`;
+      const response = await axios.post('/api/googlemaps', { address });
+      const data = response.data.results[0]?.geometry?.location;
+      return data ? { lat: data.lat, lng: data.lng } : null;
     } catch (error) {
       console.error("Error fetching coordinates:", error);
       return null;
@@ -121,55 +113,43 @@ export const RealEstate: FC = () => {
   };
 
 
-  const fetchPropertyDetails = async (lat: number, lng: number) => {
+  const fetchPropertyData = async () => {
     try {
-      const response = await axios.get('/property/detail', {
-        headers: {
-          'apikey': attomApiKey
-        },
+      const address = `${street}, ${city}, ${state}, ${country}, ${postCode}`;
+      const response = await axios.get('https://realty-mole-property-api.p.rapidapi.com/properties', {
         params: {
-          latitude: lat,
-          longitude: lng,
-          // Include other parameters as needed
+          address: address
+        },
+        headers: {
+          'X-RapidAPI-Key': '4c5d537f0cmsh823b0f32f761f8fp10b155jsndfc85740adf8',
+          'X-RapidAPI-Host': 'realty-mole-property-api.p.rapidapi.com'
         }
       });
-      console.log("Property Details:", response.data);
-      setPropertyData(response.data); // Update the state with the fetched data
+      console.log(response.data);
+      // Handle the response data as needed
     } catch (error) {
-      console.error("Error fetching property details:", error);
+      console.error("Error fetching property data:", error);
     }
   };
 
-  const fetchPropertyComparables = async (address: string) => {
-    try {
-      const response = await axios.get(`/salescomparables/address/${encodeURIComponent(address)}`, {
-        headers: {
-          'apikey': attomApiKey
-        },
-        // Include other parameters or query customization as needed
-      });
-      console.log("Property Comparables:", response.data);
-      setPropertyData((prevData: PropertyData) => ({ ...prevData, comparables: response.data }));
-    } catch (error) {
-      console.error("Error fetching property comparables:", error);
-    }
-  };
 
   useEffect(() => {
-    if (city) {
-      fetchCoordinates(city).then((coords) => {
+    if (country && city && state && street && postCode) {
+      fetchCoordinates().then((coords) => {
         if (coords) {
-          fetchPropertyDetails(coords.lat, coords.lng);
-          fetchPropertyComparables(`${city}, ${state}, ${country}`);
+          fetchPropertyData(); // Call the new function to fetch property data
+          const fullAddress = `${country}, ${city}, ${state}, ${street}, ${postCode}`;
+          console.log("Full address:", fullAddress);
         }
       }).catch(error => {
         console.error("Error in geocoding:", error);
       });
     }
-  }, [city, state, country]); // Update dependencies here
+  }, [country, city, state, street, postCode]);
+
 
   useEffect(() => {
-    if (propertyType && place && city && state && country && street && postCode && age && propertyData) {
+    if (propertyType && country && city && state && street && postCode && place && age && propertyData) {
       let newPrompt = t(tokens.form.realEstatePrompts);
 
 
@@ -321,7 +301,7 @@ export const RealEstate: FC = () => {
 
           {/* Age Dropdown */}
           <TextField
-            label={t(tokens.form.age)}
+            label={t(tokens.form.propertyAge)}
             name="age"
             select
             SelectProps={{ native: true }}

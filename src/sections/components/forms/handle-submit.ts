@@ -23,7 +23,7 @@ const useHandleSubmit = () => {
             if (data.content) {
                 setOpenAIResponse(data.content);
             } else {
-                console.error("Failed to get content.");
+                console.error("Failed to get documents.");
             }
         } catch (error) {
             console.error("An error occurred:", error);

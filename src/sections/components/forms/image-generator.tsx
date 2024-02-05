@@ -9,8 +9,7 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useImageSubmit from './image-submit';
-import { auth } from 'src/libs/firebase';
-
+import { handleSaveImage } from 'src/sections/components/buttons/saveImage';
 
 
 
@@ -187,6 +186,7 @@ export const ImageGenerator: FC = () => {
   const [style, setStyle] = useState<string>('');
   const [theme, setTheme] = useState<string>('');
   const [object, setObject] = useState<string>('');
+ const [extra , setExtra] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
 
 
@@ -196,55 +196,29 @@ export const ImageGenerator: FC = () => {
 
 
   useEffect(() => {
-    if (artist && style && theme) {
+    if (artist && style && theme && object && extra) {
       const artistText = artist !== '' ? `${t(artist)} ` : '';
       const styleText = style !== '' ? `${t(style)} ` : '';
       const themeText = theme !== '' ? `${t(theme)} ` : '';
       const objectText = object !== '' ? `${t(object)}` : '';
+      const extraText = extra !== '' ? `${t(extra)}` : '';
 
       const newPrompt = t(tokens.form.imagePrompts)
         .replace('[artist]', artistText)
         .replace('[style]', styleText)
         .replace('[theme]', themeText)
-         .replace('[object]', objectText);
+         .replace('[object]', objectText)
+        .replace('[extra]', extraText);
+
 
       console.log('New Prompt:', newPrompt); // Log the new prompt to the console
       setPrompt(newPrompt.trim());
     } else {
       setPrompt('');
     }
-  }, [artist, style, theme, object, t]);
+  }, [artist, style, theme, object, extra, t]);
 
 
-  const handleSaveImage = (url: string, index: number) => {
-    const user = auth.currentUser;
-    const uid = user ? user.uid : null;
-
-    if (uid === null) {
-      alert('User is not authenticated');
-      return;
-    }
-
-    // Send a POST request to your server with the image URL and UID
-    fetch('/api/upload-image', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ imageUrl: url, uid }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.url) {
-          console.log(`Image saved to Firebase Storage. URL: ${data.url}`);
-        } else {
-          console.error('Failed to save image:', data.error);
-        }
-      })
-      .catch(error => {
-        console.error('Error saving image:', error);
-      });
-  };
 
 
 
@@ -325,16 +299,21 @@ export const ImageGenerator: FC = () => {
             ))}
           </TextField>
         </Stack>
+          <Stack spacing={1}>
+          <TextField
+            fullWidth
+            label={t(tokens.form.extraInfo)}
+            name="extra"
+            value={extra}
+            onChange={(e) => setExtra(e.target.value)}
+            multiline
+            rows={1}
+          >
+          </TextField>
+        </Stack>
 
-        <TextField
-          fullWidth
-          label={t(tokens.form.prompts)}
-          name="prompt"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)} // Add this line
-          multiline
-          rows={4}
-        />
+
+
 
 
       </Stack>
@@ -354,7 +333,7 @@ export const ImageGenerator: FC = () => {
           <label>{t(tokens.form.yourImage)}</label>
           {openAIResponse.map((url, index) => (
             <Box key={index} sx={{ mt: 2 }}>
-              <img src={url} alt={`Generated Art ${index + 1}`} style={{ width: '100%', marginBottom: '10px' }} />
+              <img src={url} alt={`Generated Art ${index + 1}`} style={{ width: '100%', marginBottom: '30px' }} />
               {/* Remove the anchor tag from here */}
               <Button
                 variant="contained"

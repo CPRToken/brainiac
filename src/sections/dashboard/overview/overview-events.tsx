@@ -36,8 +36,8 @@ export const OverviewEvents: FC<OverviewEventsProps> = (props) => {
   return (
     <Card>
       <CardHeader
-        title="File Manager"
-        subheader=""
+        title="Upcoming events"
+        subheader="Based on the linked bank accounts"
       />
       <CardContent sx={{ pt: 0 }}>
         <List disablePadding>
@@ -58,7 +58,7 @@ export const OverviewEvents: FC<OverviewEventsProps> = (props) => {
                       backgroundColor: (theme) =>
                         theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.100',
                       borderRadius: 2,
-                      maxWidth: 'fit-content',
+                      maxWidth: 'fit-docs',
                     }}
                   >
                     <Typography

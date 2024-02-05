@@ -10,7 +10,6 @@ import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 
-
 interface OverviewDoneTasksProps {
   amount: number;
 }
@@ -32,11 +31,13 @@ export const OverviewDoneTasks: FC<OverviewDoneTasksProps> = (props) => {
           py: 3,
         }}
       >
-
-
-
-
-          <Box sx={{ flexGrow: 1 }}>
+        <div>
+          <img
+            src="/assets/iconly/iconly-glass-tick.svg"
+            width={48}
+          />
+        </div>
+        <Box sx={{ flexGrow: 1 }}>
           <Typography
             color="text.secondary"
             variant="body2"

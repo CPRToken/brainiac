@@ -12,6 +12,7 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
+import { saveDoc } from 'src/sections/components/buttons/saveDoc';
 
 
 type Option = {
@@ -98,6 +99,7 @@ export const LyricWriter: FC = () => {
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
+  const [title, setTitle] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
@@ -128,9 +130,10 @@ export const LyricWriter: FC = () => {
 
 
   useEffect(() => {
-    if (genre && style && mood && tempo && duration) {
+    if (title && genre && style && mood && tempo && duration) {
       let newPrompt = t(tokens.form.writeSong);
 
+       const titleText = title !== '' ? `${t(title)} ` : '';
       const genreText = genre !== '' ? `${t(genre)} ` : '';
       const styleText = style !== '' ? `${t(style)} , ` : '';
       const moodText = mood !== '' ? `${t(mood)} , ` : '';
@@ -139,6 +142,7 @@ export const LyricWriter: FC = () => {
 
       // Replace placeholders with the actual values
       newPrompt = newPrompt
+        .replace('[title]', titleText)
         .replace('[genre]', genreText)
         .replace('[style]', styleText)
         .replace('[mood]', moodText)
@@ -150,7 +154,7 @@ export const LyricWriter: FC = () => {
     } else {
       setPrompt('');
     }
-  }, [genre, style, mood, tempo, duration, t]);
+  }, [title, genre, style, mood, tempo, duration, t]);
 
 
 
@@ -173,12 +177,25 @@ export const LyricWriter: FC = () => {
       <Stack spacing={3}>
         <TextField
           fullWidth
+          label={t(tokens.form.songTitle)}
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          multiline
+          rows={1}
+        >
+
+        </TextField>
+        <Stack direction="row" spacing={2}>
+        <TextField
           label={t(tokens.form.genre)}
           name="genre"
           select
           SelectProps={{ native: true }}
           value={genre}
           onChange={(e) => setGenre(e.target.value)}
+          fullWidth
+          sx={{ width: 'calc(50% - 8px)' }}
         >
           {genreOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -187,13 +204,15 @@ export const LyricWriter: FC = () => {
           ))}
         </TextField>
         <TextField
-          fullWidth
+
           label={t(tokens.form.style)}
           name="style"
           select
           SelectProps={{ native: true }}
           value={style}
           onChange={(e) => setTheme(e.target.value)}
+          fullWidth
+          sx={{ width: 'calc(50% - 8px)' }}
         >
           {styleOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -201,14 +220,18 @@ export const LyricWriter: FC = () => {
             </option>
           ))}
         </TextField>
+        </Stack>
+        <Stack direction="row" spacing={2}>
         <TextField
-          fullWidth
+
           label={t(tokens.form.mood)}
           name="mood"
           select
           SelectProps={{ native: true }}
           value={mood}
           onChange={(e) => setMood(e.target.value)}
+          fullWidth
+          sx={{ width: 'calc(50% - 8px)' }}
         >
           {moodOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -218,13 +241,14 @@ export const LyricWriter: FC = () => {
         </TextField>
 
         <TextField
-          fullWidth
           label={t(tokens.form.tempo)}
           name="tempo"
           select
           SelectProps={{ native: true }}
           value={tempo}
           onChange={(e) => setTempo(e.target.value)}
+          fullWidth
+          sx={{ width: 'calc(50% - 8px)' }}
         >
           {tempoOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -232,6 +256,7 @@ export const LyricWriter: FC = () => {
             </option>
           ))}
         </TextField>
+        </Stack>
 
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.duration)}</label>
@@ -264,23 +289,34 @@ export const LyricWriter: FC = () => {
 
 
         {openAIResponse && (
-          <Box sx={{ mt: 3 }}>
+          <Box sx={{mt: 3}}>
             <label>{t(tokens.form.yourLyrics)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
-              <FileCopyIcon />
+              <FileCopyIcon/>
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+            {/* Save Document Button */}
+
+            <Paper elevation={3} ref={textRef}
+                   style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
               {openAIResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
-                  {index < array.length - 1 ? <br /> : null}
+                  {index < array.length - 1 ? <br/> : null}
                 </React.Fragment>
               ))}
             </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => saveDoc(openAIResponse, title, 'lyrics' )}
+                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              >
+                {t(tokens.form.saveText)}
+              </Button>
+            </div>
           </Box>
         )}
       </Box>
   );
-
-};
-
+}

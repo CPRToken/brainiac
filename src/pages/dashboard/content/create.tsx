@@ -16,8 +16,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { BreadcrumbsSeparator } from 'src/components/breadcrumbs-separator';
-import type { File } from 'src/sections/dashboard/content/file-dropzone';
-import { FileDropzone } from 'src/sections/dashboard/content/file-dropzone';
+
 import { QuillEditor } from 'src/components/quill-editor';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
@@ -67,7 +66,7 @@ const Page: NextPage = () => {
               <Link
                 color="text.primary"
                 component={RouterLink}
-                href={paths.dashboard.capsules.index}
+                href={paths.dashboard.content.index}
                 variant="subtitle2"
               >
                 Blog
@@ -102,13 +101,13 @@ const Page: NextPage = () => {
               <Button
                 color="inherit"
                 component={RouterLink}
-                href={paths.dashboard.capsules.index}
+                href={paths.dashboard.content.index}
               >
                 Cancel
               </Button>
               <Button
                 component={RouterLink}
-                href={paths.dashboard.capsules.postDetails}
+                href={paths.dashboard.content.postDetails}
                 variant="contained"
               >
                 Publish changes
@@ -153,85 +152,7 @@ const Page: NextPage = () => {
               </CardContent>
             </Card>
             <Card>
-              <CardContent>
-                <Grid
-                  container
-                  spacing={3}
-                >
-                  <Grid
-                    xs={12}
-                    md={4}
-                  >
-                    <Typography variant="h6">Post cover</Typography>
-                  </Grid>
-                  <Grid
-                    xs={12}
-                    md={8}
-                  >
-                    <Stack spacing={3}>
-                      {cover ? (
-                        <Box
-                          sx={{
-                            backgroundImage: `url(${cover})`,
-                            backgroundPosition: 'center',
-                            backgroundSize: 'cover',
-                            borderRadius: 1,
-                            height: 230,
-                            mt: 3,
-                          }}
-                        />
-                      ) : (
-                        <Box
-                          sx={{
-                            alignItems: 'center',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            border: 1,
-                            borderRadius: 1,
-                            borderStyle: 'dashed',
-                            borderColor: 'divider',
-                            height: 230,
-                            mt: 3,
-                            p: 3,
-                          }}
-                        >
-                          <Typography
-                            align="center"
-                            color="text.secondary"
-                            variant="h6"
-                          >
-                            Select a cover image
-                          </Typography>
-                          <Typography
-                            align="center"
-                            color="text.secondary"
-                            sx={{ mt: 1 }}
-                            variant="subtitle1"
-                          >
-                            Image used for the blog post cover and also for Open Graph meta
-                          </Typography>
-                        </Box>
-                      )}
-                      <div>
-                        <Button
-                          color="inherit"
-                          disabled={!cover}
-                          onClick={handleCoverRemove}
-                        >
-                          Remove photo
-                        </Button>
-                      </div>
-                      <FileDropzone
-                        accept={{ 'image/*': [] }}
-                        maxFiles={1}
-                        onDrop={handleCoverDrop}
-                        caption="(SVG, JPG, PNG, or gif maximum 900x400)"
-                      />
-                    </Stack>
-                  </Grid>
-                </Grid>
-              </CardContent>
+
             </Card>
             <Card>
               <CardContent>
@@ -299,7 +220,7 @@ const Page: NextPage = () => {
           >
             <Button
               component={RouterLink}
-              href={paths.dashboard.capsules.postDetails}
+              href={paths.dashboard.content.postDetails}
               variant="contained"
             >
               Publish changes

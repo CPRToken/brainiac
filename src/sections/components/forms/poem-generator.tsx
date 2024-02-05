@@ -131,6 +131,7 @@ export const PoemGenerator: FC = () => {
   };
 
   useEffect(() => {
+
     // Check if all selections are made
     if (genre && style && mood && duration) {
       let newPrompt = t(tokens.form.writePoem);

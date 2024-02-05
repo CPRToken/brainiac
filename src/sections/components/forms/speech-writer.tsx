@@ -12,19 +12,12 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
+import {saveDoc} from "../buttons/saveDoc";
 type Option = {
     label: string;
     value: string;
 };
 
-const topicOptions: Option[] = [
-    { label: '', value: '' },
-  { label: tokens.form.Politics, value: 'politics' },
-  { label: tokens.form.Environment, value: 'environment' },
-
-
-  // ... add more as needed
-];
 
 const styleOptions: Option[] = [
     { label: '', value: '' },
@@ -93,6 +86,7 @@ const styleOptions: Option[] = [
 const themeOptions: Option[] = [
     { label: '', value: '' },
   { label: tokens.form.keynote, value: tokens.form.keynote },
+  { label: tokens.form.political, value: tokens.form.political },
   { label: tokens.form.Ceremonial, value: tokens.form.Ceremonial },
   { label: tokens.form.Debate, value: tokens.form.Debate },
   { label: tokens.form.Expository, value: tokens.form.Expository },
@@ -121,7 +115,7 @@ export const SpeechWriter: FC = () => {
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
-  const [topic, setTopic] = useState<string>('');
+  const [title, setTopic] = useState<string>('');
   const [style, setStyle] = useState<string>('');
   const [theme, setTheme] = useState<string>('');
   const [duration, setDuration] = useState<number>(5);
@@ -150,17 +144,17 @@ export const SpeechWriter: FC = () => {
 
 
   useEffect(() => {
-    if (topic && style && theme && duration) {
+    if (title && style && theme && duration) {
       let newPrompt = t(tokens.form.writeSpeech);
 
-      const topicText = topic !== '' ? `${t(topic)} ` : '';
+      const titleText = title !== '' ? `${t(title)} ` : '';
       const styleText = style !== '' ? `${t(style)} ` : '';
       const themeText = theme !== '' ? `${t(theme)} ` : '';
       const durationText = `${duration} ${t('')}`;
 
       // Replace placeholders with the actual values
       newPrompt = newPrompt
-        .replace('[topic]', topicText)
+        .replace('[title]', titleText)
         .replace('[style]', styleText)
         .replace('[theme]', themeText)
         .replace('[duration]', durationText);
@@ -173,7 +167,7 @@ export const SpeechWriter: FC = () => {
       // If not all selections are made, keep the prompt empty
       setPrompt('');
     }
-  }, [topic, style, theme, duration, t]);
+  }, [title, style, theme, duration, t]);
 
 
 
@@ -202,17 +196,13 @@ export const SpeechWriter: FC = () => {
         <TextField
           fullWidth
           label={t(tokens.form.topic)}
-          name="topic"
-          value={topic}
+          name="title"
+          value={title}
           onChange={(e) => setTopic(e.target.value)}
           multiline
           rows={1}
         >
-          {topicOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {t(option.label)} {/* Apply translation here */}
-            </option>
-          ))}
+
         </TextField>
         <TextField
           fullWidth
@@ -275,19 +265,30 @@ export const SpeechWriter: FC = () => {
         </Box>
 
         {openAIResponse && (
-          <Box sx={{ mt: 3 }}>
+          <Box sx={{mt: 3}}>
             <label>{t(tokens.form.yourSpeech)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
-              <FileCopyIcon />
+              <FileCopyIcon/>
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef}
+                   style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
               {openAIResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
-                  {index < array.length - 1 ? <br /> : null}
+                  {index < array.length - 1 ? <br/> : null}
                 </React.Fragment>
               ))}
             </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.speeches))}
+                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              >
+                {t(tokens.form.saveText)}
+              </Button>
+            </div>
           </Box>
         )}
       </Box>

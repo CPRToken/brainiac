@@ -83,20 +83,8 @@ const dishOptions: Option[] = [
   // ... add more
 ];
 
-const proteinOptions: Option[] = [
-  { label: '', value: '' },
-  { label: 'Chicken', value: 'Chicken' },
-
-  // ... add more
-];
 
 
-const garnishOptions: Option[] = [
-  { label: '', value: '' },
-  { label: 'Onion', value: 'Onion' },
-
-  // ... add more
-];
 
 
 

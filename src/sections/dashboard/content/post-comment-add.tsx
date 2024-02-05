@@ -13,12 +13,12 @@ import SvgIcon from '@mui/material/SvgIcon';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { Theme } from '@mui/material/styles/createTheme';
 
-
+import { useMockedUser } from 'src/hooks/use-mocked-user';
 import { getInitials } from 'src/utils/get-initials';
 
 export const PostCommentAdd: FC = (props) => {
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
-
+  const user = useMockedUser();
 
   return (
     <div {...props}>
@@ -27,7 +27,15 @@ export const PostCommentAdd: FC = (props) => {
         direction="row"
         spacing={2}
       >
-
+        <Avatar
+          src={user.avatar}
+          sx={{
+            height: 40,
+            width: 40,
+          }}
+        >
+          {getInitials(user.name)}
+        </Avatar>
         <Box sx={{ flexGrow: 1 }}>
           <OutlinedInput
             fullWidth

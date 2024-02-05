@@ -12,18 +12,14 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
+import { saveDoc } from 'src/sections/components/buttons/saveDoc';
+
 type Option = {
     label: string;
     value: string;
 };
 
-const topicOptions: Option[] = [
-    { label: '', value: '' },
 
-
-
-  // ... add more as needed
-];
 
 const styleOptions: Option[] = [
     { label: '', value: '' },
@@ -98,7 +94,8 @@ export const EssayWriter: FC = () => {
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
-  const [topic, setTopic] = useState<string>('');
+
+  const [title, setTitle] = useState<string>('');
   const [style, setStyle] = useState<string>('');
   const [duration, setDuration] = useState<number>(300);
   const [prompt, setPrompt] = useState<string>('');
@@ -126,16 +123,16 @@ export const EssayWriter: FC = () => {
 
 
   useEffect(() => {
-    if (topic && style && duration) {
+    if (title && style && duration) {
       let newPrompt = t(tokens.form.writeEssay);
 
-      const topicText = topic !== '' ? `${t(topic)} ` : '';
+      const titleText = title !== '' ? `${t(title)} ` : '';
       const styleText = style !== '' ? `${t(style)} ` : '';
       const durationText = `${duration} ${t('')}`;
 
       // Replace placeholders with the actual values
       newPrompt = newPrompt
-        .replace('[topic]', topicText)
+        .replace('[title]', titleText)
         .replace('[style]', styleText)
         .replace('[duration]', durationText);
 
@@ -146,7 +143,7 @@ export const EssayWriter: FC = () => {
     } else {
       setPrompt('');
     }
-  }, [topic, style, duration, t]);
+  }, [title, style, duration, t]);
 
 
 
@@ -165,17 +162,13 @@ export const EssayWriter: FC = () => {
         <TextField
           fullWidth
           label={t(tokens.form.topic)}
-          name="topic"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           multiline
           rows={1}
         >
-          {topicOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {t(option.label)} {/* Apply translation here */}
-            </option>
-          ))}
+
         </TextField>
 
         <TextField
@@ -226,19 +219,30 @@ export const EssayWriter: FC = () => {
         </Box>
 
         {openAIResponse && (
-          <Box sx={{ mt: 3 }}>
-              <label>{t(tokens.form.yourEssay)}</label>
-              <Button onClick={handleCopyText} title="Copy response text">
-                <FileCopyIcon />
-              </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+          <Box sx={{mt: 3}}>
+            <label>{t(tokens.form.yourEssay)}</label>
+            <Button onClick={handleCopyText} title="Copy response text">
+              <FileCopyIcon/>
+            </Button>
+            <Paper elevation={3} ref={textRef}
+                   style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
               {openAIResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
-                  {index < array.length - 1 ? <br /> : null}
+                  {index < array.length - 1 ? <br/> : null}
                 </React.Fragment>
               ))}
             </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.essays))}
+                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              >
+                {t(tokens.form.saveText)}
+              </Button>
+            </div>
           </Box>
         )}
       </Box>

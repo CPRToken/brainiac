@@ -100,8 +100,8 @@ export const typography = {
     fontWeight: 300,
     lineHeight: 64 / 48,
     fontSize: pxToRem(28),
-    fontFamily: tertiaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 40, md: 41, lg: 44 }),
+    fontFamily: secondaryFont.style.fontFamily,
+    ...responsiveFontSizes({ sm: 35, md: 37, lg: 42 }),
   },
   h3: {
     fontWeight: 500,
@@ -144,14 +144,14 @@ export const typography = {
     fontSize: pxToRem(14),
   },
   body1: {
-    fontWeight: 300,
-    lineHeight: 1.6,
-    fontSize: pxToRem(20),
-    fontFamily: tertiaryFont.style.fontFamily,
+    fontWeight: 200,
+    lineHeight: 1.7,
+    fontSize: pxToRem(17),
+    fontFamily: primaryFont.style.fontFamily,
   },
   body2: {
-    lineHeight: 1.4,
-    fontSize: pxToRem(20),
+    lineHeight: 1.0,
+    fontSize: pxToRem(17),
     fontFamily: secondaryFont.style.fontFamily,
   },
 

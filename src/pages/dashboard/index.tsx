@@ -131,11 +131,11 @@ const Page: NextPage = () => {
                   },
                   {
                     title: 'Tip 2.',
-                    content: 'Tip content',
+                    content: 'Tip documents',
                   },
                   {
                     title: 'Tip 3.',
-                    content: 'Tip content',
+                    content: 'Tip documents',
                   },
                 ]}
               />

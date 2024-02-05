@@ -3,7 +3,7 @@ import { collection, getDocs, Timestamp } from "firebase/firestore";
 import { db } from 'src/libs/firebase';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import { PostCard } from 'src/sections/dashboard/blog/post-card';
+import { PostCard } from 'src/sections/dashboard/content/post-card';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 

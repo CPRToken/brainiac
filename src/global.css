@@ -28,3 +28,9 @@
 /* Remove if mapbox is not used */
 @import '~mapbox-gl/dist/mapbox-gl.css';
 
+/* Add these styles at the bottom of your global.css */
+.ql-editor {
+  line-height: 1.8 !important; /* Adjust the line height */
+  font-size: 15px !important; /* Adjust the font size */
+  font-family: 'Inter', sans-serif !important; /* Example: Using Inter font */
+}

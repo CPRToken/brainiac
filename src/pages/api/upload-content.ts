@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const buffer = await response.buffer();
     const storage = admin.storage();
     const bucket = storage.bucket();
-    const fileName = `${uid}/content/uploaded-${Date.now()}.pdf`; // Save in 'content' directory
+    const fileName = `${uid}/content/uploaded-${Date.now()}.pdf`; // Save in 'documents' directory
     const file = bucket.file(fileName);
 
     await file.save(buffer, {
