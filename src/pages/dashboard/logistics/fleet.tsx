@@ -10,7 +10,7 @@ import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { LogisticsFleetDrawer } from 'src/sections/dashboard/logistics/logistics-fleet-drawer';
 import { LogisticsFleetList } from 'src/sections/dashboard/logistics/logistics-fleet-list';
-import { LogisticsFleetMap } from 'src/sections/dashboard/logistics/logistics-fleet-map';
+
 import { LogisticsFleetToolbar } from 'src/sections/dashboard/logistics/logistics-fleet-toolbar';
 import type { Vehicle } from 'src/types/logistics';
 
@@ -114,11 +114,7 @@ const Page: NextPage = () => {
           }}
         >
           {!mdUp && <LogisticsFleetToolbar onDrawerOpen={handleDrawerOpen} />}
-          <LogisticsFleetMap
-            currentVehicleId={currentVehicleId}
-            onVehicleSelect={handleVehicleSelect}
-            vehicles={vehicles}
-          />
+
         </Box>
       </Box>
       {!mdUp && (
