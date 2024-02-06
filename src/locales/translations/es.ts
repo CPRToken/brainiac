@@ -63,7 +63,7 @@ export const es = {
   [tokens.nav.contentDetails]: 'Detalles del Contenido',
 
     [tokens.nav.verifyCode]: 'Verificar Código',
-  [tokens.nav.myContent ]: 'Módulos de IA',
+  [tokens.nav.myContent ]: 'Mi Contenido',
   [tokens.form.imageInstructions]: 'Selecciona las opciones deseadas para generar una imagen. Elige un estilo de artista, un estilo visual y un tema. Deja "Artista" como "Sin artista específico" para imágenes realistas.',
   [tokens.form.translateInstructions]: 'Para iniciar la traducción de texto, por favor ingrese su texto aquí. A continuación, elija su idioma preferido del menú desplegable y haga clic en \'Submit\' para proceder..',
   [tokens.form.magicMirror]: 'Consulta al Espejo Mágico para encontrar el atuendo perfecto para cualquier evento. Selecciona tus preferencias de las opciones del menú y haz clic en "Submit".',
