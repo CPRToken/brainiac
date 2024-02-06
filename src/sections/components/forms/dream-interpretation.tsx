@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useHandleSubmit from './handle-submit';
 import Typography from "@mui/material/Typography";
+import {saveDoc} from "../buttons/saveDoc";
 
 
 
@@ -33,16 +34,16 @@ export const DreamInterpretation: FC = () => {
   const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
 
   const [dream, setDream] = useState<string>(''); // New state for the dream
-
+const [title, setTitle] = useState<string>(''); // New state for the dream
   const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
 
 
-  const maxTokensForResume = 1000;
+  const maxTokens = 1000;
 
   const submitToOpenAI = () => {
     // Use the existing prompt state, which is already translated
-    handleSubmit(prompt, maxTokensForResume)
+    handleSubmit(prompt, maxTokens)
         .then(() => {
           // Handle successful submission if needed
         })
@@ -58,15 +59,25 @@ export const DreamInterpretation: FC = () => {
   useEffect(() => {
     if (dream) {
       // Use the translation tokens to create the prompt
-      let newPrompt = t(tokens.form.dreamInterpretation, {
-        dream: dream,
-        // other properties like keywords can be removed if they are not used
-      });
+      let newPrompt = t(tokens.form.dreamInterpretation);
+
+        const dreamText = ` ${t(dream)} `;
+
+      newPrompt = newPrompt
+        .replace('[dream]', dreamText);
+
+
+      const dreamIntro = dreamText.split(' ');
+      const title = dreamIntro.slice(0, 3).join(' ');
+
+
 
       // Update the prompt state with the new prompt
       setPrompt(newPrompt.trim());
+      setTitle(title);
     } else {
       setPrompt('');
+      setTitle('');
     }
   }, [dream, t]); // Include only the dependencies that are used in the effect
 
@@ -113,19 +124,30 @@ export const DreamInterpretation: FC = () => {
       </Box>
 
       {openAIResponse && (
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{mt: 3}}>
           <label>{t(tokens.form.interpretation)}</label>
           <Button onClick={handleCopyText} title="Copy response text">
-            <FileCopyIcon />
+            <FileCopyIcon/>
           </Button>
-          <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
+          <Paper elevation={3} ref={textRef}
+                 style={{padding: '10px', overflow: 'auto', lineHeight: '1.5'}}>
             {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
-                {index < array.length - 1 ? <br /> : null}
+                {index < array.length - 1 ? <br/> : null}
               </React.Fragment>
             ))}
           </Paper>
+          <div style={{textAlign: 'center', paddingTop: '20px'}}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => saveDoc(openAIResponse, title, t(tokens.form.dreams))}
+              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+            >
+              {t(tokens.form.saveText)}
+            </Button>
+          </div>
         </Box>
       )}
     </Box>

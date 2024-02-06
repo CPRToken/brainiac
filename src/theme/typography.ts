@@ -139,9 +139,9 @@ export const typography = {
     fontFamily: secondaryFont.style.fontFamily,
   },
   subtitle2: {
-    fontWeight: 600,
-    lineHeight: 22 / 14,
-    fontSize: pxToRem(14),
+    fontWeight: 400,
+    lineHeight: 1.5,
+    fontSize: pxToRem(12),
   },
   body1: {
     fontWeight: 200,

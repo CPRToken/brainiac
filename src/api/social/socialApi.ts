@@ -45,6 +45,7 @@ class SocialApi {
           currentCity: userData.currentCity || '',
           email: userData.email || '',
           gender: userData.gender || '',
+          firstName: userData.firstName || '',
           name: `${userData.firstName} ${userData.lastName}`,
           originCity: userData.originCity || '',
           placesWorked: userData.placesWorked || '',

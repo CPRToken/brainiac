@@ -142,6 +142,9 @@ export const PoemGenerator: FC = () => {
     const moodText  = ` ${t(mood)} `;
     const durationText = ` ${duration} `;
 
+
+
+
       newPrompt = newPrompt
         .replace('[poet]',poetText)
          .replace('[genre]',genreText)

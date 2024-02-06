@@ -133,7 +133,7 @@ const Page: NextPage = () => {
                 href={paths.dashboard.content.index}
                 variant="subtitle2"
               >
-                Blog
+                Content
               </Link>
               <Typography
                 color="text.secondary"

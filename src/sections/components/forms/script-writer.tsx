@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import CircularProgress from "@mui/material/CircularProgress";
 import useGPT4Submit from "./gpt4-submit";
+import {saveDoc} from "../buttons/saveDoc";
 
 type Option = {
   label: string;
@@ -22,7 +23,7 @@ const genreOptions: Option[] = [
   { label: '', value: '' },
   { label: tokens.form.Drama, value: tokens.form.Drama },
   { label: tokens.form.Comedy, value: tokens.form.Comedy },
-  { label: tokens.form.Romance, value: tokens.form.Romance },
+  { label: tokens.form.RomanticComedy, value: tokens.form.RomanticComedy },
   { label: tokens.form.Action, value: tokens.form.Action },
   { label: tokens.form.Adventure, value: tokens.form.Adventure },
   { label: tokens.form.Mystery, value: tokens.form.Mystery },
@@ -30,6 +31,7 @@ const genreOptions: Option[] = [
   { label: tokens.form.Fantasy, value: tokens.form.Fantasy },
   { label: tokens.form.Horror, value: tokens.form.Horror },
   { label: tokens.form.Thriller, value: tokens.form.Thriller },
+  { label: tokens.form.Documentary, value: tokens.form.Documentary },
   { label: tokens.form.Historical, value: tokens.form.Historical },
   // ... add more as needed
 ];
@@ -38,7 +40,6 @@ const styleOptions: Option[] = [
   { label: '', value: '' },
   { label: tokens.form.Epic, value: tokens.form.Epic },
   { label: tokens.form.SciFi, value: tokens.form.SciFi },
-  { label: tokens.form.RomanticComedy, value: tokens.form.RomanticComedy },
   { label: tokens.form.ActionPacked, value: tokens.form.ActionPacked },
   { label: tokens.form.Musical, value: tokens.form.Musical },
   { label: tokens.form.Surreal, value: tokens.form.Surreal },
@@ -82,6 +83,7 @@ export const ScriptWriter: FC = () => {
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
+  const [title, setTitle] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
@@ -92,7 +94,7 @@ export const ScriptWriter: FC = () => {
 
 
   const submitToOpenAI = () => {
-    const maxTokens = 1500;
+    const maxTokens = 3000;
     if (prompt) {
       // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
@@ -109,12 +111,21 @@ export const ScriptWriter: FC = () => {
 
   useEffect(() => {
     if (genre && style && mood && duration) {
-      let newPrompt = t(tokens.form.writeScript, {
-        duration: `${duration} mins`,
-        genre: t(genre),
-        style: t(style),
-        mood: t(mood),
-      });
+      let newPrompt = t(tokens.form.writeScript);
+
+
+        const titleText = title !== '' ? `${t(title)} ` : '';
+        const genreText = genre !== '' ? `${t(genre)} ` : '';
+      const styleText = style !== '' ? `${t(style)} , ` : '';
+      const moodText = mood !== '' ? `${t(mood)} , ` : '';
+
+
+        newPrompt = newPrompt
+          .replace('[title]', titleText)
+          .replace('[genre]', genreText)
+          .replace('[style]', styleText)
+          .replace('[mood]', moodText)
+
 
       setPrompt(newPrompt.trim());
     } else {
@@ -129,6 +140,16 @@ export const ScriptWriter: FC = () => {
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
 
       <Stack spacing={3}>
+        <TextField
+          fullWidth
+          label={t(tokens.form.filmTitle)}
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          multiline
+          rows={1}
+        >
+        </TextField>
         <TextField
           fullWidth
           label={t(tokens.form.genre)}
@@ -204,25 +225,35 @@ export const ScriptWriter: FC = () => {
 
 
       {openAIResponse && (
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{mt: 3}}>
 
           <label>{t(tokens.form.yourScript)}</label>
-        <Button onClick={handleCopyText} title="Copy response text">
-          <FileCopyIcon />
-        </Button>
+          <Button onClick={handleCopyText} title="Copy response text">
+            <FileCopyIcon/>
+          </Button>
 
-          <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+          <Paper elevation={3} ref={textRef}
+                 style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
             {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
-                {index < array.length - 1 ? <br /> : null}
+                {index < array.length - 1 ? <br/> : null}
               </React.Fragment>
             ))}
           </Paper>
+          <div style={{textAlign: 'center', paddingTop: '20px'}}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => saveDoc(openAIResponse, title, t(tokens.form.screenPlays))}
+              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+            >
+              {t(tokens.form.saveText)}
+            </Button>
+          </div>
         </Box>
       )}
     </Box>
-
 
 
   );

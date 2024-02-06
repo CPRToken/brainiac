@@ -12,6 +12,7 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
+import {saveDoc} from "../buttons/saveDoc";
 
 type Option = {
     label: string;
@@ -48,6 +49,7 @@ export const CareerDeveloper: FC = () => {
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [industry, setIndustry] = useState<string>('');
   const [profession, setProfession] = useState<string>('');
+ const [title, setTitle] = useState<string>('');
   const [experience, setExperience] = useState<string>('');
   const [development, setDevelopment] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
@@ -83,6 +85,12 @@ export const CareerDeveloper: FC = () => {
       const experienceText = `${t(experience)} `;
       const developmentText = `${t(development)} `;
 
+      const industryWords = industryText.split(' ');
+      const professionWords = professionText.split(' ');
+
+// Slice the first two words from each and combine
+      const title = industryWords.slice(0, 2).concat(professionWords.slice(0, 2)).join(' ');
+
       newPrompt = newPrompt
         .replace('[industry]', industryText)
         .replace('[profession]', professionText)
@@ -90,8 +98,10 @@ export const CareerDeveloper: FC = () => {
         .replace('[development]', developmentText);
 
       setPrompt(newPrompt.trim());
+      setTitle(title);
     } else {
       setPrompt('');
+      setTitle('');
     }
   }, [industry, profession, experience, development]);
 
@@ -175,20 +185,31 @@ export const CareerDeveloper: FC = () => {
         </Box>
 
         {openAIResponse && (
-        <Box sx={{ mt: 3 }}>
-              <label>{t(tokens.form.yourCareerDevelopment)}</label>
-              <Button onClick={handleCopyText} title="Copy response text">
-                <FileCopyIcon />
+          <Box sx={{mt: 3}}>
+            <label>{t(tokens.form.yourCareerDevelopment)}</label>
+            <Button onClick={handleCopyText} title="Copy response text">
+              <FileCopyIcon/>
+            </Button>
+            <Paper elevation={3} ref={textRef}
+                   style={{padding: '10px', overflow: 'auto', lineHeight: '1.5'}}>
+              {openAIResponse.split('\n').map((str, index, array) => (
+                <React.Fragment key={index}>
+                  {str}
+                  {index < array.length - 1 ? <br/> : null}
+                </React.Fragment>
+              ))}
+            </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.careerDev))}
+                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              >
+                {t(tokens.form.saveText)}
               </Button>
-          <Paper elevation={3} ref={textRef} style={{ padding: '10px', overflow: 'auto', lineHeight: '1.5' }}>
-            {openAIResponse.split('\n').map((str, index, array) => (
-              <React.Fragment key={index}>
-                {str}
-                {index < array.length - 1 ? <br /> : null}
-              </React.Fragment>
-            ))}
-          </Paper>
-        </Box>
+            </div>
+          </Box>
         )}
       </Box>
     );

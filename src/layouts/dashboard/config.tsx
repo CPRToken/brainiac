@@ -192,7 +192,7 @@ export const useSections = () => {
               items: [
 
                 {
-                  title: t(tokens.nav.content),
+                  title: t(tokens.nav.myContent),
                   path: paths.dashboard.content.index,
                   icon: <SvgIcon fontSize="small"><File05 /></SvgIcon>,
 

@@ -23,6 +23,7 @@ type ModuleItem = {
   name: string;
   path: string;
   icon: string;
+  about: string;
 };
 
 const Page: NextPage = () => {
@@ -31,32 +32,33 @@ const Page: NextPage = () => {
   useTheme();
 
 const modules: ModuleItem[] = [
-  { name: t(tokens.headings.lyricWriter), path: paths.dashboard.lyricWriter, icon: '/assets/icons/lyric.svg' },
-  { name: t(tokens.headings.scriptWriter), path: paths.dashboard.scriptWriter, icon: '/assets/icons/movie.svg' },
-  { name: t(tokens.headings.recipeWriter), path: paths.dashboard.recipeGen, icon: '/assets/icons/recipe.svg' },
-  { name: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator, icon: '/assets/icons/poem.svg' },
-  { name: t(tokens.headings.seoArticleWriter), path: paths.dashboard.seoArticleWriter, icon: '/assets/icons/seo.svg' },
-  { name: t(tokens.headings.essayWriter), path: paths.dashboard.essayWriter, icon: '/assets/icons/edu.svg' },
-  { name: t(tokens.headings.editor), path: paths.dashboard.editor, icon: '/assets/icons/editor.svg' },
-  { name: t(tokens.headings.dietPlanner), path: paths.dashboard.dietPlanner, icon: '/assets/icons/diet.svg' },
-  { name: t(tokens.headings.storyGenerator), path: paths.dashboard.storyGenerator, icon: '/assets/icons/edu.svg' },
-  { name: t(tokens.headings.dreamInterpretation), path: paths.dashboard.dreamInterpretation, icon: '/assets/icons/dream.svg' },
-  { name: t(tokens.headings.magicMirror), path: paths.dashboard.magicMirror, icon: '/assets/icons/mirror.svg' },
-  { name: t(tokens.headings.philosophyWriter), path: paths.dashboard.philosophyWriter, icon: '/assets/icons/filoso.svg' },
-  { name: t(tokens.headings.interiorDesigner), path: paths.dashboard.interiorDesigner, icon: '/assets/icons/interior.svg' },
-  { name: t(tokens.headings.howToMake), path: paths.dashboard.howToMake, icon: '/assets/icons/how.svg' },
-  { name: t(tokens.headings.resumeBuilder), path: paths.dashboard.resumeBuilder, icon: '/assets/icons/resume.svg' },
-  { name: t(tokens.headings.speechWriter), path: paths.dashboard.speechWriter, icon: '/assets/icons/speech.svg' },
-  { name: t(tokens.headings.translator), path: paths.dashboard.translator, icon: '/assets/icons/translator.svg' },
-  { name: t(tokens.headings.careerDeveloper), path: paths.dashboard.careerDeveloper, icon: '/assets/icons/career.svg' },
-  { name: t(tokens.headings.startABusiness), path: paths.dashboard.startABusiness, icon: '/assets/icons/business.svg' },
-  { name: t(tokens.headings.investmentAdvisor), path: paths.dashboard.investmentAdvisor, icon: '/assets/icons/invest.svg' },
-  { name: t(tokens.headings.uniAnswers), path: paths.dashboard.uniAnswers, icon: '/assets/icons/uni.svg' },
-  { name: t(tokens.headings.travelAgent), path: paths.dashboard.travelAgent, icon: '/assets/icons/travel.svg' },
-  { name: t(tokens.headings.cocktailCrafter), path: paths.dashboard.cocktailCrafter, icon: '/assets/icons/cocktail.svg' },
-  { name: t(tokens.headings.dessertGenerator), path: paths.dashboard.dessertGenerator, icon: '/assets/icons/dessert.svg' },
-  { name: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser, icon: '/assets/icons/book.svg' },
-  { name: t(tokens.headings.fruitsNVeges), path: paths.dashboard.fruitsNVeges, icon: '/assets/icons/fruits.svg' },
+
+    { name: t(tokens.headings.lyricWriter), path: paths.dashboard.lyricWriter, icon: '/assets/icons/lyric.svg', about: t(tokens.form.lyricWriterAbout) },
+    { name: t(tokens.headings.scriptWriter), path: paths.dashboard.scriptWriter, icon: '/assets/icons/movie.svg', about: t(tokens.form.scriptWriterAbout) },
+    { name: t(tokens.headings.recipeWriter), path: paths.dashboard.recipeGen, icon: '/assets/icons/recipe.svg', about: t(tokens.form.recipeWriterAbout) },
+    { name: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator, icon: '/assets/icons/poem.svg', about: t(tokens.form.poemGeneratorAbout) },
+    { name: t(tokens.headings.seoArticleWriter), path: paths.dashboard.seoArticleWriter, icon: '/assets/icons/seo.svg', about: t(tokens.form.seoArticleWriterAbout) },
+    { name: t(tokens.headings.essayWriter), path: paths.dashboard.essayWriter, icon: '/assets/icons/edu.svg', about: t(tokens.form.essayWriterAbout) },
+    { name: t(tokens.headings.editor), path: paths.dashboard.editor, icon: '/assets/icons/editor.svg', about: t(tokens.form.editorAbout) },
+    { name: t(tokens.headings.dietPlanner), path: paths.dashboard.dietPlanner, icon: '/assets/icons/diet.svg', about: t(tokens.form.dietPlannerAbout) },
+    { name: t(tokens.headings.storyGenerator), path: paths.dashboard.storyGenerator, icon: '/assets/icons/edu.svg', about: t(tokens.form.storyGeneratorAbout) },
+    { name: t(tokens.headings.dreamInterpretation), path: paths.dashboard.dreamInterpretation, icon: '/assets/icons/dream.svg', about: t(tokens.form.dreamInterpretationAbout) },
+    { name: t(tokens.headings.magicMirror), path: paths.dashboard.magicMirror, icon: '/assets/icons/mirror.svg', about: t(tokens.form.magicMirrorAbout) },
+    { name: t(tokens.headings.philosophyWriter), path: paths.dashboard.philosophyWriter, icon: '/assets/icons/filoso.svg', about: t(tokens.form.philosophyWriterAbout) },
+    { name: t(tokens.headings.interiorDesigner), path: paths.dashboard.interiorDesigner, icon: '/assets/icons/interior.svg', about: t(tokens.form.interiorDesignerAbout) },
+    { name: t(tokens.headings.howToMake), path: paths.dashboard.howToMake, icon: '/assets/icons/how.svg', about: t(tokens.form.howToMakeAbout) },
+    { name: t(tokens.headings.resumeBuilder), path: paths.dashboard.resumeBuilder, icon: '/assets/icons/resume.svg', about: t(tokens.form.resumeBuilderAbout) },
+    { name: t(tokens.headings.speechWriter), path: paths.dashboard.speechWriter, icon: '/assets/icons/speech.svg', about: t(tokens.form.speechWriterAbout) },
+    { name: t(tokens.headings.translator), path: paths.dashboard.translator, icon: '/assets/icons/translator.svg', about: t(tokens.form.translatorAbout) },
+    { name: t(tokens.headings.careerDeveloper), path: paths.dashboard.careerDeveloper, icon: '/assets/icons/career.svg', about: t(tokens.form.careerDeveloperAbout) },
+    { name: t(tokens.headings.startABusiness), path: paths.dashboard.startABusiness, icon: '/assets/icons/business.svg', about: t(tokens.form.startABusinessAbout) },
+    { name: t(tokens.headings.investmentAdvisor), path: paths.dashboard.investmentAdvisor, icon: '/assets/icons/invest.svg', about: t(tokens.form.investmentAdvisorAbout) },
+    { name: t(tokens.headings.uniAnswers), path: paths.dashboard.uniAnswers, icon: '/assets/icons/uni.svg', about: t(tokens.form.uniAnswersAbout) },
+    { name: t(tokens.headings.travelAgent), path: paths.dashboard.travelAgent, icon: '/assets/icons/travel.svg', about: t(tokens.form.travelAgentAbout) },
+  { name: t(tokens.headings.cocktailCrafter), path: paths.dashboard.cocktailCrafter, icon: '/assets/icons/cocktail.svg' , about: t(tokens.form.cocktailCrafterAbout) },
+  { name: t(tokens.headings.dessertGenerator), path: paths.dashboard.dessertGenerator, icon: '/assets/icons/dessert.svg', about: t(tokens.form.dessertGeneratorAbout) },
+  { name: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser, icon: '/assets/icons/book.svg' , about: t(tokens.form.bookSummariserAbout) },
+  { name: t(tokens.headings.fruitsNVeges), path: paths.dashboard.fruitsNVeges, icon: '/assets/icons/fruits.svg' , about: t(tokens.form.fruitsNVegesAbout) },
 
 ];
 
@@ -142,9 +144,9 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
         <Box
           className="svg-color"
           sx={{
-            mb: 2.5,
-            width: 70,
-            height: 70,
+            mb: 1,
+            width: 60,
+            height: 60,
             mx: 'auto',
             display: 'flex',
             borderRadius: '50%',
@@ -156,14 +158,18 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
             src={module.icon}
             color={hovered ? theme.palette.primary.main : 'info'} // Change icon color on hover to primary color
             sx={{
-              width: 60,
-              height: 60,
+              width: 40,
+              height: 40,
             }}
           />
         </Box>
 
-        <Typography sx={{ ...typography.subtitle1, color: 'text.primary', mt: 1, mb: 1 }}>
+        <Typography sx={{ ...typography.subtitle1, color: 'text.primary', mt: 0, mb: 2 }}>
           {module.name}
+        </Typography>
+
+        <Typography sx={{ ...typography.subtitle2, color: 'text.secondary', mt: 0, mb: 0, pl: 2, pr: 2 }}>
+          {module.about}
         </Typography>
       </Stack>
     </Paper>

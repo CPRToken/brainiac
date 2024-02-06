@@ -14,6 +14,7 @@ import Paper from '@mui/material/Paper';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
+import {saveDoc} from "../buttons/saveDoc";
 
 type Option = {
     label: string;
@@ -130,6 +131,7 @@ export const SEOArticleWriter: FC = () => {
   const [purpose, setPurpose] = useState<string>('');  // changed from style
   const [style, setMood] = useState<string>('');
   const [keyWords, setKeyWords] = useState<string>('');
+const [ title , setTitle] = useState<string>('');
   const [duration, setDuration] = useState<number>(500);
   const [prompt, setPrompt] = useState<string>('');
 
@@ -168,6 +170,10 @@ export const SEOArticleWriter: FC = () => {
       const keyWordsText = keyWords !== '' ? `${t(keyWords)} ` : '';
       const durationText = `${duration} ${t('')}`;
 
+
+      const keyWors = keyWordsText.split(' ');
+      const title = keyWors.slice(0, 3).join(' ');
+
       newPrompt = newPrompt
         .replace('[niche]', nicheText)
         .replace('[purpose]', purposeText)
@@ -179,9 +185,11 @@ export const SEOArticleWriter: FC = () => {
 
 
       setPrompt(newPrompt.trim());
+      setTitle(title);
     } else {
       // If not all selections are made, keep the prompt empty
       setPrompt('');
+      setTitle('');
     }
 
 
@@ -300,19 +308,30 @@ export const SEOArticleWriter: FC = () => {
 
 
         {openAIResponse && (
-          <Box sx={{ mt: 3 }}>
-              <label>{t(tokens.form.yourSEOArticle)}</label>
+          <Box sx={{mt: 3}}>
+            <label>{t(tokens.form.yourSEOArticle)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
-              <FileCopyIcon />
+              <FileCopyIcon/>
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef}
+                   style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
               {openAIResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
-                  {index < array.length - 1 ? <br /> : null}
+                  {index < array.length - 1 ? <br/> : null}
                 </React.Fragment>
               ))}
             </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.SEOarticle))}
+                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              >
+                {t(tokens.form.saveText)}
+              </Button>
+            </div>
           </Box>
         )}
       </Box>

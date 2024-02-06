@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
+import {saveDoc} from "../buttons/saveDoc";
 
 
 
@@ -80,6 +81,7 @@ export const Translator: FC = () => {
   const { t } = useTranslation();
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [translationLanguage, setTranslationLanguage] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
   const [text, setText] = useState<string>('');
  const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
@@ -107,16 +109,24 @@ export const Translator: FC = () => {
       let newPrompt = t(tokens.form.translationPrompts);
 
       const translationLanguageText = ` ${t(translationLanguage)} `;
-      const textText = ` ${text} `;
+      const textText = ` ${t(text)} `;
+
+      const translationtextWords = textText.split(' ');
+      const title = translationtextWords.slice(0, 3).join(' ');
+
+
       newPrompt = newPrompt
         .replace('[translationLanguage]', translationLanguageText)
         .replace('[text]', textText);
 
 
       setPrompt(newPrompt.trim());
+      setTitle(title);
     } else {
       // If not all selections are made, keep the prompt empty
       setPrompt('');
+      setTitle('');
+
     }
   }, [translationLanguage, text, t]);
 
@@ -173,19 +183,30 @@ export const Translator: FC = () => {
       </Box>
 
       {openAIResponse && (
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{mt: 3}}>
           <label>Your Translation:</label>
           <Button onClick={handleCopyText} title="Copy response text">
-            <FileCopyIcon />
+            <FileCopyIcon/>
           </Button>
-          <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+          <Paper elevation={3} ref={textRef}
+                 style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
             {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
-                {index < array.length - 1 ? <br /> : null}
+                {index < array.length - 1 ? <br/> : null}
               </React.Fragment>
             ))}
           </Paper>
+          <div style={{textAlign: 'center', paddingTop: '20px'}}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => saveDoc(openAIResponse, title, t(tokens.form.translations))}
+              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+            >
+              {t(tokens.form.saveText)}
+            </Button>
+          </div>
         </Box>
       )}
     </Box>

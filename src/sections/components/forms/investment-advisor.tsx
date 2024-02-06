@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
+import {saveDoc} from "../buttons/saveDoc";
 
 type Option = {
     label: string;
@@ -86,6 +87,7 @@ export const InvestmentAdvisor: FC = () => {
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [hasInvestmentGoals, setHasInvestmentGoals] = useState('');
   const [investmentGoals, setInvestmentGoals] = useState('');
+  const [title, setTitle] = useState<string>('');
   const [industryExperience, setIndustryExperience] = useState('');
     const [industry, setIndustry] = useState<string>('');
     const [why, setWhy] = useState<string>('');
@@ -103,37 +105,6 @@ export const InvestmentAdvisor: FC = () => {
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
-  useEffect(() => {
-    let newPrompt = t(tokens.form.investmentAdvicePrompts);
-
-    const investmentGoalsText = investmentGoals ? `${t(investmentGoals)} ` : '';
-    const whyText = why ? `${t(why)} ` : '';
-
-    const industryText = industry ? `${t(industry)} ` : '';
-    const industryExperienceText = industryExperience ? `${t(industryExperience)} ` : '';
-
-   const investmentExperienceText = investmentExperience ? `${t(investmentExperience)} ` : '';
-    const annualIncomeText = annualIncome ? `${t(annualIncome)} ` : '';
-
-    const timeText = time ? `${t(time)} ` : '';
-    const budgetText = budget ? `${t(budget)} ` : '';
-    const riskToleranceText = riskTolerance ? `${t(riskTolerance)} ` : '';
-
-    newPrompt = newPrompt
-      .replace('[investmentGoals]', investmentGoalsText)
-        .replace('[why]', whyText)
-      .replace('[industry]', industryText)
-      .replace('[industryExperience]', industryExperienceText)
-      .replace('[investmentGoals]', investmentGoalsText)
-      .replace('[investmentExperience]', investmentExperienceText)
-      .replace('[annualIncome]', annualIncomeText)
-
-      .replace('[time]', timeText)
-      .replace('[budget]', budgetText)
-      .replace('[riskTolerance]', riskToleranceText);
-
-    setPrompt(newPrompt.trim());
-  }, [investmentGoals, why,  industry, industryExperience,  investmentGoals, time, annualIncome, riskTolerance, budget, t]);
 
   const submitToOpenAI = () => {
     const maxTokens = 2000;
@@ -149,6 +120,56 @@ export const InvestmentAdvisor: FC = () => {
       console.error("Prompt is empty or not updated, cannot submit.");
     }
   };
+
+
+
+
+
+
+  useEffect(() => {
+    if (hasInvestmentGoals === 'yes' && investmentGoals && industry && industryExperience && investmentExperience && annualIncome && time && riskTolerance && budget) {
+    let newPrompt = t(tokens.form.investmentAdvicePrompts);
+
+    const investmentGoalsText = investmentGoals ? `${t(investmentGoals)} ` : '';
+    const whyText = why ? `${t(why)} ` : '';
+
+    const industryText = industry ? `${t(industry)} ` : '';
+    const industryExperienceText = industryExperience ? `${t(industryExperience)} ` : '';
+
+   const investmentExperienceText = investmentExperience ? `${t(investmentExperience)} ` : '';
+    const annualIncomeText = annualIncome ? `${t(annualIncome)} ` : '';
+
+    const timeText = time ? `${t(time)} ` : '';
+    const budgetText = budget ? `${t(budget)} ` : '';
+    const riskToleranceText = riskTolerance ? `${t(riskTolerance)} ` : '';
+
+
+
+    const goalsWords = investmentGoalsText.split(' ');
+    const title = goalsWords.slice(0, 3).join(' ');
+
+
+    newPrompt = newPrompt
+      .replace('[investmentGoals]', investmentGoalsText)
+        .replace('[why]', whyText)
+      .replace('[industry]', industryText)
+      .replace('[industryExperience]', industryExperienceText)
+      .replace('[investmentGoals]', investmentGoalsText)
+      .replace('[investmentExperience]', investmentExperienceText)
+      .replace('[annualIncome]', annualIncomeText)
+
+      .replace('[time]', timeText)
+      .replace('[budget]', budgetText)
+      .replace('[riskTolerance]', riskToleranceText);
+
+    setPrompt(newPrompt.trim());
+    setTitle(title);
+  } else{
+    // If not all selections are made, keep the prompt empty
+    setPrompt('');
+    setTitle('');
+  }
+  }, [investmentGoals, why,  industry, industryExperience,  investmentGoals, time, annualIncome, riskTolerance, budget, t]);
 
 
 
@@ -453,20 +474,31 @@ export const InvestmentAdvisor: FC = () => {
         </Box>
 
         {openAIResponse && (
-            <Box sx={{ mt: 3 }}>
-                <label>{t(tokens.form.yourInvestmentPlan)}</label>
-                <Button onClick={handleCopyText} title="Copy response text">
-                    <FileCopyIcon />
-                </Button>
-                <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
-                    {openAIResponse.split('\n').map((str, index, array) => (
-                        <React.Fragment key={index}>
-                            {str}
-                            {index < array.length - 1 ? <br /> : null}
-                        </React.Fragment>
-                    ))}
-                </Paper>
-            </Box>
+          <Box sx={{mt: 3}}>
+            <label>{t(tokens.form.yourInvestmentPlan)}</label>
+            <Button onClick={handleCopyText} title="Copy response text">
+              <FileCopyIcon/>
+            </Button>
+            <Paper elevation={3} ref={textRef}
+                   style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
+              {openAIResponse.split('\n').map((str, index, array) => (
+                <React.Fragment key={index}>
+                  {str}
+                  {index < array.length - 1 ? <br/> : null}
+                </React.Fragment>
+              ))}
+            </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.investments))}
+                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              >
+                {t(tokens.form.saveText)}
+              </Button>
+            </div>
+          </Box>
         )}
     </Box>
 
