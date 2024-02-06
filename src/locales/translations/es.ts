@@ -69,6 +69,8 @@ export const es = {
   [tokens.form.magicMirror]: 'Consulta al Espejo Mágico para encontrar el atuendo perfecto para cualquier evento. Selecciona tus preferencias de las opciones del menú y haz clic en "Submit".',
   [tokens.form.createInteriorDesign]: 'Para GPT4, NO te disculpes en la respuesta, crea lo que se solicita en las siguientes indicaciones y eso es todo, ya que dalle3 se encarga de la imagen. \n Crea un concepto detallado de diseño interior, utilizando la siguiente información:\n Tipo de propiedad: [propertyType] \n Habitación: [room], \n Estilo: [style] \n y el esquema de color: [colorTheme] \n.',
   [tokens.form.retail]: 'Venta al por menor',
+  [tokens.form.recipes]: 'Recetas',
+  [tokens.form.saveTextnImage]: 'Guardar Texto e Imagen',
   [tokens.form.hospitality]: 'Hospitalidad',
   [tokens.form.options]: 'Opciones',
   [tokens.form.tweets]: 'Tweets',

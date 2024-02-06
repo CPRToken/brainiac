@@ -187,7 +187,8 @@ headings: {
       SEOarticle: 'form.SEOarticle',
       lyricWriterAbout: 'form.lyricWriterAbout',
       todayIs: 'form.todayIs',
-
+      saveTextnImage: 'form.saveTextnImage',
+      recipes: 'form.recipes',
       scriptWriterAbout: 'form.scriptWriterAbout',
       recipeWriterAbout: 'form.recipeWriterAbout',
       imageAbout: 'form.imageAbout',

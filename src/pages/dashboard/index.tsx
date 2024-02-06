@@ -106,8 +106,8 @@ const Page: NextPage = () => {
 
       <Box
         sx={{
-          gap: 4,
-          paddingLeft: 2,
+          gap: 3,
+          paddingLeft: 0,
           display: 'grid',
           my: { xs: 8, md: 10 },
           gridTemplateColumns: {

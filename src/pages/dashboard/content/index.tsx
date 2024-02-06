@@ -111,7 +111,7 @@ const Page: NextPage = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          py: 8,
+          py: 2,
         }}
       >
         <Container maxWidth="xl">
@@ -150,8 +150,8 @@ const Page: NextPage = () => {
               borderRadius: 1,
               display: 'flex',
               justifyContent: 'space-between',
-              mb: 8,
-              mt: 4,
+              mb: 2,
+              mt: 2,
               px: 3,
               py: 2,
             }}
@@ -170,8 +170,8 @@ const Page: NextPage = () => {
               <Grid
                 key={post.title}
                 item
-                xs={12}
-                sm={6}
+                xs={6}
+                sm={4}
                 md={3} // Adjusted for a 4-column layout at medium breakpoint
                 lg={3} // Adjusted for a 5-column layout attempt; use 2 or 3 as exact 2.4 can't be used
                 xl={2} // Adjusted for a 6-column layout attempt; use 2 or 3 as exact 2.4 can't be used
