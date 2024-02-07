@@ -106,14 +106,18 @@ const Page: NextPage = () => {
 
       <Box
         sx={{
-          gap: 3,
-          paddingLeft: 0,
+          gap: { xs: 3, sm: 3, md: 2, lg: 1 }, // Adjusts gap size based on the screen width
+          paddingLeft: { xs: 1, sm: 1, md: 2, lg: 3 },
+          paddingRight: { xs: 1, sm: 1, md: 2, lg: 3 },
+          mt: { xs: 1, sm: 2, md: 2, lg: 3 }, // Responsive top margin
+          mb: { xs: 1, sm: 2, md: 2, lg: 3 }, // Responsive bottom margin
           display: 'grid',
-          my: { xs: 8, md: 10 },
+          my: { xs: 6, md: 12 },
           gridTemplateColumns: {
             xs: 'repeat(2, 1fr)',
-            sm: 'repeat(2, 1fr)',
+            sm: 'repeat(3, 1fr)',
             md: 'repeat(4, 1fr)',
+            lg: 'repeat(5, 1fr)',
           },
         }}
       >
@@ -183,6 +187,7 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
             borderRadius: '50%',
             alignItems: 'center',
             justifyContent: 'center',
+            p: { xs: 1, sm: 0 }, // Adds padding on xs screens, none on sm and above
           }}
         >
           <SvgColor
@@ -191,6 +196,7 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
             sx={{
               width: 50,
               height: 50,
+              mt: { xs: 1, sm: 0 }, // Adds padding on xs screens, none on sm and above
             }}
           />
         </Box>
@@ -199,7 +205,13 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
           {module.name}
         </Typography>
 
-        <Typography sx={{ ...typography.subtitle2, color: 'text.secondary', mt: 0, mb: 0, pl: 2, pr: 2 }}>
+        <Typography sx={{ ...typography.subtitle2,
+          color: 'text.secondary',
+          mt: { xs: 0, sm: 0 }, // Adds top margin on xs screens
+          mb: { xs: 1, sm: 0 }, // Adds bottom margin on xs screens
+          pl: { xs: 1, sm: 0 },
+          pr: { xs: 1, sm: 0 },
+        }}>
           {module.about}
         </Typography>
       </Stack>

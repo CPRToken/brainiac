@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
+import {saveDoc} from "../buttons/saveDoc";
 
 
 
@@ -27,8 +28,9 @@ type Option = {
 const languageOptions: Option[] = [
   { label: '', value: '' },
   { label: 'React Native', value: 'React Native' },
-
-
+   { label: 'ReactJS', value: 'ReactJS' },
+  { label: 'ReactJS with NextJS using Type Script', value: 'ReactJS with NextJS using Type Script' },
+  { label: 'Javascript', value: 'Javascript' },
 
   // ... add more as needed
 ];
@@ -43,22 +45,49 @@ export const CodeConverter: FC = () => {
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [language, setLanguage] = useState<string>('');
   const [code, setCode] = useState<string>('');
-
+  const [title, setTitle] = useState<string>('');
+  const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
-  const maxTokensForTrans = 3000;
+
+
+
 
   const submitToOpenAI = () => {
-    if (language && code) {
-      const newPrompt = `Translate the below code '${code}' into ${t(language)}, elements`;
-      handleSubmit(newPrompt, maxTokensForTrans)
+    const maxTokens = 3000;
+    if (prompt) {
+
+      handleSubmit(prompt, maxTokens)
         .then(() => {
           // Handle successful submission if needed
         })
         .catch(error => {
           console.error("Error submitting to OpenAI:", error);
         });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
     }
   };
+
+  useEffect(() => {
+if (language && code) {
+  let newPrompt = `Translate the below code '${code}' into ${t(language)}, elements`;
+
+  const codeText = code !== '' ? `${t(code)}` : '';
+  const languageText = language !== '' ? `${t(language)}` : '';
+
+  newPrompt = newPrompt
+    .replace( '[language]', languageText)
+    .replace( '[code]', codeText);
+
+  newPrompt = newPrompt.replace(/,+\s*$/, '');
+
+  setPrompt(newPrompt.trim());
+  setTitle(title); // Set the title based on the first 3 words
+} else {
+  setPrompt('');
+  setTitle('');
+}
+  }, [language, code]);
 
 
   return (
@@ -111,19 +140,30 @@ export const CodeConverter: FC = () => {
       </Box>
 
       {openAIResponse && (
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{mt: 3}}>
           <label>Your Translation:</label>
           <Button onClick={handleCopyText} title="Copy response code">
-            <FileCopyIcon />
+            <FileCopyIcon/>
           </Button>
-          <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+          <Paper elevation={3} ref={textRef}
+                 style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
             {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
-                {index < array.length - 1 ? <br /> : null}
+                {index < array.length - 1 ? <br/> : null}
               </React.Fragment>
             ))}
           </Paper>
+          <div style={{textAlign: 'center', paddingTop: '20px'}}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => saveDoc(openAIResponse, title, 'code')}
+              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+            >
+              {t(tokens.form.saveText)}
+            </Button>
+          </div>
         </Box>
       )}
     </Box>

@@ -55,18 +55,23 @@ export const PostCard: FC<PostCardProps> = (props) => {
         <Box sx={{ mb: 1 }}>
           <Chip label={category} />
         </Box>
-        <Link
-          color="text.primary"
-          component={RouterLink}
-          href={`/dashboard/content/${encodeURIComponent(title)}`}
-          variant="h6"
-        >
-          {title}
-        </Link>
+        <Box>
+          <Link
+            color="text.primary"
+            component={RouterLink}
+            href={`/dashboard/content/${encodeURIComponent(title)}`}
+            variant="h6"
+            sx={{ paddingX: 1 }} // Adds padding on the left and right
+          >
+            {title}
+          </Link>
+        </Box>
+
         <Typography
           color="text.secondary"
           sx={{
             mt: 1,
+            mb:0,
             ...typography.body2, // Adjust styling as necessary
           }}
           variant="body2"
