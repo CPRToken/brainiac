@@ -73,6 +73,8 @@ const renderTextWithLineBreaks = (text: string) => {
 
 
 
+
+
 const Page: NextPage = () => {
   const router = useRouter();
   const title = typeof router.query.title === 'string' ? router.query.title : '';
@@ -81,6 +83,17 @@ const Page: NextPage = () => {
   const post = usePost(title, uid);
   const { t } = useTranslation();
   const [user, setUser] = useState<Profile | null>(null);
+
+
+  const handlePrintContentOnly = () => {
+    const originalTitle: string = document.title; // Save the original title
+    document.title = `Content: ${title} | Brainiac Media`; // Dynamically update the title
+
+    window.print(); // Trigger the print dialogue
+
+    window.onafterprint = () => document.title = originalTitle; // Reset the title after printing
+  };
+
 
   useEffect(() => {
     if (!uid) return; // Exit if uid is null
@@ -95,12 +108,10 @@ const Page: NextPage = () => {
     };
 
     fetchUserData();
-  }, [uid]);
-
-  if (!post) {
-    return <div>Post not found</div>;
   }
-
+  , [uid]);
+  usePageView();
+  if (!post) return null; // Return early if post is null
 
 
   return (
@@ -155,18 +166,16 @@ const Page: NextPage = () => {
 
           <Stack spacing={3}>
 
+            <div id="printableContent">
 
-
-            <Typography color="text.primary" sx={{ ...typography.body1 }} variant="body1">
-              {post.htmlContent ? renderTextWithLineBreaks(t(post.htmlContent)) : t('defaultEducationKey')}
-            </Typography>
-            <IconButton
-              onClick={() => window.print()}
-              aria-label="print"
-              size="large" // Adjust the size as needed; "large" is an example
-            >
+              <Typography color="text.primary" sx={{...typography.body1}} variant="body1">
+                {post.htmlContent ? renderTextWithLineBreaks(t(post.htmlContent)) : t('defaultEducationKey')}
+              </Typography>
+            </div>
+            <IconButton onClick={handlePrintContentOnly} aria-label="print">
               <PrintIcon />
             </IconButton>
+
 
           </Stack>
         </Container>
