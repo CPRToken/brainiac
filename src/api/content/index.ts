@@ -1,7 +1,7 @@
 import type { Post } from 'src/types/content';
 
 import { auth, db } from 'src/libs/firebase';
-import { doc, getDoc, collection, where, getDocs, query, orderBy } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, collection, where, getDocs, query, orderBy } from 'firebase/firestore';
 
 
 type GetPostsRequest = object;
@@ -13,6 +13,13 @@ type GetPostRequest = object;
 type GetPostResponse = Promise<Post>;
 
 class ContentApi {
+
+
+  async updatePost(uid: string, postId: string, updatedContent: string): Promise<void> {
+    const postRef = doc(db, 'users', uid, 'content', postId);
+    await updateDoc(postRef, { htmlContent: updatedContent });
+  }
+
   async getPosts(uid: string): Promise<Post[]> {
     const postsCollectionRef = collection(db, 'users', uid, 'content');
     // If you want to order the posts by a specific field, for example, createdAt:

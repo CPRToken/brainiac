@@ -106,7 +106,7 @@ const Page: NextPage = () => {
 
       <Box
         sx={{
-          gap: { xs: 3, sm: 3, md: 2, lg: 1 }, // Adjusts gap size based on the screen width
+          gap: { xs: 3, sm: 3, md: 2, lg: 2 }, // Adjusts gap size based on the screen width
           paddingLeft: { xs: 1, sm: 1, md: 2, lg: 3 },
           paddingRight: { xs: 1, sm: 1, md: 2, lg: 3 },
           mt: { xs: 1, sm: 2, md: 2, lg: 3 }, // Responsive top margin
@@ -116,8 +116,8 @@ const Page: NextPage = () => {
           gridTemplateColumns: {
             xs: 'repeat(2, 1fr)',
             sm: 'repeat(3, 1fr)',
-            md: 'repeat(4, 1fr)',
-            lg: 'repeat(5, 1fr)',
+            md: 'repeat(3, 1fr)',
+            lg: 'repeat(4, 1fr)',
           },
         }}
       >

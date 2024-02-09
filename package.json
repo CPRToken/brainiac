@@ -5,7 +5,7 @@
   "homepage": "",
   "private": true,
   "scripts": {
-    "dev": "next --port 4000",
+    "dev": "next -H 0.0.0.0",
     "build": "next build",
     "start": "next start --port 4000",
     "export": "next export",

@@ -11,7 +11,8 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
+import useGPT4Submit from './gpt4-submit';
+import { saveDoc } from 'src/sections/components/buttons/saveDoc';
 
 type Option = {
     label: string;
@@ -37,7 +38,7 @@ export const BookSummariser: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [author, setAuthor] = useState<string>('');
   const [title, setTitle] = useState<string>('');
 
@@ -64,7 +65,7 @@ export const BookSummariser: FC = () => {
 
     useEffect(() => {
         // Check if 'author' and 'title' are not empty, regardless of 'length' value
-        if (author && title) {
+        if (author && title && length) {
             let newPrompt = t(tokens.form.bookSummary);
 
             const authorText = author.trim() !== '' ? `${t(author).trim()} ` : '';
@@ -78,13 +79,14 @@ export const BookSummariser: FC = () => {
                 .replace('[length]', lengthText);
 
             // Remove any trailing commas and spaces
-            newPrompt = newPrompt.replace(/,+\s*$/, '');
+
 
             setPrompt(newPrompt.trim());
         } else {
             setPrompt('');
         }
     }, [author, title, length, t]);
+
 
 
 
@@ -148,52 +150,53 @@ export const BookSummariser: FC = () => {
             onChange={(_, newValue) => setLength(newValue as number)}
           />
         </div>
-          <TextField
-              fullWidth
-              label={t(tokens.form.prompts)}
-              name="prompt"
-              value={prompt}
-              multiline
-              rows={4}
-          />
+
 
 
       </Stack>
           <Box sx={{ mt: 3 }}>
-              <Button
-                  onClick={() => handleSubmit(prompt, 1000)}
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  disabled={isLoading}  // Disable the button while loading
-              >
-                  {isLoading ? <CircularProgress size={24} /> : 'Submit'}
-              </Button>
+            <Button
+              onClick={() => handleSubmit(prompt, 2000)}
+              type="submit"
+              variant="contained"
+              fullWidth
+              disabled={isLoading}  // Disable the button while loading
+            >
+              {isLoading ? <CircularProgress size={24}/> : 'Submit'}
+            </Button>
           </Box>
 
-        <Box sx={{ mt: 3 }}>
-          {openAIResponse && (
-            <>
-              <label>Your Summary:</label>
-              <Button onClick={handleCopyText} title="Copy response text">
-                <FileCopyIcon />
+        {openAIResponse && (
+          <Box sx={{mt: 3}}>
+            <label>{t(tokens.form.yourBookSummary)}</label>
+            <Button onClick={handleCopyText} title="Copy response text">
+              <FileCopyIcon/>
               </Button>
-            </>
-          )}
-
-          <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
-            {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
-              index === array.length - 1 ? str : <>
-                {str}
-                <br />
-              </>
-            )}
-          </Paper>
-        </Box>
 
 
+
+            <Paper elevation={3} ref={textRef}
+                   style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
+              {openAIResponse.split('\n').map((str, index, array) => (
+                <React.Fragment key={index}>
+                  {str}
+                  {index < array.length - 1 ? <br/> : null}
+                </React.Fragment>
+              ))}
+            </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+              variant="contained"
+              color="primary"
+              onClick={() => saveDoc(openAIResponse, title, 'summaries')}
+              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+            >
+              {t(tokens.form.saveText)}
+              </Button>
+            </div>
+          </Box>
+        )}
       </Box>
-
-);
-};
+    );
+}
 

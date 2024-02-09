@@ -184,6 +184,9 @@ headings: {
     form: {
         title: 'form.title',
       ReactJS: 'form.ReactJS',
+      edit: 'form.edit',
+      delete: 'form.delete',
+      yourBookSummary: 'form.yourBookSummary',
       SEOarticle: 'form.SEOarticle',
       lyricWriterAbout: 'form.lyricWriterAbout',
       todayIs: 'form.todayIs',

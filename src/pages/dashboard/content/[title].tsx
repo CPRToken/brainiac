@@ -3,7 +3,8 @@ import type { NextPage } from 'next';
 import React from 'react';
 import Box from '@mui/material/Box';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
 import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
@@ -12,13 +13,18 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import {typography} from "src/theme/typography";;
 import { useRouter } from 'next/router';
+import PrintIcon from '@mui/icons-material/Print';
+import IconButton from '@mui/material/IconButton';
+
 import { BreadcrumbsSeparator } from 'src/components/breadcrumbs-separator';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
+import { useMounted } from 'src/hooks/use-mounted';
+import { usePageView } from 'src/hooks/use-page-view';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { paths } from 'src/paths';
 import type { Post } from 'src/types/content';
-import {auth } from "src/libs/firebase";
+import {auth, db } from "src/libs/firebase";
 import type {Profile} from "../../../types/social";
 import { contentApi } from 'src/api/content';
 import {socialApi} from "../../../api/social/socialApi";
@@ -143,15 +149,24 @@ const Page: NextPage = () => {
                 {post.category}
               </Typography>
             </Breadcrumbs>
+
+
           </Stack>
 
           <Stack spacing={3}>
-            {post.category && <Chip label={post.category} />}
+
 
 
             <Typography color="text.primary" sx={{ ...typography.body1 }} variant="body1">
               {post.htmlContent ? renderTextWithLineBreaks(t(post.htmlContent)) : t('defaultEducationKey')}
             </Typography>
+            <IconButton
+              onClick={() => window.print()}
+              aria-label="print"
+              size="large" // Adjust the size as needed; "large" is an example
+            >
+              <PrintIcon />
+            </IconButton>
 
           </Stack>
         </Container>

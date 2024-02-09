@@ -14,6 +14,7 @@ import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 import {socialApi} from "src/api/social/socialApi";
+
 import type { Profile } from 'src/types/social';
 import {auth, db } from "src/libs/firebase";
 import { contentApi } from 'src/api/content';
@@ -25,26 +26,33 @@ import { usePageView } from 'src/hooks/use-page-view';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import {useTranslation} from "react-i18next";
 import { paths } from 'src/paths';
-import { TextEditor } from 'src/sections/components/modals/text-editor';
+import { doc, deleteDoc } from 'firebase/firestore';
 import { PostCard } from 'src/sections/dashboard/content/post-card';
 import type { Post } from 'src/types/content';
 import {tokens} from "../../../locales/tokens";
 
-const usePosts = (): Post[] => {
+
+const usePosts = () => {
   const isMounted = useMounted();
   const [posts, setPosts] = useState<Post[]>([]);
   const uid = auth.currentUser?.uid;
 
-
-
+  const deletePost = async (postId: string) => {
+    if (!uid) return;
+    try {
+      await deleteDoc(doc(db, 'users', uid, 'content', postId));
+      setPosts(currentPosts => currentPosts.filter(post => post.id !== postId));
+    } catch (error) {
+      console.error('Error deleting post:', error);
+    }
+  };
 
 
   const handlePostsGet = useCallback(async () => {
-    if (!uid) return; // Exit if uid is null or undefined
+    if (!uid) return;
 
     try {
       const response = await contentApi.getPosts(uid);
-
       if (isMounted()) {
         setPosts(response);
       }
@@ -57,15 +65,16 @@ const usePosts = (): Post[] => {
     handlePostsGet();
   }, [handlePostsGet]);
 
-  return posts;
+  return { posts, deletePost }; // Return an object containing both posts and deletePost
 };
 
+
+
+
 const Page: NextPage = () => {
+  const { posts, deletePost } = usePosts();
   const [uid] = useState<string | null>(auth.currentUser ? auth.currentUser.uid : null);
-  const posts = usePosts();
-  const [user, setUser] = useState<Profile | null>(null);
-  const [isEditorOpen, setIsEditorOpen] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+    const [user, setUser] = useState<Profile | null>(null);
 
 
 
@@ -152,7 +161,7 @@ const Page: NextPage = () => {
               justifyContent: 'space-between',
               mb: 2,
               mt: 2,
-              px: 3,
+              px: 2,
               py: 2,
             }}
           >
@@ -165,13 +174,14 @@ const Page: NextPage = () => {
           <Grid
             container
             spacing={2}
+            justifyContent="center"
           >
             {posts.map((post) => (
               <Grid
                 key={post.title}
                 item
                 xs={6}
-                sm={4}
+                sm={3}
                 md={3} // Adjusted for a 4-column layout at medium breakpoint
                 lg={3} // Adjusted for a 5-column layout attempt; use 2 or 3 as exact 2.4 can't be used
                 xl={2} // Adjusted for a 6-column layout attempt; use 2 or 3 as exact 2.4 can't be used
@@ -179,14 +189,13 @@ const Page: NextPage = () => {
 
 
                 <PostCard
-                  key={post.id}
+                  id={post.id}
                   title={post.title}
                   category={post.category}
                   createdAt={post.createdAt}
                   content={post.content}
                   shortDescription={post.shortDescription}
-
-
+                  onDelete={() => deletePost(post.id)}
                   sx={{ height: '100%' }}
                 />
               </Grid>

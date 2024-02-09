@@ -379,7 +379,9 @@ export const es = {
   [tokens.form.dessertGeneratorAbout]: 'Endulza cualquier ocasión con ideas únicas de postres.',
   [tokens.form.bookSummariserAbout]: 'Obtén la esencia de cualquier libro con resúmenes concisos.',
   [tokens.form.fruitsNVegesAbout]: 'Descubre las mejores frutas y verduras para tu salud.',
-
+  [tokens.form.yourBookSummary]: 'Tu Resumen de Libro',
+  [tokens.form.edit]: 'Editar',
+  [tokens.form.delete]: 'Eliminar',
   [tokens.form.yourPhilosophy]: 'Tu Filosofía',
     [tokens.form.yourDream]: 'Describe tu sueño',
   [tokens.form.careerDev]: 'Desarrollo Profesional',

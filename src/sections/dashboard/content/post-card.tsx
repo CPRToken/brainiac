@@ -1,12 +1,16 @@
 import type { FC } from 'react';
+import { IconButton, Menu, MenuItem } from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import type { SxProps } from '@mui/system/styleFunctionSx';
-
+import { tokens } from 'src/locales/tokens';
+import { useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
+import { useRouter } from 'next/router';
 import Chip from '@mui/material/Chip';
 import Link from '@mui/material/Link';
 
@@ -19,6 +23,7 @@ import { RouterLink } from 'src/components/router-link';
 
 
 interface PostCardProps {
+  id: string;
   title: string;
   category: string;
   content?: string;
@@ -26,7 +31,7 @@ interface PostCardProps {
   htmlContent?: string;
    shortDescription: string;
    onClick?: () => void;
-
+  onDelete: () => void; // Add this line
 
   sx?: SxProps;
 
@@ -34,24 +39,64 @@ interface PostCardProps {
 
 export const PostCard: FC<PostCardProps> = (props) => {
   const {
+    id,
     title,
     category,
     content,
     htmlContent,
     createdAt,
     shortDescription,
-
+    onDelete,
 
     ...other
   } = props;
 
-  const formattedPublishedAt = Number.isFinite(createdAt) // Check if createdAt is a finite number
-    ? format(new Date(createdAt), 'MMM dd, yyyy')
-    : 'Invalid date';
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const { t } = useTranslation();
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const router = useRouter();
+  const handleEdit = () => {
+    router.push(`/dashboard/content/${encodeURIComponent(title)}`);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-    <Card {...other}>
+    <Card {...other} sx={{ position: 'relative', ...other.sx }}>
+      <IconButton
+        aria-label="more"
+        aria-controls="post-card-menu"
+        aria-haspopup="true"
+        onClick={handleClick}
+        sx={{ position: 'absolute', right: 8, top: 8, zIndex: 1 }}
+      >
+        <MoreVertIcon />
+      </IconButton>
+      <Menu
+        id="post-card-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={open}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleEdit} sx={{ fontSize: '0.800rem' }}>
+          {t(tokens.form.edit)}
+        </MenuItem>
+
+        <MenuItem onClick={() => { handleClose(); onDelete(); }} sx={{ fontSize: '0.800rem' }}>
+          {t(tokens.form.delete)} {/* Now correctly calls the onDelete prop */}
+        </MenuItem>
+
+      </Menu>
       <CardContent>
+
+
+
         <Box sx={{ mb: 1 }}>
           <Chip label={category} />
         </Box>

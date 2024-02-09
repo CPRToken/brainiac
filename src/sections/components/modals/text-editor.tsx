@@ -1,7 +1,7 @@
-import type { FC } from 'react';
-import Attachment01Icon from '@untitled-ui/icons-react/build/esm/Attachment01';
+import { FC, useState, useEffect } from 'react';
+
 import Expand01Icon from '@untitled-ui/icons-react/build/esm/Expand01';
-import Image01Icon from '@untitled-ui/icons-react/build/esm/Image01';
+
 import XIcon from '@untitled-ui/icons-react/build/esm/X';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,18 +11,25 @@ import Input from '@mui/material/Input';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
-import Tooltip from '@mui/material/Tooltip';
+
 import Typography from '@mui/material/Typography';
 
 import { QuillEditor } from 'src/components/quill-editor';
 
 interface TextEditorProps {
   content: string; // Add more props as needed
+  onSave: (updatedContent: string) => void;
   onClose: () => void; // Assuming you implement a way to close the editor
 }
 
 
-export const TextEditor: FC<TextEditorProps> = ({ content, onClose }) => {
+export const TextEditor: FC<TextEditorProps> = ({ content,onSave,  onClose }) => {
+  const [editorContent, setEditorContent] = useState(content);
+
+  const handleContentChange = (content: string) => {
+    setEditorContent(content);
+  };
+
 
   return (
   <Box
@@ -44,6 +51,29 @@ export const TextEditor: FC<TextEditorProps> = ({ content, onClose }) => {
         width: 700,
       }}
     >
+      <Box>
+      <QuillEditor
+        value={editorContent}
+        onChange={handleContentChange} // Adjust based on QuillEditor's props
+        placeholder="Your Content"
+        sx={{
+          border: 'none',
+          flexGrow: 1,
+        }}
+      />
+      <Divider />
+        <Stack
+          alignItems="center"
+          direction="row"
+          justifyContent="space-between"
+          spacing={3}
+          sx={{ p: 2 }}
+        >
+          <Button variant="contained" onClick={() => onSave(editorContent)}>Save Edit</Button>
+          {/* Add a button for closing the editor, if not already present */}
+          <Button variant="contained" onClick={onClose}>Close</Button>
+        </Stack>
+      </Box>
       <Stack
         alignItems="center"
         direction="row"

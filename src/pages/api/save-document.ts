@@ -17,8 +17,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const db = admin.firestore();
-    const documentId = title.replace(/\s/g, "_");
-    const docRef = db.collection('users').doc(uid).collection('content').doc(documentId);
+
+
+    const docRef = db.collection('users').doc(uid).collection('content').doc(title);
 
     await docRef.set({
       title,

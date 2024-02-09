@@ -72,7 +72,7 @@ const Page: NextPage = () => {
             >
               <Stack
                 spacing={{
-                  xs: 3,
+                  xs: 4,
                   lg: 4,
                 }}
               >
@@ -86,8 +86,10 @@ const Page: NextPage = () => {
               md={3} // Changed from 4 to 3 for skinnier My Content
               sx={{ paddingLeft: 2 }}
             >
-              <Hidden smDown> {/* Hide on small screens and down */}
-                <MyContent />
+              <Hidden smDown>
+                <div style={{ position: 'fixed', top: 100, right: 2, width: '250px', padding: '20px' }}>
+                  <MyContent />
+                </div>
               </Hidden>
             </Grid>
           </Grid>
