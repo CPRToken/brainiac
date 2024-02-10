@@ -14,6 +14,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import TextImageSubmit from "./textimage-submit";
 import React from 'react';
 import {auth} from "../../../libs/firebase";
+import { handleSaveImage } from 'src/sections/components/buttons/saveImage';
+import {saveDoc} from "../buttons/saveDoc";
+
 
 type Option = {
   label: string;
@@ -128,6 +131,7 @@ export const CocktailCrafter: FC = () => {
   const [mixer, setMixer] = useState<string>('');
   const [garnish, setGarnish] = useState<string>('');
   const [sweetness, setSweetness] = useState<number>(2);
+  const [title, setTitle] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
   const { t } = useTranslation();
@@ -159,6 +163,11 @@ export const CocktailCrafter: FC = () => {
       const garnishText = garnish ? ` ${t(garnish)} ` : ''; // Include garnish text only if filled
       const sweetnessText = ` ${t(sweetnessLevels[sweetness])} `;
 
+   const alcoholWords = alcoholText.split(' ');
+   const cocktailWords = cocktailText.split(' ');
+
+   const title = alcoholWords.slice(0, 2).concat(cocktailWords.slice(0, 2)).join(' ');
+
       newPrompt = newPrompt
         .replace('[alcohol]', alcoholText)
         .replace('[cocktail]', cocktailText)
@@ -166,42 +175,14 @@ export const CocktailCrafter: FC = () => {
         .replace('[garnish]', garnishText)
         .replace('[sweetness]', sweetnessText);
 
-      setPrompt(newPrompt.trim());
-    } else {
-      setPrompt('');
-    }
+   setPrompt(newPrompt.trim());
+   setTitle(title);
+ } else {
+   setPrompt('');
+   setTitle('');
+ }
   }, [alcohol, cocktail, mixer, garnish, sweetness, t]);
 
-
-  const handleSaveStoryAndImage = (text: string, imageUrl: string, index: number) => {
-    const user = auth.currentUser;
-    const uid = user ? user.uid : null;
-
-    if (uid === null) {
-      alert('User is not authenticated');
-      return;
-    }
-
-    // Send a POST request to your server with the text, image URL, and UID
-    fetch('/api/upload-recipe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ story: text, imageUrl: imageUrl, uid }),
-    })
-        .then(response => response.json())
-        .then(data => {
-          if (data.url) {
-            console.log(`Story and image saved. Image URL: ${data.url}`);
-          } else {
-            console.error('Failed to save story and image:', data.error);
-          }
-        })
-        .catch(error => {
-          console.error('Error saving story and image:', error);
-        });
-  };
 
 
 
@@ -315,51 +296,57 @@ export const CocktailCrafter: FC = () => {
 
       <Box sx={{ mt: 3 }}>
         {textResponse && (
-          <Box sx={{ mt: 3 }}>
+          <Box sx={{mt: 3}}>
             <label>{t(tokens.headings.yourRecipe)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
-              <FileCopyIcon />
+              <FileCopyIcon/>
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef}
+                   style={{padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5'}}>
               {textResponse.split('\n').map((str, index, array) => (
-                  <React.Fragment key={index}>
-                    {str}
-                    {index < array.length - 1 && <br />}
-                  </React.Fragment>
+                <React.Fragment key={index}>
+                  {str}
+                  {index < array.length - 1 && <br/>}
+                </React.Fragment>
               ))}
             </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => saveDoc(textResponse, title, t(tokens.form.cocktails))}
+                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              >
+                {t(tokens.form.saveText)}
+              </Button>
+            </div>
           </Box>
         )}
 
         {/* Display the images */}
         {images && (
-            <Box sx={{ mt: 3 }}>
-              {images.map((image, index) => (
-                  <Box key={index} sx={{ mt: 2 }}>
-                    <img src={image} alt={`Generated Art ${index + 1}`} style={{ width: '100%', marginBottom: '10px' }} />
+          <Box sx={{mt: 3}}>
+            {images.map((image, index) => (
+              <Box key={index}
+                   sx={{marginBottom: '20px'}}> {/* Ensure each image and button pair is contained */}
+                <img src={image} alt={`Generated Image ${index}`}
+                     style={{maxWidth: '100%', height: 'auto'}}/>
+                <div style={{textAlign: 'center', paddingTop: '20px' }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleSaveImage(image, index)} // Assuming handleSaveImage is correctly implemented to handle saving
+                  >
+                    {t(tokens.form.saveImage)}
+                  </Button>
+                </div>
+              </Box>
+            ))}
+          </Box>
 
-                    {/* Button for saving story and image */}
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                          if (textResponse !== null) {
-                            handleSaveStoryAndImage(textResponse, image, index);
-                          } else {
-                            // Handle the case where textResponse is null
-                            // For example, display an alert or pass an empty string
-                            console.log("No story to save");
-                          }
-                        }}
-                    >
-                      {t(tokens.form.saveStoryAndImage)}
-                    </Button>
-                  </Box>
-              ))}
-            </Box>
+
         )}
       </Box>
     </Box>
   );
 }
-

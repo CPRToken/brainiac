@@ -309,7 +309,7 @@ export const LyricWriter: FC = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => saveDoc(openAIResponse, title, 'lyrics' )}
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.lyrics))}
                 style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
               >
                 {t(tokens.form.saveText)}

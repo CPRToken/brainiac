@@ -12,6 +12,7 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
+import {saveDoc} from "../buttons/saveDoc";
 
 
 type Option = {
@@ -111,6 +112,7 @@ export const PoemGenerator: FC = () => {
   const [mood, setMood] = useState<string>('');
   const [duration, setDuration] = useState<number>(100);
   const [prompt, setPrompt] = useState<string>('');
+ const [title, setTitle] = useState<string>('');
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
@@ -130,16 +132,24 @@ export const PoemGenerator: FC = () => {
     }
   };
 
+
+
+
+
   useEffect(() => {
 
     // Check if all selections are made
-    if (genre && style && mood && duration) {
+    if (genre && style && mood && title && duration) {
+
+
+
       let newPrompt = t(tokens.form.writePoem);
 
     const poetText  = ` ${t(poet)} `;
     const genreText = ` ${t(genre)} `;
     const styleText = ` ${t(style)} `;
     const moodText  = ` ${t(mood)} `;
+    const titleText = ` ${title} `;
     const durationText = ` ${duration} `;
 
 
@@ -150,7 +160,8 @@ export const PoemGenerator: FC = () => {
          .replace('[genre]',genreText)
           .replace('[style]',styleText)
             .replace('[mood]',moodText)
-              .replace('[duration]',durationText);
+              .replace('[title]',titleText)
+                .replace('[duration]',durationText);
 
 
 
@@ -159,7 +170,7 @@ export const PoemGenerator: FC = () => {
       // If not all selections are made, keep the prompt empty
       setPrompt('');
     }
-  }, [poet,  genre, style, mood, duration, t]);
+  }, [poet, title, genre, style, mood, duration, t]);
 
 
 
@@ -171,6 +182,16 @@ export const PoemGenerator: FC = () => {
       <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
 
       <Stack spacing={3}>
+        <TextField
+          fullWidth
+          label={t(tokens.form.poemTitle)}
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          multiline
+          rows={1}
+        >
+        </TextField>
         <TextField
           fullWidth
           label={t(tokens.form.poet)}
@@ -262,19 +283,30 @@ export const PoemGenerator: FC = () => {
         </Box>
 
         {openAIResponse && (
-          <Box sx={{ mt: 3 }}>
+          <Box sx={{mt: 3}}>
             <label>{t(tokens.form.yourPoem)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
-              <FileCopyIcon />
+              <FileCopyIcon/>
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef}
+                   style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
               {openAIResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
-                  {index < array.length - 1 ? <br /> : null}
+                  {index < array.length - 1 ? <br/> : null}
                 </React.Fragment>
               ))}
             </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.Poems))}
+                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              >
+                {t(tokens.form.saveText)}
+              </Button>
+            </div>
           </Box>
         )}
       </Box>

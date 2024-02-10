@@ -14,6 +14,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import TextImageSubmit from "./textimage-submit";
 import React from 'react';
 import Typography from "@mui/material/Typography";
+import { handleSaveImage } from 'src/sections/components/buttons/saveImage';
+import {saveDoc} from "../buttons/saveDoc";
+
 
 type Option = {
   label: string;
@@ -138,6 +141,7 @@ export const MagicMirror: FC = () => {
   const [gender, setGender] = useState<string>('');
   const [age, setAge] = useState<string>('');
   const [era, setEra] = useState<number>(2);
+ const [title, setTitle] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
   const { t } = useTranslation();
@@ -159,16 +163,30 @@ export const MagicMirror: FC = () => {
     if (occasion && style && gender && age && era !== null) {
       let newPrompt = t(tokens.form.createFashion);
 
-      // Replace placeholders with translated values
-      newPrompt = newPrompt.replace('[occasion]', t(occasion.replace(/\s/g, ''))); // Assuming 'birthday Party' should be 'birthdayParty'
-      newPrompt = newPrompt.replace('[style]', t(style.replace(/\s/g, ''))); // Assuming 'smart casual' should be 'smartcasual'
-      newPrompt = newPrompt.replace('[gender]', t(gender));
-      newPrompt = newPrompt.replace('[age]', age); // 'age' is just a number and doesn't require translation
-      newPrompt = newPrompt.replace('[era]', t(eraLevels[era].replace(/\s/g, ''))); // Assuming '2000s' should match a key in the translations
+      const occasionText = ` ${t(occasion)} `;
+      const styleText = ` ${t(style)} `;
+   const genderText  = ` ${t(gender)} `;
+    const ageText = ` ${age} `;
+    const eraText = ` ${t(eraLevels[era])} `;
 
-      setPrompt(newPrompt);
+      const occasionWords = occasionText.split(' ');
+      const styleWords = styleText.split(' ');
+
+      const title = occasionWords.slice(0, 2).concat(styleWords.slice(0, 2)).join(' ');
+
+      newPrompt = newPrompt
+        .replace('{occasion}', occasionText)
+        .replace('{style}', styleText)
+        .replace('{gender}', genderText)
+        .replace('{age}', ageText)
+        .replace('{era}', eraText);
+
+
+      setPrompt(newPrompt.trim());
+      setTitle(title);
     } else {
       setPrompt('');
+      setTitle('');
     }
   }, [occasion, style, gender, age, era, t]);
 
@@ -187,7 +205,7 @@ export const MagicMirror: FC = () => {
         <Stack direction="row" spacing={2}>
           <TextField
             label={t(tokens.form.occasion)}
-            name="artist"
+            name="ocassion"
             select
             SelectProps={{ native: true }}
             value={occasion}
@@ -270,7 +288,7 @@ export const MagicMirror: FC = () => {
                       { value: 4, label: '2020s' }
                   ]}
                   onChange={(_, newValue) => setEra(newValue as number)}
-                  sx={{ width: '93%' }}
+                  sx={{ width: '95%' }}
               />
           </div>
 
@@ -279,7 +297,7 @@ export const MagicMirror: FC = () => {
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
-          onClick={() => combinedSubmit(prompt, 700)}
+          onClick={() => combinedSubmit(prompt, 1500)}
           type="submit"
           variant="contained"
           fullWidth
@@ -291,19 +309,30 @@ export const MagicMirror: FC = () => {
 
       <Box sx={{ mt: 3 }}>
         {textResponse && (
-          <Box sx={{ mt: 3 }}>
+          <Box sx={{mt: 3}}>
             <label>{t(tokens.form.yourOutFit)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
-              <FileCopyIcon />
+              <FileCopyIcon/>
             </Button>
-            <Paper elevation={3} ref={textRef} style={{ padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+            <Paper elevation={3} ref={textRef}
+                   style={{padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5'}}>
               {textResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
-                  {index < array.length - 1 && <br />}
+                  {index < array.length - 1 && <br/>}
                 </React.Fragment>
               ))}
             </Paper>
+            <div style={{textAlign: 'center', paddingTop: '20px'}}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => saveDoc(textResponse, title, t(tokens.form.attire))}
+                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              >
+                {t(tokens.form.saveText)}
+              </Button>
+            </div>
           </Box>
         )}
 
@@ -311,12 +340,24 @@ export const MagicMirror: FC = () => {
         {images && (
           <Box sx={{ mt: 3 }}>
             {images.map((image, index) => (
-              <img key={index} src={image} alt={`Generated Image ${index}`} style={{ maxWidth: '100%', height: 'auto' }} />
+              <Box key={index} sx={{ marginBottom: '20px' }}> {/* Ensure each image and button pair is contained */}
+                <img src={image} alt={`Generated Image ${index}`} style={{ maxWidth: '100%', height: 'auto' }} />
+                <div style={{ textAlign: 'center', paddingTop: '20px' }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleSaveImage(image, index)} // Assuming handleSaveImage is correctly implemented to handle saving
+                  >
+                    {t(tokens.form.saveImage)}
+                  </Button>
+                </div>
+              </Box>
             ))}
           </Box>
+
+
         )}
       </Box>
     </Box>
-  );
+    );
 }
-

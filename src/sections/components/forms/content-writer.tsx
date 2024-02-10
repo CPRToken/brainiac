@@ -13,6 +13,7 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
+import {saveDoc} from "../buttons/saveDoc";
 
 
 
@@ -358,19 +359,30 @@ export const ContentWriter: FC = () => {
 
 
       {openAIResponse && (
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{mt: 3}}>
           <label>{t(tokens.form.yourContent)}</label>
           <Button onClick={handleCopyText} title="Copy response text">
-            <FileCopyIcon />
+            <FileCopyIcon/>
           </Button>
-          <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+          <Paper elevation={3} ref={textRef}
+                 style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
             {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
-                {index < array.length - 1 ? <br /> : null}
+                {index < array.length - 1 ? <br/> : null}
               </React.Fragment>
             ))}
           </Paper>
+          <div style={{textAlign: 'center', paddingTop: '20px'}}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => saveDoc(openAIResponse, title, t(tokens.form.articles))}
+              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+            >
+              {t(tokens.form.saveText)}
+            </Button>
+          </div>
         </Box>
       )}
     </Box>

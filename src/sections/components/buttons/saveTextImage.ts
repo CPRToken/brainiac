@@ -1,15 +1,12 @@
-import { auth } from 'src/libs/firebase';
+import { auth } from 'src/libs/firebase'; // Auth import for user details
 
-// Function to save the HTML docs
-
-const generateHtmlContent = (text: string, imageUrl: string[]): string => {
-  const imageHtml = imageUrl.map(url => `<img src="${url}" alt="Embedded Image" style="max-width: 100%; display: block; margin-bottom: 20px;">`).join('');
-  return `<div>${text}</div><div>${imageHtml}</div>`;
-};
+// Function to upload image to Firebase Storage
 
 
 
-export const saveTextImage = (textResponse: string, title: string, category: string, image: string[]) => {
+
+// Adjusted saveTextImage function
+export const saveTextImage = async (textResponse: string, title: string, category: string, imageURL: string) => {
   const user = auth.currentUser;
   const uid = user ? user.uid : null;
 
@@ -18,40 +15,30 @@ export const saveTextImage = (textResponse: string, title: string, category: str
     return;
   }
 
-  // Generate HTML content with embedded images
-  const htmlContent = generateHtmlContent(textResponse, image);
-
-  // Generate short description from textContent, not the HTML content
-  const createShortDescription = (text: string): string => {
-    return text.length > 100 ? `${text.substring(0, 100)}...` : text;
-  };
-
-  const shortDescription = createShortDescription(textResponse);
-
-  // API call to save the document with HTML content
+  // Assuming `images` is an array of URLs
   fetch('/api/save-docimage', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      content: htmlContent, // Use the generated HTML content here
-      title: title,
-      uid: uid,
-      category: category,
-      image: image,
-      shortDescription: shortDescription,
+      content: textResponse,
+      title,
+      category,
+      shortDescription: textResponse.substring(0, 100),
+      uid,
+      imageURL, // Directly use the images array
     }),
   })
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        console.log('Document saved successfully', data.message);
+        console.log('Document and images saved successfully', data.message);
       } else {
-        console.error('Failed to save document:', data.error);
+        console.error('Failed to save document and images:', data.error);
       }
     })
     .catch(error => {
-      console.error('Error saving document:', error);
+      console.error('Error saving document and images:', error);
     });
 };
