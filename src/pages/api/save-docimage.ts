@@ -1,6 +1,7 @@
 // src/pages/api/save-docimage.ts
 import type { NextApiRequest, NextApiResponse } from 'next/types';
 import admin from 'src/libs/firebaseAdmin';
+import fetch from 'node-fetch';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -8,39 +9,46 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).end('Method Not Allowed');
   }
 
-  const { content: htmlContent, uid, title, category, images, shortDescription } = req.body;
+  const { content: htmlContent, uid, title, category, shortDescription, image } = req.body;
 
-  if (!uid || !htmlContent || !title || !shortDescription || !images) {
+  // Validate required fields
+  if (!uid || !htmlContent || !title || !shortDescription || !image) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
   try {
-    const db = admin.firestore();
-    const storage = admin.storage();
-    const documentId = title.replace(/\s/g, "_");
-    const docRef = db.collection('users').doc(uid).collection('content').doc(documentId);
+    // Fetch the image from the imageUrl provided in the request
+    const response = await fetch(image);
+    if (!response.ok) throw new Error('Failed to fetch image');
 
-    // Upload images and get their URLs
-    const imageUploadPromises = images.map(async (image: string, index: number) => {
-      const imageBuffer = Buffer.from(image, 'base64');
-      const imageRef = storage.bucket().file(`content/${uid}/${documentId}/image_${index}`);
-      await imageRef.save(imageBuffer, {
-        metadata: { contentType: 'image/jpeg' }, // Adjust based on actual image type
-      });
-      const [url] = await imageRef.getSignedUrl({ action: 'read', expires: '03-01-2500' });
-      return url; // Return the URL for each image
+    const buffer = await response.buffer();
+    const storage = admin.storage();
+    const bucket = storage.bucket();
+
+    // Generate a unique file name for the image
+    const sanitizedTitle = sanitizeTitleForFilename(title);
+    const fileName = `${sanitizedTitle}.png`;
+
+
+    // Save the image to Firebase Storage
+    const file = bucket.file(`${uid}/images/${fileName}`); // Ensuring path includes uid and images directory
+    await file.save(buffer, {
+      metadata: { contentType: 'image/png' },
     });
 
-    const imageUrl = await Promise.all(imageUploadPromises);
+    // Obtain the public URL or reference path of the uploaded image
+    const imagePath = `/${sanitizedTitle}.png`; // For example, use the file path as the reference
 
-    // Save document with image URLs in Firestore
+    // Save the post content along with the image reference to Firestore
+    const db = admin.firestore();
+    const docRef = db.collection('users').doc(uid).collection('content').doc(title.replace(/\s/g, "_"));
     await docRef.set({
       title,
       htmlContent,
       category,
       shortDescription,
-      images: [imageUrl], // Save as an array if your structure expects it
-      // ...rest of your document fields
+      image: imagePath, // Save the Firebase Storage path as the image reference
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
     res.status(200).json({ message: 'Document with image saved successfully', id: docRef.id });
@@ -49,3 +57,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(500).json({ error: 'Failed to save document with image' });
   }
 }
+
+function sanitizeTitleForFilename(title: string): string {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+

@@ -196,7 +196,7 @@ export const ImageGenerator: FC = () => {
 
 
   useEffect(() => {
-    if (artist && style && theme && object && extra) {
+    if (artist && style && theme && object ) {
       const artistText = artist !== '' ? `${t(artist)} ` : '';
       const styleText = style !== '' ? `${t(style)} ` : '';
       const themeText = theme !== '' ? `${t(theme)} ` : '';

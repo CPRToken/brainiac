@@ -11,6 +11,8 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { tokens } from "../../../locales/tokens";
 import CircularProgress from '@mui/material/CircularProgress';
 import TextImageSubmit from "./textimage-submit";
+import {saveTextImage } from "../buttons/saveTextImage";
+
 
 import Typography from "@mui/material/Typography";
 
@@ -121,7 +123,7 @@ export const InteriorDesigner: FC = () => {
     const [room , setRoom] = useState<string>('');
   const [style, setStyle] = useState<string>('');
   const [colorTheme, setColorTheme] = useState<string>('');
-
+  const [title, setTitle] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
   const { textRef, handleCopyText } = ResponseText();
   const { t } = useTranslation();
@@ -140,17 +142,31 @@ export const InteriorDesigner: FC = () => {
       let newPrompt = t(tokens.form.createInteriorDesign);
 
 
-
-      newPrompt = newPrompt.replace('[propertyType]', t(propertyType.replace(/\s/g,'')));
-      newPrompt = newPrompt.replace('[room]', t(room.replace(/\s/g,'')));
-      newPrompt = newPrompt.replace('[colorTheme]', t(colorTheme.replace(/\s/g,'')));
-      newPrompt = newPrompt.replace('[style]', t(style.replace(/\s/g,'')));
-
+      const propertyTypeText = ` ${t(propertyType)} `;
+      const roomText = ` ${t(room)} `;
+      const colorThemeText = ` ${t(colorTheme)} `;
+      const styleText = ` ${t(style)} `;
 
 
-      setPrompt(newPrompt);
+      const propertyTypeWords = propertyTypeText.split(' ');
+      const colorThemeWords = colorThemeText.split(' ');
+
+      const title = propertyTypeWords.slice(0, 2).concat(colorThemeWords.slice(0, 2)).join(' ');
+
+
+      newPrompt = newPrompt
+      .replace('[propertyType]', propertyTypeText)
+      .replace('[room]', roomText)
+      .replace('[colorTheme]', colorThemeText)
+      .replace('[style]', styleText);
+
+
+
+      setPrompt(newPrompt.trim());
+      setTitle(title);
     } else {
       setPrompt('');
+      setTitle('');
     }
   }, [propertyType, room, colorTheme, style, t ]);
 
@@ -275,13 +291,41 @@ export const InteriorDesigner: FC = () => {
                 {/* Display the images */}
                 {images && (
                     <Box sx={{ mt: 3 }}>
-                        {images.map((image, index) => (
-                            <img key={index} src={image} alt={`Generated Image ${index}`} style={{ maxWidth: '100%', height: 'auto' }} />
-                        ))}
+                      {images.map((image, index) => (
+                        <Box key={index}
+                             sx={{marginBottom: '20px'}}> {/* Ensure each image and button pair is contained */}
+                          <img src={image} alt={`Generated Image ${index}`}
+                               style={{maxWidth: '100%', height: 'auto'}}/>
+                          <div style={{textAlign: 'center', paddingTop: '20px'}}>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={() => {
+                                if (textResponse !== null) { // Ensure textResponse is not null
+                                  saveTextImage(textResponse, title, t(tokens.form.interiorDesigns), image)
+                                    .then(() => {
+                                      console.log("Text and image saved successfully.");
+                                    })
+                                    .catch((error) => {
+                                      console.error("Failed to save text and image:", error);
+                                    });
+                                } else {
+                                  console.log("textResponse is null.");
+                                }
+                              }}
+                              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+                            >
+                              {t(tokens.form.savePost)}
+                            </Button>
+                          </div>
+                        </Box>
+                      ))}
                     </Box>
+
+
                 )}
             </Box>
     </Box>
-);
+    );
 }
 

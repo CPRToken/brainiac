@@ -5,16 +5,15 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { Seo } from 'src/components/seo';
 import { ImageViewer } from "../../../sections/components/modals/modal-image";
-import { ImagesUploader } from '../../../sections/dashboard/images/images-uploader';
 import { ThumbnailCard } from '../../../sections/dashboard/images/thumbnail-card';
 import {auth, db, storage} from 'src/libs/firebase';
 import { ref, getDownloadURL, listAll } from "firebase/storage";
 import { Layout as DashboardLayout } from "../../../layouts/dashboard";
+import Divider from '@mui/material/Divider';
 import { Grid, Box } from '@mui/material';
 import { useSettings } from "../../../hooks/use-settings";
 import { ItemList } from 'src/sections/dashboard/file-manager/item-list';
 import { useDialog } from "../../../hooks/use-dialog";
-import { MyImages } from "../../../sections/dashboard/file-manager/my-images";
 import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
 import {Item} from "../../../types/file-manager";
@@ -230,103 +229,65 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Dashboard: Images" />
+      <Seo title={t(tokens.headings.myImages)} />
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          py: 8,
+          py: 2, // Adjusted padding for consistency
         }}
       >
-        <Container maxWidth={settings.stretch ? false : 'xl'}>
-          <Grid container
-                spacing={2}>
-
-          <Grid item
-                  xs={12}>
-
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                spacing={4}
-              >
-                <div>
-                  <Typography variant="h4">{t(tokens.headings.myImages)}</Typography>
-                </div>
-                <Stack
-                  alignItems="center"
-                  direction="row"
-                  spacing={2}
-                >
-
-                </Stack>
-              </Stack>
-            </Grid>
-              {/* Grid item for ItemSearch */}
-              <Grid item xs={12}>
-
-              </Grid>
-
-
-
-              <Grid item xs={12} md={9} sx={{ flexGrow: 1 }}> {/* Adjusted for thumbnail area */}
-              <Grid container spacing={1} justifyContent="center">
-                {imageUrls.map((imageObj, index) => (
-                  // For xs (extra-small) screens, use 3 columns (4 thumbnails per row)
-                  // For md (medium) and larger screens, use 2 columns (6 thumbnails per row)
-                  <Grid item key={index} xs={3} md={2} style={{ flexGrow: 1 }}>
-                    <ThumbnailCard
-                      item={{
-                        id: index.toString(),
-                        uid: uid,
-                        size: 0,
-                        type: 'file',
-                        isFavorite: false,
-                        name: imageObj.name // Use name from imageObj
-                      }}
-                      imageUrls={imageObj.url} // Use url from imageObj
-                      onDelete={() => console.log("Delete")}
-                      onFavorite={() => console.log("Favorite")}
-                      onOpen={() => handleClickOpen(imageObj.url)} // Use url from imageObj
-                    />
-                  </Grid>
-
-                ))}
-              </Grid>
-                  <ItemList
-                      count={itemsStore.itemsCount}
-
-
-
-                      onFavorite={itemsStore.handleFavorite}
-
-                      onPageChange={itemsSearch.handlePageChange}
-                      onRowsPerPageChange={itemsSearch.handleRowsPerPageChange}
-                      page={itemsSearch.state.page}
-                      rowsPerPage={itemsSearch.state.rowsPerPage}
-                      view={view}
-                  />
-
-              {/* ImageViewer block */}
-              {open && selectedImage && (
-                <ImageViewer
-                  imageUrl={selectedImage}
-                  onClose={handleClose}
+        <Container maxWidth="xl"> {/* Standardized maxWidth */}
+          <Stack spacing={1}>
+            <Typography variant="h3">{t(tokens.headings.myImages)}</Typography>
+          </Stack>
+          <Divider sx={{ my: 4 }} />
+          <Grid container spacing={2} justifyContent="center">
+            {imageUrls.map((imageObj, index) => (
+              <Grid item key={index} xs={6} sm={3} md={3} lg={3} xl={2}>
+                <ThumbnailCard
+                  item={{
+                    id: index.toString(),
+                    uid: uid,
+                    size: 0,
+                    type: 'file',
+                    isFavorite: false,
+                    name: imageObj.name // Use name from imageObj
+                  }}
+                  imageUrls={imageObj.url} // Use url from imageObj
+                  onDelete={() => console.log("Delete")}
+                  onFavorite={() => console.log("Favorite")}
+                  onOpen={() => handleClickOpen(imageObj.url)} // Use url from imageObj
                 />
-              )}
-            </Grid>
+              </Grid>
 
-            <Grid item xs={12} md={3}>
-              <MyImages />
-            </Grid>
+            ))}
           </Grid>
+
+
+          <ItemList
+            count={itemsStore.itemsCount}
+
+
+
+            onFavorite={itemsStore.handleFavorite}
+
+            onPageChange={itemsSearch.handlePageChange}
+            onRowsPerPageChange={itemsSearch.handleRowsPerPageChange}
+            page={itemsSearch.state.page}
+            rowsPerPage={itemsSearch.state.rowsPerPage}
+            view={view}
+          />
+
+          {open && selectedImage && (
+            <ImageViewer
+              imageUrl={selectedImage}
+              onClose={handleClose}
+            />
+          )}
+
         </Container>
       </Box>
-        <ImagesUploader
-            onClose={uploadDialog.handleClose}
-            open={uploadDialog.open}
-             onUploadSuccess={fetchImages}
-        />
     </>
   );
 }

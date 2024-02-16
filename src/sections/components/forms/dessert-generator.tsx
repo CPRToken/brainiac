@@ -12,8 +12,9 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { tokens } from "../../../locales/tokens";
 import CircularProgress from '@mui/material/CircularProgress';
 import TextImageSubmit from "./textimage-submit";
+import {saveTextImage } from "../buttons/saveTextImage";
 import React from 'react';
-import {auth} from "../../../libs/firebase";
+
 
 type Option = {
   label: string;
@@ -116,6 +117,7 @@ export const DessertWriter: FC = () => {
 
   const { combinedSubmit, textResponse, images, isLoading } = TextImageSubmit();
   const [country, setCountry] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
   const [dish, setDish] = useState<string>('');
   const [base, setBase] = useState<string>('');
   const [toppings, setToppings] = useState<string>('');
@@ -139,10 +141,11 @@ export const DessertWriter: FC = () => {
   };
 
     useEffect(() => {
-        if (country && dish && base && toppings && spiciness !== null) {
+        if (country && title && dish && base && toppings && spiciness !== null) {
             let newPrompt = t(tokens.form.createDessert);
 
             const countryText = ` ${t(country)} `;
+             const titleText = ` ${title} `;
             const dishText = ` ${t(dish)} `;
             const baseText = ` ${t(base)} `;
             const toppingsText = ` ${t(toppings)} `;
@@ -150,6 +153,7 @@ export const DessertWriter: FC = () => {
 
             newPrompt = newPrompt
                 .replace('[country]', countryText)
+                .replace('[title]', titleText)
                 .replace('[dish]', dishText)
                 .replace('[base]', baseText)
                 .replace('[toppings]', toppingsText)
@@ -159,38 +163,10 @@ export const DessertWriter: FC = () => {
         } else {
             setPrompt('');
         }
-    }, [country, dish, base, toppings, spiciness, t]);
+    }, [country, title, dish, base, toppings, spiciness, t]);
 
 
-  const handleSaveStoryAndImage = (text: string, imageUrl: string, index: number) => {
-    const user = auth.currentUser;
-    const uid = user ? user.uid : null;
 
-    if (uid === null) {
-      alert('User is not authenticated');
-      return;
-    }
-
-    // Send a POST request to your server with the text, image URL, and UID
-    fetch('/api/upload-recipe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ story: text, imageUrl: imageUrl, uid }),
-    })
-        .then(response => response.json())
-        .then(data => {
-          if (data.url) {
-            console.log(`Story and image saved. Image URL: ${data.url}`);
-          } else {
-            console.error('Failed to save story and image:', data.error);
-          }
-        })
-        .catch(error => {
-          console.error('Error saving story and image:', error);
-        });
-  };
 
 
 
@@ -198,6 +174,16 @@ export const DessertWriter: FC = () => {
     return (
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
       <Stack spacing={3}>
+        <TextField
+          fullWidth
+          label={t(tokens.form.poemTitle)}
+          name="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          multiline
+          rows={1}
+        >
+        </TextField>
         <Stack direction="row" spacing={2}>
           <TextField
             label={t(tokens.form.country)}
@@ -308,7 +294,7 @@ export const DessertWriter: FC = () => {
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>
-              <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+              <Paper elevation={3} ref={textRef} style={{ padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
                 {textResponse.split('\n').map((str, index, array) => (
                     <React.Fragment key={index}>
                       {str}
@@ -323,27 +309,36 @@ export const DessertWriter: FC = () => {
         {images && (
             <Box sx={{ mt: 3 }}>
               {images.map((image, index) => (
-                  <Box key={index} sx={{ mt: 2 }}>
-                    <img src={image} alt={`Generated Art ${index + 1}`} style={{ width: '100%', marginBottom: '10px' }} />
+                <Box key={index} sx={{mt: 2}}>
+                  <img src={image} alt={`Generated Art ${index + 1}`}
+                       style={{width: '100%', marginBottom: '10px'}}/>
 
-                    {/* Button for saving story and image */}
+                  <div style={{textAlign: 'center', paddingTop: '20px'}}>
                     <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                          if (textResponse !== null) {
-                            handleSaveStoryAndImage(textResponse, image, index);
-                          } else {
-                            // Handle the case where textResponse is null
-                            // For example, display an alert or pass an empty string
-                            console.log("No story to save");
-                          }
-                        }}
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        if (textResponse !== null) { // Ensure textResponse is not null
+                          saveTextImage(textResponse, title, "dessert", image)
+                            .then(() => {
+                              console.log("Text and image saved successfully.");
+                            })
+                            .catch((error) => {
+                              console.error("Failed to save text and image:", error);
+                            });
+                        } else {
+                          console.log("textResponse is null.");
+                        }
+                      }}
+                      style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
                     >
-                      {t(tokens.form.saveStoryAndImage)}
+                      {t(tokens.form.savePost)}
                     </Button>
-                  </Box>
-              ))}
+                  </div>
+
+
+                </Box>
+                ))}
             </Box>
         )}
       </Box>

@@ -2,6 +2,7 @@ export const tokens = {
   common: {
     languageChanged: 'common.languageChanged',
   },
+
   nav: {
     academy: 'nav.academy',
     account: 'nav.account',
@@ -85,6 +86,8 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+  Heading: 'headings.Heading',
+  startToday: 'headings.startToday',
   realEstate: 'headings.realEstate',
   tweetGenerator: 'headings.tweetGenerator',
   AItools: 'headings.AItools',
@@ -181,17 +184,32 @@ headings: {
 
 },
 
+
+
+
+
     form: {
+
+
+
+
         title: 'form.title',
       ReactJS: 'form.ReactJS',
+      stories: 'form.stories',
       attire: 'form.attire',
+      savePost: 'form.savePost',
       cocktails: 'form.cocktails',
       articles: 'form.articles',
+      planDescription: 'form.planDescription',
+      interiorDesigns: 'form.interiorDesigns',
+      AllPrevious: 'form.AllPrevious',
+      UnlimitedData: 'form.UnlimitedData',
       Poems: 'form.Poems',
       edit: 'form.edit',
       delete: 'form.delete',
       lyrics: 'form.lyrics',
       yourBookSummary: 'form.yourBookSummary',
+      yearlyPayment: 'form.yearlyPayment',
       poemTitle: 'form.poemTitle',
       SEOarticle: 'form.SEOarticle',
       lyricWriterAbout: 'form.lyricWriterAbout',

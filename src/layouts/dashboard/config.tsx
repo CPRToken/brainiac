@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from 'react';
 import HomeSmileIcon from 'src/icons/untitled-ui/duocolor/home-smile';
 import Lock01Icon from 'src/icons/untitled-ui/duocolor/lock-01';
 import CreditCard01Icon from 'src/icons/untitled-ui/duocolor/credit-card-01';
-import Upload04Icon from 'src/icons/untitled-ui/duocolor/upload-04';
+
 import Users03Icon from 'src/icons/untitled-ui/duocolor/users-03';
 import XSquareIcon from 'src/icons/untitled-ui/duocolor/x-square';
 import { tokens } from 'src/locales/tokens';
@@ -313,6 +313,12 @@ export const useSections = () => {
                   title: t(tokens.nav.components),
                   path: paths.components.index,
                   icon: <SvgIcon fontSize="small"><HomeSmileIcon /></SvgIcon>,
+                },
+                {
+
+                },
+                {
+
                 },
             ],
             },

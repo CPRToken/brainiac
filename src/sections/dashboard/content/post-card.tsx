@@ -117,7 +117,7 @@ export const PostCard: FC<PostCardProps> = (props) => {
           sx={{
             mt: 1,
             mb:0,
-            ...typography.body2, // Adjust styling as necessary
+            ...typography.caption, // Adjust styling as necessary
           }}
           variant="body2"
         >

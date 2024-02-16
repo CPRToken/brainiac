@@ -100,8 +100,8 @@ export const ImageList: FC<{ uid: string }> = ({ uid }) => {
     >
       <Card
         sx={{
-          maxWidth: 383,
-          minWidth: 300, // Set a minimum width for the card
+          maxWidth: 400,
+          minWidth: 330, // Set a minimum width for the card
           margin: '0 auto',
           my: 2
         }}
@@ -145,8 +145,8 @@ export const ImageList: FC<{ uid: string }> = ({ uid }) => {
                   <Avatar
                     src={image.imageAvatar}
                     sx={{
-                      width: 54,
-                      height: 54,
+                      width: 60,
+                      height: 60,
                       borderRadius: '10%', // Adjust for desired roundness
                       marginRight: 2, // Adds right margin to the Avatar
                     }}

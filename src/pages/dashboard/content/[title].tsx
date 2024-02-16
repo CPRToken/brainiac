@@ -15,7 +15,8 @@ import {typography} from "src/theme/typography";;
 import { useRouter } from 'next/router';
 import PrintIcon from '@mui/icons-material/Print';
 import IconButton from '@mui/material/IconButton';
-
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import Paper from '@mui/material/Paper';
 import { BreadcrumbsSeparator } from 'src/components/breadcrumbs-separator';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
@@ -46,17 +47,34 @@ useEffect(() => {
   const fetchPost = async () => {
     if (!title || !uid) return;
     try {
-      const response = await contentApi.getPost(uid, title.replace(/_/g, ' ')); // Assuming your titles are stored with spaces in Firestore
-      setPost(response ?? null);
+      const response = await contentApi.getPost(uid, title.replace(/_/g, ' '));
+      if (response) {
+        setPost(response);
 
-    } catch (err) {
-      console.error('Error fetching post:', err);
+        // Check if the post has an associated image filename
+        const imageName = response.image; // Get the image filename from the post document
+        if (imageName) {
+          const storage = getStorage();
+          // Construct the path using the user ID and the image filename
+          const imageRef = ref(storage, `${uid}/images/${imageName}`);
+          getDownloadURL(imageRef).then((imageUrl) => {
+            setPost((prevPost) => {
+              if (prevPost) {
+                return { ...prevPost, imageUrl }; // Correctly merge imageUrl with existing post data
+              }
+              return null; // Handle the case where there might not be a previous post
+            });
+          }
+          );
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching post:", error);
     }
-  };
+  }
 
   fetchPost();
 }, [title, uid]);
-
 return post;
 };
 
@@ -87,7 +105,7 @@ const Page: NextPage = () => {
 
   const handlePrintContentOnly = () => {
     const originalTitle: string = document.title; // Save the original title
-    document.title = `Content: ${title} | Brainiac Media`; // Dynamically update the title
+    document.title = `Content: ${title}  | Brainiac Media`; // Dynamically update the title
 
     window.print(); // Trigger the print dialogue
 
@@ -124,61 +142,92 @@ const Page: NextPage = () => {
           py: 8,
         }}
       >
-        <Container maxWidth="xl">
-          <Stack spacing={1}>
-            <Typography
-              color="text.primary"
+        <Container
+          maxWidth="xl"
+          sx={{
+            pt: { xs: '20px', sm: '20px', md: '20px', lg: '10px' }, // Responsive padding top
+            pb: { xs: '20px', sm: '20px', md: '50px', lg: '60px' }, // Responsive padding bottom
+            px: { xs: '10px', sm: '15px', md: '20px', lg: '25px' }, // Responsive padding left and right
+            // You can add more responsive styles here
+          }}>
+
+          {post.imageUrl && (
+            <Box
+              component="img"
+              src={post.imageUrl}
+              alt={post.title}
               sx={{
-                ...typography.h2,
-
-                fontSize: { xs: '34px', sm: '28px', md: '32px', lg: '34px' }, // Adjust font size for different screen sizes
+                float: 'left',
+                borderRadius: '20px',
+                marginRight: '20px',
+                marginTop: '20px',
+                marginBottom: '20px',
+                width: 600,
+                height: '100%',
+                maxWidth: '100%',
+                objectFit: 'cover',
+                paddingLeft: '10px',
+                paddingRight: '10px',
+                '@media (max-width:600px)': {
+                  pt: '20px',
+                  pb: '20px',
+                  height: '50vh',
+                  width: '100%',
+                  borderRadius: '30px',
+                }
               }}
-              variant="h2">
-              {post.title}
+            />
+          )}
+
+          <Typography
+            color="text.primary"
+            sx={{
+              ...typography.h3,
+              fontSize: { xs: '22px', sm: '28px', md: '32px', lg: '34px' }, // Adjust font size for different screen sizes
+            }}
+            variant="h2">
+            {post.title}
+          </Typography>
+          <Breadcrumbs separator={<BreadcrumbsSeparator />}>
+            <Link
+              color="text.primary"
+              component={RouterLink}
+              href={paths.dashboard.index}
+              variant="subtitle2"
+            >
+              Dashboard
+            </Link>
+            <Link
+              color="text.primary"
+              component={RouterLink}
+              href={paths.dashboard.content.index}
+              variant="subtitle2"
+            >
+              Content
+            </Link>
+            <Typography
+              color="text.secondary"
+              variant="subtitle2"
+            >
+              {post.category}
             </Typography>
-            <Breadcrumbs separator={<BreadcrumbsSeparator />}>
-              <Link
-                color="text.primary"
-                component={RouterLink}
-                href={paths.dashboard.index}
-                variant="subtitle2"
-              >
-                Dashboard
-              </Link>
-              <Link
-                color="text.primary"
-                component={RouterLink}
-                href={paths.dashboard.content.index}
-                variant="subtitle2"
-              >
-                Content
-              </Link>
-              <Typography
-                color="text.secondary"
-                variant="subtitle2"
-              >
-                {post.category}
-              </Typography>
-            </Breadcrumbs>
+          </Breadcrumbs>
 
 
-          </Stack>
-
-          <Stack spacing={3}>
-
-            <div id="printableContent">
-
-              <Typography color="text.primary" sx={{...typography.body1}} variant="body1">
-                {post.htmlContent ? renderTextWithLineBreaks(t(post.htmlContent)) : t('defaultEducationKey')}
-              </Typography>
-            </div>
+          <Typography color="text.primary" sx={{ ...typography.body1, mt: 3 }} variant="body1">
+            {post.htmlContent ? renderTextWithLineBreaks(t(post.htmlContent)) : t('defaultEducationKey')}
+          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
             <IconButton onClick={handlePrintContentOnly} aria-label="print">
               <PrintIcon />
             </IconButton>
+          </Box>
 
 
-          </Stack>
+
         </Container>
+
+
       </Box>
     </>
   );

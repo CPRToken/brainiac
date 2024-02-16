@@ -6,7 +6,7 @@ import { auth } from 'src/libs/firebase'; // Auth import for user details
 
 
 // Adjusted saveTextImage function
-export const saveTextImage = async (textResponse: string, title: string, category: string, imageURL: string) => {
+export const saveTextImage = async (textResponse: string, title: string, category: string, image: string) => {
   const user = auth.currentUser;
   const uid = user ? user.uid : null;
 
@@ -14,6 +14,14 @@ export const saveTextImage = async (textResponse: string, title: string, categor
     alert('User is not authenticated');
     return;
   }
+
+  const createShortDescription = (html: string): string => {
+    const text = html.replace(/<[^>]+>/g, ''); // Strip HTML tags
+    return text.length > 100 ? `${text.substring(0, 100)}...` : text;
+  };
+
+
+  const shortDescription = createShortDescription(textResponse);
 
   // Assuming `images` is an array of URLs
   fetch('/api/save-docimage', {
@@ -25,9 +33,11 @@ export const saveTextImage = async (textResponse: string, title: string, categor
       content: textResponse,
       title,
       category,
-      shortDescription: textResponse.substring(0, 100),
+
+      image,
+      shortDescription,
       uid,
-      imageURL, // Directly use the images array
+       // Directly use the images array
     }),
   })
     .then(response => response.json())

@@ -13,9 +13,7 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { tokens } from "../../../locales/tokens";
 import CircularProgress from '@mui/material/CircularProgress';
 import TextImageSubmit from "./textimage-submit";
-import { handleSaveImage } from 'src/sections/components/buttons/saveImage';
-import {saveDoc} from "../buttons/saveDoc";
-
+import {saveTextImage } from "../buttons/saveTextImage";
 
 type Option = {
   label: string;
@@ -272,16 +270,7 @@ export const RecipeWriter: FC = () => {
                 </React.Fragment>
               ))}
             </Paper>
-            <div style={{textAlign: 'center', paddingTop: '20px'}}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => saveDoc(textResponse, title, t(tokens.form.recipes))}
-                style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
-              >
-                {t(tokens.form.saveText)}
-              </Button>
-            </div>
+
           </Box>
         )}
 
@@ -289,15 +278,30 @@ export const RecipeWriter: FC = () => {
         {images && (
           <Box sx={{ mt: 3 }}>
             {images.map((image, index) => (
-              <Box key={index} sx={{ marginBottom: '20px' }}> {/* Ensure each image and button pair is contained */}
-                <img src={image} alt={`Generated Image ${index}`} style={{ maxWidth: '100%', height: 'auto' }} />
-                <div style={{ textAlign: 'center', paddingTop: '20px' }}>
+              <Box key={index}
+                   sx={{marginBottom: '20px'}}> {/* Ensure each image and button pair is contained */}
+                <img src={image} alt={`Generated Image ${index}`}
+                     style={{maxWidth: '100%', height: 'auto'}}/>
+                <div style={{textAlign: 'center', paddingTop: '20px'}}>
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => handleSaveImage(image, index)} // Assuming handleSaveImage is correctly implemented to handle saving
+                    onClick={() => {
+                      if (textResponse !== null) { // Ensure textResponse is not null
+                        saveTextImage(textResponse, title, t(tokens.form.recipes), image)
+                          .then(() => {
+                            console.log("Text and image saved successfully.");
+                          })
+                          .catch((error) => {
+                            console.error("Failed to save text and image:", error);
+                          });
+                      } else {
+                        console.log("textResponse is null.");
+                      }
+                    }}
+                    style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
                   >
-                    {t(tokens.form.saveImage)}
+                    {t(tokens.form.savePost)}
                   </Button>
                 </div>
               </Box>
@@ -306,7 +310,7 @@ export const RecipeWriter: FC = () => {
 
 
         )}
-       </Box>
+      </Box>
     </Box>
   );
 }

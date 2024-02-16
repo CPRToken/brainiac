@@ -12,7 +12,7 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextImageSubmit from "./textimage-submit";
-import { auth } from 'src/libs/firebase';
+import {saveTextImage } from "../buttons/saveTextImage";
 
 
 type Option = {
@@ -116,6 +116,7 @@ export const StoryGenerator: FC = () => {
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
   const [duration, setDuration] = useState<number>(100);
+  const [title, setTitle] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
@@ -140,12 +141,20 @@ export const StoryGenerator: FC = () => {
 
   useEffect(() => {
     // Check if all selections are made
-    if (genre && style && mood && duration) {
+    if (author && genre && style && mood && duration !== null) {
+
       let newPrompt = t(tokens.form.writeStory);
       const authorText = ` ${t(author)}`;
       const genreText = ` ${t(genre)}`;
       const styleText = ` ${t('')} ${t(style)} ${t('')}`;
       const moodText = ` ${t('')} ${t(mood)} ${t('')}`;
+
+
+      const authorWords = authorText.split(' ');
+      const genreWords = genreText.split(' ');
+
+      const title = authorWords.slice(0, 2).concat(genreWords.slice(0, 2)).join(' ');
+
 
       newPrompt = newPrompt
         .replace('[author]', authorText)
@@ -154,43 +163,17 @@ export const StoryGenerator: FC = () => {
         .replace('[mood]', moodText)
         .replace('[duration]', `${duration} ${t('')}`);
 
+
       setPrompt(newPrompt.trim());
+      setTitle(title);
     } else {
-      // If not all selections are made, keep the prompt empty
       setPrompt('');
+      setTitle('');
     }
   }, [author,  genre, style, mood, duration, t]);
 
 
-  const handleSaveStoryAndImage = (text: string, imageUrl: string, index: number) => {
-    const user = auth.currentUser;
-    const uid = user ? user.uid : null;
 
-    if (uid === null) {
-      alert('User is not authenticated');
-      return;
-    }
-
-    // Send a POST request to your server with the text, image URL, and UID
-    fetch('/api/upload-story', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ story: text, imageUrl: imageUrl, uid }),
-    })
-        .then(response => response.json())
-        .then(data => {
-          if (data.url) {
-            console.log(`Story and image saved. Image URL: ${data.url}`);
-          } else {
-            console.error('Failed to save story and image:', data.error);
-          }
-        })
-        .catch(error => {
-          console.error('Error saving story and image:', error);
-        });
-  };
 
     const handleSliderChange = (_: Event, newValue: number | number[]) => {
         // If newValue is an array, you can decide how to handle it.
@@ -307,7 +290,7 @@ export const StoryGenerator: FC = () => {
                       <Button onClick={handleCopyText} title="Copy response text">
                           <FileCopyIcon />
                       </Button>
-                      <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+                      <Paper elevation={3} ref={textRef} style={{ padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
                           {textResponse.split('\n').map((str, index, array) => (
                               <React.Fragment key={index}>
                                   {str}
@@ -322,31 +305,38 @@ export const StoryGenerator: FC = () => {
             {images && (
                 <Box sx={{ mt: 3 }}>
                   {images.map((image, index) => (
-                      <Box key={index} sx={{ mt: 2 }}>
-                        <img src={image} alt={`Generated Art ${index + 1}`} style={{ width: '100%', marginBottom: '10px' }} />
+                    <Box key={index} sx={{mt: 2}}>
+                      <img src={image} alt={`Generated Art ${index + 1}`}
+                           style={{width: '100%', marginBottom: '10px'}}/>
 
-                        {/* Button for saving story and image */}
+                      <div style={{textAlign: 'center', paddingTop: '20px'}}>
                         <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                              if (textResponse !== null) {
-                                handleSaveStoryAndImage(textResponse, image, index);
-                              } else {
-                                // Handle the case where textResponse is null
-                                // For example, display an alert or pass an empty string
-                                console.log("No story to save");
-                              }
-                            }}
+                          variant="contained"
+                          color="primary"
+                          onClick={() => {
+                            if (textResponse !== null) { // Ensure textResponse is not null
+                              saveTextImage(textResponse, title, t(tokens.form.stories), image)
+                                .then(() => {
+                                  console.log("Text and image saved successfully.");
+                                })
+                                .catch((error) => {
+                                  console.error("Failed to save text and image:", error);
+                                });
+                            } else {
+                              console.log("textResponse is null.");
+                            }
+                          }}
+                          style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
                         >
-                          {t(tokens.form.saveStoryAndImage)}
+                          {t(tokens.form.savePost)}
                         </Button>
-                      </Box>
+                      </div>
+                    </Box>
                   ))}
                 </Box>
             )}
           </Box>
       </Box>
-  );
+    );
 }
 

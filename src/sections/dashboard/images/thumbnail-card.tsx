@@ -10,10 +10,7 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import DotsVerticalIcon from '@untitled-ui/icons-react/build/esm/DotsVertical';
 import Box from '@mui/material/Box';
-import Globe01Icon from '@untitled-ui/icons-react/build/esm/Globe03';
-import Avatar from '@mui/material/Avatar';
 import { storage } from "src/libs/firebase";
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { usePopover } from 'src/hooks/use-popover';
 import type { Item } from 'src/types/file-manager';
@@ -75,7 +72,7 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
           justifyContent="space-between"
           spacing={3}
           sx={{
-            pt: 2,
+            pt: 1,
             px: 2,
           }}
         >

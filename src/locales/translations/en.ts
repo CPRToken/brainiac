@@ -17,6 +17,10 @@ export const en = {
 
   [tokens.headings.yourInstructions]: 'Your Instructions',
   [tokens.headings.AItools]: 'Our most popular AI Tools',
+  [tokens.headings.Heading]: 'They say:\n' +
+  '\n' +
+  'Time is Money & Knowledge is Power',
+
   [tokens.headings.overallHealth]: 'Overall Health',
   [tokens.headings.realEstate]: 'Property Evaluator',
 
@@ -30,6 +34,7 @@ export const en = {
   [tokens.headings.formCreator]: 'Form Creator',
     [tokens.headings.dreamInterpretation]: 'Dream Interpretation',
   [tokens.headings.startABusiness]: 'Start a Business',
+  [tokens.headings.startToday]: 'Start today & boost up your knowledge with AI!',
   [tokens.headings.careerDeveloper]: 'Career Developer',
   [tokens.headings.whatsOnYourMind]: "Leave a message",
   [tokens.headings.codeConverter]: "Code Converter",
@@ -157,7 +162,8 @@ export const en = {
   [tokens.form.house]: 'House',
   [tokens.form.hello]: 'Hello',
   [tokens.form.todayIs]: 'today is a good day to create some content!',
-
+  [tokens.form.yearlyPayment]: 'Annual Payment',
+  [tokens.form.planDescription]: 'Get 25% off when you pay annually',
   [tokens.form.options]: 'Options',
   [tokens.form.yourOutFit]: 'Your Outfit',
   [tokens.form.location]: 'Location: e.g. Country, city, street, postcode,',
@@ -185,6 +191,8 @@ export const en = {
   [tokens.form.experience]: 'Experience',
   [tokens.form.Quantity]: 'Select the number of revisions or options',
   [tokens.form.indoors]: 'Indoors',
+  [tokens.form.AllPrevious]: 'All Previous',
+  [tokens.form.UnlimitedData]: 'Unlimited Data',
   [tokens.form.outdoors]: 'Outdoors',
   [tokens.form.yourRevisions]: 'Your Revisions',
   [tokens.form.inOrOut]: 'Do you prefer indoors or outdoors?',
@@ -493,6 +501,7 @@ export const en = {
   [tokens.form.yourContent]: 'Your Content',
   [tokens.form.dietPlan]: 'Construct a [dietType] diet plan for [mealType], with a limit of [calories] calories',
   [tokens.form.informative]: 'informative',
+  [tokens.form.savePost]: 'Save Post',
   [tokens.form.academic]: 'academic',
   [tokens.form.political]: 'Political',
   [tokens.form.essays]: 'Essays',
@@ -625,9 +634,11 @@ export const en = {
   [tokens.form.material]: 'Material',
   [tokens.form.Appetizer]: 'appetizer',
   [tokens.form.MainCourse]: 'main-course',
-  [tokens.form.Dessert]: 'dessert',
+  [tokens.form.Dessert]: 'Desserts',
   [tokens.form.Soup]: 'soup',
   [tokens.form.Salad]: 'salad',
+  [tokens.form.interiorDesigns]: 'Int Designs',
+  [tokens.form.stories]: 'Stories',
   [tokens.form.SideDish]: 'side-dish',
   [tokens.form.Snack]: 'snack',
   [tokens.form.Beverage]: 'Beverage',

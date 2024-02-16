@@ -1,4 +1,5 @@
-import type { NextPage } from 'next';
+import { FC } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
@@ -6,7 +7,9 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
+import {useTranslation} from "react-i18next";
 import Typography from '@mui/material/Typography';
+import {typography } from "src/theme/typography";
 import { useState, useEffect } from 'react';  // Combine useState and useEffect imports
 import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
@@ -15,9 +18,12 @@ import { PricingFaqs } from 'src/sections/pricing/pricing-faqs';
 import { PricingPlan } from 'src/sections/pricing/pricing-plan';
 import { PricingPlanIcon } from 'src/sections/pricing/pricing-plan-icon';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
+import {tokens} from "../locales/tokens";
 
-const Page: NextPage = () => {
+export const PricingSection: FC = () => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
+  const { t } = useTranslation();
+
 
   usePageView();
 
@@ -83,8 +89,8 @@ const Page: NextPage = () => {
           sx={{
             backgroundColor: (theme) =>
               theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.50',
-            pb: '120px',
-            pt: '184px',
+            pb: '50px',
+            pt: '50px',
           }}
         >
           <Container maxWidth="lg">
@@ -96,7 +102,9 @@ const Page: NextPage = () => {
                 mb: 4,
               }}
             >
-              <Typography variant="h3">Start today & boost up your knowledge with AI!</Typography>
+              <Typography sx={{ ...typography.h3, color: 'text.primary', mt: 9, mb: 0 }}>
+                {t(tokens.headings.startToday)}
+              </Typography>
               <Typography
                 color="text.secondary"
                 sx={{ my: 2 }}
@@ -110,7 +118,9 @@ const Page: NextPage = () => {
                 spacing={1}
               >
                 <Switch checked />
-                <Typography variant="body1">Yearly Payment</Typography>
+                <Typography sx={{ ...typography.h6, color: 'text.primary', mt: 9, mb: 0 }}>
+                  {t(tokens.form.yearlyPayment)}
+                </Typography>
                 <Chip
                   color="primary"
                   label="25% OFF"
@@ -129,11 +139,11 @@ const Page: NextPage = () => {
                 <PricingPlan
                   cta="Start Free Trial"
                   currency="$"
-                  description="To familiarize yourself with our tools."
+                  description={t(tokens.form.planDescription)}
                   features={['Create contracts', 'Chat support', 'Email alerts']}
                   icon={<PricingPlanIcon name="startup" />}
                   name="Startup"
-                  price="0"
+                  price="9.95"
                   sx={{
                     height: '100%',
                     maxWidth: 460,
@@ -158,12 +168,18 @@ const Page: NextPage = () => {
                   <PricingPlan
                     cta="Start Free Trial"
                     currency="$"
-                    description="To familiarize yourself with our tools."
-                    features={['All previous', 'Highlights reporting', 'Data history', 'Unlimited users']}
+                    description={t(tokens.form.planDescription)}
+                    features={[
+                      t(tokens.form.AllPrevious),
+                      t(tokens.form.Alternative),
+                      t(tokens.form.UnlimitedData),
+                      t(tokens.form.Salsa),
+                      // Add other features as needed
+                    ]}
                     icon={<PricingPlanIcon name="standard" />}
                     name="Standard"
                     popular
-                    price="7.95"
+                    price="14.95"
                     sx={{
                       height: '100%',
                       maxWidth: 460,
@@ -180,13 +196,13 @@ const Page: NextPage = () => {
                 <PricingPlan
                   cta="Contact Us"
                   currency="$"
-                  description="To familiarize yourself with our tools."
+                  description={t(tokens.form.planDescription)}
                   features={[
-                    'All previous',
-                    'Unlimited contacts',
-                    'Analytics platform',
-                    'Public API access',
-                    'Send and sign unlimited contracts',
+                    t(tokens.form.AllPrevious),
+                    t(tokens.form.Alternative),
+                    t(tokens.form.UnlimitedData),
+                    t(tokens.form.Salsa),
+                    // Add other features as needed
                   ]}
                   icon={<PricingPlanIcon name="business" />}
                   name="Business"
@@ -217,7 +233,3 @@ const Page: NextPage = () => {
     </>
   );
 };
-
-Page.getLayout = (page) => <MarketingLayout>{page}</MarketingLayout>;
-
-export default Page;

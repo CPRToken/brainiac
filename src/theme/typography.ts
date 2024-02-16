@@ -1,4 +1,4 @@
-import { Public_Sans, Ibarra_Real_Nova, Cormorant_Garamond, Playfair_Display, Montserrat  } from 'next/font/google';
+import { Public_Sans, Open_Sans, Roboto, Oswald, Montserrat  } from 'next/font/google';
 
 // ----------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ export const primaryFont = Public_Sans({
   fallback: ['Helvetica', 'Arial', 'sans-serif'],
 });
 
-export const secondaryFont = Cormorant_Garamond({
+export const secondaryFont = Roboto({
   weight: ['400'], // Only include the available weight
   subsets: ['latin'],
   display: 'swap',
@@ -51,14 +51,14 @@ export const secondaryFont = Cormorant_Garamond({
 });
 
 
-export const tertiaryFont = Cormorant_Garamond({
+export const tertiaryFont = Open_Sans({
   weight: ['300', '400','500','700'], // Example weights, you can choose what you need
   subsets: ['latin'],
   display: 'swap',
   fallback: ['Helvetica', 'Arial', 'sans-serif'],
 });
 
-export const quaternaryFont = Playfair_Display({
+export const quaternaryFont = Oswald({
   weight: ['400','500', '700'], // Example weights, adjust as needed
   subsets: ['latin'],
   display: 'swap',
@@ -90,32 +90,32 @@ export const typography = {
   fontWeightSemiBold: 600,
   fontWeightBold: 700,
   h1: {
-    fontWeight: 100,
-    lineHeight: 100 / 64,
+    fontWeight: 600,
+    lineHeight: 90 / 64,
     fontSize: pxToRem(40),
-    fontFamily: secondaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 40, md: 50, lg: 55 }),
+    fontFamily: primaryFont.style.fontFamily,
+    ...responsiveFontSizes({ sm: 40, md: 50, lg: 50 }),
   },
   h2: {
-    fontWeight: 300,
-    lineHeight: 64 / 48,
-    fontSize: pxToRem(28),
-    fontFamily: secondaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 35, md: 37, lg: 42 }),
+    fontWeight: 500,
+    lineHeight: 75 / 50,
+    fontSize: pxToRem(32),
+    fontFamily: tertiaryFont.style.fontFamily,
+    ...responsiveFontSizes({ sm: 35, md: 37, lg: 40 }),
   },
   h3: {
     fontWeight: 500,
     lineHeight: 64 / 48,
     fontSize: pxToRem(28),
-    fontFamily: tertiaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 40, md: 41, lg: 42 }),
+    fontFamily: primaryFont.style.fontFamily,
+    ...responsiveFontSizes({ sm: 40, md: 41, lg: 39 }),
   },
   h4: {
     fontWeight: 500,
     lineHeight: 1,
-    fontSize: pxToRem(24),
+    fontSize: pxToRem(20),
     fontFamily: tertiaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 24, md: 23, lg: 24 }),
+    ...responsiveFontSizes({ sm: 24, md: 23, lg: 21 }),
   },
   h5: {
     fontWeight: 500,
@@ -126,16 +126,16 @@ export const typography = {
     ...responsiveFontSizes({ sm: 22, md: 25, lg: 22 }),
   },
   h6: {
-    fontWeight: 400,
+    fontWeight: 500,
     lineHeight:  1.4,
-    fontSize: pxToRem(20),
-    fontFamily: tertiaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 15, md: 17, lg: 18 }),
+    fontSize: pxToRem(25),
+    fontFamily:tertiaryFont.style.fontFamily,
+    ...responsiveFontSizes({ sm: 15, md: 17, lg: 36 }),
   },
   subtitle1: {
     fontWeight: 500,
     lineHeight: 1.0,
-    fontSize: pxToRem(21),
+    fontSize: pxToRem(19),
     fontFamily: secondaryFont.style.fontFamily,
   },
   subtitle2: {

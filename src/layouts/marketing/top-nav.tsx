@@ -5,7 +5,9 @@ import Menu01Icon from '@untitled-ui/icons-react/build/esm/Menu01';
 import { alpha } from '@mui/system/colorManipulator';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-
+import Typography from '@mui/material/Typography';
+import {typography } from "src/theme/typography";
+import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -56,6 +58,8 @@ export const TopNav: FC<TopNavProps> = (props) => {
   const [elevate, setElevate] = useState<boolean>(false);
   const offset = 64;
   const delay = 100;
+  const theme = useTheme();
+  const logoSrc = theme.palette.mode === 'dark' ? "/assets/logos/logo-dark.svg" : "/assets/logos/logo-light.svg";
 
   const handleWindowScroll = useCallback((): void => {
     if (window.scrollY > offset) {
@@ -124,7 +128,7 @@ export const TopNav: FC<TopNavProps> = (props) => {
             >
               <Box
                 component="img"
-                src="/assets/logos/logo.svg"
+                src={logoSrc}
                 sx={{
                   display: 'inline-flex',
                   height: 46,
@@ -132,21 +136,24 @@ export const TopNav: FC<TopNavProps> = (props) => {
                 }}
               />
               {mdUp && (
-                <Box
+                <Typography
                   sx={{
+                    ...typography.h6, // Spread the h2 style here
                     color: 'text.primary',
-                      variant: "inherit",
-                    fontSize: 32,
-                    fontWeight: 550,
+                    fontSize: 40,
+                    fontWeight: 600,
                     letterSpacing: '0.3px',
                     lineHeight: 2.5,
                     '& span': {
                       color: 'primary.main',
                     },
+                    // If mt (margin-top) and mb (margin-bottom) are needed, add them here
+                    mt: 12,
+                    mb: 0,
                   }}
                 >
-                  Brainiac <span>Media</span>
-                </Box>
+                  Br<span>ai</span>niac Media
+                </Typography>
               )}
             </Stack>
 
