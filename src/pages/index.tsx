@@ -20,7 +20,7 @@ const Page: NextPage = () => {
       <Seo />
       <main>
         <HomeHero />
-
+        <PricingSection />
 
 
 

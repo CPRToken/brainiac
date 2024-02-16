@@ -14,9 +14,9 @@ import { tokens } from 'src/locales/tokens';
 import { paths } from 'src/paths';
 import { db, auth } from 'src/libs/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import {Image01, Pencil02, Atom01, File01, File04, File03, File05} from "@untitled-ui/icons-react";
+import {Image01, Pencil02, Atom01, File03, File05} from "@untitled-ui/icons-react";
 
-import {Face, Notes, AccountBox, Android, Work} from "@mui/icons-material";
+import { AccountBox, Android, Work} from "@mui/icons-material";
 
 
 
@@ -314,12 +314,7 @@ export const useSections = () => {
                   path: paths.components.index,
                   icon: <SvgIcon fontSize="small"><HomeSmileIcon /></SvgIcon>,
                 },
-                {
 
-                },
-                {
-
-                },
             ],
             },
             ]
