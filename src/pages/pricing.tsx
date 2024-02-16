@@ -13,7 +13,6 @@ import {typography } from "src/theme/typography";
 import { useState, useEffect } from 'react';  // Combine useState and useEffect imports
 import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
-import { Layout as MarketingLayout } from 'src/layouts/marketing';
 import { PricingFaqs } from 'src/sections/pricing/pricing-faqs';
 import { PricingPlan } from 'src/sections/pricing/pricing-plan';
 import { PricingPlanIcon } from 'src/sections/pricing/pricing-plan-icon';

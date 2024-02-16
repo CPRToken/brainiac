@@ -3,7 +3,7 @@ import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
 import { Layout as MarketingLayout } from 'src/layouts/marketing';
 
-import { PricingSection } from './pricing';
+
 import { HomeHero } from 'src/sections/home/home-hero';
 
 
@@ -20,7 +20,7 @@ const Page: NextPage = () => {
       <Seo />
       <main>
         <HomeHero />
-        <PricingSection />
+
 
 
 
