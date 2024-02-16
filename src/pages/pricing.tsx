@@ -17,7 +17,7 @@ import { PricingPlanIcon } from 'src/sections/pricing/pricing-plan-icon';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import {tokens} from "../locales/tokens";
 
-export const PricingSection: FC = () => {
+const PricingSection: FC = () => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
   const { t } = useTranslation();
 
@@ -230,3 +230,4 @@ export const PricingSection: FC = () => {
     </>
   );
 };
+export default PricingSection;
