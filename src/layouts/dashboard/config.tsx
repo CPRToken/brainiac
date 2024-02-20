@@ -80,6 +80,19 @@ export const useSections = () => {
               icon: <SvgIcon fontSize="small"><HomeSmileIcon /></SvgIcon>,
             },
             {
+              title: t(tokens.nav.myContent),
+              path: paths.dashboard.content.index,
+              icon: <SvgIcon fontSize="small"><File05 /></SvgIcon>,
+
+            },
+
+            {
+              title: t(tokens.nav.myImages),
+              path: paths.dashboard.myImages,
+              icon: <SvgIcon fontSize="small"><Image01 /></SvgIcon>,
+
+            },
+            {
               title: t(tokens.nav.account),
               path: paths.dashboard.account,
               icon: <SvgIcon fontSize="small"><AccountBox /></SvgIcon>,
