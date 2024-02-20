@@ -16,6 +16,7 @@ export const en = {
   [tokens.nav.AImodules]: 'AI Modules',
 
   [tokens.headings.yourInstructions]: 'Your Instructions',
+  [tokens.headings.blibicalFigures]: 'Biblical Figures',
   [tokens.headings.AItools]: 'Our most popular AI Tools',
   [tokens.headings.Heading]: 'They say:\n' +
   '\n' +
@@ -183,6 +184,7 @@ export const en = {
   [tokens.form.university]: 'University',
   [tokens.form.universityList]: 'University(s) (use a new line if more than one)',
   [tokens.form.typeHoliday]: 'Type of trip',
+  [tokens.form.figure]: 'Figure: e.g. Moses',
   [tokens.form.keynote]: 'Keynote',
     [tokens.form.interpretation]: 'Interpretation',
   [tokens.form.occasion]: 'Occasion',
@@ -203,6 +205,7 @@ export const en = {
     [tokens.form.between10And20Percent]: '10% to 20%',
     [tokens.form.moreThan20Percent]: 'More than 20%',
   [tokens.form.editorInstructions]: 'To have your writings revised and rewritten by our editor, just paste your text below, & select how many revisions or options you would like.',
+  [tokens.form.blibicalInst]: 'To find out where blibical figures appear in the Bible, simply enter the name of the figure in the below text box and click submit.',
     [tokens.form.Between1N3]: 'Between 1 and 3 years',
   [tokens.form.Between3N5]: 'Between 3 and 5 years',
   [tokens.form.Between5N10]: 'Between 5 and 10 years',
@@ -481,9 +484,11 @@ export const en = {
   [tokens.form.chatGPT]: 'Chat GPT',
   [tokens.form.yourSpeech]: 'Your Speech',
   [tokens.form.yourScript]: 'Your Script',
+  [tokens.form.yourResponse]: 'Your Response',
   [tokens.form.writeSong]: 'Write a [genre] song using the [title], in a [style] and [mood] mood, with a duration of [duration] minutes',
     [tokens.form.writeScript]: 'Write a screenplay in [genre] [style] [mood] with a duration of [duration]',
   [tokens.form.careerDevelopmentPrompts]: 'Provide a comprehensive career development plan based on the individual\'s industry: [industry], profession: [profession], experience: [experience], and the choice of development area of [development].',
+  [tokens.form.blibicalPrompts]: 'Provide a list of where stories of [figure], can be found in the Bible. Also provide a summary of these too.',
   [tokens.form.startABusinessPrompts]: 'Provide a comprehensive business plan based on the available information: Industry: [industry], Business Idea: [typeofBusiness], for a [blueOrWhite] worker, that prefers to work [inOrOut], that has the following skillset: [skills], that has these Interests: [interests], Field Experience: [fieldExperience], and that has a target market of [targetMarket], but if they leave the field [targetMarket] empty, please provide them with a list of their possible target market. And the user has a Budget of: [budget].',
   [tokens.form.createWhatPrompts]:'Provide comprehensive instructions on how to make a [what] with [dimensions] dimensions and a difficulty level of [difficulty].',
   [tokens.form.reviseOrEdit]: 'Provide [quantity] revisions or options for the following [text], to be rewritten in the selected [style] style and [mood] mood.',

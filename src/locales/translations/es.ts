@@ -573,6 +573,7 @@ export const es = {
   [tokens.form.alcohol]: 'Alcohol',
     [tokens.form.yourFinancialPlan]: 'Tu Plan Financiero',
   [tokens.headings.myContent]: 'Mi Contenido',
+  [tokens.headings.blibicalFigures]: 'Figuras Bíblicas',
   [tokens.headings.startToday]: '¡Comienza hoy y mejora tus conocimientos con IA!',
   [tokens.headings.Heading]: 'Dicen:\n' +
   '\n' +
@@ -602,6 +603,7 @@ export const es = {
     [tokens.form.course]: 'curso',
   [tokens.form.planDescription]:'Para familiarizarte con nuestras herramientas',
   [tokens.form.interests]: 'intereses: p. ej. deportes, música, arte',
+  [tokens.form.blibicalInst]: ' Para averiguar dónde aparecen las figuras bíblicas en la Biblia, simplemente ingrese el nombre de la figura en el cuadro de texto a continuación y haga clic en enviar.',
   [tokens.form.indoors]: 'interior',
   [tokens.form.outdoors]: 'exterior',
   [tokens.form.AllPrevious]: 'Todos los Anteriores',
@@ -644,8 +646,8 @@ export const es = {
   [tokens.form.Experimental]: 'Experimental',
   [tokens.form.Rhythmic]: 'Rítmico',
   [tokens.form.Orchestral]: 'Orquestal',
-
-  [tokens.form.Historical]: 'Histórico',
+  [tokens.form.figure]: 'figura: p. ej. Moisés, Jesús, María',
+    [tokens.form.Historical]: 'Histórico',
     [tokens.form.alcohol]: 'Alcohol',
     [tokens.form.Vodka]: 'Vodka',
     [tokens.form.Rum]: 'Ron',
@@ -676,6 +678,7 @@ export const es = {
   [tokens.form.yourLyrics]: 'Tus Letras',
   [tokens.form.yourSpeech]: 'Tu Discurso',
   [tokens.form.yourScript]: 'Tu Guión',
+  [tokens.form.yourResponse]: 'Tu Respuesta',
 
     [tokens.form.Port]: 'Oporto',
     [tokens.form.Brandy]: 'Brandy',
@@ -1130,6 +1133,7 @@ export const es = {
 
   [tokens.form.reviseOrEdit]: 'Proporcione hasta [quantity] revisiones o opciones para el siguiente [text], para ser reescrito en el estilo seleccionado [style] y el estado de ánimo [mood].',
   [tokens.form.imagePrompts]: 'Crea una imagen de un [object] en el estilo único de [artist], con estilo [style] y con el tema de [theme], con instrucciones adicionales si se incluyen: [extra] .',
+  [tokens.form.blibicalPrompts]: 'Proporciona una lista de dónde se pueden encontrar las historias de [figure], en la Biblia. También proporciona un resumen de estas.\'.',
     [tokens.form.investmentAdvicePrompts]: 'Proporcione asesoramiento de inversión personalizado basado en la siguiente información:\n\nObjetivo Principal de Inversión: [investmentGoals]\nIndustria Específica: [industry]\nSu experiencia en la industria de [industryExperience]\nPor qué quieren invertir: [why]\nAdemás, tenga en cuenta su Experiencia de Inversión: [investmentExperience]\nIngresos Anuales: [annualIncome]\nSu marco de tiempo de [time]\nPresupuesto Disponible para Inversión: [budget]\nNivel de Tolerancia al Riesgo: [riskTolerance]\n\n. Es muy importante que obtengan un detallado ROI como una tasa porcentual y también en una base anual. Si no se proporcionan detalles financieros, sugiera un enfoque conservador inicialmente. Además, ofrezca insights sobre potenciales oportunidades de inversión que coincidan con sus objetivos y tolerancia al riesgo.',
   [tokens.form.createWhatPrompts]: 'Crea instrucciones para hacer un(a) [what], utilizando [material], con dimensiones de [dimensions] y un nivel de dificultad [difficulty].',
 

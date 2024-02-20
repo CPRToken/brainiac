@@ -235,6 +235,7 @@ export const useSections = () => {
                   items: [
                     {title: t(tokens.headings.templateReplicator),  path: paths.dashboard.templateReplicator},
                     { title: t(tokens.headings.codeConverter), path: paths.dashboard.codeConverter },
+                    { title: t(tokens.headings.blibicalFigures), path: paths.dashboard.blibicalFigures },
 
 
                   ]

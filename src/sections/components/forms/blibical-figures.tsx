@@ -12,6 +12,7 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useHandleSubmit from './handle-submit';
+import Typography from "@mui/material/Typography";
 
 type Option = {
     label: string;
@@ -54,15 +55,13 @@ const modeOptions: Option[] = [
 
 
 
-export const TravelAgent: FC = () => {
+export const BlibicalFigures: FC = () => {
 
 
 
   const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
-  const [destination, setDestination] = useState<string>('');
-  const [style, setTheme] = useState<string>('');
-  const [mode, setMode] = useState<string>('');
-  const [budget, setBudget] = useState<number>(100);
+  const [figure, setFigure] = useState<string>('');
+
   const [prompt, setPrompt] = useState<string>('');
 
 
@@ -91,20 +90,15 @@ export const TravelAgent: FC = () => {
 
 
   useEffect(() => {
-        if (destination && style && mode && budget) {
-            let newPrompt = t(tokens.form.writeItinerary);
+        if (figure) {
+            let newPrompt = t(tokens.form.blibicalPrompts);
 
-              const destinationText =  destination !== '' ? `${t(destination)} ` : '';
-              const styleText = style !== '' ? `${t(style)} ` : '';
-              const modeText = mode !== '' ? `${t(mode)} ` : '';
-              const budgetText = `${budget} ${t('')}`;
+              const figureText =  figure !== '' ? `${t(figure)} ` : '';
 
 
                newPrompt = newPrompt
-                .replace('{destination}', destinationText)
-                .replace('{style}', styleText)
-                .replace('{mode}', modeText)
-                .replace('{budget}', budgetText);
+                .replace('[figure]', figureText)
+
 
           newPrompt = newPrompt.replace(/,+\s*$/, '');
 
@@ -112,85 +106,40 @@ export const TravelAgent: FC = () => {
         } else {
             setPrompt('');
         }
-    }, [destination, style, mode, budget, t]);
+    }, [figure,  t]);
 
 
-  const handleSliderChange = (_: Event, newValue: number | number[]) => {
-    // If newValue is an array, you can decide how to handle it.
-    // For a single thumb slider, it should be just a number.
-    if (typeof newValue === 'number') {
-      setBudget(newValue); // Directly set the new value
-    }
-  };
+
 
 // Corrected maxTokens calculation
-  const maxTokens = budget * 4; // 1 word is approx. 4 tokens
+  const maxTokens = 1500 - prompt.length;
 
 
 
 
     return (
       <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
+        <Typography variant="body2" sx={{ paddingTop: 'value', paddingBottom: '30px' }}>
+          {t(tokens.form.blibicalInst)}
+        </Typography>
 
       <Stack spacing={3}>
         <TextField
           fullWidth
-          label={t(tokens.form.destination)}
-          name="destination"
-          value={destination}
-          onChange={(e) => setDestination(e.target.value)}
+          label={t(tokens.form.figure)}
+          name="figure"
+          value={figure}
+          onChange={(e) => setFigure(e.target.value)}
           multiline // Enables multiline input
           rows={1} // Sets the number of rows
         />
 
-        <TextField
-          fullWidth
-          label={t(tokens.form.typeHoliday)}
-          name="style"
-          select
-          SelectProps={{ native: true }}
-          value={style}
-          onChange={(e) => setTheme(e.target.value)}
-        >
-          {styleOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {t(option.label)} {/* Apply translation here */}
-            </option>
-          ))}
-        </TextField>
-        <TextField
-          fullWidth
-          label={t(tokens.form.modeTransport)}
-          name="mode"
-          select
-          SelectProps={{ native: true }}
-          value={mode}
-          onChange={(e) => setMode(e.target.value)}
-        >
-          {modeOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {t(option.label)} {/* Apply translation here */}
-            </option>
-          ))}
-        </TextField>
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
-          <label>{t(tokens.form.budget)}</label>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-          <CustomSlider
-            value={budget}
-            min={300}
-            max={10000}
-            step={100}
-            onChange={handleSliderChange} //slider change determines amount of tokens used
-            sx={{ width: '95%' }}
-          />
-        </div>
+
 
 
 
       </Stack>
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{ mt: 4 }}>
           <Button
             onClick={submitToOpenAI}
             type="submit"
@@ -204,7 +153,7 @@ export const TravelAgent: FC = () => {
 
         {openAIResponse && (
         <Box sx={{ mt: 3 }}>
-              <label>{t(tokens.form.yourItinerary)}</label>
+              <label>{t(tokens.form.yourResponse)}</label>
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>
