@@ -6,51 +6,13 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useHandleSubmit from './handle-submit';
 import Typography from "@mui/material/Typography";
-
-type Option = {
-    label: string;
-    value: string;
-};
-
-
-
-const styleOptions: Option[] = [
-    { label: '', value: '' },
-  { label: tokens.form.Adventure, value: tokens.form.Adventure },
-  { label: tokens.form.Holiday, value: tokens.form.Holiday },
-  { label: tokens.form.GetAway, value: tokens.form.GetAway },
-  { label: tokens.form.Honeymoon, value: tokens.form.Honeymoon },
-  { label: tokens.form.Business, value: tokens.form.Business },
-  { label: tokens.form.Leisure, value: tokens.form.Leisure },
-  { label: tokens.form.Family, value: tokens.form.Family },
-  { label: tokens.form.Cultural, value: tokens.form.Cultural },
-  { label: tokens.form.EcoTourism, value: tokens.form.EcoTourism },
-  { label: tokens.form.Luxury, value: tokens.form.Luxury }
-
-    // ... add more as needed
-];
-
-const modeOptions: Option[] = [
-    { label: '', value: '' },
-  { label: tokens.form.Air, value: tokens.form.Air },
-  { label: tokens.form.Train, value: tokens.form.Train },
-  { label: tokens.form.Bus, value: tokens.form.Bus },
-  { label: tokens.form.Car, value: tokens.form.Car },
-  { label: tokens.form.Boat, value: tokens.form.Boat },
-  { label: tokens.form.Bicycle, value: tokens.form.Bicycle },
-  { label: tokens.form.Motorcycle, value: tokens.form.Motorcycle },
-  { label: tokens.form.Walking, value: tokens.form.Walking },
-  { label: tokens.form.Subway, value: tokens.form.Subway },
-  { label: tokens.form.Tram, value: tokens.form.Tram }
-    // ... add more as needed
-];
+import { saveDoc } from 'src/sections/components/buttons/saveDoc';
 
 
 
@@ -61,7 +23,7 @@ export const BlibicalFigures: FC = () => {
 
   const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
   const [figure, setFigure] = useState<string>('');
-
+  const [title, setTitle] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
 
 
@@ -99,12 +61,20 @@ export const BlibicalFigures: FC = () => {
                newPrompt = newPrompt
                 .replace('[figure]', figureText)
 
-
           newPrompt = newPrompt.replace(/,+\s*$/, '');
 
-            setPrompt(newPrompt.trim());
+
+          const biblicalTitle = figureText.split(' ');
+          const title = biblicalTitle.slice(0, 3).join(' ');
+
+
+
+
+          setPrompt(newPrompt.trim());
+          setTitle(title);
         } else {
-            setPrompt('');
+          setPrompt('');
+          setTitle('');
         }
     }, [figure,  t]);
 
@@ -165,9 +135,18 @@ export const BlibicalFigures: FC = () => {
               </React.Fragment>
             ))}
           </Paper>
+          <div style={{textAlign: 'center', paddingTop: '20px'}}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => saveDoc(openAIResponse, title, t(tokens.form.figures))}
+              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+            >
+              {t(tokens.form.saveText)}
+            </Button>
+          </div>
         </Box>
         )}
       </Box>
     );
-
-};
+}

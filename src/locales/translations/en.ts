@@ -467,6 +467,7 @@ export const en = {
   [tokens.form.budget]: 'Budget',
     [tokens.form.stockTips]: 'Stock Tips',
   [tokens.form.Lighthearted]: 'lighthearted',
+  [tokens.form.figures]: 'Figures',
   [tokens.form.theme]: 'Theme',
   [tokens.form.saveImage]: 'Save Image',
   [tokens.form.saveText]: 'Save Text',

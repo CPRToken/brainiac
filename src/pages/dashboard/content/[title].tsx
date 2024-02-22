@@ -20,7 +20,7 @@ import Paper from '@mui/material/Paper';
 import { BreadcrumbsSeparator } from 'src/components/breadcrumbs-separator';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
-import { useMounted } from 'src/hooks/use-mounted';
+import { printContent } from 'src/utils/print-content';
 import { usePageView } from 'src/hooks/use-page-view';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { paths } from 'src/paths';
@@ -103,14 +103,6 @@ const Page: NextPage = () => {
   const [user, setUser] = useState<Profile | null>(null);
 
 
-  const handlePrintContentOnly = () => {
-    const originalTitle: string = document.title; // Save the original title
-    document.title = `Content: ${title}  | Brainiac Media`; // Dynamically update the title
-
-    window.print(); // Trigger the print dialogue
-
-    window.onafterprint = () => document.title = originalTitle; // Reset the title after printing
-  };
 
 
   useEffect(() => {
@@ -145,84 +137,86 @@ const Page: NextPage = () => {
         <Container
           maxWidth="xl"
           sx={{
-            pt: { xs: '20px', sm: '20px', md: '20px', lg: '10px' }, // Responsive padding top
-            pb: { xs: '20px', sm: '20px', md: '50px', lg: '60px' }, // Responsive padding bottom
-            px: { xs: '10px', sm: '15px', md: '20px', lg: '25px' }, // Responsive padding left and right
+            pt: {xs: '20px', sm: '20px', md: '20px', lg: '10px'}, // Responsive padding top
+            pb: {xs: '20px', sm: '20px', md: '50px', lg: '60px'}, // Responsive padding bottom
+            px: {xs: '10px', sm: '15px', md: '20px', lg: '25px'}, // Responsive padding left and right
             // You can add more responsive styles here
           }}>
+          <div id="printableContent">
 
-          {post.imageUrl && (
-            <Box
-              component="img"
-              src={post.imageUrl}
-              alt={post.title}
-              sx={{
-                float: 'left',
-                borderRadius: '20px',
-                marginRight: '20px',
-                marginTop: '20px',
-                marginBottom: '20px',
-                width: 600,
-                height: '100%',
-                maxWidth: '100%',
-                objectFit: 'cover',
-                paddingLeft: '10px',
-                paddingRight: '10px',
-                '@media (max-width:600px)': {
-                  pt: '20px',
-                  pb: '20px',
-                  height: '50vh',
-                  width: '100%',
-                  borderRadius: '30px',
-                }
-              }}
-            />
-          )}
+            {post.imageUrl && (
+              <Box
+                component="img"
+                src={post.imageUrl}
+                alt={post.title}
+                sx={{
+                  float: 'left',
+                  borderRadius: '20px',
+                  marginRight: '20px',
+                  marginTop: '20px',
+                  marginBottom: '20px',
+                  width: 600,
+                  height: '100%',
+                  maxWidth: '100%',
+                  objectFit: 'cover',
+                  paddingLeft: '10px',
+                  paddingRight: '10px',
+                  '@media (max-width:600px)': {
+                    pt: '20px',
+                    pb: '20px',
+                    height: '50vh',
+                    width: '100%',
+                    borderRadius: '30px',
+                  }
+                }}
+              />
+            )}
 
-          <Typography
-            color="text.primary"
-            sx={{
-              ...typography.h3,
-              fontSize: { xs: '22px', sm: '28px', md: '32px', lg: '34px' }, // Adjust font size for different screen sizes
-            }}
-            variant="h2">
-            {post.title}
-          </Typography>
-          <Breadcrumbs separator={<BreadcrumbsSeparator />}>
-            <Link
-              color="text.primary"
-              component={RouterLink}
-              href={paths.dashboard.index}
-              variant="subtitle2"
-            >
-              Dashboard
-            </Link>
-            <Link
-              color="text.primary"
-              component={RouterLink}
-              href={paths.dashboard.content.index}
-              variant="subtitle2"
-            >
-              Content
-            </Link>
             <Typography
-              color="text.secondary"
-              variant="subtitle2"
-            >
-              {post.category}
+              color="text.primary"
+              sx={{
+                ...typography.h3,
+                fontSize: {xs: '22px', sm: '28px', md: '32px', lg: '34px'}, // Adjust font size for different screen sizes
+              }}
+              variant="h2">
+              {post.title}
             </Typography>
-          </Breadcrumbs>
+            <Breadcrumbs separator={<BreadcrumbsSeparator/>}>
+              <Link
+                color="text.primary"
+                component={RouterLink}
+                href={paths.dashboard.index}
+                variant="subtitle2"
+              >
+                Dashboard
+              </Link>
+              <Link
+                color="text.primary"
+                component={RouterLink}
+                href={paths.dashboard.content.index}
+                variant="subtitle2"
+              >
+                Content
+              </Link>
+              <Typography
+                color="text.secondary"
+                variant="subtitle2"
+              >
+                {post.category}
+              </Typography>
+            </Breadcrumbs>
 
 
-          <Typography color="text.primary" sx={{ ...typography.body1, mt: 3 }} variant="body1">
-            {post.htmlContent ? renderTextWithLineBreaks(t(post.htmlContent)) : t('defaultEducationKey')}
-          </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-            <IconButton onClick={handlePrintContentOnly} aria-label="print">
-              <PrintIcon />
-            </IconButton>
-          </Box>
+            <Typography color="text.primary" sx={{...typography.body1, mt: 3}} variant="body1">
+              {post.htmlContent ? renderTextWithLineBreaks(t(post.htmlContent)) : t('defaultEducationKey')}
+            </Typography>
+          </div>
+            <Box sx={{display: 'flex', justifyContent: 'center', mt: 3}}>
+              <IconButton onClick={printContent} aria-label="print">
+                <PrintIcon fontSize="large" />
 
+              </IconButton>
+            </Box>
 
 
         </Container>
@@ -230,7 +224,7 @@ const Page: NextPage = () => {
 
       </Box>
     </>
-  );
+);
 };
 
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;

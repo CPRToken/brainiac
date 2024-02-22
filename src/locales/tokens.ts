@@ -196,6 +196,7 @@ headings: {
 
         title: 'form.title',
       ReactJS: 'form.ReactJS',
+      figures: 'form.figures',
       figure: 'form.figure',
       stories: 'form.stories',
       attire: 'form.attire',

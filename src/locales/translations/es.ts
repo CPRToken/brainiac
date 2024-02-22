@@ -1130,7 +1130,7 @@ export const es = {
   [tokens.form.pasteQuestion]: 'Pega tus preguntas universitarias aquí y haz clic en \'Submit\'.',
   [tokens.form.pasteText]: 'Pega tu texto aquí y presiona Submit',
   [tokens.form.dimensions]: 'Ingrese las dimensiones: por ejemplo, 600A x 100L x 40P x 1000A (en mm)',
-
+  [tokens.form.figures]: 'Figuras',
   [tokens.form.reviseOrEdit]: 'Proporcione hasta [quantity] revisiones o opciones para el siguiente [text], para ser reescrito en el estilo seleccionado [style] y el estado de ánimo [mood].',
   [tokens.form.imagePrompts]: 'Crea una imagen de un [object] en el estilo único de [artist], con estilo [style] y con el tema de [theme], con instrucciones adicionales si se incluyen: [extra] .',
   [tokens.form.blibicalPrompts]: 'Proporciona una lista de dónde se pueden encontrar las historias de [figure], en la Biblia. También proporciona un resumen de estas.\'.',
