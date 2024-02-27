@@ -7,17 +7,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Handle the event
     if (event.type === 'checkout.session.completed') {
-      // Extract relevant data from the event
-      const customerId = event.data.object.customer;
+      const uid = event.data.object.metadata.uid; // Retrieve Firestore UID from metadata
       const productId = event.data.object.metadata.product_id;
 
-      // Retrieve user from Firestore based on the customer ID
+      // Ensure UID is provided
+      if (!uid) {
+        console.error('UID not provided in metadata.');
+        return res.status(400).json({ error: 'UID not provided in metadata' });
+      }
+
       try {
-        const userRef = admin.firestore().collection('users').doc(customerId);
+        const userRef = admin.firestore().collection('users').doc(uid);
         const userDoc = await userRef.get();
 
         if (!userDoc.exists) {
-          console.error(`User with customer ID ${customerId} not found in database.`);
+          console.error(`User with customer ID ${uid} not found in database.`);
           return res.status(404).json({ error: 'User not found' });
         }
 
@@ -40,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Proceed to update the user's role
         await userRef.update({ role: newRole });
 
-        console.log(`User with customer ID ${customerId} purchased product ${productId}.`);
+        console.log(`User with customer ID ${uid} purchased product ${productId}.`);
         return res.status(200).json({ success: true });
       } catch (error) {
         console.error('Error updating user role:', error);
