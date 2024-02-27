@@ -24,6 +24,7 @@ export const en = {
 
   [tokens.headings.overallHealth]: 'Overall Health',
   [tokens.headings.realEstate]: 'Property Evaluator',
+  [tokens.headings.howMuch]: 'How Much Do I Need?',
 
   [tokens.headings.health]: 'Health',
     [tokens.headings.TimeFrame]: 'Investment Time Frame',
@@ -168,8 +169,10 @@ export const en = {
   [tokens.form.options]: 'Options',
   [tokens.form.yourOutFit]: 'Your Outfit',
   [tokens.form.location]: 'Location: e.g. Country, city, street, postcode,',
+  [tokens.form.whatProduct]: 'What product: e.g. Epoxy, grout, tiles',
   [tokens.form.condo]: 'Condo',
   [tokens.form.apartment]: 'Apartment',
+  [tokens.form.surfaceArea]: 'Surface Area: e.g. 20sqm, 50cm2, 1000ft2',
 [tokens.form.townhouse]: 'Townhouse',
     [tokens.form.property]: 'Property',
     [tokens.form.propertyType]: 'Property Type',

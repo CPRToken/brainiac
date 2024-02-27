@@ -99,7 +99,7 @@ const Page: NextPage = () => {
           cover: defaultCoverImageUrl,
           originCity: values.originCity,
             userUrl: profileURL,
-          role: 'owner',
+          role: 'free',
           team: [],
 
         });

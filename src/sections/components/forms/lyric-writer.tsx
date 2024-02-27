@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import { saveDoc } from 'src/sections/components/buttons/saveDoc';
-
+import {useProtectedPage} from "src/hooks/use-protectedpage";
 
 type Option = {
     label: string;
@@ -95,10 +95,11 @@ const tempoOptions: Option[] = [
 
 
 export const LyricWriter: FC = () => {
-
+  useProtectedPage();
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
+
   const [title, setTitle] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');

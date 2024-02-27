@@ -16,7 +16,8 @@ import { useRouter } from 'next/router';
 import PrintIcon from '@mui/icons-material/Print';
 import IconButton from '@mui/material/IconButton';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-import Paper from '@mui/material/Paper';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+import ResponseText from 'src/sections/components/clipboards/response-text';
 import { BreadcrumbsSeparator } from 'src/components/breadcrumbs-separator';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
@@ -102,7 +103,7 @@ const Page: NextPage = () => {
   const { t } = useTranslation();
   const [user, setUser] = useState<Profile | null>(null);
 
-
+  const { textRef, handleCopyText } = ResponseText();
 
 
   useEffect(() => {
@@ -181,6 +182,7 @@ const Page: NextPage = () => {
               variant="h2">
               {post.title}
             </Typography>
+
             <Breadcrumbs separator={<BreadcrumbsSeparator/>}>
               <Link
                 color="text.primary"
@@ -204,14 +206,21 @@ const Page: NextPage = () => {
               >
                 {post.category}
               </Typography>
+
             </Breadcrumbs>
 
+            <Button onClick={handleCopyText} title="Copy text to clipboard" sx={{ mt: 2 }}> {/* Adjust mt value as needed */}
+              <FileCopyIcon/>
+            </Button>
 
-            <Typography color="text.primary" sx={{...typography.body1, mt: 3}} variant="body1">
+
+            <Typography color="text.primary" sx={{...typography.body1, mt: 2}} variant="body1" ref={textRef}>
               {post.htmlContent ? renderTextWithLineBreaks(t(post.htmlContent)) : t('defaultEducationKey')}
             </Typography>
+
           </div>
             <Box sx={{display: 'flex', justifyContent: 'center', mt: 3}}>
+
               <IconButton onClick={printContent} aria-label="print">
                 <PrintIcon fontSize="large" />
 
