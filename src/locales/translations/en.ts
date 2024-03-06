@@ -175,6 +175,7 @@ export const en = {
   [tokens.form.surfaceArea]: 'Surface Area: e.g. 20sqm, 50cm2, 1000ft2',
 [tokens.form.townhouse]: 'Townhouse',
     [tokens.form.property]: 'Property',
+
     [tokens.form.propertyType]: 'Property Type',
   [tokens.form.industrialChic]: 'Industrial Chic',
     [tokens.form.colorTheme]: 'Color Theme: e.g. Grey & White',
@@ -762,6 +763,8 @@ export const en = {
   [tokens.form.whatToMake]: 'What would you like to make? e.g. table, cabinets, house',
   [tokens.form.object]: 'Object: e.g. "cat, dog, house"',
   [tokens.form.NoArtist]: 'No Artist: for realistic looking images',
+  [tokens.form.NoCountry]: 'No Country: for nuetral',
+
   [tokens.form.noPoet]: 'No Poet: for nuetral',
   [tokens.form.noAuthor]: 'No Author: for nuetral',
   [tokens.form.Minimalism]: 'Minimalism',

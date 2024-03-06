@@ -72,6 +72,7 @@ export const es = {
   [tokens.form.createInteriorDesign]: 'Para GPT4, NO te disculpes en la respuesta, crea lo que se solicita en las siguientes indicaciones y eso es todo, ya que dalle3 se encarga de la imagen. \n Crea un concepto detallado de diseño interior, utilizando la siguiente información:\n Tipo de propiedad: [propertyType] \n Habitación: [room], \n Estilo: [style] \n y el esquema de color: [colorTheme] \n.',
   [tokens.form.retail]: 'Venta al por menor',
   [tokens.form.articles]: 'Artículos',
+  [tokens.form.NoCountry]: 'Sin país: para recetas neutrales',
   [tokens.form.whatProduct]: '¿Qué producto: por ejemplo, epoxi, lechada, azulejos?',
   [tokens.form.surfaceArea]: 'Área de Superficie: por ejemplo, 20m2, 50cm2, 1000ft2',
   [tokens.form.recipes]: 'Recetas',

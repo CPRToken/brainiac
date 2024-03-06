@@ -22,6 +22,7 @@ type Option = {
 
 const countryOptions: Option[] = [
   { label: '', value: '' },
+  { label: tokens.form.NoCountry, value: tokens.form.Neutral },
   { label: tokens.form.Chile, value: tokens.form.Chile },
   { label: tokens.form.Spain, value: tokens.form.Spanish },
   { label: tokens.form.French, value: tokens.form.French },
@@ -134,10 +135,13 @@ export const RecipeWriter: FC = () => {
       const garnishText = ` ${t(garnish)} `;
       const spicinessText = ` ${t(spicinessLevels[spiciness])} `;
 
-      const countryWords = countryText.split(' ');
-      const dishWords = dishText.split(' ');
+      const countryWords = countryText.split(' ').filter(word => word.length > 0);
+      const dishWords = dishText.split(' ').filter(word => word.length > 0);
+      const proteinWords = proteinText.split(' ').filter(word => word.length > 0);
 
-      const title = countryWords.slice(0, 2).concat(dishWords.slice(0, 2)).join(' ');
+      // Ensure at least one word from each is taken for the title,
+      // adjusting the indexes accordingly if you want more words from each category.
+      const title = [...countryWords.slice(0, 1), ...dishWords.slice(0, 1), ...proteinWords.slice(0, 1)].join(' ');
 
       newPrompt = newPrompt
         .replace('[country]', countryText)

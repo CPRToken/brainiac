@@ -139,7 +139,7 @@ export const PoemGenerator: FC = () => {
   useEffect(() => {
 
     // Check if all selections are made
-    if (genre && style && mood && title && duration) {
+    if (genre && style && mood && duration) {
 
 
 
@@ -149,9 +149,16 @@ export const PoemGenerator: FC = () => {
     const genreText = ` ${t(genre)} `;
     const styleText = ` ${t(style)} `;
     const moodText  = ` ${t(mood)} `;
-    const titleText = ` ${title} `;
     const durationText = ` ${duration} `;
 
+
+      const poetWords = poetText.split(' ').filter(word => word.length > 0);
+      const genreWords = genreText.split(' ').filter(word => word.length > 0);
+      const styleWords = styleText.split(' ').filter(word => word.length > 0);
+
+      // Ensure at least one word from each is taken for the title,
+      // adjusting the indexes accordingly if you want more words from each category.
+      const title = [...poetWords.slice(0, 1), ...genreWords.slice(0, 1), ...styleWords.slice(0, 1)].join(' ');
 
 
 
@@ -160,17 +167,17 @@ export const PoemGenerator: FC = () => {
          .replace('[genre]',genreText)
           .replace('[style]',styleText)
             .replace('[mood]',moodText)
-              .replace('[title]',titleText)
-                .replace('[duration]',durationText);
+            .replace('[duration]',durationText);
 
 
 
       setPrompt(newPrompt.trim());
+      setTitle(title);
     } else {
-      // If not all selections are made, keep the prompt empty
       setPrompt('');
+      setTitle('');
     }
-  }, [poet, title, genre, style, mood, duration, t]);
+  }, [poet, genre, style, mood, duration, t]);
 
 
 
@@ -182,16 +189,7 @@ export const PoemGenerator: FC = () => {
       <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
 
       <Stack spacing={3}>
-        <TextField
-          fullWidth
-          label={t(tokens.form.poemTitle)}
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          multiline
-          rows={1}
-        >
-        </TextField>
+
         <TextField
           fullWidth
           label={t(tokens.form.poet)}

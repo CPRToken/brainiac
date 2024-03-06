@@ -101,15 +101,25 @@ export const PostCard: FC<PostCardProps> = (props) => {
           <Chip label={category} />
         </Box>
         <Box>
-          <Link
-            color="text.primary"
-            component={RouterLink}
-            href={`/dashboard/content/${encodeURIComponent(title)}`}
-            variant="h6"
-            sx={{ paddingX: 1 }} // Adds padding on the left and right
+          <Typography
+            variant="h6" // This sets the typography style for the title
+            sx={{
+              paddingX: 0, // Adds padding on the left and right
+              // Add any additional styling here
+            }}
           >
-            {title}
-          </Link>
+            <Link
+              color="text.primary"
+              component={RouterLink}
+              href={`/dashboard/content/${encodeURIComponent(title)}`}
+              sx={{
+                textDecoration: 'none', // Optional: remove the underline from the link
+                // Add any additional link-specific styling here
+              }}
+            >
+              {title}
+            </Link>
+          </Typography>
         </Box>
 
         <Typography

@@ -187,7 +187,7 @@ export const LyricWriter: FC = () => {
         >
 
         </TextField>
-        <Stack direction="row" spacing={2}>
+
         <TextField
           label={t(tokens.form.genre)}
           name="genre"
@@ -196,7 +196,7 @@ export const LyricWriter: FC = () => {
           value={genre}
           onChange={(e) => setGenre(e.target.value)}
           fullWidth
-          sx={{ width: 'calc(50% - 8px)' }}
+
         >
           {genreOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -213,7 +213,7 @@ export const LyricWriter: FC = () => {
           value={style}
           onChange={(e) => setTheme(e.target.value)}
           fullWidth
-          sx={{ width: 'calc(50% - 8px)' }}
+
         >
           {styleOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -221,8 +221,8 @@ export const LyricWriter: FC = () => {
             </option>
           ))}
         </TextField>
-        </Stack>
-        <Stack direction="row" spacing={2}>
+
+
         <TextField
 
           label={t(tokens.form.mood)}
@@ -232,7 +232,7 @@ export const LyricWriter: FC = () => {
           value={mood}
           onChange={(e) => setMood(e.target.value)}
           fullWidth
-          sx={{ width: 'calc(50% - 8px)' }}
+
         >
           {moodOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -249,7 +249,7 @@ export const LyricWriter: FC = () => {
           value={tempo}
           onChange={(e) => setTempo(e.target.value)}
           fullWidth
-          sx={{ width: 'calc(50% - 8px)' }}
+
         >
           {tempoOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -257,7 +257,7 @@ export const LyricWriter: FC = () => {
             </option>
           ))}
         </TextField>
-        </Stack>
+
 
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.duration)}</label>
@@ -269,7 +269,7 @@ export const LyricWriter: FC = () => {
             max={5}
             step={0.5}
             onChange={handleSliderChange}
-            sx={{ width: '95%' }}
+            sx={{ width: '100%' }}
           />
         </div>
 
