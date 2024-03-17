@@ -192,6 +192,7 @@ export const useSections = () => {
                     { title: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser },
                     { title: t(tokens.headings.fruitsNVeges), path: paths.dashboard.fruitsNVeges },
                     { title: t(tokens.headings.tweetGenerator), path: paths.dashboard.tweetGenerator },
+                    { title: t(tokens.headings.biblicalFigures), path: paths.dashboard.biblicalFigures },
                   ]
                 }
               ]
@@ -235,7 +236,7 @@ export const useSections = () => {
                   items: [
                     {title: t(tokens.headings.templateReplicator),  path: paths.dashboard.templateReplicator},
                     { title: t(tokens.headings.codeConverter), path: paths.dashboard.codeConverter },
-                    { title: t(tokens.headings.blibicalFigures), path: paths.dashboard.blibicalFigures },
+
 
 
                   ]

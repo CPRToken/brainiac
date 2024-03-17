@@ -17,7 +17,7 @@ import { saveDoc } from 'src/sections/components/buttons/saveDoc';
 
 
 
-export const BlibicalFigures: FC = () => {
+export const BiblicalFigures: FC = () => {
 
 
 

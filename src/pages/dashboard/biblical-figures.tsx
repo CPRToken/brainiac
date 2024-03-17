@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
 import { usePageView } from 'src/hooks/use-page-view';
-import { BlibicalFigures } from 'src/sections/components/forms/blibical-figures';
+import { BiblicalFigures } from 'src/sections/components/forms/biblical-figures';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { auth } from '../../libs/firebase';
@@ -26,7 +26,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title={t(tokens.headings.blibicalFigures)} />
+      <Seo title={t(tokens.headings.biblicalFigures)} />
       <Box
         component="main"
         sx={{
@@ -50,7 +50,7 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                    variant="h5">{t(tokens.headings.blibicalFigures)}</Typography>
+                    variant="h5">{t(tokens.headings.biblicalFigures)}</Typography>
                 </div>
 
                 <Stack
@@ -77,7 +77,7 @@ const Page: NextPage = () => {
                 }}
               >
                 <Box paddingTop={4}>
-                  <BlibicalFigures />
+                  <BiblicalFigures />
                 </Box>
               </Stack>
             </Grid>
