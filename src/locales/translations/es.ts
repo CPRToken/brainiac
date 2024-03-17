@@ -363,6 +363,7 @@ export const es = {
   [tokens.form.yourContent]: 'Tu Contenido',
   [tokens.form.saveStoryAndImage]: 'Guardar Texto e Imagen',
   [tokens.form.lyricWriterAbout]: 'Escribe canciones como una estrella de rock con nuestro Letristra.',
+  [tokens.form.biblicalFiguresAbout]: 'Explora figuras bíblicas con nuestro Generador de Figuras Bíblicas.',
   [tokens.form.imageAbout]: "Cree imágenes impresionantes con nuestro Generador de Imágenes.",
   [tokens.form.scriptWriterAbout]: 'Crea guiones atractivos para películas y televisión con nuestro Guionista.',
   [tokens.form.recipeWriterAbout]: 'Crea deliciosas recetas para cualquier ocasión con nuestro Escritor de Recetas.',
@@ -576,7 +577,7 @@ export const es = {
   [tokens.form.alcohol]: 'Alcohol',
     [tokens.form.yourFinancialPlan]: 'Tu Plan Financiero',
   [tokens.headings.myContent]: 'Mi Contenido',
-  [tokens.headings.blibicalFigures]: 'Figuras Bíblicas',
+  [tokens.headings.biblicalFigures]: 'Figuras Bíblicas',
   [tokens.headings.startToday]: '¡Comienza hoy y mejora tus conocimientos con IA!',
   [tokens.headings.Heading]: 'Dicen:\n' +
   '\n' +

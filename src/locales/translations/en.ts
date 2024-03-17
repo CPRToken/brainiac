@@ -16,7 +16,7 @@ export const en = {
   [tokens.nav.AImodules]: 'AI Modules',
 
   [tokens.headings.yourInstructions]: 'Your Instructions',
-  [tokens.headings.blibicalFigures]: 'Biblical Figures',
+  [tokens.headings.biblicalFigures]: 'Biblical Figures',
   [tokens.headings.AItools]: 'Our most popular AI Tools',
   [tokens.headings.Heading]: 'They say:\n' +
   '\n' +
@@ -1025,7 +1025,7 @@ export const en = {
   [tokens.form.greenLiving]: 'Green Living',
   [tokens.form.brandNew]: 'Brand New',
   [tokens.form.poemTitle]: 'Give your poem a name or title',
-    [tokens.form.writePoem]: 'Compose a [duration] word [genre] poem, using the [title] for inspiration, whilst capturing the essence and style reminiscent of [poet], in a[mood] mood,  without mentioning the poet\'s name.',
+    [tokens.form.writePoem]: 'Compose a [duration] word [genre] poem, whilst capturing the essence and style reminiscent of [poet], in a[mood] mood,  without mentioning the poet\'s name.',
   [tokens.form.writeScript]: 'Write a screenplay in [genre] [style] [mood] with a duration of [duration]',
   [tokens.form.extraInfo]: 'Any addiontal information would help generate a more accurate image.',
 
@@ -1058,6 +1058,7 @@ export const en = {
   [tokens.form.delete]: 'Delete',
   [tokens.form.saveTextnImage]: 'Save Text & Image',
   [tokens.form.lyricWriterAbout]: 'Write songs like a rock star with our Lyric Writer.',
+  [tokens.form.biblicalFiguresAbout]: 'Find where certain biblical figures appear in the bible with this tool.',
   [tokens.form.imageAbout]: 'Create stunning images with our Image Generator.',
   [tokens.form.scriptWriterAbout]: 'Craft compelling scripts for movies and television with our Script Writer.',
   [tokens.form.recipeWriterAbout]: 'Create delicious recipes for any occasion.',

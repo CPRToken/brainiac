@@ -88,7 +88,7 @@ const Page: NextPage = () => {
     { name: t(tokens.headings.dessertGenerator), path: paths.dashboard.dessertGenerator, icon: '/assets/icons/dessert.svg', about: t(tokens.form.dessertGeneratorAbout) },
     { name: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser, icon: '/assets/icons/book.svg' , about: t(tokens.form.bookSummariserAbout) },
     { name: t(tokens.headings.fruitsNVeges), path: paths.dashboard.fruitsNVeges, icon: '/assets/icons/fruits.svg' , about: t(tokens.form.fruitsNVegesAbout) },
-
+    { name: t(tokens.headings.biblicalFigures), path: paths.dashboard.biblicalFigures, icon: '/assets/icons/bible.svg', about: t(tokens.form.biblicalFiguresAbout) },
   ];
 
 

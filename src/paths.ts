@@ -100,6 +100,7 @@ lyricWriter: '/dashboard/lyric-writer',
     codeConverter: '/dashboard/code-converter',
     blibicalFigures: '/dashboard/blibical-figures',
     tweetGenerator: '/dashboard/tweet-generator',
+    biblicalFigures: '/dashboard/biblical-figures',
     myContent: '/dashboard/my-content',
     myImages: '/dashboard/images',
 
