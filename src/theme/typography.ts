@@ -133,15 +133,15 @@ export const typography = {
     ...responsiveFontSizes({ sm: 15, md: 17, lg: 36 }),
   },
   subtitle1: {
-    fontWeight: 500,
+    fontWeight: 600,
     lineHeight: 1.0,
-    fontSize: pxToRem(19),
+    fontSize: pxToRem(16),
     fontFamily: secondaryFont.style.fontFamily,
   },
   subtitle2: {
     fontWeight: 400,
     lineHeight: 1.5,
-    fontSize: pxToRem(12),
+    fontSize: pxToRem(13),
   },
   body1: {
     fontWeight: 200,

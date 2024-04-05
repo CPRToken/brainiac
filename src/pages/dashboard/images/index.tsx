@@ -244,7 +244,7 @@ const Page: NextPage = () => {
           <Divider sx={{ my: 4 }} />
           <Grid container spacing={2} justifyContent="center">
             {imageUrls.map((imageObj, index) => (
-              <Grid item key={index} xs={6} sm={3} md={3} lg={3} xl={2}>
+              <Grid item key={index} xs={6} sm={3} md={2} lg={2} xl={2}>
                 <ThumbnailCard
                   item={{
                     id: index.toString(),

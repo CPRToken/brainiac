@@ -151,7 +151,9 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
       onClick={() => router.push(module.path)}
       variant="outlined"
       sx={{
-        pt: '100%',
+        pt: '80%',
+        width: '100%', // Makes the Paper component fill the width of its container
+        minHeight: '100px',
         borderRadius: 2,
         cursor: 'pointer',
         textAlign: 'center',
@@ -180,8 +182,9 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
           className="svg-color"
           sx={{
             mb: 1,
-            width: 60,
-            height: 60,
+            mt: 0,
+            width: 50,
+            height: 50,
             mx: 'auto',
             display: 'flex',
             borderRadius: '50%',

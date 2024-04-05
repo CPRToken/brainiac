@@ -23,6 +23,7 @@ type Option = {
 
 const styleOptions: Option[] = [
     { label: '', value: '' },
+  { label: tokens.form.review, value: tokens.form.review },
   { label: tokens.form.informative, value: tokens.form.informative },
   { label: tokens.form.academic, value: tokens.form.academic },
   { label: tokens.form.analytical, value: tokens.form.analytical },
@@ -87,6 +88,7 @@ const styleOptions: Option[] = [
 
 const moodOptions: Option[] = [
   { label: '', value: '' },
+  { label: tokens.form.upset, value: tokens.form.upset },
   { label: tokens.form.Joyful, value: tokens.form.Joyful },
   { label: tokens.form.Melancholic, value: tokens.form.Melancholic },
   { label: tokens.form.Inspirational, value: tokens.form.Inspirational },

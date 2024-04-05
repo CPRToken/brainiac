@@ -10,7 +10,8 @@ import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
-import useHandleSubmit from './handle-submit';
+import useGPT4Submit from "./gpt4-submit";
+import CircularProgress from "@mui/material/CircularProgress";
 
 
 
@@ -20,7 +21,7 @@ export const UniAnswers: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
 
   const [prompt, setPrompt] = useState<string>('');
   const { t } = useTranslation();
@@ -31,7 +32,23 @@ export const UniAnswers: FC = () => {
   };
 
 
+  const submitToOpenAI = () => {
 
+    const maxTokens = 1000;
+
+    if (prompt) {
+      // Submit the prompt that is updated by the useEffect hook
+      handleSubmit(prompt, maxTokens)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
+    }
+  };
 
 
 
@@ -51,14 +68,15 @@ export const UniAnswers: FC = () => {
         />
       </Stack>
         <Box sx={{ mt: 3 }}>
-            <Button
-                onClick={() => handleSubmit(prompt, 1000)}
-                type="submit"
-                variant="contained"
-                fullWidth
-            >
-                Submit
-            </Button>
+          <Button
+            onClick={submitToOpenAI}
+            type="submit"
+            variant="contained"
+            fullWidth
+            disabled={isLoading}
+          >
+            {isLoading ? <CircularProgress size={24} /> : 'Submit'}
+          </Button>
         </Box>
       <Box sx={{ mt: 3 }}>
         {openAIResponse && (
@@ -69,7 +87,7 @@ export const UniAnswers: FC = () => {
             </Button>
           </>
         )}
-        <Paper elevation={3} ref={textRef} style={{ padding: '10px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
+        <Paper elevation={3} ref={textRef} style={{ padding: '30px', height: '100%', overflow: 'auto', lineHeight: '1.5' }}>
           {openAIResponse && openAIResponse.split('\n').map((str, index, array) =>
             index === array.length - 1 ? str : (
               <React.Fragment key={index}>

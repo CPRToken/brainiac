@@ -199,6 +199,8 @@ headings: {
         title: 'form.title',
       ReactJS: 'form.ReactJS',
       NoCountry: 'form.NoCountry',
+      review: 'form.review',
+      upset: 'form.upset',
       figures: 'form.figures',
       surfaceArea: 'form.surfaceArea',
       figure: 'form.figure',

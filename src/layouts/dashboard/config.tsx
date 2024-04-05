@@ -72,10 +72,10 @@ export const useSections = () => {
   return useMemo(() => {
       return [
         {
-          subheader: t(tokens.nav.dashboard),
+
           items: [
             {
-              title: t(tokens.nav.overview),
+              title: t(tokens.nav.dashboard),
               path: paths.dashboard.index,
               icon: <SvgIcon fontSize="small"><HomeSmileIcon /></SvgIcon>,
             },
@@ -102,14 +102,10 @@ export const useSections = () => {
         {
           subheader: t(tokens.nav.AIStudio),
           items: [
-            {
-              title: t(tokens.nav.modules),
-              path: paths.dashboard.modules,
-              icon: <SvgIcon fontSize="small"><Work /></SvgIcon>,
-            },
+
 
             {
-              title: t(tokens.nav.categories),
+              title: t(tokens.nav.modules),
               path: paths.dashboard.categories,
               icon: <SvgIcon fontSize="small"><Atom01 /></SvgIcon>,
             },

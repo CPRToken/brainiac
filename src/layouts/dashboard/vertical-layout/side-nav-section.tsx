@@ -115,6 +115,7 @@ export const SideNavSection: FC<SideNavSectionProps> = (props) => {
         listStyle: 'none',
         m: 0,
         p: 0,
+        pb: 3,
       }}
       {...other}
     >
@@ -135,7 +136,9 @@ export const SideNavSection: FC<SideNavSectionProps> = (props) => {
         </Box>
       )}
       {renderItems({ items, pathname })}
+
     </Stack>
+
   );
 };
 

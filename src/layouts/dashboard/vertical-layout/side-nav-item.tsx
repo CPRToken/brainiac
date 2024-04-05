@@ -191,7 +191,8 @@ export const SideNavItem: FC<SideNavItemProps> = (props) => {
           justifyContent: 'flex-start',
           pl: `${16 + offset}px`,
           pr: '16px',
-          py: '6px',
+          py: '8px',
+
           textAlign: 'left',
           width: '100%',
           ...(active && {
@@ -213,6 +214,7 @@ export const SideNavItem: FC<SideNavItemProps> = (props) => {
               color: 'var(--nav-item-icon-color)',
               display: 'inline-flex',
               justifyContent: 'center',
+
               mr: 2,
               ...(active && {
                 color: 'var(--nav-item-icon-active-color)',

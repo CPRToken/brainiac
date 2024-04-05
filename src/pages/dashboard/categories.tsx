@@ -75,14 +75,18 @@ const modules: ModuleItem[] = [
 
       <Box
         sx={{
-          gap: 4,
-          paddingLeft: 2,
+          gap: { xs: 3, sm: 3, md: 2, lg: 2 }, // Adjusts gap size based on the screen width
+          paddingLeft: { xs: 1, sm: 1, md: 2, lg: 3 },
+          paddingRight: { xs: 1, sm: 1, md: 2, lg: 3 },
+          mt: { xs: 1, sm: 2, md: 2, lg: 3 }, // Responsive top margin
+          mb: { xs: 1, sm: 2, md: 2, lg: 3 }, // Responsive bottom margin
           display: 'grid',
-          my: { xs: 8, md: 10 },
+          my: { xs: 6, md: 12 },
           gridTemplateColumns: {
             xs: 'repeat(2, 1fr)',
-            sm: 'repeat(2, 1fr)',
-            md: 'repeat(4, 1fr)',
+            sm: 'repeat(3, 1fr)',
+            md: 'repeat(3, 1fr)',
+            lg: 'repeat(4, 1fr)',
           },
         }}
       >
@@ -116,7 +120,9 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
       onClick={() => router.push(module.path)}
       variant="outlined"
       sx={{
-        pt: '100%',
+        pt: '80%',
+        width: '100%', // Makes the Paper component
+        minHeight: '100px',
         borderRadius: 2,
         cursor: 'pointer',
         textAlign: 'center',
@@ -145,8 +151,8 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
           className="svg-color"
           sx={{
             mb: 1,
-            width: 60,
-            height: 60,
+            width: 50,
+            height: 50,
             mx: 'auto',
             display: 'flex',
             borderRadius: '50%',
