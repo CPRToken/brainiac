@@ -137,11 +137,13 @@ export const typography = {
     lineHeight: 1.0,
     fontSize: pxToRem(16),
     fontFamily: secondaryFont.style.fontFamily,
+    ...responsiveFontSizes({ sm: 14, md: 16, lg: 17 }), // Add responsive sizes
   },
   subtitle2: {
     fontWeight: 400,
     lineHeight: 1.5,
     fontSize: pxToRem(13),
+    ...responsiveFontSizes({ sm: 13, md: 13, lg: 14 }), // Add responsive sizes
   },
   body1: {
     fontWeight: 200,

@@ -106,17 +106,17 @@ const Page: NextPage = () => {
 
       <Box
         sx={{
-          gap: { xs: 3, sm: 3, md: 2, lg: 2 }, // Adjusts gap size based on the screen width
-          paddingLeft: { xs: 1, sm: 1, md: 2, lg: 3 },
-          paddingRight: { xs: 1, sm: 1, md: 2, lg: 3 },
-          mt: { xs: 1, sm: 2, md: 2, lg: 3 }, // Responsive top margin
-          mb: { xs: 1, sm: 2, md: 2, lg: 3 }, // Responsive bottom margin
+          gap: { xs: 2, sm: 2, md: 2, lg: 2 }, // Adjusts gap size based on the screen width
+          paddingLeft: { xs: 1, sm: 1, md: 1, lg: 4 },
+          paddingRight: { xs: 1, sm: 1, md: 1, lg: 4 },
+          mt: { xs: 2, sm: 2, md: 2, lg: 2 }, // Responsive top margin
+          mb: { xs: 2, sm: 2, md: 2, lg: 2 }, // Responsive bottom margin
           display: 'grid',
-          my: { xs: 6, md: 12 },
+          my: { xs: 6, sm: 10, md: 12 },
           gridTemplateColumns: {
             xs: 'repeat(2, 1fr)',
             sm: 'repeat(3, 1fr)',
-            md: 'repeat(3, 1fr)',
+            md: 'repeat(4, 1fr)',
             lg: 'repeat(4, 1fr)',
           },
         }}
@@ -181,7 +181,7 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
         <Box
           className="svg-color"
           sx={{
-            mb: 1,
+            mb: 2,
             mt: 0,
             width: 50,
             height: 50,
@@ -197,21 +197,28 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
             src={module.icon}
             color={hovered ? theme.palette.primary.main : 'info'} // Change icon color on hover to primary color
             sx={{
-              width: 50,
-              height: 50,
-              mt: { xs: 1, sm: 0 }, // Adds padding on xs screens, none on sm and above
+              width: '100%',  // Make the icon responsive within the Box
+              height: '100%',  // Make the icon responsive within the Box
             }}
           />
+
         </Box>
 
-        <Typography sx={{ ...typography.subtitle1, color: 'text.primary', mt: 0, mb: 2 }}>
+        <Typography sx={{ ...typography.subtitle1,
+          color: 'text.primary',
+          mt: { xs: 0, sm: 0 }, // Adds top margin on xs screens
+          mb: { xs: 0, sm: 0 }, // Adds bottom margin on xs screens
+          pl: { xs: 1, sm: 0 },
+          pr: { xs: 1, sm: 0 },
+
+        }}>
           {module.name}
         </Typography>
 
         <Typography sx={{ ...typography.subtitle2,
           color: 'text.secondary',
-          mt: { xs: 0, sm: 0 }, // Adds top margin on xs screens
-          mb: { xs: 1, sm: 0 }, // Adds bottom margin on xs screens
+          mt: { xs: 0, sm: 1 }, // Adds top margin on xs screens
+          mb: { xs: 1, sm: 1 }, // Adds bottom margin on xs screens
           pl: { xs: 1, sm: 0 },
           pr: { xs: 1, sm: 0 },
         }}>
