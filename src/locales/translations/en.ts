@@ -25,7 +25,7 @@ export const en = {
   [tokens.headings.overallHealth]: 'Overall Health',
   [tokens.headings.realEstate]: 'Property Evaluator',
   [tokens.headings.howMuch]: 'How Much Do I Need?',
-
+  [tokens.headings.pathways]: 'Pathways',
   [tokens.headings.health]: 'Health',
     [tokens.headings.TimeFrame]: 'Investment Time Frame',
   [tokens.headings.AImodules]: 'AI Modules',

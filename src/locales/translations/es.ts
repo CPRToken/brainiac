@@ -588,6 +588,7 @@ export const es = {
   [tokens.headings.realEstate]: 'Valorador de propiedades',
   [tokens.headings.chatGPT]: 'Chat GPT',
     [tokens.headings.layout]: 'Disposición',
+  [tokens.headings.pathways]: 'Caminos',
   [tokens.headings.editor]: 'Editor',
   [tokens.headings.AItools]: 'Nuestros Herramientas de IA',
 

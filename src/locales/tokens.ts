@@ -88,6 +88,7 @@ headings: {
   primaryColor: 'headings.primaryColor',
   Heading: 'headings.Heading',
   howMuch: 'headings.howMuch',
+  pathways: 'headings.pathways',
   startToday: 'headings.startToday',
    realEstate: 'headings.realEstate',
   biblicalFigures: 'headings.biblicalFigures',
