@@ -1,9 +1,9 @@
-// pages/api/create-subscription.ts
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import Stripe from 'stripe';
 import admin from 'src/libs/firebaseAdmin';
 
 const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY!, { apiVersion: '2024-04-10' });
+
 async function findOrCreateStripeCustomer(email: string): Promise<Stripe.Customer> {
   const usersRef = admin.firestore().collection('users');
   const querySnapshot = await usersRef.where('email', '==', email).get();
@@ -59,13 +59,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     res.status(200).json(subscription);
-  catch (error) {
-      console.error('Subscription creation failed:', error);
-      const message = (error as Error).message; // Type assertion
-      res.status(500).json({ error: 'Failed to create subscription', details: message });
-    }
-  };
+  } catch (error) { // Closing bracket for try block added here
+    console.error('Subscription creation failed:', error);
+    const message = (error as Error).message; // Type assertion
+    res.status(500).json({ error: 'Failed to create subscription', details: message });
+  }
 };
-
-
-
