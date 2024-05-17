@@ -14,7 +14,7 @@ import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
 import { Scrollbar } from 'src/components/scrollbar';
 import type { Settings } from 'src/types/settings';
-
+import Image from 'next/image';
 
 
 import { OptionsColorPreset } from './options-color-preset';
@@ -151,12 +151,12 @@ export const SettingsDrawer: FC<SettingsDrawerProps> = (props) => {
 
 
             >
-              <img
+              <Image
                 src="/assets/flags/flag-uk.svg"
                 alt="English"
                 onClick={() => i18n.changeLanguage('en')}
               />
-              <img
+              <Image
                 src="/assets/flags/flag-es.svg"
                 alt="Spanish"
                 onClick={() => i18n.changeLanguage('es')}

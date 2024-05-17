@@ -12,7 +12,6 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {socialApi} from "../../../api/social/socialApi";
 
 
-
 const useProfile = (): Profile | null => {
     const [user, setUser] = useState<Profile | null>(null);
     const auth = getAuth();

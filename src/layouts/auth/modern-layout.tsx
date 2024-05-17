@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Head from 'next/head';
+import Image from 'next/image';
 
 
 import { RouterLink } from 'src/components/router-link';
@@ -58,7 +59,7 @@ export const Layout: FC<LayoutProps> = (props) => {
         <Box maxWidth="md">
             <Box
                 sx={{
-                    '& img': {
+                    '& Image': {
                         maxWidth: '300px', // For PC/Laptops
                         marginBottom: '1rem',
                         '@media (max-width: 600px)': {
@@ -67,7 +68,7 @@ export const Layout: FC<LayoutProps> = (props) => {
                     },
                 }}
             >
-                <img
+                <Image
                     src="/assets/logo.svg"
                     alt="Brainiac Media Logo"
                 />

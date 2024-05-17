@@ -32,7 +32,7 @@ export const useAuth = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [auth, db]); // Add 'auth' and 'db' to the dependencies array
 
   return { user, isLoading };
 };
@@ -46,7 +46,7 @@ export const useProtectedPage = () => {
       if (!user) {
         // Redirect to login if no user is found
         router.push('/login');
-      } else if (user.role?.includes('free')) { // Updated this line
+      } else if (user.role?.includes('free')) {
         // Redirect to subscription page if user has the 'free' role
         router.push('/pricing');
       }
