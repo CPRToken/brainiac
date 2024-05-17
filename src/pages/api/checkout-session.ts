@@ -1,4 +1,3 @@
-// pages/api/checkout-session.ts
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import Stripe from 'stripe';
 
@@ -8,9 +7,8 @@ if (!stripeSecretKey) {
 }
 
 const stripe = new Stripe(stripeSecretKey, {
-
+  apiVersion: '2024-04-10',
 });
-
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { priceId, userId } = req.body;
@@ -37,5 +35,3 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(500).json({ error: 'Error creating checkout session' });
   }
 };
-
-// pages/api/stripe-webhook.ts
