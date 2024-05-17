@@ -42,7 +42,7 @@ class SocialApi {
           uid: uid,
           avatar: userData.avatar || '',
           cover: userData.cover || '',
-          currentCity: userData.currentCity || '',
+
           email: userData.email || '',
           gender: userData.gender || '',
           firstName: userData.firstName || '',
@@ -56,8 +56,9 @@ class SocialApi {
           degree: userData.degree || '',
           quote: userData.quote || '',
           userUrl: userData.userUrl || '',
+          stripeCustomerId: userData.stripeCustomerId || '',
           role: userData.role || '',
-          team: []
+
         };
 
       });

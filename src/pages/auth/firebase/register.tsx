@@ -30,8 +30,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from 'src/libs/firebase';
 import React, { useState } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { addDoc, collection } from 'firebase/firestore';
-import { serverTimestamp } from "firebase/firestore";
+
 
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
@@ -63,12 +62,10 @@ const Page: NextPage = () => {
       quote: '',
       firstName: '',
       lastName: '',
-        dob: null,
-      email: '',
+        email: '',
       password: '',
       policy: false,
-      currentCity: '',
-      originCity: '',
+
 
 
     },
@@ -95,13 +92,10 @@ const Page: NextPage = () => {
           firstName: values.firstName,
           lastName: values.lastName,
             email: user.email,
-          quote: values.quote,
           cover: defaultCoverImageUrl,
-          originCity: values.originCity,
             userUrl: profileURL,
           role: 'free',
-          team: [],
-
+         stripeCustomerId: '',
         });
 
 // For public data
@@ -115,12 +109,12 @@ const Page: NextPage = () => {
 
 
       } catch (error) {
-        console.error("Error during user creation or data saving:", error);
-        setErrors({ email: error.message });
-
-      } finally {
-        setSubmitting(false);
+        // Asserting that error is an instance of Error
+        const message = (error as Error).message;
+        console.error("Error during user creation or data saving:", message);
+        setErrors({ email: message });
       }
+
     }
   });
 

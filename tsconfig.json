@@ -1,40 +1,31 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
+    "target": "esnext",
+    "module": "commonjs", // Adjusted for better backend compatibility if needed
+    "strict": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "incremental": true,
-    "isolatedModules": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
     "jsx": "preserve",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "noFallthroughCasesInSwitch": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true, // Typical for Next.js since it handles compilation
+    "isolatedModules": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "es6",
-    "useUnknownInCatchVariables": false
+    "skipLibCheck": true // This can help avoid type checking errors in node_modules
+    ,
+    "allowJs": true,
+    "incremental": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next.d.ts",
-    "next-env.d.ts"
-  ],
   "exclude": [
     "node_modules"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
   ]
 }

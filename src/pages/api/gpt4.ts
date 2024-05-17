@@ -10,9 +10,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const content = Array.isArray(prompt) ? prompt[0] : prompt;
 
       const completion = await openai.chat.completions.create({
-        model: 'gpt-4',
+        model: 'gpt-4o',
         messages: [{ role: 'user', content }],
-        max_tokens: 2000,
+        max_tokens: 3000,
       });
 
       const responseContent = completion?.choices?.[0]?.message?.content?.trim() ?? "No response generated.";
