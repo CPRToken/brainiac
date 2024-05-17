@@ -69,17 +69,24 @@ const Page: NextPage = () => {
 
 
 
-             if (isMounted()) {
-                 router.push(paths.dashboard.index);
-            }
-        } catch (err) {
-            console.error(err);
-            helpers.setFieldError('submit', err.message);
-        }
-    },
-});
+              if (isMounted()) {
+                router.push(paths.dashboard.index);
+              }
+            } catch (err) {
+              console.error(err);
 
-    const { t } = useTranslation();
+              // Type assertion to ensure err is treated as an Error object
+              if (err instanceof Error) {
+                helpers.setFieldError('submit', err.message);
+              } else {
+                // Handle unexpected error type
+                helpers.setFieldError('submit', 'An unexpected error occurred');
+              }
+            }
+        },
+    });
+
+  const { t } = useTranslation();
 
     usePageView();
 
