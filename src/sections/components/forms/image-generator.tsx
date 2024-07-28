@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useImageSubmit from './image-submit';
 import { handleSaveImage } from 'src/sections/components/buttons/saveImage';
-
+import {useProtectedPage} from "src/hooks/use-protectedpage";
 
 
 
@@ -178,7 +178,7 @@ const objectOptions: Option[] = [
 ];
 
 export const ImageGenerator: FC = () => {
-
+  useProtectedPage();
 
 
   const { imageSubmit, openAIResponse, isLoading } = useImageSubmit();

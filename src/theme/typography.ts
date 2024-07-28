@@ -108,7 +108,7 @@ export const typography = {
     lineHeight: 64 / 48,
     fontSize: pxToRem(28),
     fontFamily: primaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 40, md: 41, lg: 39 }),
+    ...responsiveFontSizes({ sm: 40, md: 41, lg: 28 }),
   },
   h4: {
     fontWeight: 500,
@@ -128,9 +128,9 @@ export const typography = {
   h6: {
     fontWeight: 500,
     lineHeight:  1.4,
-    fontSize: pxToRem(25),
+    fontSize: pxToRem(22),
     fontFamily:tertiaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 15, md: 17, lg: 36 }),
+    ...responsiveFontSizes({ sm: 15, md: 17, lg: 22 }),
   },
   subtitle1: {
     fontWeight: 600,

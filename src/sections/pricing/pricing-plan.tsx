@@ -21,10 +21,11 @@ interface PricingPlanProps {
   popular?: boolean;
   price: string;
   sx?: SxProps<Theme>;
+  onClick?: () => void; // Add an onClick handler here
 }
 
 export const PricingPlan: FC<PricingPlanProps> = (props) => {
-  const { cta, currency, description, features, icon, name, popular, price, sx, ...other } = props;
+  const { cta, currency, description, features, icon, name, popular, price, sx, onClick,   ...other } = props;
 
   return (
     <Card
@@ -120,6 +121,7 @@ export const PricingPlan: FC<PricingPlanProps> = (props) => {
           <Button
             fullWidth
             variant={popular ? 'contained' : 'outlined'}
+            onClick={onClick} // Attach the onClick handler to the button
           >
             {cta}
           </Button>

@@ -15,6 +15,7 @@ import TextImageSubmit from "./textimage-submit";
 import React from 'react';
 import Typography from "@mui/material/Typography";
 import {saveTextImage } from "../buttons/saveTextImage";
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
 
 
 type Option = {
@@ -131,7 +132,7 @@ const ageOptions: Option[] = [
 
 
 export const MagicMirror: FC = () => {
-
+  useProtectedPage();
 
 
   const { combinedSubmit, textResponse, images, isLoading } = TextImageSubmit();

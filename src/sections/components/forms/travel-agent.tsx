@@ -11,7 +11,9 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
+
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
+import useGPT4Submit from "./gpt4-submit";
 
 type Option = {
     label: string;
@@ -55,10 +57,10 @@ const modeOptions: Option[] = [
 
 
 export const TravelAgent: FC = () => {
+  useProtectedPage();
 
 
-
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [destination, setDestination] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mode, setMode] = useState<string>('');

@@ -15,6 +15,7 @@ import {saveTextImage } from "../buttons/saveTextImage";
 
 
 import Typography from "@mui/material/Typography";
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
 
 type Option = {
   label: string;
@@ -115,7 +116,7 @@ const roomOptions: Option[] = [
 
 
 export const InteriorDesigner: FC = () => {
-
+  useProtectedPage();
 
 
     const { combinedSubmit, textResponse, images, isLoading } = TextImageSubmit();

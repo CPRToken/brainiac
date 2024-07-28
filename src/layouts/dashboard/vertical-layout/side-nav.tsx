@@ -6,19 +6,20 @@ import Box from '@mui/material/Box';
 
 import Drawer from '@mui/material/Drawer';
 import Stack from '@mui/material/Stack';
-
+import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
-
+import Link from 'next/link';
 
 import { RouterLink } from 'src/components/router-link';
 import { Scrollbar } from 'src/components/scrollbar';
 import { usePathname } from 'src/hooks/use-pathname';
 import { paths } from 'src/paths';
 import type { NavColor } from 'src/types/settings';
-
+import { tokens } from 'src/locales/tokens';
 import type { Section } from '../config';
 import { TenantSwitch } from '../tenant-switch';
 import { SideNavSection } from './side-nav-section';
+import { useTranslation } from 'react-i18next';
 
 const SIDE_NAV_WIDTH = 290;
 
@@ -156,12 +157,16 @@ interface SideNavProps {
 }
 
 export const SideNav: FC<SideNavProps> = (props) => {
+  const { t } = useTranslation();
   const { color = 'evident', sections = [] } = props;
   const theme = useTheme();  // Use theme
   const pathname = usePathname();
   const cssVars = useCssVars(color);
 
   const logoSrc = theme.palette.mode === 'dark' ? '/assets/logos/logo-dark.svg' : '/assets/logos/logo-light.svg';
+
+
+
 
   return (
     <Drawer
@@ -217,6 +222,13 @@ export const SideNav: FC<SideNavProps> = (props) => {
             </Box>
             <TenantSwitch sx={{ flexGrow: 1 }} />
           </Stack>
+          <Box sx={{ p: 2, mb: 2 }}>
+            <Link href="/upgrade" passHref>
+              <Button variant="contained" color="primary" fullWidth>
+                {t(tokens.nav.upgrade)}
+              </Button>
+            </Link>
+          </Box>
           <Stack
             component="nav"
             spacing={2}

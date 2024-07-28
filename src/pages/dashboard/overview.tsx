@@ -8,17 +8,17 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
-
+import {PricingSection } from "../upgrade";
 import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
 import { useSettings } from 'src/hooks/use-settings';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { OverviewBanner } from 'src/sections/dashboard/overview/overview-banner';
-import { OverviewDoneTasks } from 'src/sections/dashboard/overview/overview-done-tasks';
+import { OverviewContentWriter } from 'src/sections/dashboard/overview/overview-content-writer';
 import { OverviewEvents } from 'src/sections/dashboard/overview/overview-events';
 import { OverviewInbox } from 'src/sections/dashboard/overview/overview-inbox';
 import { OverviewTransactions } from 'src/sections/dashboard/overview/overview-transactions';
-import { OverviewPendingIssues } from 'src/sections/dashboard/overview/overview-pending-issues';
+import { OverviewImageGenerator } from 'src/sections/dashboard/overview/overview-image-generator';
 import { OverviewSubscriptionUsage } from 'src/sections/dashboard/overview/overview-subscription-usage';
 import { OverviewHelp } from 'src/sections/dashboard/overview/overview-help';
 import { OverviewJobs } from 'src/sections/dashboard/overview/overview-jobs';
@@ -83,19 +83,20 @@ const Page: NextPage = () => {
               xs={12}
               md={4}
             >
-              <OverviewDoneTasks amount={31} />
+              <OverviewContentWriter amount={31} />
             </Grid>
             <Grid
               xs={12}
               md={4}
             >
-              <OverviewPendingIssues amount={12} />
+              <OverviewImageGenerator amount={12} />
             </Grid>
             <Grid
               xs={12}
               md={4}
             >
               <OverviewOpenTickets amount={5} />
+
             </Grid>
             <Grid
               xs={12}
@@ -271,6 +272,7 @@ const Page: NextPage = () => {
               />
             </Grid>
             <Grid xs={6}>
+
               <OverviewJobs />
             </Grid>
             <Grid xs={6}>

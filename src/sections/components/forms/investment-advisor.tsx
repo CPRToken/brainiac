@@ -13,6 +13,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
 import {saveDoc} from "../buttons/saveDoc";
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
 
 type Option = {
     label: string;
@@ -81,7 +82,7 @@ const investmentExperienceOptions: Option[] = [
 
 
 export const InvestmentAdvisor: FC = () => {
-
+  useProtectedPage();
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();

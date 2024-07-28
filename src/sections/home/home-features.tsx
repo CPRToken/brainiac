@@ -1,13 +1,12 @@
 import type { FC } from 'react';
 import { useState } from 'react';
-import Image from 'next/image';
-
+import LinkExternal01Icon from '@untitled-ui/icons-react/build/esm/LinkExternal01';
 import Box from '@mui/material/Box';
-
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
-
+import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 
@@ -22,29 +21,44 @@ interface Feature {
 const features: Feature[] = [
   {
     id: 'experts',
-    title: 'Cuenta tu historia',
+    title: 'Built by experts',
     description:
-      "Tu estas en control de tu cuento y lo que deceas compartir.",
+      'All of the code follows MUI best practices, it’s written by our in-house team of experts.',
     imageDark: '/assets/home-features-experts-dark.png',
     imageLight: '/assets/home-features-experts-light.png',
   },
   {
     id: 'figma',
-    title: 'Diseña tu perfil',
+    title: 'Design Files',
     description:
-      "¡Diseña tu propio perfil a tu gusto! Tú eliges qué información quieres compartir y qué prefieres mantener en privado. Aquí, tú tienes el control..",
-    imageDark: '',
+      "We've included the source Figma files to Plus & Extended licenses so you can get creative! Build layouts with confidence.",
+    imageDark: '/assets/home-features-figma-dark.png',
     imageLight: '/assets/home-features-figma-light.png',
   },
   {
     id: 'tech',
-    title: 'Construido con tecnologías modernas,',
+    title: 'Built with modern technologies',
     description:
-      'Construido con tecnologías modernas, hemos utilizado las últimas tendencias en desarrollo web para asegurar rapidez, elegancia y escalabilidad',
-    imageDark: '',
+      'Each template is a well-structured CRA & Next.js project, giving you a codebase that’s productive and enjoyable to work in.',
+    imageDark: '/assets/home-features-tech-dark.png',
     imageLight: '/assets/home-features-tech-light.png',
   },
-
+  {
+    id: 'customize',
+    title: 'Easy to customize',
+    description:
+      'Everything is styled using global theme overrides, just open the theme file in your editor and change whatever you want.',
+    imageDark: '/assets/home-features-customize-dark.png',
+    imageLight: '/assets/home-features-customize-light.png',
+  },
+  {
+    id: 'productive',
+    title: 'Built with CRA & Next.js',
+    description:
+      'Well-structured, thoughtfully componentized CRA & Next.js project, giving you a codebase that’s productive and enjoyable to work in.',
+    imageDark: '/assets/home-features-nextjs-dark.png',
+    imageLight: '/assets/home-features-nextjs-light.png',
+  },
 ];
 
 export const HomeFeatures: FC = () => {
@@ -74,7 +88,7 @@ export const HomeFeatures: FC = () => {
             color="inherit"
             variant="h3"
           >
-            Cómo funciona?
+            Everything you need to run your project.
           </Typography>
           <Typography
             align="center"
@@ -140,7 +154,21 @@ export const HomeFeatures: FC = () => {
                     </Typography>
                     {feature.id === 'figma' && (
                       <Box sx={{ mt: 3 }}>
-
+                        <Button
+                          color="success"
+                          component="a"
+                          endIcon={
+                            <SvgIcon fontSize="small">
+                              <LinkExternal01Icon />
+                            </SvgIcon>
+                          }
+                          href="https://www.figma.com/file/xrx6uDljzsWuDZiuz3ITCp/Devias-Kit-Pro-UI-6.0-Master"
+                          size="small"
+                          target="_blank"
+                          variant="contained"
+                        >
+                          Preview in Figma
+                        </Button>
                       </Box>
                     )}
                   </Box>
@@ -153,22 +181,14 @@ export const HomeFeatures: FC = () => {
             md={6}
           >
             <Box
-                sx={{
-                  '& img': {
-                    width: '100%',
-                  },
-                }}
+              sx={{
+                '& img': {
+                  width: '100%',
+                },
+              }}
             >
-              <div style={{ position: 'relative', width: '100%', height: 'auto' }}>
-                <Image
-                    src={image}
-                    layout="fill"
-                    objectFit="contain"
-                    alt="Description for the image" // Add an appropriate description
-                />
-              </div>
+              <img src={image} />
             </Box>
-
           </Grid>
         </Grid>
       </Container>

@@ -1,165 +1,230 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { NextPage } from 'next';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import { RouterLink } from 'src/components/router-link';
-import  TextMaxLine  from 'src/components/text-max-line/text-max-line';
-import Iconify from 'src/components/iconify';
 import SvgColor from "src/components/svg-color";
-import Grid from '@mui/material/Grid';
-
+import { socialApi } from "src/api/social/socialApi";
 import Typography from '@mui/material/Typography';
-import {typography } from "src/theme/typography";
-import IconButton from '@mui/material/IconButton';
+import { typography } from "src/theme/typography";
 import { useRouter } from 'next/router';
 import { useTranslation } from "react-i18next";
-import { usePageView } from 'src/hooks/use-page-view';
-import { Seo } from 'src/components/seo';
-import {useTheme} from "@mui/material/styles";
-import { alpha } from '@mui/system/colorManipulator';
+import { useTheme } from "@mui/material/styles";
 import Paper from '@mui/material/Paper';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import { auth } from '../../libs/firebase';
 import { paths } from 'src/paths';
-import {tokens} from "../../locales/tokens"; // Ensure paths are correctly imported
-
-
+import { tokens } from "../../locales/tokens";
+import type { Profile } from "../../types/social";
+import { auth } from "../../libs/firebase"; // Ensure paths are correctly imported
 
 type ModuleItem = {
   name: string;
   path: string;
+  role?: string;
+  plan?: string[];
+  stripeCustomerId?: string;
   icon: string;
+  about: string;
 };
 
 const Page: NextPage = () => {
+  const uid = auth.currentUser?.uid;
+  const [user, setUser] = useState<Profile | null>(null);
   const { t } = useTranslation();
-  useTheme();
+  const theme = useTheme();
+  const router = useRouter();
 
-const modules: ModuleItem[] = [
-  { name: t(tokens.headings.lyricWriter), path: paths.dashboard.lyricWriter, icon: '/assets/icons/lyric.svg' },
-  { name: t(tokens.headings.scriptWriter), path: paths.dashboard.scriptWriter, icon: '/assets/icons/movie.svg' },
-  { name: t(tokens.headings.recipeWriter), path: paths.dashboard.recipeGen, icon: '/assets/icons/recipe.svg' },
-  { name: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator, icon: '/assets/icons/poem.svg' },
-  { name: t(tokens.headings.seoArticleWriter), path: paths.dashboard.seoArticleWriter, icon: '/assets/icons/seo.svg' },
-  { name: t(tokens.headings.essayWriter), path: paths.dashboard.essayWriter, icon: '/assets/icons/edu.svg' },
-  { name: t(tokens.headings.editor), path: paths.dashboard.editor, icon: '/assets/icons/editor.svg' },
-  { name: t(tokens.headings.dietPlanner), path: paths.dashboard.dietPlanner, icon: '/assets/icons/diet.svg' },
-  { name: t(tokens.headings.storyGenerator), path: paths.dashboard.storyGenerator, icon: '/assets/icons/edu.svg' },
-  { name: t(tokens.headings.dreamInterpretation), path: paths.dashboard.dreamInterpretation, icon: '/assets/icons/dream.svg' },
-  { name: t(tokens.headings.magicMirror), path: paths.dashboard.magicMirror, icon: '/assets/icons/mirror.svg' },
-  { name: t(tokens.headings.philosophyWriter), path: paths.dashboard.philosophyWriter, icon: '/assets/icons/filoso.svg' },
-  { name: t(tokens.headings.interiorDesigner), path: paths.dashboard.interiorDesigner, icon: '/assets/icons/interior.svg' },
-  { name: t(tokens.headings.howToMake), path: paths.dashboard.howToMake, icon: '/assets/icons/how.svg' },
-  { name: t(tokens.headings.resumeBuilder), path: paths.dashboard.resumeBuilder, icon: '/assets/icons/resume.svg' },
-  { name: t(tokens.headings.speechWriter), path: paths.dashboard.speechWriter, icon: '/assets/icons/speech.svg' },
-  { name: t(tokens.headings.translator), path: paths.dashboard.translator, icon: '/assets/icons/translator.svg' },
-  { name: t(tokens.headings.careerDeveloper), path: paths.dashboard.careerDeveloper, icon: '/assets/icons/career.svg' },
-  { name: t(tokens.headings.startABusiness), path: paths.dashboard.startABusiness, icon: '/assets/icons/business.svg' },
-  { name: t(tokens.headings.investmentAdvisor), path: paths.dashboard.investmentAdvisor, icon: '/assets/icons/invest.svg' },
-  { name: t(tokens.headings.uniAnswers), path: paths.dashboard.uniAnswers, icon: '/assets/icons/uni.svg' },
-  { name: t(tokens.headings.travelAgent), path: paths.dashboard.travelAgent, icon: '/assets/icons/travel.svg' },
-  { name: t(tokens.headings.cocktailCrafter), path: paths.dashboard.cocktailCrafter, icon: '/assets/icons/cocktail.svg' },
-  { name: t(tokens.headings.dessertGenerator), path: paths.dashboard.dessertGenerator, icon: '/assets/icons/dessert.svg' },
-  { name: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser, icon: '/assets/icons/book.svg' },
-  { name: t(tokens.headings.fruitsNVeges), path: paths.dashboard.fruitsNVeges, icon: '/assets/icons/fruits.svg' },
-  { name: t(tokens.headings.tweetGenerator), path: paths.dashboard.tweetGenerator, icon: '/assets/icons/tweet.svg' },
+  useEffect(() => {
+    if (!uid) return; // Exit if uid is null
 
-];
+    const fetchUserData = async () => {
+      try {
+        const userData = await socialApi.getProfile({ uid });
 
+        if (!userData) {
+          console.error("User data not found");
+          return;
+        }
 
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
 
+    fetchUserData();
+  }, [uid]);
 
-  // Additional areas
+  const modules: ModuleItem[] = [
+    { name: t(tokens.headings.imageGenerator), path: paths.dashboard.imageGenerator, icon: '/assets/icons/images.svg', about: t(tokens.form.imageAbout), plan: ['Trial','Basic','Premium', 'Business'] },
+    { name: t(tokens.headings.lyricWriter), path: paths.dashboard.lyricWriter, icon: '/assets/icons/lyric.svg', about: t(tokens.form.lyricWriterAbout) , plan: ['Trial','Basic','Premium', 'Business'] },
+    { name: t(tokens.headings.scriptWriter), path: paths.dashboard.scriptWriter, icon: '/assets/icons/movie.svg', about: t(tokens.form.scriptWriterAbout) , plan: ['Trial','Premium', 'Business'] },
+    { name: t(tokens.headings.recipeWriter), path: paths.dashboard.recipeGen, icon: '/assets/icons/recipe.svg', about: t(tokens.form.recipeWriterAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator, icon: '/assets/icons/poem.svg', about: t(tokens.form.poemGeneratorAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.seoArticleWriter), path: paths.dashboard.seoArticleWriter, icon: '/assets/icons/seo.svg', about: t(tokens.form.seoArticleWriterAbout) , plan: ['Trial','Premium', 'Business'] },
+    { name: t(tokens.headings.essayWriter), path: paths.dashboard.essayWriter, icon: '/assets/icons/edu.svg', about: t(tokens.form.essayWriterAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.editor), path: paths.dashboard.editor, icon: '/assets/icons/editor.svg', about: t(tokens.form.editorAbout) , plan: ['Business'] },
+    { name: t(tokens.headings.dietPlanner), path: paths.dashboard.dietPlanner, icon: '/assets/icons/diet.svg', about: t(tokens.form.dietPlannerAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.storyGenerator), path: paths.dashboard.storyGenerator, icon: '/assets/icons/edu.svg', about: t(tokens.form.storyGeneratorAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.dreamInterpretation), path: paths.dashboard.dreamInterpretation, icon: '/assets/icons/dream.svg', about: t(tokens.form.dreamInterpretationAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.magicMirror), path: paths.dashboard.magicMirror, icon: '/assets/icons/mirror.svg', about: t(tokens.form.magicMirrorAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.philosophyWriter), path: paths.dashboard.philosophyWriter, icon: '/assets/icons/filoso.svg', about: t(tokens.form.philosophyWriterAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.interiorDesigner), path: paths.dashboard.interiorDesigner, icon: '/assets/icons/interior.svg', about: t(tokens.form.interiorDesignerAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.howToMake), path: paths.dashboard.howToMake, icon: '/assets/icons/how.svg', about: t(tokens.form.howToMakeAbout) },
+    { name: t(tokens.headings.resumeBuilder), path: paths.dashboard.resumeBuilder, icon: '/assets/icons/resume.svg', about: t(tokens.form.resumeBuilderAbout) , plan: [ 'Business'] },
+    { name: t(tokens.headings.speechWriter), path: paths.dashboard.speechWriter, icon: '/assets/icons/speech.svg', about: t(tokens.form.speechWriterAbout) , plan: [ 'Business'] },
+    { name: t(tokens.headings.translator), path: paths.dashboard.translator, icon: '/assets/icons/translator.svg', about: t(tokens.form.translatorAbout) , plan: [ 'Business'] },
+    { name: t(tokens.headings.careerDeveloper), path: paths.dashboard.careerDeveloper, icon: '/assets/icons/career.svg', about: t(tokens.form.careerDeveloperAbout) , plan: [ 'Business'] },
+    { name: t(tokens.headings.startABusiness), path: paths.dashboard.startABusiness, icon: '/assets/icons/Business.svg', about: t(tokens.form.startABusinessAbout), plan: [ 'Business'] },
+    { name: t(tokens.headings.investmentAdvisor), path: paths.dashboard.investmentAdvisor, icon: '/assets/icons/invest.svg', about: t(tokens.form.investmentAdvisorAbout) , plan: [ 'Business'] },
+    { name: t(tokens.headings.uniAnswers), path: paths.dashboard.uniAnswers, icon: '/assets/icons/uni.svg', about: t(tokens.form.uniAnswersAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.travelAgent), path: paths.dashboard.travelAgent, icon: '/assets/icons/travel.svg', about: t(tokens.form.travelAgentAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.cocktailCrafter), path: paths.dashboard.cocktailCrafter, icon: '/assets/icons/cocktail.svg', about: t(tokens.form.cocktailCrafterAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.dessertGenerator), path: paths.dashboard.dessertGenerator, icon: '/assets/icons/dessert.svg', about: t(tokens.form.dessertGeneratorAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.bookSummariser), path: paths.dashboard.bookSummariser, icon: '/assets/icons/book.svg', about: t(tokens.form.bookSummariserAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.fruitsNVeges), path: paths.dashboard.fruitsNVeges, icon: '/assets/icons/fruits.svg', about: t(tokens.form.fruitsNVegesAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.biblicalFigures), path: paths.dashboard.biblicalFigures, icon: '/assets/icons/bible.svg', about: t(tokens.form.biblicalFiguresAbout) , plan: ['Premium', 'Business'] },
+    { name: t(tokens.headings.idiomTranslator), path: paths.dashboard.idiomTranslator, icon: '/assets/icons/idioms.svg', about: t(tokens.form.idiomTranslatorAbout) , plan: ['Premium', 'Business'] },
+  ];
 
+  const filteredModules = user ? modules.filter(module => {
+    const modulePlans = module.plan ?? [];
+    console.log("User Plan:", user.plan); // Debugging
+    console.log("Module Plans:", modulePlans); // Debugging
+    return (modulePlans.includes(user.plan ?? '') || user.plan === 'Business');
+  }) : [];
 
   return (
     <Container sx={{ py: { xs: 5, md: 10, lg: 17 } }}>
-      <Typography sx={{ ...typography.h5, mb: 9, mt: 3, textAlign: 'center' }}>
-        {t(tokens.headings.AImodules)}
+      <Typography sx={{ ...typography.h4, mb: 5, mt: 0, pl: 2, pr: 0, textAlign: 'left' }}>
+        {t(tokens.form.hello)} {user?.firstName}, {t(tokens.form.todayIs)}
+      </Typography>
+      <Typography sx={{ ...typography.h4, mb: 5, mt: 7, textAlign: 'center' }}>
+        {user?.plan} plan {t(tokens.headings.AItools)}
       </Typography>
 
-
-
-
-
-      <Grid container spacing={3} justifyContent="center">
-        {modules.map((module) => (
-          <Grid item xs={12} sm={6} md={3} key={module.name} sx={{ textAlign: 'center' }}>
-            <IconButton component={RouterLink} href={module.path}>
-              <SvgColor src={module.icon} color="info"
-                        sx={{ width: 60, height: 60, mx: 'auto', bgcolor: 'primary.main' }} />
-            </IconButton>
-            <Typography sx={{ ...typography.subtitle1, color: 'text.primary', mt: 3, mb: 3 }}>
-              {module.name}
-            </Typography>
-          </Grid>
+      <Box
+        sx={{
+          gap: { xs: 2, sm: 2, md: 2, lg: 2 },
+          paddingLeft: { xs: 1, sm: 1, md: 1, lg: 4 },
+          paddingRight: { xs: 1, sm: 1, md: 1, lg: 4 },
+          mt: { xs: 2, sm: 2, md: 2, lg: 2 },
+          mb: { xs: 2, sm: 2, md: 2, lg: 2 },
+          display: 'grid',
+          my: { xs: 6, sm: 10, md: 12 },
+          gridTemplateColumns: {
+            xs: 'repeat(2, 1fr)',
+            sm: 'repeat(3, 1fr)',
+            md: 'repeat(4, 1fr)',
+            lg: 'repeat(4, 1fr)',
+          },
+        }}
+      >
+        {filteredModules.map((module) => (
+          <ModuleItem key={module.name} module={module} />
         ))}
-      </Grid>
+      </Box>
     </Container>
   );
 }
 
-// ----------------------------------------------------------------------
-
 type ModuleItemProps = {
-  service: {
-    name: string;
-    content: string;
-    path: string;
-    icon: string;
-  };
-  index: number;
+  module: ModuleItem;
 };
 
-function ModuleItem({ service, index }: ModuleItemProps) {
-  const { name, icon, content, path } = service;
+const ModuleItem = ({ module }: ModuleItemProps) => {
+  const router = useRouter();
+  const theme = useTheme();
+  const [hovered, setHovered] = React.useState(false);
 
+  const handleMouseEnter = () => {
+    setHovered(true);
+  };
 
+  const handleMouseLeave = () => {
+    setHovered(false);
+  };
 
   return (
-    <Card
+    <Paper
+      onClick={() => router.push(module.path)}
+      variant="outlined"
       sx={{
-        px: 4,
-        py: 5,
+        pt: '80%',
+        width: '100%',
+        minHeight: '100px',
+        borderRadius: 2,
+        cursor: 'pointer',
         textAlign: 'center',
-        ...(index === 1 && {
-          py: { xs: 5, md: 8 },
-        }),
-        ...(index === 2 && {
-          py: { xs: 5, md: 10 },
-
-        }),
+        position: 'relative',
+        bgcolor: hovered ? 'background.paper' : 'transparent',
+        transition: theme.transitions.create('all'),
+        '&:hover': {
+          bgcolor: 'background.paper',
+          boxShadow: '0 4px 20px 0 rgba(0,0,0,0.12)',
+        },
       }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-
-
-      <Stack spacing={1} sx={{ my: 5 }}>
-        <TextMaxLine variant="h6">{name}</TextMaxLine>
-        <TextMaxLine variant="body2" sx={{ color: 'text.secondary' }}>
-          {content}
-        </TextMaxLine>
-      </Stack>
-
-      <IconButton
-        component={RouterLink}
-        href={path}
-        color={
-          (index === 0 && 'primary') ||
-          (index === 1 && 'secondary') ||
-          (index === 2 && 'success') ||
-          'warning'
-        }
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        sx={{
+          width: 1,
+          height: 1,
+          top: 0,
+          position: 'absolute',
+        }}
       >
-        <Iconify icon="carbon:direction-straight-right" />
-      </IconButton>
-    </Card>
+        <Box
+          className="svg-color"
+          sx={{
+            mb: 2,
+            mt: 0,
+            width: 50,
+            height: 50,
+            mx: 'auto',
+            display: 'flex',
+            borderRadius: '50%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            p: { xs: 1, sm: 0 },
+          }}
+        >
+          <SvgColor
+            src={module.icon}
+            color={hovered ? theme.palette.primary.main : 'info'}
+            sx={{
+              width: '100%',
+              height: '100%',
+            }}
+          />
+        </Box>
+
+        <Typography sx={{ ...typography.subtitle1,
+          color: 'text.primary',
+          mt: { xs: 0, sm: 0 },
+          mb: { xs: 0, sm: 0 },
+          pl: { xs: 1, sm: 0 },
+          pr: { xs: 1, sm: 0 },
+        }}>
+          {module.name}
+        </Typography>
+
+        <Typography sx={{ ...typography.subtitle2,
+          color: 'text.secondary',
+          mt: { xs: 0, sm: 1 },
+          mb: { xs: 1, sm: 1 },
+          pl: { xs: 1, sm: 0 },
+          pr: { xs: 1, sm: 0 },
+        }}>
+          {module.about}
+        </Typography>
+      </Stack>
+    </Paper>
   );
 }
-
-
-
 
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 

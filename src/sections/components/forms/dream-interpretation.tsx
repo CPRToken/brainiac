@@ -11,9 +11,10 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
+
 import Typography from "@mui/material/Typography";
 import {saveDoc} from "../buttons/saveDoc";
+import useGPT4Submit from "./gpt4-submit";
 
 
 
@@ -27,7 +28,7 @@ import {saveDoc} from "../buttons/saveDoc";
 
 export const DreamInterpretation: FC = () => {
   const { t } = useTranslation();
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
 
   const [dream, setDream] = useState<string>(''); // New state for the dream
 const [title, setTitle] = useState<string>(''); // New state for the dream

@@ -1,41 +1,33 @@
-import type { FC } from 'react';
+import { FC } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Unstable_Grid2';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { FormikProps } from 'formik';
 
-interface PaymentMethod {
-  label: string;
-  value: string;
+interface CheckoutFormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  policy: boolean;
 }
 
-const paymentMethods: PaymentMethod[] = [
-  {
-    label: 'Visa Credit/Debit Card',
-    value: 'visa',
-  },
-  {
-    label: 'PayPal',
-    value: 'paypal',
-  },
-];
+interface CheckoutProps {
+  formik: FormikProps<CheckoutFormValues>;
+}
 
-export const Checkout: FC = () => (
+export const Checkout: FC<CheckoutProps> = ({ formik }) => (
   <Box sx={{ p: 3 }}>
-    <form onSubmit={(event) => event.preventDefault()}>
+    <form onSubmit={formik.handleSubmit}>
       <Stack spacing={6}>
         <Stack spacing={3}>
-          <Stack
-            alignItems="center"
-            direction="row"
-            spacing={2}
-          >
+          <Stack alignItems="center" direction="row" spacing={2}>
             <Box
               sx={{
                 alignItems: 'center',
@@ -47,228 +39,91 @@ export const Checkout: FC = () => (
                 width: 40,
               }}
             >
-              <Typography
-                sx={{ fontWeight: 'fontWeightBold' }}
-                variant="h6"
-              >
+              <Typography sx={{ fontWeight: 'fontWeightBold' }} variant="h6">
                 1
               </Typography>
             </Box>
-            <Typography variant="h6">Billing Address</Typography>
+            <Typography variant="h6">User Information</Typography>
           </Stack>
           <div>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                xs={12}
-                sm={6}
-              >
+            <Grid container spacing={3}>
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="First Name"
                   name="firstName"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.firstName}
+                  error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+                  helperText={formik.touched.firstName && formik.errors.firstName}
                 />
               </Grid>
-              <Grid
-                xs={12}
-                sm={6}
-              >
+              <Grid xs={12} sm={6}>
                 <TextField
                   fullWidth
                   label="Last Name"
                   name="lastName"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.lastName}
+                  error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+                  helperText={formik.touched.lastName && formik.errors.lastName}
                 />
               </Grid>
-              <Grid
-                xs={12}
-                sm={6}
-              >
+              <Grid xs={12} sm={12}>
                 <TextField
                   fullWidth
-                  label="Street Address"
-                  name="address"
+                  label="Email"
+                  name="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={formik.touched.email && formik.errors.email}
                 />
               </Grid>
-              <Grid
-                xs={12}
-                sm={6}
-              >
+              <Grid xs={12} sm={12}>
                 <TextField
                   fullWidth
-                  label="Street Line 2 (optional)"
-                  name="optionalAddress"
+                  label="Password"
+                  name="password"
+                  type="password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+                  error={formik.touched.password && Boolean(formik.errors.password)}
+                  helperText={formik.touched.password && formik.errors.password}
                 />
               </Grid>
-              <Grid
-                xs={12}
-                sm={3}
-              >
+              <Grid xs={12} sm={12}>
                 <TextField
                   fullWidth
-                  label="State"
-                  name="state"
-                />
-              </Grid>
-              <Grid
-                xs={12}
-                sm={3}
-              >
-                <TextField
-                  fullWidth
-                  label="Zip"
-                  name="zip"
+                  label="Confirm Password"
+                  name="confirmPassword"
+                  type="password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.confirmPassword}
+                  error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                  helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                 />
               </Grid>
             </Grid>
           </div>
         </Stack>
         <Stack spacing={3}>
-          <Stack
-            alignItems="center"
-            direction="row"
-            spacing={2}
-          >
-            <Box
-              sx={{
-                alignItems: 'center',
-                border: (theme) => `1px solid ${theme.palette.divider}`,
-                borderRadius: 20,
-                display: 'flex',
-                height: 40,
-                justifyContent: 'center',
-                width: 40,
-              }}
-            >
-              <Typography
-                sx={{ fontWeight: 'fontWeightBold' }}
-                variant="h6"
-              >
-                2
-              </Typography>
-            </Box>
-            <Typography variant="h6">Shipping Address</Typography>
-          </Stack>
-          <div>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Same as billing address"
-            />
-          </div>
-        </Stack>
-        <Stack spacing={3}>
-          <Stack
-            alignItems="center"
-            direction="row"
-            spacing={2}
-          >
-            <Box
-              sx={{
-                alignItems: 'center',
-                border: (theme) => `1px solid ${theme.palette.divider}`,
-                borderRadius: 20,
-                display: 'flex',
-                height: 40,
-                justifyContent: 'center',
-                width: 40,
-              }}
-            >
-              <Typography
-                sx={{ fontWeight: 'fontWeightBold' }}
-                variant="h6"
-              >
-                3
-              </Typography>
-            </Box>
-            <Typography variant="h6">Payment Method</Typography>
-          </Stack>
-          <Stack spacing={3}>
-            <div>
-              <RadioGroup
-                name="paymentMethod"
-                sx={{ flexDirection: 'row' }}
-              >
-                {paymentMethods.map((paymentMethod) => (
-                  <FormControlLabel
-                    control={<Radio />}
-                    key={paymentMethod.value}
-                    label={<Typography variant="body1">{paymentMethod.label}</Typography>}
-                    value={paymentMethod.value}
-                  />
-                ))}
-              </RadioGroup>
-            </div>
-            <div>
-              <Grid
-                container
-                spacing={3}
-              >
-                <Grid
-                  xs={12}
-                  sm={6}
-                >
-                  <TextField
-                    fullWidth
-                    label="Name on Card"
-                    name="cardOwner"
-                  />
-                </Grid>
-                <Grid
-                  xs={12}
-                  sm={6}
-                />
-                <Grid
-                  xs={12}
-                  sm={6}
-                >
-                  <TextField
-                    fullWidth
-                    label="Card Number"
-                    name="cardNumber"
-                  />
-                </Grid>
-                <Grid
-                  xs={12}
-                  sm={6}
-                />
-                <Grid
-                  xs={12}
-                  sm={3}
-                >
-                  <TextField
-                    fullWidth
-                    label="Expire Date"
-                    name="cardExpirationDate"
-                    placeholder="MM/YY"
-                  />
-                </Grid>
-                <Grid
-                  xs={12}
-                  sm={3}
-                >
-                  <TextField
-                    fullWidth
-                    label="Security Code"
-                    name="cardSecurityCode"
-                  />
-                </Grid>
-              </Grid>
-            </div>
-          </Stack>
+          <FormControlLabel
+            control={<Checkbox name="policy" onChange={formik.handleChange} checked={formik.values.policy} />}
+            label="I accept the terms and conditions"
+          />
+          {formik.touched.policy && formik.errors.policy && (
+            <Typography color="error">{formik.errors.policy}</Typography>
+          )}
         </Stack>
       </Stack>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          mt: 3,
-        }}
-      >
-        <Button
-          type="submit"
-          variant="contained"
-        >
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
+        <Button type="submit" variant="contained">
           Submit
         </Button>
       </Box>

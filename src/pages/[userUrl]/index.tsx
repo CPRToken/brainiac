@@ -23,9 +23,9 @@ import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
 
 
-import { SocialPostCard } from 'src/sections/dashboard/social/social-post-card';
-import { SocialTimeline } from 'src/sections/dashboard/social/social-timeline';
-import type { Profile, Post } from 'src/types/social';
+
+
+import type { Profile } from 'src/types/social';
 import { useRouter } from 'next/router';
 
 import { query, where, collection, getDocs } from "firebase/firestore";
@@ -46,14 +46,14 @@ const tabs = [
 const useProfile = (): Profile | null => {
 
     const [profile, setProfile] = useState<Profile | null>(null);
-    const [showModal, setShowModal] = useState(false);
+
     const router = useRouter();
 
     const { userUrl, invite } = router.query;
 
     useEffect(() => {
         if (invite === 'true') {
-            setShowModal(true); // Show the modal when invite is true
+
         }
         if (!userUrl || typeof userUrl !== 'string') return;
 
@@ -97,49 +97,6 @@ const useProfile = (): Profile | null => {
 
 
 
-const usePosts = (): Post[] => {
-    const [posts, setPosts] = useState<Post[]>([]);
-    const router = useRouter();
-
-
-    const { userUrl } = router.query;
-
-    useEffect(() => {
-        if (!userUrl || typeof userUrl !== 'string') return;
-
-        async function fetchPostsData() {
-
-        try {
-
-            const querySnapshot = await getDocs(query(collection(db, "users"), where("userUrl", "==", userUrl)));
-            const userDoc = querySnapshot.docs[0];
-            if (userDoc) {
-                const uid = userDoc.id;
-                const unsubscribe = socialApi.getPosts({ uid }, (fetchedPosts) => {
-
-                    setPosts(fetchedPosts);
-
-
-
-                });
-            } else {
-                console.log('No such document with that userUrl!');
-            }
-        } catch (error) {
-            console.error("Error fetching user data based on userUrl: ", error);
-        }
-        }
-
-
-        fetchPostsData();
-    }, [userUrl]);
-
-    return posts;
-};
-
-
-
-
 
 
 
@@ -147,7 +104,7 @@ const Page: NextPage = () => {
 
 
     const profile = useProfile();
-    const posts = usePosts();
+
 
     const [currentTab, setCurrentTab] = useState<string>('timeline');
 
@@ -277,7 +234,7 @@ const Page: NextPage = () => {
                                         color="text.secondary"
                                         variant="overline"
                                     >
-                                        {profile.bio}
+
                                     </Typography>
                                     <Typography variant="h4">{profile.name}</Typography>
                                 </div>
@@ -344,31 +301,12 @@ const Page: NextPage = () => {
                         ))}
                     </Tabs>
                     <Divider />
-                    <Box sx={{ mt: 3 }}>
-                        {currentTab === 'timeline' && (
-                            <SocialTimeline
-                              posts={posts}
-                                profile={profile}
-                            />
-                        )}
-                        {currentTab === 'posts' && (
-                            posts.map((post) => (
-                                <SocialPostCard
-                                  key={post.postId}
-                                  postId={post.postId}
-                                  avatar={post.avatar}
-                                  authorName={post.name}
-                                    comments={post.comments}
-                                    createdAt={post.createdAt}
-                                    isLiked={post.isLiked}
-                                    likes={post.likes}
-                                    media={post.media}
-                                    message={post.message}
-                                />
-                            ))
-                        )}
 
-                    </Box>
+
+
+
+
+
                 </Container>
             </Box>
         </>

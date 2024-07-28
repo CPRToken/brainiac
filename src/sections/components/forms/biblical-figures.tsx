@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
+import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
 import { saveDoc } from 'src/sections/components/buttons/saveDoc';
 
@@ -21,7 +21,7 @@ export const BiblicalFigures: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [figure, setFigure] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');

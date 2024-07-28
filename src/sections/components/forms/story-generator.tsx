@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import TextImageSubmit from "./textimage-submit";
 import {saveTextImage } from "../buttons/saveTextImage";
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
 
 
 type Option = {
@@ -107,7 +108,7 @@ const moodOptions: Option[] = [
 
 
 export const StoryGenerator: FC = () => {
-
+  useProtectedPage();
 
 
   const { combinedSubmit, textResponse, images, isLoading } = TextImageSubmit();

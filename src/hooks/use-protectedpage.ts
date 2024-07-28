@@ -6,7 +6,7 @@ import { doc, getDoc, getFirestore } from 'firebase/firestore';
 // Simplified User type
 interface User {
   uid: string;
-  role?: string; // Assume role is stored as a string
+  plan?: string; // Assume role is stored as a string
 }
 
 export const useAuth = () => {
@@ -21,9 +21,9 @@ export const useAuth = () => {
         const userDocRef = doc(db, 'users', firebaseUser.uid);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
-          setUser({ uid: firebaseUser.uid, role: userDoc.data().role as string });
+          setUser({ uid: firebaseUser.uid, plan: userDoc.data().plan as string });
         } else {
-          setUser({ uid: firebaseUser.uid }); // User exists but no role set
+          setUser({ uid: firebaseUser.uid }); // User exists but no plan set
         }
       } else {
         setUser(null); // No user
@@ -46,11 +46,11 @@ export const useProtectedPage = () => {
       if (!user) {
         // Redirect to login if no user is found
         router.push('/login');
-      } else if (user.role?.includes('free')) {
-        // Redirect to subscription page if user has the 'free' role
-        router.push('/pricing');
+      } else if (user.plan?.includes('Trial')) {
+        // Redirect to subscription page if user has the 'free' plan
+        router.push('/upgrade');
       }
-      // Add more conditions as needed based on other roles
+      // Add more conditions as needed based on other plans
     }
   }, [user, isLoading, router]);
 };

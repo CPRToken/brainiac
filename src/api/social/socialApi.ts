@@ -6,10 +6,7 @@ import { doc, getDoc } from 'firebase/firestore';
 
 
 
-
-type GetPostsRequest = {uid: string; } ;
-type GetProfileRequest = { uid?: string; };
-
+type GetProfileRequest = { uid?: string };
 
 class SocialApi {
 
@@ -30,7 +27,6 @@ class SocialApi {
 
         const userData = docSnap.data();
 
-// Place the console.log here to log the retrieved data
         console.log("Profile data from socialApi:", {
           uid: uid,
           ...userData
@@ -42,76 +38,25 @@ class SocialApi {
           uid: uid,
           avatar: userData.avatar || '',
           cover: userData.cover || '',
-
           email: userData.email || '',
           gender: userData.gender || '',
           firstName: userData.firstName || '',
+          lastName: userData.lastName || '',
           name: `${userData.firstName} ${userData.lastName}`,
-          originCity: userData.originCity || '',
-          placesWorked: userData.placesWorked || '',
-          maritalStatus: userData.maritalStatus || '',
-          highSchool: userData.highSchool || '',
-          highestYearCompleted: userData.highestYearCompleted || '',
-          university: userData.university || '',
-          degree: userData.degree || '',
-          quote: userData.quote || '',
-          userUrl: userData.userUrl || '',
           stripeCustomerId: userData.stripeCustomerId || '',
-          role: userData.role || '',
+          priceId: userData.priceId || '',
+         role: userData.role || '',
+          plan: userData.plan || '',
+          userUrl: userData.userUrl || '',
+
 
         };
 
       });
   }
 
-  async getPosts(request: GetPostsRequest, callback: (posts: Post[]) => void): Promise<() => void> {
-    const uid = request.uid;
 
-    if (!uid) {
-      throw new Error('No UID provided for listening to posts');
-    }
-
-    const postsCollection = collection(db, 'posts');
-    const q = query(postsCollection, where("uid", "==", uid));
-
-    const unsubscribe = onSnapshot(q, snapshot => {
-      if (snapshot.empty) {
-        callback([]);
-        return;
-      }
-
-      const posts: Post[] = snapshot.docs.map(doc => {
-        const postData = doc.data();
-        return {
-          id: doc.id,
-          postId: postData.postId,  // Add this
-          avatar: postData.avatar,  // Add this
-          name: postData.name,  // Add this
-          author: {
-            id: postData.uid,
-            avatar: postData.avatar,
-            name: postData.name,
-          },
-            comments: postData.comments || [],
-
-            createdAt: postData.createdAt,
-          isLiked: postData.isLiked || false,
-          likes: postData.likes || 0,
-          media: postData.media,
-          message: postData.message,
-
-        };
-      });
-
-        console.log("Fetched Posts:", posts);
-
-        callback(posts);
-    }, error => {
-      console.error("Error fetching posts:", error);
-    });
-    return unsubscribe;
-  }
 
 }
 
-  export const socialApi = new SocialApi();
+export const socialApi = new SocialApi();

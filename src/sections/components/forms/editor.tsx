@@ -14,6 +14,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
 import {saveDoc} from "../buttons/saveDoc";
+import {useProtectedPage} from "src/hooks/use-protectedpage";
 
 type Option = {
     label: string;
@@ -107,6 +108,7 @@ const moodOptions: Option[] = [
 
 
 export const Editor: FC = () => {
+  useProtectedPage();
 
 
 
@@ -153,7 +155,7 @@ export const Editor: FC = () => {
     if (mood && style && quantity) {
       let newPrompt = t(tokens.form.reviseOrEdit);
 
-      const textText = mood !== '' ? `${t(text)} ` : '';
+      const textText = text !== '' ? `${t(text)} ` : '';
       const moodText = mood !== '' ? `${t(mood)} ` : '';
       const styleText = style !== '' ? `${t(style)} ` : '';
 

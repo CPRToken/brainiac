@@ -33,7 +33,7 @@ export const OverviewOpenTickets: FC<OverviewOpenTicketsProps> = (props) => {
       >
         <div>
           <img
-            src="/assets/iconly/iconly-glass-paper.svg"
+            src="/assets/iconly/hour-glass.svg"
             width={48}
           />
         </div>
@@ -42,30 +42,18 @@ export const OverviewOpenTickets: FC<OverviewOpenTicketsProps> = (props) => {
             color="text.secondary"
             variant="body2"
           >
-            Open tickets
+            Time Saved
           </Typography>
           <Typography
             color="text.primary"
-            variant="h4"
+            variant="h5"
           >
-            {amount}
+            {amount} hours
           </Typography>
         </Box>
       </Stack>
       <Divider />
-      <CardActions>
-        <Button
-          color="inherit"
-          endIcon={
-            <SvgIcon>
-              <ArrowRightIcon />
-            </SvgIcon>
-          }
-          size="small"
-        >
-          See all tickets
-        </Button>
-      </CardActions>
+
     </Card>
   );
 };

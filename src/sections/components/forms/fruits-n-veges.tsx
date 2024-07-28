@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useHandleSubmit from './handle-submit';
+import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
 
 
@@ -30,7 +30,7 @@ type Option = {
 
 export const FruitsNVeges: FC = () => {
   const { t } = useTranslation();
-  const { handleSubmit, openAIResponse, isLoading } = useHandleSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
 
   const [fruit, setFruit] = useState<string>(''); // New state for the fruit
 

@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import {saveDoc} from "../buttons/saveDoc";
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
 
 type Option = {
     label: string;
@@ -125,6 +126,7 @@ const keyWordsOptions: Option[] = [
 
 
 export const SEOArticleWriter: FC = () => {
+  useProtectedPage();
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [niche, setNiche] = useState<string>('');  // changed from genre

@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import { saveDoc } from 'src/sections/components/buttons/saveDoc';
+import {useProtectedPage} from "src/hooks/use-protectedpage";
 
 type Option = {
     label: string;
@@ -90,7 +91,7 @@ const styleOptions: Option[] = [
 
 
 export const EssayWriter: FC = () => {
-
+  useProtectedPage();
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();

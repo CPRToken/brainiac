@@ -2,8 +2,7 @@ import React from 'react';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import ResponseText from '../clipboards/response-text';
+
 
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
@@ -34,7 +33,7 @@ export const ChatGPT: React.FC = () => {
 
   const submitToOpenAI = async () => {
     setConversation(prev => [...prev, `You: ${chat}`]);
-    await handleSubmit(chat, 2000); // Assuming max_tokens is 2000
+    await handleSubmit(chat, 6000); // Assuming max_tokens is 2000
     setChat('');
   };
 
@@ -60,6 +59,8 @@ export const ChatGPT: React.FC = () => {
           name="chat"
           value={chat}
           onChange={(e) => setChat(e.target.value)}
+          multiline
+          rows={8}
         />
 
         <Button
@@ -75,7 +76,7 @@ export const ChatGPT: React.FC = () => {
 
       <Box sx={{ mt: 3 }}>
         {conversation.map((message, index) => (
-          <Paper key={index} elevation={3} style={{ padding: '10px', margin: '5px 0' }}>
+          <Paper key={index} elevation={3} style={{ padding: '20px', margin: '10px 0' }}>
             {message}
           </Paper>
         ))}

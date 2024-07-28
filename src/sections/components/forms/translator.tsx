@@ -15,6 +15,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
 import {saveDoc} from "../buttons/saveDoc";
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
 
 
 
@@ -29,6 +30,7 @@ const translationLanguageOptions: Option[] = [
   { label: '', value: '' },
   { label: tokens.form.English, value: tokens.form.English },
   { label: tokens.form.Spanish, value: tokens.form.Spanish },
+  { label: tokens.form.Thai, value: tokens.form.Thai },
   { label: tokens.form.French, value: tokens.form.French },
   { label: tokens.form.German, value: tokens.form.German },
   { label: tokens.form.Italian, value: tokens.form.Italian },
@@ -60,7 +62,7 @@ const translationLanguageOptions: Option[] = [
   { label: tokens.form.Latvian, value: tokens.form.Latvian },
   { label: tokens.form.Estonian, value: tokens.form.Estonian },
   { label: tokens.form.Maltese, value: tokens.form.Maltese },
-  { label: tokens.form.Thai, value: tokens.form.Thai },
+
   { label: tokens.form.Filipino, value: tokens.form.Filipino },
   { label: tokens.form.Vietnamese, value: tokens.form.Vietnamese },
   { label: tokens.form.Indonesian, value: tokens.form.Indonesian },
@@ -78,6 +80,7 @@ const translationLanguageOptions: Option[] = [
 
 
 export const Translator: FC = () => {
+  useProtectedPage();
   const { t } = useTranslation();
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [translationLanguage, setTranslationLanguage] = useState<string>('');

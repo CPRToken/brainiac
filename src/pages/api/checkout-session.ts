@@ -1,32 +1,79 @@
+// pages/api/checkout-session.ts
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import Stripe from 'stripe';
+import admin from 'src/libs/firebaseAdmin';
 
 const stripeSecretKey = process.env.STRIPE_TEST_SECRET_KEY;
-if (!stripeSecretKey) {
-  throw new Error('STRIPE_TEST_SECRET_KEY is not defined');
+const stripeWebhookSecret = process.env.STRIPE_TEST_WEBHOOK_SECRET;
+
+if (!stripeSecretKey || !stripeWebhookSecret) {
+  throw new Error('Stripe keys are not defined');
 }
 
-const stripe = new Stripe(stripeSecretKey, {
-  apiVersion: '2024-04-10',
-});
+const stripe = new Stripe(stripeSecretKey, { apiVersion: '2024-06-20' });
+const db = admin.firestore();
+
+type PlanName = 'Basic' | 'Premium' | 'Business';
+
+const planToPriceId: Record<PlanName, string> = {
+  Basic: 'price_1PgQI4I7exj9oAo949UmThhH',
+  Premium: 'price_1PgQJsI7exj9oAo9mUdbE0ZX',
+  Business: 'price_1PgQKSI7exj9oAo9acr903Ka'
+};
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { priceId, userId } = req.body;
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
+  const { userId, userEmail, planName } = req.body;
+
+  if (!userId || !userEmail || !planName) {
+    return res.status(400).json({ error: 'userId, userEmail, and planName are required' });
+  }
 
   try {
+    const userDocRef = db.collection('users').doc(userId);
+    const userDoc = await userDocRef.get();
+
+    if (!userDoc.exists) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const userData = userDoc.data();
+    let stripeCustomerId = userData?.stripeCustomerId;
+
+    if (!stripeCustomerId) {
+      const customer = await stripe.customers.create({
+        email: userEmail,
+        metadata: { uid: userId }
+      });
+      stripeCustomerId = customer.id;
+
+      await userDocRef.update({ stripeCustomerId });
+    }
+
+    const priceId = planToPriceId[planName as PlanName];
+
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      mode: 'subscription',
       line_items: [{
         price: priceId,
         quantity: 1,
       }],
-      mode: 'subscription',
       success_url: `${process.env.NEXT_PUBLIC_SUCCESS_URL}`,
       cancel_url: `${process.env.NEXT_PUBLIC_CANCEL_URL}`,
+      customer: stripeCustomerId,
       metadata: {
         uid: userId,
-        product_id: priceId,
+        priceId
       },
+    });
+
+    await userDocRef.update({
+      stripeSessionId: session.id,
+      priceId,
+      plan: planName
     });
 
     res.status(200).json({ sessionId: session.id });

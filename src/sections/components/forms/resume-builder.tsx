@@ -10,11 +10,13 @@ import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
-import useHandleSubmit from './handle-submit';
+
 import PropTypes from "prop-types";
 import {auth, db }  from "../../../libs/firebase";
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from "firebase/firestore";
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
+import useGPT4Submit from "./gpt4-submit";
 
 
 
@@ -100,10 +102,12 @@ interface ResumeBuilderProps {
 
 
 export const ResumeBuilder: FC<ResumeBuilderProps> = (props) => {
+  useProtectedPage();
+
   const {  name, email, contactNumber, maritalStatus, highSchool, highestYearCompleted, university, degree, placesWorked } = props;
   const [uid, setUid] = useState<string | null>(null);
   const { t } = useTranslation();
-  const { handleSubmit, openAIResponse } = useHandleSubmit();
+  const { handleSubmit, openAIResponse } = useGPT4Submit();
   const [language, setLanguage] = useState<string>('');
   const [profile, setIsPublic] = useState(false);
   const [age, setAge] = useState<string>(''); // New state for the title

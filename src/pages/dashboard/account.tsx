@@ -1,3 +1,4 @@
+//src/pages/dashboard/account.tsx
 import type { ChangeEvent } from 'react';
 import type { NextPage } from 'next';
 import Box from '@mui/material/Box';
@@ -7,74 +8,75 @@ import Stack from '@mui/material/Stack';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
-
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { Seo } from 'src/components/seo';
 
 import { useCallback, useState, useEffect } from 'react';
 import {socialApi} from "src/api/social/socialApi";
-
-
-import { usePageView } from 'src/hooks/use-page-view';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-
+import { onAuthStateChanged } from 'firebase/auth';
 import { AccountGeneralSettings } from 'src/sections/dashboard/account/account-general-settings';
 import { AccountNotificationsSettings } from 'src/sections/dashboard/account/account-notifications-settings';
-import { AccountTeamSettings } from 'src/sections/dashboard/account/account-team-settings';
+
 import { AccountSecuritySettings } from 'src/sections/dashboard/account/account-security-settings';
 import type { Profile } from 'src/types/social';
-import {auth} from "../../libs/firebase";
+import {auth, db} from "../../libs/firebase";
 import {tokens} from "../../locales/tokens";
 import {useTranslation} from "react-i18next";
 new Date();
 const tabs = [
   { label: 'General', value: 'general' },
 
-  { label: 'Team', value: 'team' },
+
 
   { label: 'Security', value: 'security' },
 ];
 
+
+
 const Page: NextPage = () => {
-    const [uid] = useState<string | null>(auth.currentUser ? auth.currentUser.uid : null);
+  const [uid, setUid] = useState<string | null>(auth.currentUser ? auth.currentUser.uid : null);
     const [user, setUser] = useState<Profile | null>(null);
 
-    const [, setAvatarUrl] = useState<string | null>(null);
+
     const [currentTab, setCurrentTab] = useState<string>('general');
 
     const { t } = useTranslation();
 
-    useEffect(() => {
-        if (!uid) return; // Exit if uid is null
-
-        const fetchUserData = async () => {
-            try {
-                const userData = await socialApi.getProfile({ uid });
-
-                if (!userData) {
-                    console.error("User data not found");
-                    return;
-                }
-
-                setUser(userData);          // Use userData instead of fetchedUser
-                setAvatarUrl(userData.avatar || null);
-
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        };
-
-        fetchUserData();
-    }, [uid]);
 
 
 
+  useEffect(() => {
+    if (!uid) return; // Exit if uid is null
 
-  usePageView();
+    const fetchUserData = async () => {
+      try {
+        const userData = await socialApi.getProfile({ uid });
+
+        if (!userData) {
+          console.error("User data not found");
+          return;
+        }
+
+        setUser(userData);          // Use userData instead of fetchedUser
+
+
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [uid]);
+
+
+
 
 
   const handleTabsChange = useCallback((event: ChangeEvent<any>, value: string): void => {
     setCurrentTab(value);
   }, []);
+
 
 
   return (
@@ -103,11 +105,7 @@ const Page: NextPage = () => {
                 variant="scrollable"
               >
                 {tabs.map((tab) => (
-                  <Tab
-                    key={tab.value}
-                    label={tab.label}
-                    value={tab.value}
-                  />
+                  <Tab key={tab.value} label={tab.label} value={tab.value} />
                 ))}
               </Tabs>
               <Divider />
@@ -118,37 +116,14 @@ const Page: NextPage = () => {
               avatar={user.avatar || ''}
               email={user.email || ''}
               name={user.name || ''}
-              maritalStatus={user.maritalStatus || ''}
-               quote={user.quote || ''}
-              placesWorked={user.placesWorked || ''}
-              highSchool={user.highSchool || ''}
-              highestYearCompleted={user.highestYearCompleted || ''}
-              university={user.university || ''}
-              degree={user.degree || ''}
+              plan={user.plan || ''}
+              role={user.role || ''}
             />
           )}
 
-            {currentTab === 'team' &&(
-                <AccountTeamSettings
-                    members={[
-
-
-                ]}
-
-
-                     />
-            )}
-
-
-
-
-            {currentTab === 'notifications' && <AccountNotificationsSettings />}
+          {currentTab === 'notifications' && <AccountNotificationsSettings />}
           {currentTab === 'security' && (
-            <AccountSecuritySettings
-              loginEvents={[
-
-              ]}
-            />
+            <AccountSecuritySettings loginEvents={[]} />
           )}
         </Container>
       </Box>

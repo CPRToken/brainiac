@@ -1,27 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getAuth } from 'firebase/auth';
 
 const useGPT4Submit = () => {
     const [openAIResponse, setOpenAIResponse] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);  // Add a loading state
 
+  useEffect(() => {
+    const auth = getAuth();
+    if (!auth.currentUser) {
+      console.log('No user logged in');
+      // Handle unauthenticated scenario or redirect to login
+    }
+  }, []);
+
+
   const handleSubmit = async (prompt: string, maxTokens: number) => {
-    setIsLoading(true); // Set loading to true when the request starts
-    console.log("Sending prompt to API:", prompt);
+    setIsLoading(true);
+    const auth = getAuth();
+    const token = await auth.currentUser?.getIdToken();
+
     try {
       const response = await fetch('/api/gpt4', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Ensure token is attached
         },
-        body: JSON.stringify({
-          prompt: [prompt], // Wrap the prompt in an array
-          max_tokens: maxTokens, // Ensure the property name matches the API's expected field
-        }),
+        body: JSON.stringify({ prompt: [prompt], max_tokens: maxTokens }),
       });
 
       const data = await response.json();
 
-      if (data.content) {
+      if (response.ok && data.content) {
         setOpenAIResponse(data.content);
       } else {
         console.error("Failed to get documents.");

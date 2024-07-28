@@ -15,6 +15,7 @@ import useGPT4Submit from './gpt4-submit';
 import React from 'react';
 import Slider from '@mui/material/Slider';
 import Typography from "@mui/material/Typography";
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
 
 type Option = {
   label: string;
@@ -83,7 +84,7 @@ const dependentsOptions: Option[] = [
 ];
 
 export const FinancialAdvisor: FC = () => {
-
+  useProtectedPage();
 
 
     const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();

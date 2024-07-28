@@ -17,6 +17,7 @@ import { QuickStats6 } from 'src/sections/components/quick-stats/quick-stats-6';
 import { QuickStats7 } from 'src/sections/components/quick-stats/quick-stats-7';
 import { QuickStats8 } from 'src/sections/components/quick-stats/quick-stats-8';
 import { QuickStats9 } from 'src/sections/components/quick-stats/quick-stats-9';
+import { MyContent } from 'src/sections/components/quick-stats/my-content';
 
 const components: { element: JSX.Element; title: string }[] = [
   {
@@ -24,9 +25,14 @@ const components: { element: JSX.Element; title: string }[] = [
     title: 'Quick stats 1',
   },
   {
+    element: <MyContent />,
+    title: 'My Content',
+  },
+  {
     element: <QuickStats2 />,
     title: 'Quick stats 2',
   },
+
   {
     element: <QuickStats3 />,
     title: 'Quick stats 3',

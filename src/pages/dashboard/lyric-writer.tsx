@@ -81,17 +81,7 @@ const Page: NextPage = () => {
                 </Box>
               </Stack>
             </Grid>
-            <Grid
-              xs={12}
-              md={3} // Changed from 4 to 3 for skinnier My Content
-              sx={{ paddingLeft: 2 }}
-            >
-              <Hidden smDown>
-                <div style={{ position: 'fixed', top: 100, right: 2, width: '250px', padding: '20px' }}>
-                  <MyContent />
-                </div>
-              </Hidden>
-            </Grid>
+
           </Grid>
         </Container>
       </Box>

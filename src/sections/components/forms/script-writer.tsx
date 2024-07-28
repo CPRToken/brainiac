@@ -13,7 +13,7 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import CircularProgress from "@mui/material/CircularProgress";
 import useGPT4Submit from "./gpt4-submit";
 import {saveDoc} from "../buttons/saveDoc";
-
+import {useProtectedPage} from "src/hooks/use-protectedpage";
 type Option = {
   label: string;
   value: string;
@@ -79,14 +79,16 @@ const moodOptions: Option[] = [
   // ... add more as needed
 ];
 export const ScriptWriter: FC = () => {
+  useProtectedPage();
 
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [title, setTitle] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
-  const [style, setTheme] = useState<string>('');
+  const [style, setStyle] = useState<string>('');
   const [mood, setMood] = useState<string>('');
+  const [notes, setNotes] = useState<string>('');
   const [duration, setDuration] = useState<number>(30);
   const [prompt, setPrompt] = useState<string>('');
   const { t } = useTranslation();
@@ -94,7 +96,7 @@ export const ScriptWriter: FC = () => {
 
 
   const submitToOpenAI = () => {
-    const maxTokens = 3000;
+    const maxTokens = 4000;
     if (prompt) {
       // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
@@ -118,6 +120,7 @@ export const ScriptWriter: FC = () => {
         const genreText = genre !== '' ? `${t(genre)} ` : '';
       const styleText = style !== '' ? `${t(style)} , ` : '';
       const moodText = mood !== '' ? `${t(mood)} , ` : '';
+      const notesText = notes !== '' ? `${t(notes)} ` : '';
 
 
         newPrompt = newPrompt
@@ -125,13 +128,14 @@ export const ScriptWriter: FC = () => {
           .replace('[genre]', genreText)
           .replace('[style]', styleText)
           .replace('[mood]', moodText)
+          .replace('[notes]', notesText)
 
 
       setPrompt(newPrompt.trim());
     } else {
       setPrompt('');
     }
-  }, [genre, style, mood, duration, t]);
+  }, [genre, style, mood, notes, duration, t]);
 
 
 
@@ -172,7 +176,7 @@ export const ScriptWriter: FC = () => {
           select
           SelectProps={{ native: true }}
           value={style}
-          onChange={(e) => setTheme(e.target.value)}
+          onChange={(e) => setStyle(e.target.value)}
         >
           {styleOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -195,6 +199,16 @@ export const ScriptWriter: FC = () => {
             </option>
           ))}
         </TextField>
+        <TextField
+          fullWidth
+          label={t(tokens.form.notesText)}
+          name="notes"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          multiline
+          rows={3}
+        />
+
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.duration)}</label>
         </div>

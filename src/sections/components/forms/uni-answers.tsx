@@ -13,13 +13,14 @@ import { useTranslation } from 'react-i18next';
 import useGPT4Submit from "./gpt4-submit";
 import CircularProgress from "@mui/material/CircularProgress";
 import {saveDoc} from "../buttons/saveDoc";
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
 
 
 
 
 
 export const UniAnswers: FC = () => {
-
+  useProtectedPage();
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();

@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
+import {useProtectedPage} from "../../../hooks/use-protectedpage";
 
 type Option = {
     label: string;
@@ -73,7 +74,7 @@ const experienceOptions: Option[] = [
 
 
 export const StartABusiness: FC = () => {
-
+  useProtectedPage();
 
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();

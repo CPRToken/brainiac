@@ -45,8 +45,11 @@ onAuthStateChanged(auth, (user) => {
 const validationSchema = Yup.object({
   firstName: Yup.string().required('First name is required'),
   lastName: Yup.string().required('Last name is required'),
-   email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+  email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
   password: Yup.string().min(7).max(255).required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
+    .required('Password confirmation is required'),
   policy: Yup.boolean().oneOf([true], 'This field must be checked'),
 });
 
@@ -54,7 +57,7 @@ const validationSchema = Yup.object({
 
 const Page: NextPage = () => {
   const router = useRouter();
-  const [currentStep, setCurrentStep] = useState(1);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const formik = useFormik({
@@ -64,6 +67,7 @@ const Page: NextPage = () => {
       lastName: '',
         email: '',
       password: '',
+      confirmPassword: '',
       policy: false,
 
 
@@ -74,7 +78,9 @@ const Page: NextPage = () => {
       console.log('Form onSubmit started');
       try {
         console.log('Firebase createUserWithEmailAndPassword starting');
-        const { user } = await createUserWithEmailAndPassword(auth, values.email, values.password);
+        const { user } = await createUserWithEmailAndPassword(auth, values.email, values.password
+        );
+
         console.log('Firebase createUserWithEmailAndPassword finished', user);
         // Construct the user URL
 
@@ -94,7 +100,8 @@ const Page: NextPage = () => {
             email: user.email,
           cover: defaultCoverImageUrl,
             userUrl: profileURL,
-          role: 'free',
+          plan: 'Trial',
+          role: 'User',
          stripeCustomerId: '',
         });
 
@@ -120,16 +127,7 @@ const Page: NextPage = () => {
 
 
 
-  const nextStep = () => {
-    setCurrentStep(currentStep + 1);
 
-  };
-
-  const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -142,179 +140,144 @@ const Page: NextPage = () => {
         <Card elevation={16}>
           <CardHeader
             subheader={
-              currentStep === 1 ? (
-                <Typography color="text.secondary" variant="body2">
-                  Already have an account? &nbsp;
-                  <Link
-                    component={RouterLink}
-                    href={paths.auth.firebase.login}
-                    underline="hover"
-                    variant="subtitle2"
-                  >
-                    Log in
-                  </Link>
-                </Typography>
-              ) : (
-                currentStep > 1 && (
-                  <Button onClick={prevStep}
-                          sx={{ alignSelf: 'flex-start' }}>
-                    ← Previous
-                  </Button>
-
-                )
-              )
+              <Typography color="text.secondary" variant="body2">
+                Already have an account? &nbsp;
+                <Link
+                  component={RouterLink}
+                  href={paths.auth.firebase.login}
+                  underline="hover"
+                  variant="subtitle2"
+                >
+                  Log in
+                </Link>
+              </Typography>
             }
             sx={{ pb: 0 }}
-            title={currentStep === 1 ? 'Register' : ''}
+            title="Register"
           />
           <CardContent>
-            <form
-              noValidate
-              onSubmit={formik.handleSubmit}
-            >
-              {/* Step 1 */}
-              {currentStep === 1 && (
-                <Stack spacing={3}>
-                  {currentStep > 1 && <Button onClick={prevStep}>Previous</Button>}
-                  <TextField
-                    error={Boolean(formik.touched.quote && formik.errors.quote)}
-                    fullWidth
-                    helperText={formik.touched.quote && formik.errors.quote}
-                    label="Favorite Quote"
-                    name="quote"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    value={formik.values.quote}
-                    placeholder="Optional: Share a quote that represents you"
-                  />
-
-                  <TextField
-                    error={Boolean(formik.touched.firstName && formik.errors.firstName)}
-                    fullWidth
-                    helperText={formik.touched.firstName && formik.errors.firstName}
-                    label="Name"
-                    name="firstName"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    value={formik.values.firstName}
-                  />
-                  <TextField
-                    error={Boolean(formik.touched.lastName && formik.errors.lastName)}
-                    fullWidth
-                    helperText={formik.touched.lastName && formik.errors.lastName}
-                    label="Surname"
-                    name="lastName"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    value={formik.values.lastName}
-                  />
-
-                  <Button
-                    disabled={formik.isSubmitting}
-                    fullWidth
-                    size="large"
-                    sx={{ mt: 2 }}
-                    variant="contained"
-                    onClick={nextStep}
-                  >
-                    Next
-                  </Button>
-
-                </Stack>
-              )}
-
-              {/* Step 2 (previously 3) */}
-              {currentStep === 2 && (
-                <Stack spacing={3}>
-
-
-                      <TextField
-                          error={Boolean(formik.touched.email && formik.errors.email)}
-                          fullWidth
-                          helperText={formik.touched.email && formik.errors.email}
-                          label="Email"
-                          name="email"
-                          onBlur={formik.handleBlur}
-                          onChange={formik.handleChange}
-                          type="email"
-                          value={formik.values.email}
-                      />
-                      <TextField
-                        error={Boolean(formik.touched.password && formik.errors.password)}
-                        fullWidth
-                        helperText={formik.touched.password && formik.errors.password}
-                        label="Password"
-                        name="password"
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        type={showPassword ? 'text' : 'password'}
-                        value={formik.values.password}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                edge="end"
-                              >
-                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                              </IconButton>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                      <Box
-                          sx={{
-                            alignItems: 'center',
-                            display: 'flex',
-                            ml: -1,
-                            mt: 1,
-                          }}
-                      >
-                        <Checkbox
-                            checked={formik.values.policy}
-                            name="policy"
-                            onChange={formik.handleChange}
-                        />
-                        <Typography
-                            color="text.secondary"
-                            variant="body2"
+            <form noValidate onSubmit={formik.handleSubmit}>
+              <Stack spacing={3}>
+                <TextField
+                  error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+                  fullWidth
+                  helperText={formik.touched.firstName && formik.errors.firstName}
+                  label="First Name"
+                  name="firstName"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.firstName}
+                />
+                <TextField
+                  error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+                  fullWidth
+                  helperText={formik.touched.lastName && formik.errors.lastName}
+                  label="Last Name"
+                  name="lastName"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.lastName}
+                />
+                <TextField
+                  error={Boolean(formik.touched.email && formik.errors.email)}
+                  fullWidth
+                  helperText={formik.touched.email && formik.errors.email}
+                  label="Email"
+                  name="email"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type="email"
+                  value={formik.values.email}
+                />
+                <TextField
+                  error={Boolean(formik.touched.password && formik.errors.password)}
+                  fullWidth
+                  helperText={formik.touched.password && formik.errors.password}
+                  label="Password"
+                  name="password"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type={showPassword ? 'text' : 'password'}
+                  value={formik.values.password}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="end"
                         >
-                          I have read the{' '}
-                          <Link
-                              component="a"
-                              href="#"
-                          >
-                            Terms & Conditions
-                          </Link>
-                        </Typography>
-                      </Box>
-                      {Boolean(formik.touched.policy && formik.errors.policy) && (
-                          <FormHelperText error>{formik.errors.policy}</FormHelperText>
-                      )}
-                      <Button
-                        disabled={formik.isSubmitting}
-                        fullWidth
-                        size="large"
-                        sx={{ mt: 2 }}
-                        type="submit"
-                        variant="contained"
-                      >
-                        Register
-                      </Button>
-                    </Stack>
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                <TextField
+                  error={Boolean(formik.touched.confirmPassword && formik.errors.confirmPassword)}
+                  fullWidth
+                  helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                  label="Confirm Password"
+                  name="confirmPassword"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type={showPassword ? 'text' : 'password'}
+                  value={formik.values.confirmPassword}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                <Box
+                  sx={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    ml: -1,
+                    mt: 1,
+                  }}
+                >
+                  <Checkbox
+                    checked={formik.values.policy}
+                    name="policy"
+                    onChange={formik.handleChange}
+                  />
+                  <Typography color="text.secondary" variant="body2">
+                    I have read the{' '}
+                    <Link component="a" href="#">
+                      Terms & Conditions
+                    </Link>
+                  </Typography>
+                </Box>
+                {Boolean(formik.touched.policy && formik.errors.policy) && (
+                  <FormHelperText error>{formik.errors.policy}</FormHelperText>
                 )}
-                {/* ... */}
-
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      </>
+                <Button
+                  disabled={formik.isSubmitting}
+                  fullWidth
+                  size="large"
+                  sx={{ mt: 2 }}
+                  type="submit"
+                  variant="contained"
+                >
+                  Register
+                </Button>
+              </Stack>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </>
   );
-}
-
-
+};
 
 Page.getLayout = (page) => (
     <IssuerGuard issuer={Issuer.Firebase}>

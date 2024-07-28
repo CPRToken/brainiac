@@ -103,6 +103,7 @@ lyricWriter: '/dashboard/lyric-writer',
     biblicalFigures: '/dashboard/biblical-figures',
     myContent: '/dashboard/my-content',
     myImages: '/dashboard/images',
+    idiomTranslator: '/dashboard/idiom-translator',
 
     chatGPT: '/dashboard/chatgpt',
     customers: {

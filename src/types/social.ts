@@ -3,23 +3,17 @@ export interface Profile {
 
     uid?: string;
     avatar?: string;
-    bio?: string;
     cover?: string;
     name?: string;
     firstName?: string;
     lastName?: string;
     email: string;
-    gender?: string;
-    placesWorked?: string;
-    maritalStatus?: string;
-    originCity?: string,
-    highSchool?: string;
-    highestYearCompleted?: string;
-    university?: string;
-    degree?: string;
-       quote?: string;
-    userUrl?: string;
 
+    userUrl?: string;
+    role?: string;
+  plan?: string;
+  priceId?: string;
+  stripeCustomerId?: string;
 }
 
 

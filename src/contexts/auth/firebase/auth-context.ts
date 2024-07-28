@@ -1,12 +1,13 @@
+//src/contexts/auth/firebase/auth-context.ts
 import { createContext } from 'react';
+import type { Profile } from 'src/types/social';
 
-import type { User } from 'src/types/user';
 import { Issuer } from 'src/utils/auth';
 
 export interface State {
   isInitialized: boolean;
   isAuthenticated: boolean;
-  user: User | null;
+  user: Profile | null;
 }
 
 export const initialState: State = {

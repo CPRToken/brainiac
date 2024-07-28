@@ -23,7 +23,7 @@ import { useRouter } from 'src/hooks/use-router';
 import { paths } from 'src/paths';
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {tokens} from "src/locales/tokens";
-
+import { useTranslation } from 'react-i18next';
 
 interface AccountPopoverProps {
   anchorEl: null | Element;
@@ -31,9 +31,39 @@ interface AccountPopoverProps {
   open?: boolean;
   name?: string;
   email?: string;
+  plan?: string;
 
 }
 
+const getPlanColor = (plan: string) => {
+  switch (plan) {
+    case 'Basic':
+      return '#cd7f32'; // Bronze
+    case 'Premium':
+      return '#c0c0c0'; // Silver
+    case 'Business':
+      return '#ffd700'; // Gold
+    case 'Trial':
+      return '#00bfff'; // Light Blue
+    default:
+      return 'gray';
+  }
+};
+
+
+const PlanDot: FC<{ plan: string }> = ({ plan }) => (
+  <Box
+    component="span"
+    sx={{
+      display: 'inline-block',
+      width: 10,
+      height: 10,
+      borderRadius: '50%',
+      backgroundColor: getPlanColor(plan),
+      marginRight: 1,
+    }}
+  />
+);
 export const AccountPopover: FC<AccountPopoverProps> = (props) => {
   const { anchorEl, onClose, open, ...other } = props;
   const router = useRouter();
@@ -82,6 +112,9 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
 
 
 
+  const { t } = useTranslation();
+
+
   return (
       <Popover
           anchorEl={anchorEl}
@@ -100,12 +133,37 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
           <Typography
               color="text.secondary"
               variant="body2"
+              sx={{ mb: 1 }}
           >
             {user?.email}
           </Typography>
+          <Typography
+            variant="body2"
+            sx={{ mb: 1, display: 'flex', alignItems: 'center' }}
+          >
+            <PlanDot plan={user?.plan || ''} />
+            Plan: {user?.plan}
+          </Typography>
         </Box>
         <Divider />
-        <Box sx={{ p: 1 }}>
+        <Box sx={{ p: 0 }}>
+          <ListItemButton
+            component={RouterLink}
+            href={paths.dashboard.account}
+            onClick={onClose}
+            sx={{
+              borderRadius: 1,
+              px: 1,
+              py: 0.5,
+            }}
+          >
+            <ListItemIcon>
+              <SvgIcon fontSize="small">
+                <User03Icon />
+              </SvgIcon>
+            </ListItemIcon>
+            <ListItemText primary={<Typography variant="body1">{t(tokens.nav.account)}</Typography>} />
+          </ListItemButton>
           <ListItemButton
               component={RouterLink}
               href={paths.dashboard.account}
@@ -116,40 +174,7 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
                 py: 0.5,
               }}
           >
-            <ListItemIcon>
-              <SvgIcon fontSize="small">
-                <User03Icon />
-              </SvgIcon>
-            </ListItemIcon>
-            <ListItemText primary={<Typography variant="body1">{t('nav.profile')}</Typography>} />
-          </ListItemButton>
-          <ListItemButton
-              component={RouterLink}
-              href={'/profile/[UserUrl].tsx'}
-              onClick={onClose}
-              sx={{
-                borderRadius: 1,
-                px: 1,
-                py: 0.5,
-              }}
-          >
-            <ListItemIcon>
-              <SvgIcon fontSize="small">
-                <Settings04Icon />
-              </SvgIcon>
-            </ListItemIcon>
-            <ListItemText primary={<Typography variant="body1">{t('nav.settings')}</Typography>} />
-          </ListItemButton>
-          <ListItemButton
-              component={RouterLink}
-              href={paths.dashboard.index}
-              onClick={onClose}
-              sx={{
-                borderRadius: 1,
-                px: 1,
-                py: 0.5,
-              }}
-          >
+
             <ListItemIcon>
               <SvgIcon fontSize="small">
                 <CreditCard01Icon />

@@ -38,7 +38,7 @@ export const Layout: FC<LayoutProps> = (props) => {
             linear-gradient(rgba(5, 5, 40, 0.20), rgba(5, 5, 40, 0.50))
 ,
             linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.05)),
-            url("/assets/sky.png")`,
+            url("/assets/aibg4.png")`,
           // The linear gradient adds a bluish overlay with 50% opacity
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
@@ -68,10 +68,8 @@ export const Layout: FC<LayoutProps> = (props) => {
                     },
                 }}
             >
-                <Image
-                    src="/assets/logo.svg"
-                    alt="Brainiac Media Logo"
-                />
+
+
             </Box>
 
 

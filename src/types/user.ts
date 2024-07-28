@@ -5,12 +5,8 @@ export interface User {
   dob?: string;
   team?: string;
   email?: string;
-  originCity?: string;
-  highSchool?: string;
-  University?: string;
-    maritalStatus?: string;
-
-
+ role?: string;
+ plan?: string;
 userUrl?: string;
   [key: string]: any;
 
