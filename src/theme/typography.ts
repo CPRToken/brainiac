@@ -134,10 +134,11 @@ export const typography = {
   },
   subtitle1: {
     fontWeight: 600,
-    lineHeight: 1.0,
-    fontSize: pxToRem(16),
-    fontFamily: secondaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 14, md: 16, lg: 17 }), // Add responsive sizes
+    lineHeight: 1.2,
+    fontSize: pxToRem(13),
+    fontFamily: tertiaryFont.style.fontFamily,
+    textTransform: 'uppercase',
+    ...responsiveFontSizes({ sm: 14, md: 13, lg: 13 }), // Add responsive sizes
   },
   subtitle2: {
     fontWeight: 400,

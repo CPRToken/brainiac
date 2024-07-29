@@ -208,6 +208,8 @@ headings: {
         title: 'form.title',
       tryit: 'form.tryit',
       pasteIdiom: 'form.pasteIdiom',
+      timeSaved: 'form.timeSaved',
+      numberArticles: 'form.numberArticles',
       moneySaved: 'form.moneySaved',
       articlesGen: 'form.articlesGen',
       wordsUsed: 'form.wordsUsed',

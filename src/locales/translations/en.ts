@@ -166,6 +166,8 @@ export const en = {
   [tokens.headings.upgradeSubheader]: 'Upgrade before reaching it',
     [tokens.headings.usedStorage]: 'You have used {percentage}% of your available storage.',
   [tokens.form.forgotPassword]: 'Forgot Password',
+  [tokens.form.numberArticles]: 'Number of Articles',
+  [tokens.form.timeSaved]: 'Time Saved',
   [tokens.form.pasteIdiom]: 'Paste your idiom here',
   [tokens.form.moneySaved]: 'Money Saved',
   [tokens.form.yourIdeas]: 'Bring your ideas to life!',

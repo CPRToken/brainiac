@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import React, { FC } from 'react';
 import CurrencyDollarIcon from '@untitled-ui/icons-react/build/esm/CurrencyDollar';
 import FolderIcon from '@untitled-ui/icons-react/build/esm/Folder';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -12,6 +12,9 @@ import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from 'react';
+import {typography} from "../../../theme/typography";
+import {tokens} from "../../../locales/tokens";
+import {useTranslation} from "react-i18next";
 
 const TIME_PER_IMAGE = 30; // Average time in minutes spent on creating and editing an image
 const COST_PER_IMAGE = 5.00; // Cost per image in dollars
@@ -21,6 +24,8 @@ export const MyImages: FC = () => {
   const [moneySaved, setMoneySaved] = useState(0);
   const [timeSaved, setTimeSaved] = useState(0);
   const [uid, setUid] = useState<string | null>(null);
+  const { t } = useTranslation();
+
 
   useEffect(() => {
     const fetchUid = () => {
@@ -78,11 +83,11 @@ export const MyImages: FC = () => {
           <Card>
             <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                <Typography color="text.secondary" variant="overline">
-                  Number of Images
+                <Typography sx={{ ...typography.subtitle1,  textAlign: 'left' }}>
+                  {t(tokens.form.numberImages)}
                 </Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
-                  <Typography variant="h5">{imageCount}</Typography>
+                  <Typography variant="h6">{imageCount}</Typography>
                 </Stack>
               </Stack>
               <Avatar
@@ -104,11 +109,11 @@ export const MyImages: FC = () => {
           <Card>
             <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                <Typography color="text.secondary" variant="overline">
-                  Money Saved
+                <Typography sx={{ ...typography.subtitle1, textAlign: 'left' }}>
+                  {t(tokens.form.moneySaved)}
                 </Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
-                  <Typography variant="h5">${moneySaved.toFixed(2)}</Typography>
+                  <Typography variant="h6">${moneySaved.toFixed(2)}</Typography>
                 </Stack>
               </Stack>
               <Avatar
@@ -130,11 +135,11 @@ export const MyImages: FC = () => {
           <Card>
             <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                <Typography color="text.secondary" variant="overline">
-                  Time Saved
+                <Typography sx={{ ...typography.subtitle1, textAlign: 'left' }}>
+                  {t(tokens.form.timeSaved)}
                 </Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
-                  <Typography variant="h5">{formatTimeSaved(timeSaved)}</Typography>
+                  <Typography variant="h6">{formatTimeSaved(timeSaved)}</Typography>
                 </Stack>
               </Stack>
               <Avatar
