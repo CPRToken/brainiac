@@ -111,12 +111,7 @@ const Page: NextPage = () => {
                       <ResumeBuilder
                           name={user.name || ''}
                           email={user.email || ''}
-                          maritalStatus={user.maritalStatus || ''}
-                          university={user.university || ''}
-                          degree={user.degree || ''}
-                          highSchool={user.highSchool || ''}
-                          highestYearCompleted={user.highestYearCompleted || ''}
-                          placesWorked={user.placesWorked || ''}
+
                       />
                   )}
 
