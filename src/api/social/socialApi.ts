@@ -1,5 +1,5 @@
-import type { Post, Profile } from 'src/types/social';
-import { collection, query, where, onSnapshot } from 'firebase/firestore';
+import type { Profile } from 'src/types/social';
+
 import { db } from 'src/libs/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
