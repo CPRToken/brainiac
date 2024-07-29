@@ -87,8 +87,11 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+  myGenContent: 'headings.myGenContent',
+  myGenImages: 'headings.myGenImages',
   bestTools: 'headings.bestTools',
   idiomTranslator: 'headings.idiomTranslator',
+  tips: 'headings.tips',
   popularAItools: 'headings.popularAItools',
   Heading: 'headings.Heading',
   codeChecker: 'headings.codeChecker',
@@ -205,6 +208,9 @@ headings: {
         title: 'form.title',
       tryit: 'form.tryit',
       pasteIdiom: 'form.pasteIdiom',
+      moneySaved: 'form.moneySaved',
+      articlesGen: 'form.articlesGen',
+      wordsUsed: 'form.wordsUsed',
       yourIdeas: 'form.yourIdeas',
       idiomTranslationPrompts: 'form.idiomTranslationPrompts',
       ReactJS: 'form.ReactJS',

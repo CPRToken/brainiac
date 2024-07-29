@@ -18,6 +18,8 @@ import { QuickStats7 } from 'src/sections/components/quick-stats/quick-stats-7';
 import { QuickStats8 } from 'src/sections/components/quick-stats/quick-stats-8';
 import { QuickStats9 } from 'src/sections/components/quick-stats/quick-stats-9';
 import { MyContent } from 'src/sections/components/quick-stats/my-content';
+import {MyImages} from "../../../sections/components/quick-stats/my-images";
+import React from "react";
 
 const components: { element: JSX.Element; title: string }[] = [
   {
@@ -28,6 +30,11 @@ const components: { element: JSX.Element; title: string }[] = [
     element: <MyContent />,
     title: 'My Content',
   },
+  {
+  element: <MyImages />,
+  title: 'My Images',
+  },
+
   {
     element: <QuickStats2 />,
     title: 'Quick stats 2',

@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import React, { FC } from 'react';
 import PropTypes from 'prop-types';
 import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
 import Box from '@mui/material/Box';
@@ -8,14 +8,22 @@ import CardActions from '@mui/material/CardActions';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
+
+import {useTranslation} from "react-i18next";
+
 import Typography from '@mui/material/Typography';
+import {typography} from "../../../theme/typography";
+import {tokens} from "../../../locales/tokens";
+import Link from "next/link";
+import {paths} from "../../../paths";
 
 interface OverviewOpenTicketsProps {
-  amount: number;
+
 }
 
-export const OverviewOpenTickets: FC<OverviewOpenTicketsProps> = (props) => {
-  const { amount } = props;
+
+export const OverviewLyricWriter: FC<OverviewOpenTicketsProps> = (props) => {
+  const { t } = useTranslation();
 
   return (
     <Card>
@@ -38,26 +46,34 @@ export const OverviewOpenTickets: FC<OverviewOpenTicketsProps> = (props) => {
           />
         </div>
         <Box sx={{ flexGrow: 1 }}>
-          <Typography
-            color="text.secondary"
-            variant="body2"
-          >
-            Time Saved
-          </Typography>
+          <Typography sx={{...typography.body1, mb: 1, mt: 1, pl: 2, pr: 0, textAlign: 'left'}}>{t(tokens.headings.lyricWriter)}</Typography>
+
           <Typography
             color="text.primary"
-            variant="h5"
+            variant="h4"
           >
-            {amount} hours
+
           </Typography>
         </Box>
       </Stack>
       <Divider />
+      <CardActions>
+        <Link href={paths.dashboard.images} passHref>
+          <Button
+            color="inherit"
 
+
+
+            size="small"
+          >
+
+          </Button>
+        </Link>
+      </CardActions>
     </Card>
   );
 };
 
-OverviewOpenTickets.propTypes = {
+OverviewLyricWriter.propTypes = {
   amount: PropTypes.number.isRequired,
 };

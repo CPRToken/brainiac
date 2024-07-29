@@ -62,9 +62,7 @@ export const OverviewImageGenerator: FC<OverviewPendingIssuesProps> = (props) =>
 
             size="small"
           >
-            <Typography sx={{ ...typography.body1, textAlign: 'center' }}>
-              {t(tokens.form.tryit)}
-            </Typography>
+
           </Button>
       </Link>
       </CardActions>
