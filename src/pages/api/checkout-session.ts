@@ -15,12 +15,12 @@ const db = admin.firestore();
 type PlanName = 'Basic' | 'Premium' | 'Business' | 'BasicYearly' | 'PremiumYearly' | 'BusinessYearly';
 
 const planToPriceId: Record<PlanName, string> = {
-  Basic: 'price_1PgQI4I7exj9oAo949UmThhH',
-  Premium: 'price_1PgQJsI7exj9oAo9mUdbE0ZX',
-  Business: 'price_1PgQKSI7exj9oAo9acr903Ka',
-  BasicYearly: 'price_1PjDoqI7exj9oAo95jqY8uSw',
-  PremiumYearly: 'price_1PjDpjI7exj9oAo9UkvkaR6x',
-  BusinessYearly: 'price_1PjDr8I7exj9oAo9lm4zAEDn',
+  Basic: 'price_1Pk4zmI7exj9oAo9khc4OT16',
+  Premium: 'price_1Pk4zkI7exj9oAo9N92hGKqe',
+  Business: 'price_1Pk4ziI7exj9oAo95ZIL3sby',
+  BasicYearly: 'price_1Pk4zgI7exj9oAo9DSyIUy8G',
+  PremiumYearly: 'price_1Pk4zeI7exj9oAo9eUPovxQl',
+  BusinessYearly: 'price_1Pk4zbI7exj9oAo9qsyipPNj',
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

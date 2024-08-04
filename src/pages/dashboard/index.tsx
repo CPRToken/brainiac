@@ -318,12 +318,12 @@ const Page: NextPage = () => {
 
 function productIdToPlan(priceId: string): string {
   const priceToPlan: Record<string, string> = {
-    'price_1PgQI4I7exj9oAo949UmThhH': 'Basic',
-    'price_1PgQJsI7exj9oAo9mUdbE0ZX': 'Premium',
-    'price_1PgQKSI7exj9oAo9acr903Ka': 'Business',
-    'price_1PjDoqI7exj9oAo95jqY8uSw': 'BasicYearly',
-    'price_1PjDpjI7exj9oAo9UkvkaR6x': 'PremiumYearly',
-    'price_1PjDr8I7exj9oAo9lm4zAEDn': 'BusinessYearly',
+    'price_1Pk4zmI7exj9oAo9khc4OT16': 'Basic',
+    'price_1Pk4zkI7exj9oAo9N92hGKqe': 'Premium',
+    'price_1Pk4ziI7exj9oAo95ZIL3sby': 'Business',
+    'price_1Pk4zgI7exj9oAo9DSyIUy8G': 'BasicYearly',
+    'price_1Pk4zeI7exj9oAo9eUPovxQl': 'PremiumYearly',
+    'price_1Pk4zbI7exj9oAo9qsyipPNj': 'BusinessYearly',
     'price_canceled': 'Canceled'
   };
   return priceToPlan[priceId] || 'Unknown';
