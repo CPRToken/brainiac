@@ -30,10 +30,10 @@ const PricingSection: FC = () => {
   usePageView();
 
   useEffect(() => {
-    const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_TEST_PUBLISHABLE_KEY;
+    const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
     if (!stripePublishableKey) {
-      console.error("Stripe test publishable key is not set in environment variables");
+      console.error("Stripe publishable key is not set in environment variables");
       return;
     }
 
