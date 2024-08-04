@@ -185,34 +185,8 @@ const Page: NextPage = () => {
     fetchProfile();
   }, []);
 
-  useEffect(() => {
-    const updatePlan = async () => {
-      const auth = getAuth();
-      const user = auth.currentUser;
 
-      if (user && profile) {
-        const userDocRef = doc(db, 'users', user.uid);
-        const priceId = profile.priceId;
 
-        if (priceId) {
-          const plan = productIdToPlan(priceId);
-          const planStartDate = new Date().toISOString();
-          await updateDoc(userDocRef, {
-            plan,
-            planStartDate: planStartDate
-          });
-
-          console.log(`User plan updated to ${plan} with start date ${planStartDate}`);
-        } else {
-          console.error('Price ID not found in user data');
-        }
-      } else {
-        console.error('User not authenticated or profile not loaded');
-      }
-    };
-
-    updatePlan();
-  }, [profile]);
 
 
   usePageView();
@@ -316,18 +290,7 @@ const Page: NextPage = () => {
   );
 };
 
-function productIdToPlan(priceId: string): string {
-  const priceToPlan: Record<string, string> = {
-    'price_1Pk4zmI7exj9oAo9khc4OT16': 'Basic',
-    'price_1Pk4zkI7exj9oAo9N92hGKqe': 'Premium',
-    'price_1Pk4ziI7exj9oAo95ZIL3sby': 'Business',
-    'price_1Pk4zgI7exj9oAo9DSyIUy8G': 'BasicYearly',
-    'price_1Pk4zeI7exj9oAo9eUPovxQl': 'PremiumYearly',
-    'price_1Pk4zbI7exj9oAo9qsyipPNj': 'BusinessYearly',
 
-  };
-  return priceToPlan[priceId] || 'Unknown';
-}
 
 
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
