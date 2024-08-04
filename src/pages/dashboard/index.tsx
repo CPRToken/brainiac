@@ -324,7 +324,7 @@ function productIdToPlan(priceId: string): string {
     'price_1Pk4zgI7exj9oAo9DSyIUy8G': 'BasicYearly',
     'price_1Pk4zeI7exj9oAo9eUPovxQl': 'PremiumYearly',
     'price_1Pk4zbI7exj9oAo9qsyipPNj': 'BusinessYearly',
-    'price_canceled': 'Canceled'
+
   };
   return priceToPlan[priceId] || 'Unknown';
 }

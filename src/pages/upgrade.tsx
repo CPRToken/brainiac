@@ -188,7 +188,7 @@ const PricingSection: FC = () => {
                     name={t(tokens.form.Basic)}
                     popular
                     price={isYearly ? "7.95" : "9.95"}
-                    priceId={isYearly ? 'yearly_price_id_for_basic' : 'price_1PgQI4I7exj9oAo949UmThhH'}
+                    priceId={isYearly ? 'yearly_price_id_for_basic' : 'price_1Pk4zgI7exj9oAo9DSyIUy8G'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
@@ -223,7 +223,7 @@ const PricingSection: FC = () => {
                     name={t(tokens.form.Premium)}
                     popular
                     price={isYearly ? "12.95" : "14.95"}
-                    priceId={isYearly ? 'yearly_price_id_for_premium' : 'price_1PgQJsI7exj9oAo9mUdbE0ZX'}
+                    priceId={isYearly ? 'yearly_price_id_for_premium' : 'price_1Pk4zeI7exj9oAo9eUPovxQl'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
@@ -257,7 +257,7 @@ const PricingSection: FC = () => {
                     name={t(tokens.form.BusinessP)}
                     popular
                     price={isYearly ? "14.95" : "19.95"}
-                    priceId={isYearly ? 'yearly_price_id_for_business' : 'price_1PgQKSI7exj9oAo9acr903Ka'}
+                    priceId={isYearly ? 'yearly_price_id_for_business' : 'price_1Pk4zbI7exj9oAo9qsyipPNj'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
