@@ -14,7 +14,9 @@ import Typography from '@mui/material/Typography';
 import { useState, useEffect } from 'react';
 import {typography} from "../../../theme/typography";
 import {tokens} from "../../../locales/tokens";
+import { useTheme } from '@mui/material/styles';
 import {useTranslation} from "react-i18next";
+import SvgColor from "src/components/svg-color";
 
 const TIME_PER_IMAGE = 30; // Average time in minutes spent on creating and editing an image
 const COST_PER_IMAGE = 5.00; // Cost per image in dollars
@@ -25,7 +27,7 @@ export const MyImages: FC = () => {
   const [timeSaved, setTimeSaved] = useState(0);
   const [uid, setUid] = useState<string | null>(null);
   const { t } = useTranslation();
-
+  const theme = useTheme();
 
   useEffect(() => {
     const fetchUid = () => {
@@ -63,10 +65,10 @@ export const MyImages: FC = () => {
   }, [uid]);
 
   const formatTimeSaved = (timeInMinutes: number) => {
-    if (timeInMinutes < 60) {
+    if (timeInMinutes < 80) {
       return `${timeInMinutes.toFixed(2)} minutes`;
     } else {
-      const hours = timeInMinutes / 60;
+      const hours = timeInMinutes / 80;
       return `${hours.toFixed(2)} hours`;
     }
   };
@@ -79,33 +81,33 @@ export const MyImages: FC = () => {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={4}>
           <Card>
             <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                <Typography sx={{ ...typography.subtitle1,  textAlign: 'left' }}>
-                  {t(tokens.form.numberImages)}
+                <Typography sx={{ ...typography.subtitle1, textAlign: 'left' }}>
+                  {t(tokens.form.numberOfImages)}
                 </Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
-                  <Typography variant="h6">{imageCount}</Typography>
+                  <Typography sx={{ ...typography.subtitle2, textAlign: 'left' }}>{imageCount}</Typography>
                 </Stack>
               </Stack>
-              <Avatar
+              <Box
                 sx={{
-                  backgroundColor: 'primary.main',
-                  color: 'primary.contrastText',
-                  height: 48,
-                  width: 48,
+                  height: 80,
+                  width: 80,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '50%',
                 }}
               >
-                <SvgIcon>
-                  <FolderIcon />
-                </SvgIcon>
-              </Avatar>
+                <SvgColor src="/assets/icons/image.svg" sx={{ width: '80%', height: '80%' }} color={theme.palette.primary.main} />
+              </Box>
             </Stack>
           </Card>
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={4}>
           <Card>
             <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
@@ -113,25 +115,25 @@ export const MyImages: FC = () => {
                   {t(tokens.form.moneySaved)}
                 </Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
-                  <Typography variant="h6">${moneySaved.toFixed(2)}</Typography>
+                  <Typography sx={{ ...typography.subtitle2, textAlign: 'left' }}>${moneySaved.toFixed(2)}</Typography>
                 </Stack>
               </Stack>
-              <Avatar
+              <Box
                 sx={{
-                  backgroundColor: 'primary.main',
-                  color: 'primary.contrastText',
-                  height: 48,
-                  width: 48,
+                  height: 80,
+                  width: 80,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '50%',
                 }}
               >
-                <SvgIcon>
-                  <CurrencyDollarIcon />
-                </SvgIcon>
-              </Avatar>
+                <SvgColor src="/assets/icons/dollar.svg" sx={{ width: '80%', height: '80%' }} color={theme.palette.primary.main} />
+              </Box>
             </Stack>
           </Card>
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
+        <Grid item xs={12} md={4}>
           <Card>
             <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
@@ -139,21 +141,21 @@ export const MyImages: FC = () => {
                   {t(tokens.form.timeSaved)}
                 </Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
-                  <Typography variant="h6">{formatTimeSaved(timeSaved)}</Typography>
+                  <Typography sx={{ ...typography.subtitle2, textAlign: 'left' }}>{formatTimeSaved(timeSaved)}</Typography>
                 </Stack>
               </Stack>
-              <Avatar
+              <Box
                 sx={{
-                  backgroundColor: 'primary.main',
-                  color: 'primary.contrastText',
-                  height: 48,
-                  width: 48,
+                  height: 80,
+                  width: 80,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '50%',
                 }}
               >
-                <SvgIcon>
-                  <AccessTimeIcon />
-                </SvgIcon>
-              </Avatar>
+                <SvgColor src="/assets/icons/clock.svg" sx={{ width: '80%', height: '80%' }} color={theme.palette.primary.main} />
+              </Box>
             </Stack>
           </Card>
         </Grid>

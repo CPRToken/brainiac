@@ -1,10 +1,9 @@
-// pages/api/checkout-session.ts
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import Stripe from 'stripe';
 import admin from 'src/libs/firebaseAdmin';
 
-const stripeSecretKey = process.env.STRIPE_TEST_SECRET_KEY;
-const stripeWebhookSecret = process.env.STRIPE_TEST_WEBHOOK_SECRET;
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 if (!stripeSecretKey || !stripeWebhookSecret) {
   throw new Error('Stripe keys are not defined');
@@ -13,12 +12,15 @@ if (!stripeSecretKey || !stripeWebhookSecret) {
 const stripe = new Stripe(stripeSecretKey, { apiVersion: '2024-06-20' });
 const db = admin.firestore();
 
-type PlanName = 'Basic' | 'Premium' | 'Business';
+type PlanName = 'Basic' | 'Premium' | 'Business' | 'BasicYearly' | 'PremiumYearly' | 'BusinessYearly';
 
 const planToPriceId: Record<PlanName, string> = {
   Basic: 'price_1PgQI4I7exj9oAo949UmThhH',
   Premium: 'price_1PgQJsI7exj9oAo9mUdbE0ZX',
-  Business: 'price_1PgQKSI7exj9oAo9acr903Ka'
+  Business: 'price_1PgQKSI7exj9oAo9acr903Ka',
+  BasicYearly: 'price_1PjDoqI7exj9oAo95jqY8uSw',
+  PremiumYearly: 'price_1PjDpjI7exj9oAo9UkvkaR6x',
+  BusinessYearly: 'price_1PjDr8I7exj9oAo9lm4zAEDn',
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -71,12 +73,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     await userDocRef.update({
-      stripeSessionId: session.id,
+      userId: session.id,
       priceId,
-      plan: planName
     });
 
     res.status(200).json({ sessionId: session.id });
+
   } catch (error) {
     console.error('Error creating checkout session:', error);
     res.status(500).json({ error: 'Error creating checkout session' });

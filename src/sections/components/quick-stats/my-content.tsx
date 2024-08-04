@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
-import CurrencyDollarIcon from '@untitled-ui/icons-react/build/esm/CurrencyDollar';
-import FolderIcon from '@untitled-ui/icons-react/build/esm/Folder';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+
 import { collection, query, getDocs } from 'firebase/firestore';
 import { ref, listAll } from 'firebase/storage';
 import { db, storage, auth } from 'src/libs/firebase';
-import Avatar from '@mui/material/Avatar';
+
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -15,7 +13,9 @@ import Typography from '@mui/material/Typography';
 import { useState, useEffect } from 'react';
 import {typography} from "../../../theme/typography";
 import {tokens} from "../../../locales/tokens";
+import { useTheme } from '@mui/material/styles';
 import {useTranslation} from "react-i18next";
+import SvgColor from "src/components/svg-color";
 
 const COST_PER_WORD = 0.10; // Cost per word in dollars
 const AVERAGE_WPM = 40; // Average Words Per Minute
@@ -29,6 +29,7 @@ export const MyContent: FC = () => {
   const [timeSaved, setTimeSaved] = useState(0);
   const [uid, setUid] = useState<string | null>(null);
   const { t } = useTranslation();
+  const theme = useTheme();
 
   useEffect(() => {
     const fetchUid = () => {
@@ -94,10 +95,10 @@ export const MyContent: FC = () => {
   }, [uid]);
 
   const formatTimeSaved = (timeInMinutes: number) => {
-    if (timeInMinutes < 60) {
+    if (timeInMinutes < 80) {
       return `${timeInMinutes.toFixed(2)} minutes`;
     } else {
-      const hours = timeInMinutes / 60;
+      const hours = timeInMinutes / 80;
       return `${hours.toFixed(2)} hours`;
     }
   };
@@ -114,25 +115,25 @@ export const MyContent: FC = () => {
           <Card>
             <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                <Typography sx={{ ...typography.subtitle1,  textAlign: 'left' }}>
+                <Typography sx={{ ...typography.subtitle1,  textAlign: 'left' ,mb: 2}}>
                   {t(tokens.form.numberArticles)}
                 </Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
-                  <Typography sx={{ ...typography.h6, textAlign: 'left' }}>{contentCount}</Typography>
+                  <Typography sx={{ ...typography.subtitle2, textAlign: 'left' }}>{contentCount}</Typography>
                 </Stack>
               </Stack>
-              <Avatar
+              <Box
                 sx={{
-                  backgroundColor: 'primary.main',
-                  color: 'primary.contrastText',
-                  height: 48,
-                  width: 48,
+                  height: 80,
+                  width: 80,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '50%',
                 }}
               >
-                <SvgIcon>
-                  <FolderIcon />
-                </SvgIcon>
-              </Avatar>
+                <SvgColor src="/assets/icons/article.svg" sx={{ width: '90%', height: '90%' }} color={theme.palette.primary.main} />
+              </Box>
             </Stack>
           </Card>
         </Grid>
@@ -141,25 +142,25 @@ export const MyContent: FC = () => {
           <Card>
             <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                <Typography sx={{ ...typography.subtitle1, textAlign: 'left' }}>
+                <Typography sx={{ ...typography.subtitle1, textAlign: 'left',mb: 2 }}>
                   {t(tokens.form.wordCount)}
                 </Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
-                  <Typography variant="h6">{wordCount}</Typography>
+                  <Typography sx={{ ...typography.subtitle2, textAlign: 'left' }}>{wordCount}</Typography>
                 </Stack>
               </Stack>
-              <Avatar
+              <Box
                 sx={{
-                  backgroundColor: 'primary.main',
-                  color: 'primary.contrastText',
-                  height: 48,
-                  width: 48,
+                  height: 80,
+                  width: 80,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '50%',
                 }}
               >
-                <SvgIcon>
-                  <FolderIcon />
-                </SvgIcon>
-              </Avatar>
+                <SvgColor src="/assets/icons/calculator.svg" sx={{ width: '100%', height: '100%' }} color={theme.palette.primary.main} />
+              </Box>
             </Stack>
           </Card>
         </Grid>
@@ -167,25 +168,25 @@ export const MyContent: FC = () => {
           <Card>
             <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                <Typography sx={{ ...typography.subtitle1, textAlign: 'left' }}>
+                <Typography sx={{ ...typography.subtitle1, textAlign: 'left',mb: 2 }}>
                   {t(tokens.form.moneySaved)}
                 </Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
-                  <Typography variant="h6">${moneySaved.toFixed(2)}</Typography>
+                  <Typography sx={{ ...typography.subtitle2, textAlign: 'left' }}>${moneySaved.toFixed(2)}</Typography>
                 </Stack>
               </Stack>
-              <Avatar
+              <Box
                 sx={{
-                  backgroundColor: 'primary.main',
-                  color: 'primary.contrastText',
-                  height: 48,
-                  width: 48,
+                  height: 80,
+                  width: 80,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '50%',
                 }}
               >
-                <SvgIcon>
-                  <CurrencyDollarIcon />
-                </SvgIcon>
-              </Avatar>
+                <SvgColor src="/assets/icons/dollar.svg" sx={{ width: '100%', height: '100%' }} color={theme.palette.primary.main} />
+              </Box>
             </Stack>
           </Card>
         </Grid>
@@ -193,25 +194,25 @@ export const MyContent: FC = () => {
           <Card>
             <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                <Typography sx={{ ...typography.subtitle1, textAlign: 'left' }}>
+                <Typography sx={{ ...typography.subtitle1, textAlign: 'left',mb: 2 }}>
                   {t(tokens.form.timeSaved)}
                 </Typography>
                 <Stack alignItems="center" direction="row" spacing={1}>
-                  <Typography variant="h6">{formatTimeSaved(timeSaved)}</Typography>
+                  <Typography sx={{ ...typography.subtitle2, textAlign: 'left' }}>{formatTimeSaved(timeSaved)}</Typography>
                 </Stack>
               </Stack>
-              <Avatar
+              <Box
                 sx={{
-                  backgroundColor: 'primary.main',
-                  color: 'primary.contrastText',
-                  height: 48,
-                  width: 48,
+                  height: 80,
+                  width: 80,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: '50%',
                 }}
               >
-                <SvgIcon>
-                  <AccessTimeIcon />
-                </SvgIcon>
-              </Avatar>
+                <SvgColor src="/assets/icons/clock.svg" sx={{ width: '100%', height: '100%' }} color={theme.palette.primary.main} />
+              </Box>
             </Stack>
           </Card>
         </Grid>

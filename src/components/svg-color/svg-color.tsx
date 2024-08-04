@@ -14,8 +14,8 @@ const SvgColor = forwardRef<HTMLSpanElement, SvgColorProps>(({ src, sx, ...other
     className="svg-color"
     ref={ref}
     sx={{
-      width: 24,
-      height: 24,
+      width: '100%',
+      height: '100%',
       display: 'inline-block',
       bgcolor: 'currentColor',
       mask: `url(${src}) no-repeat center / contain`,

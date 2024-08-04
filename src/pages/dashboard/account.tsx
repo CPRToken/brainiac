@@ -23,6 +23,7 @@ import type { Profile } from 'src/types/social';
 import {auth, db} from "../../libs/firebase";
 import {tokens} from "../../locales/tokens";
 import {useTranslation} from "react-i18next";
+import {typography} from "../../theme/typography";
 new Date();
 const tabs = [
   { label: 'General', value: 'general' },
@@ -94,7 +95,14 @@ const Page: NextPage = () => {
             spacing={3}
             sx={{ mb: 3 }}
           >
-              <Typography variant="h4">{t(tokens.nav.account)}</Typography>
+            <Typography sx={{
+              ...typography.h3,
+              mb: 6,
+              mt: 0,
+              pl: 2,
+              pr: 0,
+              textAlign: 'left'
+            }}>{t(tokens.nav.account)}</Typography>
             <div>
               <Tabs
                 indicatorColor="primary"

@@ -4,10 +4,10 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
-import Hidden from '@mui/material/Hidden';
+
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
+
 import { usePageView } from 'src/hooks/use-page-view';
 import { LyricWriter } from 'src/sections/components/forms/lyric-writer';
 import { Seo } from 'src/components/seo';

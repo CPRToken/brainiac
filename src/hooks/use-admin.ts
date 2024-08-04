@@ -6,7 +6,7 @@ import { doc, getDoc, getFirestore } from 'firebase/firestore';
 // Simplified User type
 interface User {
   uid: string;
-  plan?: string; // Assume role is stored as a string
+  role?: string; // Assume role is stored as a string
 }
 
 export const useAuth = () => {
@@ -21,9 +21,9 @@ export const useAuth = () => {
         const userDocRef = doc(db, 'users', firebaseUser.uid);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
-          setUser({ uid: firebaseUser.uid, plan: userDoc.data().plan as string });
+          setUser({ uid: firebaseUser.uid, role: userDoc.data().role as string });
         } else {
-          setUser({ uid: firebaseUser.uid }); // User exists but no plan set
+          setUser({ uid: firebaseUser.uid }); // User exists but no role set
         }
       } else {
         setUser(null); // No user
@@ -32,12 +32,12 @@ export const useAuth = () => {
     });
 
     return () => unsubscribe();
-  }, [auth, db]); // Add 'auth' and 'db' to the dependencies array
+  }, [auth, db]);
 
   return { user, isLoading };
 };
 
-export const useProtectedPage = () => {
+export const useAdminProtectedPage = () => {
   const { user, isLoading } = useAuth();
   const router = useRouter();
 
@@ -46,11 +46,10 @@ export const useProtectedPage = () => {
       if (!user) {
         // Redirect to login if no user is found
         router.push('/login');
-      } else if (['Trial', 'Canceled'].includes(user.plan ?? '')) {
-        // Redirect to subscription page if user has the 'Trial' or 'Canceled' plan
-        router.push('/upgrade');
+      } else if (user.role !== 'admin') {
+        // Redirect to unauthorized page if user is not an admin
+        router.push('/unauthorized');
       }
-      // Add more conditions as needed based on other plans
     }
   }, [user, isLoading, router]);
 };

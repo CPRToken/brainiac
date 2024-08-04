@@ -1,3 +1,4 @@
+//src/sections/pricing/pricing-plan.tsx
 import type { FC, ReactNode } from 'react';
 import propTypes from 'prop-types';
 import CheckIcon from '@untitled-ui/icons-react/build/esm/Check';
@@ -18,14 +19,21 @@ interface PricingPlanProps {
   features: string[];
   icon: ReactNode;
   name: string;
-  popular?: boolean;
   price: string;
+  priceId: string; // Add this line
+  popular?: boolean;
   sx?: SxProps<Theme>;
-  onClick?: () => void; // Add an onClick handler here
+  onClick?: (priceId: string) => void;
 }
 
 export const PricingPlan: FC<PricingPlanProps> = (props) => {
-  const { cta, currency, description, features, icon, name, popular, price, sx, onClick,   ...other } = props;
+  const { cta, currency, description, features, icon, name, price, priceId, popular, sx, onClick, ...other } = props;
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick(priceId);
+    }
+  };
 
   return (
     <Card
@@ -121,7 +129,7 @@ export const PricingPlan: FC<PricingPlanProps> = (props) => {
           <Button
             fullWidth
             variant={popular ? 'contained' : 'outlined'}
-            onClick={onClick} // Attach the onClick handler to the button
+            onClick={handleClick}
           >
             {cta}
           </Button>
@@ -138,7 +146,8 @@ PricingPlan.propTypes = {
   features: propTypes.array.isRequired,
   icon: propTypes.any.isRequired,
   name: propTypes.string.isRequired,
-  popular: propTypes.bool,
   price: propTypes.string.isRequired,
+  priceId: propTypes.string.isRequired, // Add this line
+  popular: propTypes.bool,
   sx: propTypes.object,
 };

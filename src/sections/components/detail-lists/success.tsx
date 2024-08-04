@@ -27,17 +27,8 @@ export const Success: FC = () => (
       <Table>
         <TableBody>
           <TableRow>
-            <TableCell>
-              <Typography variant="subtitle2">Credit Card</Typography>
-            </TableCell>
-            <TableCell>
-              <Typography
-                color="text.secondary"
-                variant="body2"
-              >
-                **** **** **** **** 4142
-              </Typography>
-            </TableCell>
+
+
           </TableRow>
           <TableRow>
             <TableCell>
@@ -54,7 +45,7 @@ export const Success: FC = () => (
           </TableRow>
           <TableRow>
             <TableCell>
-              <Typography variant="subtitle2">Draft</Typography>
+              <Typography variant="subtitle2">Plan</Typography>
             </TableCell>
             <TableCell>
               <Typography
@@ -79,17 +70,7 @@ export const Success: FC = () => (
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>
-              <Typography variant="subtitle2">Refunded</Typography>
-            </TableCell>
-            <TableCell>
-              <Typography
-                color="text.secondary"
-                variant="body2"
-              >
-                0 ($0.00)
-              </Typography>
-            </TableCell>
+
           </TableRow>
           <TableRow>
             <TableCell>
@@ -106,32 +87,7 @@ export const Success: FC = () => (
           </TableRow>
         </TableBody>
       </Table>
-      <Stack
-        alignItems="flex-start"
-        spacing={1}
-        sx={{ p: 1 }}
-      >
-        <Button
-          color="inherit"
-          startIcon={
-            <SvgIcon>
-              <CurrencyDollarIcon />
-            </SvgIcon>
-          }
-        >
-          Create Invoice
-        </Button>
-        <Button
-          color="inherit"
-          startIcon={
-            <SvgIcon>
-              <ReceiptIcon />
-            </SvgIcon>
-          }
-        >
-          Resend Due Invoices
-        </Button>
-      </Stack>
+
     </Card>
   </Box>
 );

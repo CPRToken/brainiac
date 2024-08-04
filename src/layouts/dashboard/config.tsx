@@ -134,16 +134,7 @@ export const useSections = () => {
           {
             subheader: t(tokens.nav.pages),
             items: [
-              {
-                title: t(tokens.nav.myContent),
-                path: paths.dashboard.content.index,
-                icon: <SvgIcon fontSize="small"><File05 /></SvgIcon>,
-              },
-              {
-                title: t(tokens.nav.myImages),
-                path: paths.dashboard.myImages,
-                icon: <SvgIcon fontSize="small"><Image01 /></SvgIcon>,
-              },
+
               {
                 title: t(tokens.nav.customers),
                 path: paths.dashboard.customers.index,

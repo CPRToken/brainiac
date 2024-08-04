@@ -22,11 +22,12 @@ const Page: NextPage = () => {
 
         <HomeHero />
 
-        <PriceSection />
-        <HomeFeatures />
+
+
+
+
+
         <HomeCta />
-
-
       </main>
     </>
   );

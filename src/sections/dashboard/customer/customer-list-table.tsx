@@ -1,9 +1,7 @@
 import type { ChangeEvent, FC, MouseEvent } from 'react';
 import numeral from 'numeral';
 import PropTypes from 'prop-types';
-import ArrowRightIcon from '@untitled-ui/icons-react/build/esm/ArrowRight';
-import Edit02Icon from '@untitled-ui/icons-react/build/esm/Edit02';
-import Avatar from '@mui/material/Avatar';
+import { format } from 'date-fns';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -40,6 +38,8 @@ interface CustomerListTableProps {
 }
 
 export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
+
+
   const {
     count = 0,
     items = [],
@@ -120,21 +120,24 @@ export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
                   }}
                 />
               </TableCell>
-              <TableCell>Detalles</TableCell>
+              <TableCell>Email</TableCell>
 
                <TableCell>Nombre</TableCell>
-              <TableCell>Origen y Escuelas</TableCell>
+              <TableCell>Plan</TableCell>
 
-              <TableCell align="right">Equipo</TableCell>
+              <TableCell align="right">Date Joined</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {items.map((customer) => {
                 const isSelected = selected.indexOf(customer.id) !== -1;
                 const name = `${customer.firstName} ${customer.lastName}`;
-                const location = `${customer.originCity}, ${customer.university}, ${customer.highSchool}`;
-              const team = `${customer.team} `;
+                const plan = `${customer.plan}`;
 
+              const startDate = customer.planStartDate ? new Date(customer.planStartDate) : null;
+
+              // Format the date
+              const formattedDate = startDate ? format(startDate, 'dd MMMM yyyy') : 'N/A'; // Example format: "31 December 2021"
               return (
                   // eslint-disable-next-line react/jsx-key
                 <TableRow
@@ -154,15 +157,7 @@ export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
                       direction="row"
                       spacing={1}
                     >
-                      <Avatar
-                        src={customer.avatar}
-                        sx={{
-                          height: 44,
-                          width: 44,
-                        }}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar>
+
                       <div>
                         <Link
                           color="inherit"
@@ -182,12 +177,12 @@ export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
                     </Stack>
                   </TableCell> <TableCell>{name}</TableCell>
 
-                  <TableCell>{location}</TableCell>
+                  <TableCell>{plan}</TableCell>
 
 
 
                   <TableCell align="right">
-                    {team}
+                    {formattedDate}
                   </TableCell>
                 </TableRow>
               );

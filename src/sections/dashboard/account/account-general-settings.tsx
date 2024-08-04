@@ -74,7 +74,8 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
     const priceToPlan: Record<string, string> = {
       'price_1PcU3uFM88NqciSfKaualog4': 'Basic',
       'price_1PcU32FM88NqciSfBmxaHtfM': 'Premium',
-      'price_1PcU4VFM88NqciSf5jQlo86h': 'Business'
+      'price_1PcU4VFM88NqciSf5jQlo86h': 'Business',
+      'price_canceled': 'Canceled'
     };
     return priceToPlan[priceId] || 'Free';
   };

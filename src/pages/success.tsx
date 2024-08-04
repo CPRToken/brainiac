@@ -1,95 +1,109 @@
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
+import {Success} from 'src/sections/components/detail-lists/success';
 import { Seo } from 'src/components/seo';
+import { getAuth } from 'firebase/auth';
+import { doc, updateDoc } from 'firebase/firestore';
+import { useRouter } from 'next/router';
+import type { Profile } from 'src/types/social';
+import { db } from 'src/libs/firebase';
+import { socialApi } from 'src/api/social/socialApi';
 import { usePageView } from 'src/hooks/use-page-view';
-import { Layout as ComponentsLayout } from 'src/layouts/components';
+import { Typography } from '@mui/material';
 import { Layout as MarketingLayout } from 'src/layouts/marketing';
 import { Previewer } from 'src/sections/components/previewer';
-import { Success } from 'src/sections/components/detail-lists/success';
-import { db, auth } from 'src/libs/firebase'; // Import db and auth
-import { doc, getDoc } from 'firebase/firestore';
+import {tokens} from "../locales/tokens";
+import {useTranslation} from "react-i18next";
+
 
 const components: { element: JSX.Element; title: string }[] = [
+
   {
     element: <Success />,
-    title: 'Payment Successful',
+    title: 'Success',
   },
 ];
 
 const Page: NextPage = () => {
-  const [user, setUser] = useState<any>(null);  // Adjust type as needed
-  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const { session_id } = router.query;
+  const { t } = useTranslation();
 
-  usePageView();
+  const fetchProfile = async () => {
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (user) {
+        const userProfile = await socialApi.getProfile({ uid: user.uid });
+        setProfile(userProfile);
+      } else {
+        console.error('User not authenticated');
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const user = auth.currentUser;
-        if (!user) {
-          throw new Error('User not authenticated');
-        }
+    fetchProfile();
+  }, []);
 
+  useEffect(() => {
+    const updatePlan = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (user && profile) {
         const userDocRef = doc(db, 'users', user.uid);
-        const docSnap = await getDoc(userDocRef);
+        const priceId = profile.priceId;
 
-        if (docSnap.exists()) {
-          setUser(docSnap.data());
+        if (priceId) {
+          const plan = productIdToPlan(priceId);
+          await updateDoc(userDocRef, { plan });
+          console.log(`User plan updated to ${plan}`);
         } else {
-          console.error('No such user document!');
+          console.error('Price ID not found in user data');
         }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      } finally {
-        setLoading(false);
+      } else {
+        console.error('User not authenticated or profile not loaded');
       }
     };
 
-    fetchUser();
-  }, []);
+    updatePlan();
+  }, [profile]);
+
+
+  usePageView();
 
   return (
     <>
-      <Seo title="Payment Success" />
-      <ComponentsLayout title="Payment Success">
+      <Seo title="Components: Detail Lists" />
+
         <Box
           component="main"
           sx={{
             flexGrow: 1,
             py: 8,
+            mt: 6,
           }}
         >
           <Container maxWidth="lg">
+            <Typography
+              variant="h5">{t(tokens.headings.success)}</Typography>
             <Stack spacing={8}>
-              {loading ? (
-                <p>Loading...</p>  // Show loading state
-              ) : (
-                <>
-                  {components.map((component) => (
-                    <Previewer
-                      key={component.title}
-                      title={component.title}
-                    >
-                      {component.element}
-                    </Previewer>
-                  ))}
-                  {/* Optionally display user data */}
-                  {user && (
-                    <div>
-                      <p>User Plan: {user.plan}</p>
-                      <p>Price ID: {user.priceId}</p>
-                      {/* Add more user data here as needed */}
-                    </div>
-                  )}
-                </>
-              )}
+              {components.map((component) => (
+                <Previewer key={component.title} title={component.title}>
+                  {component.element}
+                </Previewer>
+              ))}
             </Stack>
           </Container>
         </Box>
-      </ComponentsLayout>
+
     </>
   );
 };
@@ -97,3 +111,11 @@ const Page: NextPage = () => {
 Page.getLayout = (page) => <MarketingLayout>{page}</MarketingLayout>;
 
 export default Page;
+function productIdToPlan(priceId: string): string {
+  const priceToPlan: Record<string, string> = {
+    'price_1PgQI4I7exj9oAo949UmThhH': 'Basic',
+    'price_1PgQJsI7exj9oAo9mUdbE0ZX': 'Premium',
+    'price_1PgQKSI7exj9oAo9acr903Ka': 'Business'
+  };
+  return priceToPlan[priceId] || 'Unknown';
+}

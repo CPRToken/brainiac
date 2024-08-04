@@ -100,7 +100,7 @@ export const typography = {
     fontWeight: 500,
     lineHeight: 75 / 50,
     fontSize: pxToRem(32),
-    fontFamily: tertiaryFont.style.fontFamily,
+    fontFamily: primaryFont.style.fontFamily,
     ...responsiveFontSizes({ sm: 35, md: 37, lg: 40 }),
   },
   h3: {
@@ -144,7 +144,7 @@ export const typography = {
     fontWeight: 400,
     lineHeight: 1.5,
     fontSize: pxToRem(13),
-    ...responsiveFontSizes({ sm: 13, md: 13, lg: 14 }), // Add responsive sizes
+    ...responsiveFontSizes({ sm: 13, md: 13, lg: 13 }), // Add responsive sizes
   },
   body1: {
     fontWeight: 200,

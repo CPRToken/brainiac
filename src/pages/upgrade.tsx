@@ -18,20 +18,14 @@ import { tokens } from "../locales/tokens";
 import type { Profile } from 'src/types/social';
 import { getAuth } from 'firebase/auth';
 import { socialApi } from 'src/api/social/socialApi';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from 'src/libs/firebase';
 
 
-const planToPriceId = {
-  Basic: 'price_1PgQI4I7exj9oAo949UmThhH',
-  Premium: 'price_1PgQJsI7exj9oAo9mUdbE0ZX',
-  Business: 'price_1PgQKSI7exj9oAo9acr903Ka'
-};
 
 const PricingSection: FC = () => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
   const { t } = useTranslation();
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [isYearly, setIsYearly] = useState(false);
 
   usePageView();
 
@@ -69,26 +63,10 @@ const PricingSection: FC = () => {
     fetchProfile();
   }, []);
 
-  const updateUserPlan = async (uid: string, plan: string, stripeCustomerId?: string) => {
-    const userDocRef = doc(db, 'users', uid);
-    const updateData: any = { plan };
-    if (stripeCustomerId) {
-      updateData.stripeCustomerId = stripeCustomerId;
-    }
-
-    try {
-      await updateDoc(userDocRef, updateData);
-      console.log(`Successfully updated user ${uid} plan to ${plan}`);
-    } catch (error) {
-      console.error('Failed to update user plan:', error);
-      throw new Error('Failed to update user plan');
-    }
-  };
-
-  type PlanName = 'Basic' | 'Premium' | 'Business';
+  type PlanName = 'Basic' | 'Premium' | 'Business' | 'BasicYearly' | 'PremiumYearly' | 'BusinessYearly' | 'Canceled';
 
   const handleCheckout = async (selectedPlan: PlanName) => {
-    console.log(`Plan selected: ${selectedPlan}`);
+    console.log(`Price ID selected: ${selectedPlan}`);
 
     if (!stripe) {
       console.error('Stripe not initialized');
@@ -99,9 +77,7 @@ const PricingSection: FC = () => {
       console.error('User profile is not loaded or essential details are missing');
       return;
     }
-
-    // Corrected: Fetch the price ID using the plan name from the mapping
-    const priceId = planToPriceId[selectedPlan];
+    const priceId = selectedPlan;
     if (!priceId) {
       console.error('No price ID found for the selected plan:', selectedPlan);
       console.log('Price ID:', priceId);
@@ -132,22 +108,21 @@ const PricingSection: FC = () => {
       }
 
       const session = await response.json();
+
       console.log('Stripe checkout session created:', session.sessionId);
       const { error } = await stripe.redirectToCheckout({ sessionId: session.sessionId });
       if (error) {
         console.error('Stripe checkout error:', error);
         return;
       }
-
-      // Optionally update Firestore after successful payment
-      await updateUserPlan(profile.uid, selectedPlan.toLowerCase(), profile.stripeCustomerId || '');
     } catch (error) {
       console.error('Error creating checkout session:', error);
     }
   };
 
-
-
+  const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsYearly(event.target.checked);
+  };
 
   return (
     <>
@@ -173,28 +148,24 @@ const PricingSection: FC = () => {
               <Typography sx={{ ...typography.h3, color: 'text.primary', mt: 9, mb: 0 }}>
                 {t(tokens.headings.startToday)}
               </Typography>
-              <Typography
-                color="text.secondary"
-                sx={{ my: 2 }}
-                variant="body1"
-              >
-                Join 6,000+ users and growing
+              <Typography sx={{ ...typography.body2, color: 'text.primary', mt: 2, mb: 1 }}>
+                {t(tokens.headings.joinTwoThousand)}
               </Typography>
               <Stack
                 alignItems="center"
                 direction="row"
                 spacing={1}
               >
-                <Switch checked />
+                <Switch checked={isYearly} onChange={handleSwitchChange} />
                 <Typography sx={{ ...typography.h6, color: 'text.primary', mt: 9, mb: 0 }}>
-                  {t(tokens.form.yearlyPayment)}
+                  {isYearly ? t(tokens.form.yearlyPayment) : t(tokens.form.monthlyPayment)}
                 </Typography>
               </Stack>
             </Box>
             <Grid container spacing={4}>
               <Grid xs={12} md={4}>
                 <div
-                  onClick={() => handleCheckout('Basic')}
+                  onClick={() => handleCheckout(isYearly ? 'BasicYearly' : 'Basic')}
                   style={{
                     cursor: 'pointer',
                     height: '100%',
@@ -204,24 +175,32 @@ const PricingSection: FC = () => {
                   }}
                 >
                   <PricingPlan
-                    cta="Buy Now"
+                    cta={t(tokens.form.upgrade)}
                     currency="$"
                     description={t(tokens.form.planDescription)}
-                    features={['Create contracts', 'Chat support', 'Email alerts']}
+                    features={[
+                      t(tokens.form.AllPrevious),
+                      t(tokens.form.Alternative),
+                      t(tokens.form.UnlimitedData),
+                      t(tokens.form.Salsa),
+                    ]}
                     icon={<PricingPlanIcon name="startup" />}
-                    name="Basic"
-                    price="9.95"
+                    name={t(tokens.form.Basic)}
+                    popular
+                    price={isYearly ? "7.95" : "9.95"}
+                    priceId={isYearly ? 'yearly_price_id_for_basic' : 'price_1PgQI4I7exj9oAo949UmThhH'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
                       mx: 'auto'
                     }}
+
                   />
                 </div>
               </Grid>
               <Grid xs={12} md={4}>
                 <div
-                  onClick={() => handleCheckout('Premium')}
+                  onClick={() => handleCheckout(isYearly ? 'PremiumYearly' : 'Premium')}
                   style={{
                     cursor: 'pointer',
                     height: '100%',
@@ -231,7 +210,7 @@ const PricingSection: FC = () => {
                   }}
                 >
                   <PricingPlan
-                    cta="Buy Now"
+                    cta={t(tokens.form.upgrade)}
                     currency="$"
                     description={t(tokens.form.planDescription)}
                     features={[
@@ -241,9 +220,10 @@ const PricingSection: FC = () => {
                       t(tokens.form.Salsa),
                     ]}
                     icon={<PricingPlanIcon name="standard" />}
-                    name="Premium"
+                    name={t(tokens.form.Premium)}
                     popular
-                    price="14.95"
+                    price={isYearly ? "12.95" : "14.95"}
+                    priceId={isYearly ? 'yearly_price_id_for_premium' : 'price_1PgQJsI7exj9oAo9mUdbE0ZX'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
@@ -254,7 +234,7 @@ const PricingSection: FC = () => {
               </Grid>
               <Grid xs={12} md={4}>
                 <div
-                  onClick={() => handleCheckout('Business')}
+                  onClick={() => handleCheckout(isYearly ? 'BusinessYearly' : 'Business')}
                   style={{
                     cursor: 'pointer',
                     height: '100%',
@@ -264,7 +244,7 @@ const PricingSection: FC = () => {
                   }}
                 >
                   <PricingPlan
-                    cta="Buy Now"
+                    cta={t(tokens.form.upgrade)}
                     currency="$"
                     description={t(tokens.form.planDescription)}
                     features={[
@@ -274,8 +254,10 @@ const PricingSection: FC = () => {
                       t(tokens.form.Salsa),
                     ]}
                     icon={<PricingPlanIcon name="business" />}
-                    name="Business"
-                    price="19.95"
+                    name={t(tokens.form.BusinessP)}
+                    popular
+                    price={isYearly ? "14.95" : "19.95"}
+                    priceId={isYearly ? 'yearly_price_id_for_business' : 'price_1PgQKSI7exj9oAo9acr903Ka'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,

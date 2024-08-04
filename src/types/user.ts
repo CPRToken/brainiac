@@ -5,6 +5,7 @@ export interface User {
   email?: string;
  role?: string;
  plan?: string;
+  startDate?: string;
 userUrl?: string;
   [key: string]: any;
 

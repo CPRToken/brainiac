@@ -43,7 +43,7 @@ export const HomeCta: FC = () => (
       >
         <Button
           component="a"
-          href="/upgrade"
+          href="/auth/firebase/register"
 
           variant="contained"
         >

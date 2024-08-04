@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import { useTranslation } from 'react-i18next';
 import Download01Icon from '@untitled-ui/icons-react/build/esm/Download01';
-
+import {useAdminProtectedPage} from 'src/hooks/use-admin';
 import Upload01Icon from '@untitled-ui/icons-react/build/esm/Upload01';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -110,11 +110,6 @@ const useUsersSearch = () => {
 
 
 
-interface UserStoreState {
-  users: Profile[];
-  usersCount: number;
-}
-
 
 
 
@@ -122,6 +117,7 @@ interface UserStoreState {
 
 
 const Page: NextPage = () => {
+  useAdminProtectedPage();
 
   const usersSearch = useUsersSearch();
   const usersSelection = useSelection();
@@ -215,6 +211,7 @@ const Page: NextPage = () => {
                     onSelectOne={usersSelection.handleSelectOne}
                     page={usersSearch.state.page}
                     rowsPerPage={usersSearch.state.rowsPerPage}
+
                 />
               </Card>
             </Stack>

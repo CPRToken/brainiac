@@ -87,6 +87,8 @@ export const tokens = {
 
 headings: {
   primaryColor: 'headings.primaryColor',
+  success: 'headings.success',
+  joinTwoThousand: 'headings.joinTwoThousand',
   myGenContent: 'headings.myGenContent',
   myGenImages: 'headings.myGenImages',
   bestTools: 'headings.bestTools',
@@ -208,8 +210,14 @@ headings: {
         title: 'form.title',
       tryit: 'form.tryit',
       pasteIdiom: 'form.pasteIdiom',
+      Basic: 'form.Basic',
+      Premium: 'form.Premium',
+      BusinessP: 'form.BusinessP',
+      upgrade: 'form.upgrade',
       timeSaved: 'form.timeSaved',
       numberArticles: 'form.numberArticles',
+      monthlyPayment: 'form.monthlyPayment',
+      numberOfImages: 'form.numberOfImages',
       moneySaved: 'form.moneySaved',
       articlesGen: 'form.articlesGen',
       wordsUsed: 'form.wordsUsed',
