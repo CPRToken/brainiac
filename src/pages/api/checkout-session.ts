@@ -73,7 +73,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     await userDocRef.update({
-      userId: session.id,
+      stripeSessionId: session.id, // Store the session ID separately
       priceId,
     });
 
