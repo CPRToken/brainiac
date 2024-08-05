@@ -1,4 +1,4 @@
-//pages/upgrade.tsx
+// pages/upgrade.tsx
 import React, { FC, useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -18,8 +18,6 @@ import { tokens } from "../locales/tokens";
 import type { Profile } from 'src/types/social';
 import { getAuth } from 'firebase/auth';
 import { socialApi } from 'src/api/social/socialApi';
-
-
 
 const PricingSection: FC = () => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
@@ -63,10 +61,23 @@ const PricingSection: FC = () => {
     fetchProfile();
   }, []);
 
-  type PlanName = 'Basic' | 'Premium' | 'Business' | 'BasicYearly' | 'PremiumYearly' | 'BusinessYearly' | 'Canceled';
+  type PlanName = 'Basic' | 'Premium' | 'Business' | 'BasicYearly' | 'PremiumYearly' | 'BusinessYearly';
+
+  const priceIdMapping = {
+    Basic: 'price_1Pk4zmI7exj9oAo9khc4OT16',
+    Premium: 'price_1Pk4zkI7exj9oAo9N92hGKqe',
+    Business: 'price_1Pk4ziI7exj9oAo95ZIL3sby',
+    BasicYearly: 'price_1Pk4zgI7exj9oAo9DSyIUy8G',
+    PremiumYearly: 'price_1Pk4zeI7exj9oAo9eUPovxQl',
+    BusinessYearly: 'price_1Pk4zbI7exj9oAo9qsyipPNj',
+  };
 
   const handleCheckout = async (selectedPlan: PlanName) => {
-    console.log(`Price ID selected: ${selectedPlan}`);
+    const priceId = priceIdMapping[selectedPlan];
+    if (!priceId) {
+      console.error('No price ID found for the selected plan:', selectedPlan);
+      return;
+    }
 
     if (!stripe) {
       console.error('Stripe not initialized');
@@ -77,22 +88,15 @@ const PricingSection: FC = () => {
       console.error('User profile is not loaded or essential details are missing');
       return;
     }
-    const priceId = selectedPlan;
-    if (!priceId) {
-      console.error('No price ID found for the selected plan:', selectedPlan);
-      console.log('Price ID:', priceId);
-      return;
-    }
 
     try {
       const requestBody = {
         userId: profile.uid,
         userEmail: profile.email,
-        planName: selectedPlan, // Corrected: Use the plan name as expected by the API
+        planName: selectedPlan,
         stripeCustomerId: profile.stripeCustomerId || '',
+        priceId: priceId,
       };
-
-      console.log('Sending request with:', requestBody);
 
       const response = await fetch('/api/checkout-session', {
         method: 'POST',
@@ -108,8 +112,6 @@ const PricingSection: FC = () => {
       }
 
       const session = await response.json();
-
-      console.log('Stripe checkout session created:', session.sessionId);
       const { error } = await stripe.redirectToCheckout({ sessionId: session.sessionId });
       if (error) {
         console.error('Stripe checkout error:', error);
@@ -151,11 +153,7 @@ const PricingSection: FC = () => {
               <Typography sx={{ ...typography.body2, color: 'text.primary', mt: 2, mb: 1 }}>
                 {t(tokens.headings.joinTwoThousand)}
               </Typography>
-              <Stack
-                alignItems="center"
-                direction="row"
-                spacing={1}
-              >
+              <Stack alignItems="center" direction="row" spacing={1}>
                 <Switch checked={isYearly} onChange={handleSwitchChange} />
                 <Typography sx={{ ...typography.h6, color: 'text.primary', mt: 9, mb: 0 }}>
                   {isYearly ? t(tokens.form.yearlyPayment) : t(tokens.form.monthlyPayment)}
@@ -171,7 +169,7 @@ const PricingSection: FC = () => {
                     height: '100%',
                     maxWidth: 460,
                     marginLeft: 'auto',
-                    marginRight: 'auto'
+                    marginRight: 'auto',
                   }}
                 >
                   <PricingPlan
@@ -188,13 +186,12 @@ const PricingSection: FC = () => {
                     name={t(tokens.form.Basic)}
                     popular
                     price={isYearly ? "7.95" : "9.95"}
-                    priceId={isYearly ? 'yearly_price_id_for_basic' : 'price_1Pk4zgI7exj9oAo9DSyIUy8G'}
+                    priceId={isYearly ? 'price_1Pk4zgI7exj9oAo9DSyIUy8G' : 'price_1Pk4zmI7exj9oAo9khc4OT16'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
-                      mx: 'auto'
+                      mx: 'auto',
                     }}
-
                   />
                 </div>
               </Grid>
@@ -206,7 +203,7 @@ const PricingSection: FC = () => {
                     height: '100%',
                     maxWidth: 460,
                     marginLeft: 'auto',
-                    marginRight: 'auto'
+                    marginRight: 'auto',
                   }}
                 >
                   <PricingPlan
@@ -223,11 +220,11 @@ const PricingSection: FC = () => {
                     name={t(tokens.form.Premium)}
                     popular
                     price={isYearly ? "12.95" : "14.95"}
-                    priceId={isYearly ? 'yearly_price_id_for_premium' : 'price_1Pk4zeI7exj9oAo9eUPovxQl'}
+                    priceId={isYearly ? 'price_1Pk4zeI7exj9oAo9eUPovxQl' : 'price_1Pk4zkI7exj9oAo9N92hGKqe'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
-                      mx: 'auto'
+                      mx: 'auto',
                     }}
                   />
                 </div>
@@ -240,7 +237,7 @@ const PricingSection: FC = () => {
                     height: '100%',
                     maxWidth: 460,
                     marginLeft: 'auto',
-                    marginRight: 'auto'
+                    marginRight: 'auto',
                   }}
                 >
                   <PricingPlan
@@ -257,11 +254,11 @@ const PricingSection: FC = () => {
                     name={t(tokens.form.BusinessP)}
                     popular
                     price={isYearly ? "14.95" : "19.95"}
-                    priceId={isYearly ? 'yearly_price_id_for_business' : 'price_1Pk4zbI7exj9oAo9qsyipPNj'}
+                    priceId={isYearly ? 'price_1Pk4zbI7exj9oAo9qsyipPNj' : 'price_1Pk4ziI7exj9oAo95ZIL3sby'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
-                      mx: 'auto'
+                      mx: 'auto',
                     }}
                   />
                 </div>

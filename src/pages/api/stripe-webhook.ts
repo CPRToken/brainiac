@@ -1,15 +1,21 @@
 import { NextApiRequest, NextApiResponse } from 'next/types';
+import fetch from 'node-fetch';
 import Stripe from 'stripe';
-import { stripe } from 'src/libs/stripe';
 import admin from 'src/libs/firebaseAdmin';
-import { Readable } from 'stream'; // Correctly import Readable
+import { Readable } from 'stream';
 
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
-if (!stripeWebhookSecret) {
-  console.error('Stripe webhook secret is not properly defined!');
-  throw new Error('Stripe webhook secret is not defined.');
+if (!stripeSecretKey || !stripeWebhookSecret) {
+  console.error('Stripe keys are not properly defined!');
+  throw new Error('Stripe keys are not defined.');
 }
+
+const stripe = new Stripe(stripeSecretKey, {
+  apiVersion: '2024-06-20',
+  typescript: true,
+});
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -57,7 +63,7 @@ async function streamToBuffer(stream: Readable): Promise<Buffer> {
   return new Promise((resolve, reject) => {
     stream.on('data', (chunk: Uint8Array) => chunks.push(chunk));
     stream.on('end', () => resolve(Buffer.concat(chunks)));
-    stream.on('error', (err: Error) => reject(err)); // Explicitly type the error parameter
+    stream.on('error', (err: Error) => reject(err));
   });
 }
 
@@ -70,7 +76,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     throw new Error('Customer ID or Price ID is missing in metadata.');
   }
 
-  const plan = productIdToPlan(priceId!); // Use non-null assertion if confident priceId is defined here
+  const plan = productIdToPlan(priceId!);
   await updateUserPlan(stripeCustomerId, plan, priceId);
   console.log(`User plan updated for ${stripeCustomerId} to ${plan} with price ${priceId}`);
 }
@@ -91,7 +97,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
 
 async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   const stripeCustomerId = subscription.customer as string;
-  const priceId = subscription.metadata?.priceId as string; // Ensure priceId is treated as string
+  const priceId = subscription.metadata?.priceId as string;
 
   if (!stripeCustomerId || !priceId) {
     console.error('Customer ID or Price ID is missing in subscription data.');
@@ -108,14 +114,13 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   }
 
   const userDoc = querySnapshot.docs[0];
-  const userEmail = userDoc.data().email as string; // Assure TypeScript that email is a string
+  const userEmail = userDoc.data().email as string;
   const plan = productIdToPlan(priceId);
 
   try {
     await userDoc.ref.update({ plan, priceId });
     console.log(`Successfully updated user ${stripeCustomerId} plan to ${plan} with price ${priceId}`);
 
-    // Send the cancellation email
     await sendCancellationEmail(userEmail, plan, stripeCustomerId);
   } catch (error) {
     console.error(`Failed to update Firestore for customer ID: ${stripeCustomerId}`, error);
@@ -123,24 +128,15 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   }
 }
 
-// Update function parameters with explicit types
 async function sendCancellationEmail(email: string, plan: string, customerId: string) {
   const response = await fetch('/api/cancelled-email', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      to: email,
-      customerEmail: email,
-      plan: plan,
-      stripeCustomerId: customerId
-    })
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ to: email, customerEmail: email, plan, stripeCustomerId: customerId }),
   });
 
   if (!response.ok) {
     console.error('Failed to send cancellation email for:', customerId);
-    // Handle errors here, possibly retry or log
   } else {
     const responseData = await response.json();
     console.log('Cancellation email sent successfully:', responseData);
@@ -155,7 +151,7 @@ function productIdToPlan(priceId: string): string {
     'price_1Pk4zgI7exj9oAo9DSyIUy8G': 'BasicYearly',
     'price_1Pk4zeI7exj9oAo9eUPovxQl': 'PremiumYearly',
     'price_1Pk4zbI7exj9oAo9qsyipPNj': 'BusinessYearly',
-    'price_deleted': 'Deleted',
+
   };
   return priceToPlan[priceId] || 'Unknown';
 }
@@ -179,28 +175,6 @@ async function updateUserPlan(stripeCustomerId: string, plan: string, priceId: s
   } catch (error: any) {
     console.error(`Failed to update Firestore for customer ID: ${stripeCustomerId}`, error);
     throw new Error('Failed to update user plan');
-  }
-}
-
-async function updateUserPriceId(stripeCustomerId: string, priceId: string) {
-  const db = admin.firestore();
-  const userDocRef = db.collection('users').where('stripeCustomerId', '==', stripeCustomerId);
-
-  const querySnapshot = await userDocRef.get();
-  if (querySnapshot.empty) {
-    console.error('No matching documents found for stripeCustomerId:', stripeCustomerId);
-    throw new Error('No matching documents found');
-  }
-
-  const userDoc = querySnapshot.docs[0];
-
-  try {
-    console.log(`Updating Firestore for customer ${stripeCustomerId} with priceId ${priceId}`);
-    await userDoc.ref.update({ priceId });
-    console.log(`Successfully updated user ${stripeCustomerId} with priceId ${priceId}`);
-  } catch (error: any) {
-    console.error(`Failed to update Firestore for customer ID: ${stripeCustomerId}`, error);
-    throw new Error('Failed to update priceId');
   }
 }
 
