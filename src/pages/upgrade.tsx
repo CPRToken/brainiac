@@ -18,6 +18,7 @@ import { tokens } from "../locales/tokens";
 import type { Profile } from 'src/types/social';
 import { getAuth } from 'firebase/auth';
 import { socialApi } from 'src/api/social/socialApi';
+import { getPriceId } from 'src/utils/getPriceId';
 
 const PricingSection: FC = () => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
@@ -61,19 +62,10 @@ const PricingSection: FC = () => {
     fetchProfile();
   }, []);
 
-  type PlanName = 'Basic' | 'Premium' | 'Business' | 'BasicYearly' | 'PremiumYearly' | 'BusinessYearly';
 
-  const priceIdMapping = {
-    Basic: 'price_1Pk4zmI7exj9oAo9khc4OT16',
-    Premium: 'price_1Pk4zkI7exj9oAo9N92hGKqe',
-    Business: 'price_1Pk4ziI7exj9oAo95ZIL3sby',
-    BasicYearly: 'price_1Pk4zgI7exj9oAo9DSyIUy8G',
-    PremiumYearly: 'price_1Pk4zeI7exj9oAo9eUPovxQl',
-    BusinessYearly: 'price_1Pk4zbI7exj9oAo9qsyipPNj',
-  };
 
-  const handleCheckout = async (selectedPlan: PlanName) => {
-    const priceId = priceIdMapping[selectedPlan];
+  const handleCheckout = async (selectedPlan: string) => {
+    const priceId = getPriceId(selectedPlan + (isYearly ? 'Yearly' : ''));
     if (!priceId) {
       console.error('No price ID found for the selected plan:', selectedPlan);
       return;
@@ -186,7 +178,7 @@ const PricingSection: FC = () => {
                     name={t(tokens.form.Basic)}
                     popular
                     price={isYearly ? "7.95" : "9.95"}
-                    priceId={isYearly ? 'price_1Pk4zgI7exj9oAo9DSyIUy8G' : 'price_1Pk4zmI7exj9oAo9khc4OT16'}
+                    priceId={isYearly ? 'price_1PjDoqI7exj9oAo95jqY8uSw' : 'price_1PgQI4I7exj9oAo949UmThhH'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
@@ -220,7 +212,7 @@ const PricingSection: FC = () => {
                     name={t(tokens.form.Premium)}
                     popular
                     price={isYearly ? "12.95" : "14.95"}
-                    priceId={isYearly ? 'price_1Pk4zeI7exj9oAo9eUPovxQl' : 'price_1Pk4zkI7exj9oAo9N92hGKqe'}
+                    priceId={isYearly ? 'price_1PjDpjI7exj9oAo9UkvkaR6x' : 'price_1PgQJsI7exj9oAo9mUdbE0ZX'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
@@ -254,7 +246,7 @@ const PricingSection: FC = () => {
                     name={t(tokens.form.BusinessP)}
                     popular
                     price={isYearly ? "14.95" : "19.95"}
-                    priceId={isYearly ? 'price_1Pk4zbI7exj9oAo9qsyipPNj' : 'price_1Pk4ziI7exj9oAo95ZIL3sby'}
+                    priceId={isYearly ? 'price_1PjDr8I7exj9oAo9lm4zAEDn' : 'price_1PgQKSI7exj9oAo9acr903Ka'}
                     sx={{
                       height: '100%',
                       maxWidth: 460,

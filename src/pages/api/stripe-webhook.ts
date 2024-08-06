@@ -1,15 +1,15 @@
+// pages/api/stripe-webhook.ts
 import { NextApiRequest, NextApiResponse } from 'next/types';
-import fetch from 'node-fetch';
 import Stripe from 'stripe';
 import admin from 'src/libs/firebaseAdmin';
 import { Readable } from 'stream';
+import { getPriceId } from 'src/utils/getPriceId'; // Adjust the path as necessary
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 if (!stripeSecretKey || !stripeWebhookSecret) {
-  console.error('Stripe keys are not properly defined!');
-  throw new Error('Stripe keys are not defined.');
+  throw new Error('Stripe keys are not defined');
 }
 
 const stripe = new Stripe(stripeSecretKey, {
@@ -76,7 +76,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     throw new Error('Customer ID or Price ID is missing in metadata.');
   }
 
-  const plan = productIdToPlan(priceId!);
+  const plan = getPriceId(priceId);
   await updateUserPlan(stripeCustomerId, plan, priceId);
   console.log(`User plan updated for ${stripeCustomerId} to ${plan} with price ${priceId}`);
 }
@@ -90,7 +90,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
     throw new Error('Customer ID or Price ID is missing in subscription data.');
   }
 
-  const plan = productIdToPlan(priceId);
+  const plan = getPriceId(priceId);
   await updateUserPlan(stripeCustomerId, plan, priceId);
   console.log(`Subscription created for ${stripeCustomerId} with plan ${plan}`);
 }
@@ -115,7 +115,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 
   const userDoc = querySnapshot.docs[0];
   const userEmail = userDoc.data().email as string;
-  const plan = productIdToPlan(priceId);
+  const plan = getPriceId(priceId);
 
   try {
     await userDoc.ref.update({ plan, priceId });
@@ -141,19 +141,6 @@ async function sendCancellationEmail(email: string, plan: string, customerId: st
     const responseData = await response.json();
     console.log('Cancellation email sent successfully:', responseData);
   }
-}
-
-function productIdToPlan(priceId: string): string {
-  const priceToPlan: Record<string, string> = {
-    'price_1Pk4zmI7exj9oAo9khc4OT16': 'Basic',
-    'price_1Pk4zkI7exj9oAo9N92hGKqe': 'Premium',
-    'price_1Pk4ziI7exj9oAo95ZIL3sby': 'Business',
-    'price_1Pk4zgI7exj9oAo9DSyIUy8G': 'BasicYearly',
-    'price_1Pk4zeI7exj9oAo9eUPovxQl': 'PremiumYearly',
-    'price_1Pk4zbI7exj9oAo9qsyipPNj': 'BusinessYearly',
-
-  };
-  return priceToPlan[priceId] || 'Unknown';
 }
 
 async function updateUserPlan(stripeCustomerId: string, plan: string, priceId: string | null) {

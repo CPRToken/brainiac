@@ -5,9 +5,10 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import {Success} from 'src/sections/components/detail-lists/success';
 import { Seo } from 'src/components/seo';
-import { getAuth } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
+import { useSettings } from 'src/hooks/use-settings';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import type { Profile } from 'src/types/social';
 import { db } from 'src/libs/firebase';
 import { socialApi } from 'src/api/social/socialApi';
@@ -29,9 +30,36 @@ const components: { element: JSX.Element; title: string }[] = [
 
 const Page: NextPage = () => {
   const router = useRouter();
+  const [user, setUser] = useState<Profile | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
-  const { session_id } = router.query;
   const { t } = useTranslation();
+  const settings = useSettings();
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        const uid = currentUser.uid;
+        try {
+          const userData = await socialApi.getProfile({ uid });
+
+          if (!userData) {
+            console.error("User data not found");
+            return;
+          }
+
+          setUser(userData);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
 
   const fetchProfile = async () => {
     try {
@@ -63,8 +91,13 @@ const Page: NextPage = () => {
 
         if (priceId) {
           const plan = productIdToPlan(priceId);
-          await updateDoc(userDocRef, { plan });
-          console.log(`User plan updated to ${plan}`);
+          const planStartDate = new Date().toISOString();
+          await updateDoc(userDocRef, {
+            plan,
+            planStartDate: planStartDate
+          });
+
+          console.log(`User plan updated to ${plan} with start date ${planStartDate}`);
         } else {
           console.error('Price ID not found in user data');
         }
@@ -113,13 +146,20 @@ Page.getLayout = (page) => <MarketingLayout>{page}</MarketingLayout>;
 export default Page;
 function productIdToPlan(priceId: string): string {
   const priceToPlan: Record<string, string> = {
+    'price_1PgQI4I7exj9oAo949UmThhH': 'Basic',
+    'price_1PgQJsI7exj9oAo9mUdbE0ZX': 'Premium',
+    'price_1PgQKSI7exj9oAo9acr903Ka': 'Business',
+    'price_1PjDoqI7exj9oAo95jqY8uSw': 'BasicYearly',
+    'price_1PjDpjI7exj9oAo9UkvkaR6x': 'PremiumYearly',
+    'price_1PjDr8I7exj9oAo9lm4zAEDn': 'BusinessYearly',
     'price_1Pk4zmI7exj9oAo9khc4OT16': 'Basic',
     'price_1Pk4zkI7exj9oAo9N92hGKqe': 'Premium',
     'price_1Pk4ziI7exj9oAo95ZIL3sby': 'Business',
     'price_1Pk4zgI7exj9oAo9DSyIUy8G': 'BasicYearly',
     'price_1Pk4zeI7exj9oAo9eUPovxQl': 'PremiumYearly',
     'price_1Pk4zbI7exj9oAo9qsyipPNj': 'BusinessYearly',
-
+    'price_canceled': 'Canceled'
   };
+
   return priceToPlan[priceId] || 'Unknown';
 }
