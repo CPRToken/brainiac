@@ -65,9 +65,11 @@ const PricingSection: FC = () => {
 
 
   const handleCheckout = async (selectedPlan: string) => {
-    const priceId = getPriceId(selectedPlan + (isYearly ? 'Yearly' : ''));
+    const planName = selectedPlan
+    const priceId = getPriceId(planName);
+
     if (!priceId) {
-      console.error('No price ID found for the selected plan:', selectedPlan);
+      console.error('No price ID found for the selected plan:', planName);
       return;
     }
 

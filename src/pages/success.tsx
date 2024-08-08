@@ -7,8 +7,7 @@ import {Success} from 'src/sections/components/detail-lists/success';
 import { Seo } from 'src/components/seo';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import { useSettings } from 'src/hooks/use-settings';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import type { Profile } from 'src/types/social';
 import { db } from 'src/libs/firebase';
 import { socialApi } from 'src/api/social/socialApi';
@@ -20,45 +19,14 @@ import {tokens} from "../locales/tokens";
 import {useTranslation} from "react-i18next";
 
 
-const components: { element: JSX.Element; title: string }[] = [
-
-  {
-    element: <Success />,
-    title: 'Success',
-  },
-];
 
 const Page: NextPage = () => {
   const router = useRouter();
-  const [user, setUser] = useState<Profile | null>(null);
+
   const [profile, setProfile] = useState<Profile | null>(null);
   const { t } = useTranslation();
-  const settings = useSettings();
 
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        const uid = currentUser.uid;
-        try {
-          const userData = await socialApi.getProfile({ uid });
 
-          if (!userData) {
-            console.error("User data not found");
-            return;
-          }
-
-          setUser(userData);
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      } else {
-        setUser(null);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
 
 
   const fetchProfile = async () => {
@@ -98,8 +66,9 @@ const Page: NextPage = () => {
           });
 
           console.log(`User plan updated to ${plan} with start date ${planStartDate}`);
+          router.push('/dashboard');
         } else {
-          console.error('Price ID not found in user data');
+          console.error('Price ID not found');
         }
       } else {
         console.error('User not authenticated or profile not loaded');
@@ -114,27 +83,24 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Components: Detail Lists" />
+      <Seo title="Success - Subscription" />
+      <Box component="main" sx={{ flexGrow: 1, py: 8, mt: 6 }}>
+        <Container maxWidth="lg">
+          <Typography variant="h5"
+                      sx={{ flexGrow: 1, py: 2, mt: 3, mb:3 }}>
+          {t(tokens.headings.success)}</Typography>
 
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            py: 8,
-            mt: 6,
-          }}
-        >
-          <Container maxWidth="lg">
-            <Typography
-              variant="h5">{t(tokens.headings.success)}</Typography>
-            <Stack spacing={8}>
-              {components.map((component) => (
-                <Previewer key={component.title} title={component.title}>
-                  {component.element}
-                </Previewer>
-              ))}
-            </Stack>
-          </Container>
+          <Stack spacing={8}>
+            {profile ? (
+              <Previewer title="Subscription Details">
+
+              </Previewer>
+            ) : (
+              <Typography variant="body2">Loading your subscription details...</Typography>
+            )}
+          </Stack>
+        <Success/>
+        </Container>
         </Box>
 
     </>

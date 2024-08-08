@@ -26,5 +26,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# ignore pricing.tsx
+# ignore pricing.tsx and stripe-webhook.ts
 media/src/pages/pricing.tsx
+media/src/pages/api/checkout-session.ts
+media/src/pages/api/stripe-webhook.ts

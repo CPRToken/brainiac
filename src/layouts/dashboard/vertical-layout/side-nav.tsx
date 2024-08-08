@@ -222,13 +222,7 @@ export const SideNav: FC<SideNavProps> = (props) => {
             </Box>
             <TenantSwitch sx={{ flexGrow: 1 }} />
           </Stack>
-          <Box sx={{ p: 2, mb: 2 }}>
-            <Link href="/upgrade" passHref>
-              <Button variant="contained" color="primary" fullWidth>
-                {t(tokens.nav.upgrade)}
-              </Button>
-            </Link>
-          </Box>
+
           <Stack
             component="nav"
             spacing={2}

@@ -1,10 +1,13 @@
 import type { NextPage } from 'next';
+import { useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import Link from 'next/link';
 import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import { socialApi } from "src/api/social/socialApi";
@@ -15,9 +18,7 @@ import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { MyContent } from 'src/sections/components/quick-stats/my-content';
 import { MyImages } from 'src/sections/components/quick-stats/my-images';
 import { Previewer } from 'src/sections/components/previewer';
-import {  db } from 'src/libs/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { typography } from 'src/theme/typography';
@@ -135,9 +136,10 @@ const ModuleItemComponent: React.FC<ModuleItemProps> = ({ module }) => {
 };
 
 const Page: NextPage = () => {
-  const router = useRouter();
+
   const [user, setUser] = useState<Profile | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
+
+  const [userPlan, setUserPlan] = useState<string>('');
   const { t } = useTranslation();
   const settings = useSettings();
 
@@ -148,7 +150,7 @@ const Page: NextPage = () => {
         const uid = currentUser.uid;
         try {
           const userData = await socialApi.getProfile({ uid });
-
+          setUserPlan(userData.plan || ''); // Default to empty string if undefined
           if (!userData) {
             console.error("User data not found");
             return;
@@ -166,24 +168,7 @@ const Page: NextPage = () => {
     return () => unsubscribe();
   }, []);
 
-  const fetchProfile = async () => {
-    try {
-      const auth = getAuth();
-      const user = auth.currentUser;
-      if (user) {
-        const userProfile = await socialApi.getProfile({ uid: user.uid });
-        setProfile(userProfile);
-      } else {
-        console.error('User not authenticated');
-      }
-    } catch (error) {
-      console.error('Error fetching profile:', error);
-    }
-  };
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
 
 
 
@@ -213,21 +198,31 @@ const Page: NextPage = () => {
     { name: t(tokens.headings.editor), path: paths.dashboard.editor, icon: '/assets/icons/editor.svg', about: t(tokens.form.editorAbout), },
 
   ];
-
+  const hasTrial = useMemo(() => userPlan === 'Trial', [userPlan]);
   return (
     <>
       <Container maxWidth="xl">
 
       <Typography sx={{
         ...typography.h3,
-        mb: 6,
+        mb: 4,
         mt: 0,
         pl: 2,
         pr: 0,
         textAlign: 'left'
       }}>{t(tokens.nav.dashboard)}</Typography>
 
-      <Typography sx={{ ...typography.h6, mb: 2, mt: 1, pl: 6, pr: 0, textAlign: 'left' }}>
+        {hasTrial && (
+        <Box sx={{ p: 1, mb: 3 }}>
+          <Link href="/upgrade" passHref>
+            <Button variant="contained" color="primary" sx={{ width: '25%' }}>
+              {t(tokens.nav.upgrade)}
+            </Button>
+          </Link>
+        </Box>
+        )}
+
+      <Typography sx={{ ...typography.h6, mb: 2, mt: 1, pl: 3, pr: 0, textAlign: 'left' }}>
         {t(tokens.form.hello)} {user?.firstName}, {t(tokens.form.yourIdeas)}
       </Typography>
       </Container>
@@ -249,7 +244,7 @@ const Page: NextPage = () => {
         <Container maxWidth={settings.stretch ? false : 'xl'}>
           <Stack spacing={8}>
           <Box sx={{ width: '100%', mb: 4 }}>
-            <Typography sx={{ ...typography.h6, mb: 2, mt: 0, pl: 6, pr: 0, textAlign: 'left' }}>
+            <Typography sx={{ ...typography.h6, mb: 2, mt: 0, pl: 3, pr: 0, textAlign: 'left' }}>
               {t(tokens.headings.popularAItools)}
             </Typography>
           </Box>

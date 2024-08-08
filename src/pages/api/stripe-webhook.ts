@@ -3,10 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next/types';
 import Stripe from 'stripe';
 import admin from 'src/libs/firebaseAdmin';
 import { Readable } from 'stream';
-import { getPriceId } from 'src/utils/getPriceId'; // Adjust the path as necessary
+import { getTestPriceId } from 'src/utils/getTestPriceId'; // Adjust the path as necessary
 
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const stripeSecretKey = process.env.STRIPE_TEST_SECRET_KEY;
+const stripeWebhookSecret = process.env.STRIPE_TEST_WEBHOOK_SECRET;
 
 if (!stripeSecretKey || !stripeWebhookSecret) {
   throw new Error('Stripe keys are not defined');
@@ -76,7 +76,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     throw new Error('Customer ID or Price ID is missing in metadata.');
   }
 
-  const plan = getPriceId(priceId);
+  const plan = getTestPriceId(priceId);
   await updateUserPlan(stripeCustomerId, plan, priceId);
   console.log(`User plan updated for ${stripeCustomerId} to ${plan} with price ${priceId}`);
 }
@@ -90,7 +90,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
     throw new Error('Customer ID or Price ID is missing in subscription data.');
   }
 
-  const plan = getPriceId(priceId);
+  const plan = getTestPriceId(priceId);
   await updateUserPlan(stripeCustomerId, plan, priceId);
   console.log(`Subscription created for ${stripeCustomerId} with plan ${plan}`);
 }
@@ -115,7 +115,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 
   const userDoc = querySnapshot.docs[0];
   const userEmail = userDoc.data().email as string;
-  const plan = getPriceId(priceId);
+  const plan = getTestPriceId(priceId);
 
   try {
     await userDoc.ref.update({ plan, priceId });

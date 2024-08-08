@@ -12,6 +12,7 @@ export interface Profile {
     role?: string;
   plan?: string;
   priceId?: string;
+  planStartDate?: string;
   stripeCustomerId?: string;
 }
 

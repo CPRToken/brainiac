@@ -2,11 +2,11 @@
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import Stripe from 'stripe';
 import admin from 'src/libs/firebaseAdmin';
-import { getPriceId } from 'src/utils/getPriceId';  // Adjust the path as necessary
+import { getTestPriceId } from 'src/utils/getTestPriceId';  // Adjust the path as necessary
 
 
-const stripeSecretKey =  process.env.STRIPE_SECRET_KEY;
-const stripeWebhookSecret =  process.env.STRIPE_WEBHOOK_SECRET;
+const stripeSecretKey = process.env.STRIPE_TEST_SECRET_KEY;
+const stripeWebhookSecret = process.env.STRIPE_TEST_WEBHOOK_SECRET;
 
 if (!stripeSecretKey || !stripeWebhookSecret) {
   throw new Error('Stripe keys are not defined');
@@ -49,7 +49,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       await userDocRef.update({ stripeCustomerId });
     }
 
-    const priceId = getPriceId(planName);
+    const priceId = getTestPriceId(planName);
 
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
