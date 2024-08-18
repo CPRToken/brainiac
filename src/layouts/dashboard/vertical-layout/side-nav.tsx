@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import Link from 'next/link';
-
+import {Chart3} from 'src/sections/components/charts/chart-3';
 import { RouterLink } from 'src/components/router-link';
 import { Scrollbar } from 'src/components/scrollbar';
 import { usePathname } from 'src/hooks/use-pathname';
@@ -169,6 +169,7 @@ export const SideNav: FC<SideNavProps> = (props) => {
 
 
   return (
+
     <Drawer
       anchor="left"
       open

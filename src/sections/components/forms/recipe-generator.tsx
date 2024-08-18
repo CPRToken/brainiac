@@ -163,7 +163,7 @@ export const RecipeWriter: FC = () => {
   return (
     <Box sx={{p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto'}}>
       <Stack spacing={3}>
-        <Stack direction="row" spacing={2}>
+
           <TextField
             label={t(tokens.form.country)}
             name="artist"
@@ -172,7 +172,7 @@ export const RecipeWriter: FC = () => {
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             fullWidth
-            sx={{width: 'calc(50% - 8px)'}}
+
           >
             {countryOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -188,7 +188,7 @@ export const RecipeWriter: FC = () => {
             value={dish}
             onChange={(e) => setDish(e.target.value)}
             fullWidth
-            sx={{width: 'calc(50% - 8px)'}}
+
           >
             {dishOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -196,9 +196,9 @@ export const RecipeWriter: FC = () => {
               </option>
             ))}
           </TextField>
-        </Stack>
 
-        <Stack direction="row" spacing={2}>
+
+
           <TextField
             label={t(tokens.form.protein)}
             name="protein"
@@ -206,7 +206,7 @@ export const RecipeWriter: FC = () => {
             onChange={(e) => setProtein(e.target.value)}
             multiline
             rows={1}
-            sx={{width: 'calc(50% - 8px)'}} // Apply the same width to this field
+
           >
 
           </TextField>
@@ -217,11 +217,11 @@ export const RecipeWriter: FC = () => {
             onChange={(e) => setGarnish(e.target.value)}
             multiline
             rows={1}
-            sx={{width: 'calc(50% - 8px)'}} // Apply the same width to this field
+
           >
 
           </TextField>
-        </Stack>
+
 
         <div style={{display: 'flex', justifyContent: 'center', width: '100%', paddingTop: '10px'}}>
           <label>{t(tokens.form.spiciness)}</label>

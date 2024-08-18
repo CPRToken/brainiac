@@ -39,12 +39,48 @@
   body * {
     visibility: hidden;
   }
+
   #printableContent, #printableContent * {
     visibility: visible;
+    color: #000 !important; /* Force text to print in black */
   }
+
   #printableContent {
     position: absolute;
     left: 0;
     top: 0;
+    width: 100%;
+  }
+
+  #printHeader {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #printFooter {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Specifically hide the Breadcrumbs and Links */
+  .MuiBreadcrumbs-root,
+  .MuiBreadcrumbs-root * {
+    display: none !important;
+  }
+
+  /* Specifically hide the Copy Text Button using its ID */
+  #copyTextButton, #copyTextButton * {
+    display: none !important;
+  }
+
+  /* Ensure main content stays visible */
+  #printableContent > *:not(.MuiBreadcrumbs-root):not(#copyTextButton) {
+    visibility: visible;
   }
 }
+

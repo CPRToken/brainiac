@@ -121,6 +121,7 @@ export const SpeechWriter: FC = () => {
   const [title, setTopic] = useState<string>('');
   const [style, setStyle] = useState<string>('');
   const [theme, setTheme] = useState<string>('');
+  const [extra , setExtra] = useState<string>('');
   const [duration, setDuration] = useState<number>(5);
   const [prompt, setPrompt] = useState<string>('');
 
@@ -153,6 +154,7 @@ export const SpeechWriter: FC = () => {
       const titleText = title !== '' ? `${t(title)} ` : '';
       const styleText = style !== '' ? `${t(style)} ` : '';
       const themeText = theme !== '' ? `${t(theme)} ` : '';
+      const extraText = extra !== '' ? `${t(extra)} ` : '';
       const durationText = `${duration} ${t('')}`;
 
       // Replace placeholders with the actual values
@@ -160,6 +162,7 @@ export const SpeechWriter: FC = () => {
         .replace('[title]', titleText)
         .replace('[style]', styleText)
         .replace('[theme]', themeText)
+        .replace('[extra]', extraText)
         .replace('[duration]', durationText);
 
       // Remove any trailing commas and spaces
@@ -170,7 +173,7 @@ export const SpeechWriter: FC = () => {
       // If not all selections are made, keep the prompt empty
       setPrompt('');
     }
-  }, [title, style, theme, duration, t]);
+  }, [title, style, theme, extra, duration, t]);
 
 
 
@@ -236,6 +239,16 @@ export const SpeechWriter: FC = () => {
               {t(option.label)} {/* Apply translation here */}
             </option>
           ))}
+        </TextField>
+        <TextField
+          fullWidth
+          label={t(tokens.form.extraSpeechInfo)}
+          name="extra"
+          value={extra}
+          onChange={(e) => setExtra(e.target.value)}
+          multiline
+          rows={1}
+        >
         </TextField>
 
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>

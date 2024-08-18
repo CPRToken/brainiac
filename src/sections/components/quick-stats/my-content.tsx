@@ -23,7 +23,7 @@ const RESEARCH_TIME_PER_ARTICLE = 30; // Research and thinking time per article 
 
 export const MyContent: FC = () => {
   const [contentCount, setContentCount] = useState(0);
-  const [imageCount, setImageCount] = useState(0);
+
   const [wordCount, setWordCount] = useState(0);
   const [moneySaved, setMoneySaved] = useState(0);
   const [timeSaved, setTimeSaved] = useState(0);
@@ -80,7 +80,7 @@ export const MyContent: FC = () => {
       try {
         const imagesRef = ref(storage, `/${uid}/images/`);
         const imagesList = await listAll(imagesRef);
-        setImageCount(imagesList.items.length);
+
         console.log(`Fetched ${imagesList.items.length} images`);
         console.log(imagesList.items); // Log the items array
       } catch (error) {

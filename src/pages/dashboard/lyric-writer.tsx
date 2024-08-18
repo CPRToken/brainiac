@@ -34,9 +34,16 @@ const Page: NextPage = () => {
           py: 8,
         }}
       >
-        <Container maxWidth={settings.stretch ? false : 'xl'}>
+        <Container
+          maxWidth="xl"  // Set the max width to medium (you can use 'sm', 'md', 'lg', etc.)
+          sx={{
+            mx: 'auto',  // Center the container horizontally
+            px: 3       // Optional padding for extra space on the sides
+          }}
+        >
           <Grid
             container
+            justifyContent="center"
             spacing={{
               xs: 3,
               lg: 4,

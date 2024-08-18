@@ -88,6 +88,20 @@ const styleOptions: Option[] = [
 
 
 
+const refOptions: Option[] = [
+  { label: '', value: '' },
+  { label: tokens.form.APA7, value: tokens.form.APA7 },
+    { label: tokens.form.MLA, value: tokens.form.MLA },
+  { label: tokens.form.ChicagoTurabian, value: tokens.form.ChicagoTurabian },
+  { label: tokens.form.Harvard, value: tokens.form.Harvard },
+  { label: tokens.form.Vancouver, value: tokens.form.Vancouver },
+    { label: tokens.form.AMA, value: tokens.form.AMA },
+  { label: tokens.form.OSCOLA, value: tokens.form.OSCOLA },
+  { label: tokens.form.ACS, value: tokens.form.ACS },
+  { label: tokens.form.APSA, value: tokens.form.APSA },
+];
+
+
 
 
 export const EssayWriter: FC = () => {
@@ -99,6 +113,8 @@ export const EssayWriter: FC = () => {
   const [title, setTitle] = useState<string>('');
   const [style, setStyle] = useState<string>('');
   const [duration, setDuration] = useState<number>(300);
+  const [extra , setExtra] = useState<string>('');
+const [ref , setRef] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
 
 
@@ -106,7 +122,7 @@ export const EssayWriter: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
   const submitToOpenAI = () => {
-    const maxTokens = 1000;
+    const maxTokens = 4096;
     if (prompt) {
       // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
@@ -129,12 +145,16 @@ export const EssayWriter: FC = () => {
 
       const titleText = title !== '' ? `${t(title)} ` : '';
       const styleText = style !== '' ? `${t(style)} ` : '';
+      const extraText = extra !== '' ? `${t(extra)} ` : '';
       const durationText = `${duration} ${t('')}`;
+      const refText = ref !== '' ? `${t(ref)} ` : '';
 
       // Replace placeholders with the actual values
       newPrompt = newPrompt
         .replace('[title]', titleText)
         .replace('[style]', styleText)
+        .replace('[extra]', extraText)
+        .replace('[referencing]', refText)
         .replace('[duration]', durationText);
 
       // Remove any trailing commas and spaces
@@ -144,7 +164,7 @@ export const EssayWriter: FC = () => {
     } else {
       setPrompt('');
     }
-  }, [title, style, duration, t]);
+  }, [title, style, duration, extra, ref, t]);
 
 
 
@@ -188,6 +208,34 @@ export const EssayWriter: FC = () => {
           ))}
         </TextField>
 
+          <TextField
+            fullWidth
+            label={t(tokens.form.extraTextInfo)}
+            name="extra"
+            value={extra}
+            onChange={(e) => setExtra(e.target.value)}
+            multiline
+            rows={2}
+          >
+          </TextField>
+        <Stack spacing={1}>
+          <TextField
+            label={t(tokens.form.referencingType)}
+            name="ref"
+            select
+            SelectProps={{ native: true }}
+            value={ref}
+            onChange={(e) => setRef(e.target.value)}
+            fullWidth
+
+          >
+            {refOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {t(option.label)} {/* Apply translation here */}
+              </option>
+            ))}
+          </TextField>
+        </Stack>
 
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
           <label>{t(tokens.form.words)}</label>

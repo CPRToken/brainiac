@@ -89,6 +89,7 @@ const styleOptions: Option[] = [
 
 const moodOptions: Option[] = [
   { label: '', value: '' },
+  { label: tokens.form.normal, value: tokens.form.normal },
   { label: tokens.form.upset, value: tokens.form.upset },
   { label: tokens.form.Joyful, value: tokens.form.Joyful },
   { label: tokens.form.Melancholic, value: tokens.form.Melancholic },
@@ -118,6 +119,7 @@ export const Editor: FC = () => {
   const [style, setStyle] = useState<string>('');
   const [mood, setMood] = useState<string>('');
   const [title, setTitle] = useState<string>('');
+ const [words, setWords] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(2);
   const [prompt, setPrompt] = useState<string>('');
 
@@ -134,7 +136,7 @@ export const Editor: FC = () => {
 
 
   const submitToOpenAI = () => {
-    const maxTokens = 1000;
+    const maxTokens = 4000;
     if (prompt) {
       // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
@@ -158,7 +160,7 @@ export const Editor: FC = () => {
       const textText = text !== '' ? `${t(text)} ` : '';
       const moodText = mood !== '' ? `${t(mood)} ` : '';
       const styleText = style !== '' ? `${t(style)} ` : '';
-
+      const wordsText = words !== '' ? `${t(words)} ` : '';
 
       const textWords = textText.split(' ');
       const title = textWords.slice(0, 3).join(' ');
@@ -169,6 +171,7 @@ export const Editor: FC = () => {
         .replace('[text]', textText)
         .replace('[mood]', moodText)
         .replace('[style]', styleText)
+        .replace('[words]', wordsText)
         .replace('[quantity]', quantity.toString());
 
       // Remove any trailing commas and spaces
@@ -180,7 +183,7 @@ export const Editor: FC = () => {
       setPrompt('');
       setTitle('');
     }
-  }, [text, mood, style, quantity, t]);
+  }, [text, mood, style, words, quantity, t]);
 
 
 
@@ -244,7 +247,16 @@ export const Editor: FC = () => {
             ))}
           </TextField>
 
-
+          <TextField
+            fullWidth
+            label={t(tokens.form.howManyWords)}
+            name="words"
+            value={words}
+            onChange={(e) => setWords(e.target.value)}
+            multiline
+            rows={1}
+          >
+          </TextField>
           <div
             style={{display: 'flex', justifyContent: 'center', width: '100%', paddingTop: '20px'}}>
             <label>{t(tokens.form.Quantity)}</label>

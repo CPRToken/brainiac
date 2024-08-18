@@ -12,6 +12,9 @@ import { tokens } from 'src/locales/tokens';
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import useGPT4Submit from './gpt4-submit';
 import CircularProgress from '@mui/material/CircularProgress';
+import { saveDoc } from 'src/sections/components/buttons/saveDoc';
+import {useProtectedPage} from "src/hooks/use-protectedpage";
+
 
 
 
@@ -57,9 +60,10 @@ const mealTypeOptions: Option[] = [
 
 
 export const DietPlanner: FC = () => {
-
+  useProtectedPage();
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
+  const [title, setTitle] = useState<string>('');
   const [dietType, setDietType] = useState<string>('');
   const [mealType, setMealType] = useState<string>('');
   const [calories, setCalories] = useState<number>(500);
@@ -93,6 +97,15 @@ export const DietPlanner: FC = () => {
       const mealTypeText = t(mealType);
       const caloriesText = calories.toString();
 
+      const dietWords = dietTypeText.split(' ').filter(word => word.length > 0);
+      const mealWords = mealTypeText.split(' ').filter(word => word.length > 0);
+      const caloriesWords = caloriesText.split(' ').filter(word => word.length > 0);
+
+      // Ensure at least one word from each is taken for the title,
+      // adjusting the indexes accordingly if you want more words from each category.
+      const title = [...dietWords.slice(0, 1), ...mealWords.slice(0, 1), ...caloriesWords.slice(0, 1)].join(' ');
+
+
       // Replace each placeholder with its corresponding text
       newPrompt = newPrompt
         .replace('[dietType]', dietTypeText)
@@ -100,9 +113,10 @@ export const DietPlanner: FC = () => {
         .replace('[calories]', caloriesText);
 
       setPrompt(newPrompt.trim());
+      setTitle(title);
     } else {
-      // Clear the prompt if any field is not filled
       setPrompt('');
+      setTitle('');
     }
   }, [dietType, mealType, calories, t]);
 
@@ -172,19 +186,30 @@ export const DietPlanner: FC = () => {
 
 
       {openAIResponse && (
-        <Box sx={{ mt: 3 }}>
-          <label>{t(tokens.form.yourLyrics)}</label>
+        <Box sx={{mt: 3}}>
+          <label>{t(tokens.form.yourDietPlan)}</label>
           <Button onClick={handleCopyText} title="Copy response text">
-            <FileCopyIcon />
+            <FileCopyIcon/>
           </Button>
-          <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+          <Paper elevation={3} ref={textRef}
+                 style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
             {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
-                {index < array.length - 1 ? <br /> : null}
+                {index < array.length - 1 ? <br/> : null}
               </React.Fragment>
             ))}
           </Paper>
+          <div style={{textAlign: 'center', paddingTop: '20px'}}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => saveDoc(openAIResponse, title, t(tokens.nav.dietPlanner))}
+              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+            >
+              {t(tokens.form.saveText)}
+            </Button>
+          </div>
         </Box>
       )}
     </Box>

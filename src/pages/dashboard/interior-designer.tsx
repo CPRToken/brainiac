@@ -37,6 +37,7 @@ const Page: NextPage = () => {
         <Container maxWidth={settings.stretch ? false : 'xl'}>
           <Grid
             container
+            justifyContent="center"
             spacing={{
               xs: 3,
               lg: 4,
@@ -81,23 +82,14 @@ const Page: NextPage = () => {
                 </Box>
               </Stack>
             </Grid>
-            <Grid
-              xs={12}
-              md={3} // Changed from 4 to 3 for skinnier My Content
-              sx={{ paddingLeft: 2 }}
-            >
-              <Hidden smDown> {/* Hide on small screens and down */}
-                <MyContent />
-              </Hidden>
-            </Grid>
+
           </Grid>
         </Container>
       </Box>
-
-
-
     </>
   );
+
+
 
 };
 

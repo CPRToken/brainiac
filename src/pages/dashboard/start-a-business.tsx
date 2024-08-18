@@ -83,12 +83,10 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={3} // Changed from 4 to 3 for skinnier My Content
+              md={4} // Changed from 4 to 3 for skinnier My Content
               sx={{ paddingLeft: 2 }}
             >
-              <Hidden smDown> {/* Hide on small screens and down */}
-                <MyContent />
-              </Hidden>
+
             </Grid>
           </Grid>
         </Container>

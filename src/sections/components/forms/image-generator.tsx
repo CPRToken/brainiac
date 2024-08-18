@@ -230,7 +230,22 @@ export const ImageGenerator: FC = () => {
           {t(tokens.form.imageInstructions)}
         </Typography>
 
-        <Stack direction="row" spacing={2}>
+        <Stack  spacing={3}>
+          <TextField
+            label={t(tokens.form.object)}
+            name="object"
+            value={object}
+            onChange={(e) => setObject(e.target.value)}
+            multiline
+            rows={1}
+            fullWidth
+          >
+            {objectOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {t(option.label)} {/* Apply translation here */}
+              </option>
+            ))}
+          </TextField>
           <TextField
             label={t(tokens.form.artist)}
             name="artist"
@@ -239,7 +254,7 @@ export const ImageGenerator: FC = () => {
             value={artist}
             onChange={(e) => setArtist(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {artistOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -255,7 +270,7 @@ export const ImageGenerator: FC = () => {
             value={style}
             onChange={(e) => setStyle(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {styleOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -266,7 +281,7 @@ export const ImageGenerator: FC = () => {
         </Stack>
 
         {/* Theme and Object side by side */}
-        <Stack direction="row" spacing={2}>
+        <Stack spacing={3}>
           <TextField
             label={t(tokens.form.theme)}
             name="theme"
@@ -275,7 +290,7 @@ export const ImageGenerator: FC = () => {
             value={theme}
             onChange={(e) => setTheme(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {themeOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -283,21 +298,7 @@ export const ImageGenerator: FC = () => {
               </option>
             ))}
           </TextField>
-          <TextField
-            label={t(tokens.form.object)}
-            name="object"
-             value={object}
-            onChange={(e) => setObject(e.target.value)}
-            multiline
-            rows={1}
-            sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
-          >
-            {objectOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {t(option.label)} {/* Apply translation here */}
-              </option>
-            ))}
-          </TextField>
+
         </Stack>
           <Stack spacing={1}>
           <TextField

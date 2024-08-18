@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const completion = await openai.chat.completions.create({
         model: 'gpt-4o',
         messages: [{ role: 'user', content }],
-        max_tokens: 3000,
+        max_tokens: 4096,
       });
 
 

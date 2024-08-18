@@ -14,6 +14,8 @@ interface Feature {
   id: string;
   title: string;
   description: string;
+  video?: string;
+  isVideo?: boolean;
   imageDark: string;
   imageLight: string;
 }
@@ -32,8 +34,10 @@ const features: Feature[] = [
     title: 'Design Files',
     description:
       "We've included the source Figma files to Plus & Extended licenses so you can get creative! Build layouts with confidence.",
-    imageDark: '/assets/home-features-figma-dark.png',
-    imageLight: '/assets/home-features-figma-light.png',
+    video: '/assets/videos/hiphop.mp4', // Add your video path here
+    isVideo: true, // Add a flag to indicate if it's a video
+    imageDark: '',
+    imageLight: '',
   },
   {
     id: 'tech',
@@ -107,6 +111,27 @@ export const HomeFeatures: FC = () => {
             xs={12}
             md={6}
           >
+            <Box>
+              {features[activeFeature].isVideo ? (
+                <video controls style={{ width: '100%', borderRadius: '8px' }}>
+                  <source src={features[activeFeature].video} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <>
+                  <img
+                    src={features[activeFeature].imageDark}
+                    alt={features[activeFeature].title}
+                    style={{ width: '100%', borderRadius: '8px', display: 'block' }}
+                  />
+                  <img
+                    src={features[activeFeature].imageLight}
+                    alt={features[activeFeature].title}
+                    style={{ width: '100%', borderRadius: '8px', display: 'none' }} // adjust based on dark mode
+                  />
+                </>
+              )}
+            </Box>
             <Stack spacing={1}>
               {features.map((feature, index) => {
                 const isActive = activeFeature === index;

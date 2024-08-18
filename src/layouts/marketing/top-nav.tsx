@@ -14,7 +14,7 @@ import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { Theme } from '@mui/material/styles/createTheme';
-
+import {LanguageSwitch }from 'src/layouts/dashboard/language-switch/language-switch';
 import { RouterLink } from 'src/components/router-link';
 
 import { usePathname } from 'src/hooks/use-pathname';
@@ -138,17 +138,17 @@ export const TopNav: FC<TopNavProps> = (props) => {
               {mdUp && (
                 <Typography
                   sx={{
-                    ...typography.h6, // Spread the h2 style here
+                    ...typography.h4, // Spread the h2 style here
                     color: 'text.primary',
                     fontSize: 40,
                     fontWeight: 600,
-                    letterSpacing: '0.3px',
+                    letterSpacing: '0.2px',
                     lineHeight: 2.5,
                     '& span': {
                       color: 'primary.main',
                     },
                     // If mt (margin-top) and mb (margin-bottom) are needed, add them here
-                    mt: 12,
+                    mt: 10,
                     mb: 0,
                   }}
                 >
@@ -202,6 +202,7 @@ export const TopNav: FC<TopNavProps> = (props) => {
                   </>
                 </Stack>
               </Box>
+              <LanguageSwitch />
             </Stack>
           )}
           <Stack

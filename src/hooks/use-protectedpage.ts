@@ -46,8 +46,8 @@ export const useProtectedPage = () => {
       if (!user) {
         // Redirect to login if no user is found
         router.push('/login');
-      } else if (['Trial', 'Canceled'].includes(user.plan ?? '')) {
-        // Redirect to subscription page if user has the 'Trial' or 'Canceled' plan
+      } else if (['Expired', 'Canceled'].includes(user.plan ?? '')) {
+        // Redirect to subscription page if user has the 'Expired' or 'Canceled' plan
         router.push('/upgrade');
       }
       // Add more conditions as needed based on other plans

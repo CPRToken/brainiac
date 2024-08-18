@@ -14,6 +14,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
+import { serverTimestamp } from 'firebase/firestore';
 
 import { GuestGuard } from 'src/guards/guest-guard';
 import { IssuerGuard } from 'src/guards/issuer-guard';
@@ -103,6 +104,7 @@ const Page: NextPage = () => {
           plan: 'Trial',
           role: 'User',
          stripeCustomerId: '',
+          creationDate: serverTimestamp(), // Add the creation date here
         });
 
 // For public data
@@ -252,7 +254,7 @@ const Page: NextPage = () => {
                   />
                   <Typography color="text.secondary" variant="body2">
                     I have read the{' '}
-                    <Link component="a" href="#">
+                    <Link component="a" href="/terms-conditions">
                       Terms & Conditions
                     </Link>
                   </Typography>

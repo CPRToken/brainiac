@@ -4,12 +4,11 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import Chip from '@mui/material/Chip';
+
 import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
+
 import Link from '@mui/material/Link';
-import Stack from '@mui/material/Stack';
+
 import Typography from '@mui/material/Typography';
 import {typography} from "src/theme/typography";;
 import { useRouter } from 'next/router';
@@ -127,7 +126,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Content: Post" />
+      <Seo title="{Content: Post}" />
       <Box
         component="main"
         sx={{
@@ -141,10 +140,15 @@ const Page: NextPage = () => {
             pt: {xs: '20px', sm: '20px', md: '20px', lg: '10px'}, // Responsive padding top
             pb: {xs: '20px', sm: '20px', md: '50px', lg: '60px'}, // Responsive padding bottom
             px: {xs: '10px', sm: '15px', md: '20px', lg: '25px'}, // Responsive padding left and right
+            pl: {xs: '20px', sm: '20px', md: '20px', lg: '40px'}, // Responsive padding top
             // You can add more responsive styles here
           }}>
           <div id="printableContent">
-
+            <div id="printHeader" style={{display: 'none'}}>
+              <img src="/assets/bmprintlogo.png" alt="Logo"
+                   style={{width: '100px'}}/>
+              <p style={{fontSize: '12px', marginBottom: '20px'}}>brainiacmedia.ai</p>
+            </div>
             {post.imageUrl && (
               <Box
                 component="img"
@@ -176,10 +180,8 @@ const Page: NextPage = () => {
             <Typography
               color="text.primary"
               sx={{
-                ...typography.h3,
-                fontSize: {xs: '22px', sm: '28px', md: '32px', lg: '34px'}, // Adjust font size for different screen sizes
-              }}
-              variant="h2">
+                ...typography.h3} // Adjust font size for different screen sizes
+            }>
               {post.title}
             </Typography>
 
@@ -209,22 +211,24 @@ const Page: NextPage = () => {
 
             </Breadcrumbs>
 
-            <Button onClick={handleCopyText} title="Copy text to clipboard" sx={{ mt: 2 }}> {/* Adjust mt value as needed */}
-              <FileCopyIcon/>
+            <Button id="copyTextButton" onClick={handleCopyText} title="Copy text to clipboard" sx={{ mt: 2 }}>
+              <FileCopyIcon />
             </Button>
 
 
-            <Typography color="text.primary" sx={{...typography.body1, mt: 2}} variant="body1" ref={textRef}>
+
+            <Typography color="text.primary" sx={{...typography.body1, mb:2, mt: 2}} variant="body1"
+                        ref={textRef}>
               {post.htmlContent ? renderTextWithLineBreaks(t(post.htmlContent)) : t('defaultEducationKey')}
             </Typography>
 
           </div>
-            <Box sx={{display: 'flex', justifyContent: 'center', mt: 3}}>
 
-              <IconButton onClick={printContent} aria-label="print">
-                <PrintIcon fontSize="large" />
 
-              </IconButton>
+          <Box sx={{display: 'flex', justifyContent: 'center', pt:3, mt: 3}}>
+            <IconButton id="printButton" onClick={printContent} aria-label="print">
+              <PrintIcon fontSize="large" />
+            </IconButton>
             </Box>
 
 

@@ -66,7 +66,7 @@ const Page: NextPage = () => {
               xs={12}
               md={9}
               sx={{
-                paddingLeft: 3, // Add padding here
+                paddingLeft: 4, // Add padding here
                 // Or if you prefer margin: marginLeft: 2
               }}
             >
@@ -86,9 +86,7 @@ const Page: NextPage = () => {
               md={3} // Changed from 4 to 3 for skinnier My Content
               sx={{ paddingLeft: 2 }}
             >
-              <Hidden smDown> {/* Hide on small screens and down */}
-                <MyContent />
-              </Hidden>
+
             </Grid>
           </Grid>
         </Container>

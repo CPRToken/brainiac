@@ -154,7 +154,7 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
             sx={{
               borderRadius: 1,
               px: 1,
-              py: 0.5,
+              py: 1,
             }}
           >
             <ListItemIcon>
@@ -164,24 +164,7 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
             </ListItemIcon>
             <ListItemText primary={<Typography variant="body1">{t(tokens.nav.account)}</Typography>} />
           </ListItemButton>
-          <ListItemButton
-              component={RouterLink}
-              href={paths.dashboard.account}
-              onClick={onClose}
-              sx={{
-                borderRadius: 1,
-                px: 1,
-                py: 0.5,
-              }}
-          >
 
-            <ListItemIcon>
-              <SvgIcon fontSize="small">
-                <CreditCard01Icon />
-              </SvgIcon>
-            </ListItemIcon>
-            <ListItemText primary={<Typography variant="body1">{t('nav.billing')}</Typography>} />
-          </ListItemButton>
         </Box>
         <Divider sx={{ my: '0 !important' }} />
         <Box

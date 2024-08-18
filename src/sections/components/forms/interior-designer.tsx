@@ -185,7 +185,7 @@ export const InteriorDesigner: FC = () => {
 
 
 
-          <Stack direction="row" spacing={2}>
+          <Stack spacing={3}>
           <TextField
            label={t(tokens.form.propertyType)}
             name="propertyType"
@@ -194,7 +194,7 @@ export const InteriorDesigner: FC = () => {
             value={propertyType}
             onChange={(e) => setPropertyType(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {propertyTypeOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -210,7 +210,7 @@ export const InteriorDesigner: FC = () => {
                   value={room}
                   onChange={(e) => setRoom(e.target.value)}
                   fullWidth
-                  sx={{ width: 'calc(50% - 8px)' }}
+
               >
                   {roomOptions.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -220,7 +220,7 @@ export const InteriorDesigner: FC = () => {
               </TextField>
           </Stack>
 
-        <Stack direction="row" spacing={2}>
+
           <TextField
             label={t(tokens.form.colorTheme)}
             value={colorTheme}
@@ -228,7 +228,7 @@ export const InteriorDesigner: FC = () => {
             onChange={(e) => setColorTheme(e.target.value)}
             multiline
             rows={1}
-            sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
+
           >
             {colorThemeOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -244,7 +244,7 @@ export const InteriorDesigner: FC = () => {
             value={style}
             onChange={(e) => setStyle(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {styleOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -256,7 +256,7 @@ export const InteriorDesigner: FC = () => {
 
 
 
-            </Stack>
+
             <Box sx={{ mt: 3 }}>
               <Button
                 onClick={() => combinedSubmit(prompt, 1500)}

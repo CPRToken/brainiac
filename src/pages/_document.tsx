@@ -1,4 +1,4 @@
-import type { ComponentProps, ComponentType, FC, ReactElement } from 'react';
+import type { ComponentProps, ComponentType, ReactElement } from 'react';
 import type { AppType } from 'next/app';
 import type { DocumentContext, DocumentProps } from 'next/document';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
@@ -16,29 +16,7 @@ const CustomDocument = ({ emotionStyleTags }: CustomDocumentProps) => {
   return (
     <Html lang="en">
       <Head>
-        <link
-          rel="icon"
-          href="/favicon.ico"
-          type="image/x-icon"
-        />
-        <link
-          rel="icon"
-          href="/favicon-16x16.png"
-          type="image/png"
-          sizes="16x16"
-        />
-        <link
-          rel="icon"
-          href="/favicon-32x32.png"
-          type="image/png"
-          sizes="32x32"
-        />
-        <link
-          rel="apple-touch-icon.png"
-          href="/apple-touch-icon.png"
-          type="image/png"
-          sizes="180x180"
-        />
+
         <meta
           name="emotion-insertion-point"
           content=""

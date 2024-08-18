@@ -186,7 +186,7 @@ export const CocktailCrafter: FC = () => {
   return (
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
       <Stack spacing={3}>
-        <Stack direction="row" spacing={2}>
+        <Stack spacing={3}>
           <TextField
             label={t(tokens.form.alcohol)}
             name="artist"
@@ -195,7 +195,7 @@ export const CocktailCrafter: FC = () => {
             value={alcohol}
             onChange={(e) => setAlcohol(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {alcoholOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -211,7 +211,7 @@ export const CocktailCrafter: FC = () => {
             value={cocktail}
             onChange={(e) => setCocktail(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {cocktailOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -221,7 +221,7 @@ export const CocktailCrafter: FC = () => {
           </TextField>
         </Stack>
 
-        <Stack direction="row" spacing={2}>
+
           <TextField
             label={t(tokens.form.mixer)}
             name="mixer"
@@ -230,7 +230,7 @@ export const CocktailCrafter: FC = () => {
             value={mixer}
             onChange={(e) => setMixer(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
               {mixerOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -245,7 +245,7 @@ export const CocktailCrafter: FC = () => {
             onChange={(e) => setGarnish(e.target.value)}
              multiline
              rows={1}
-             sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
+
           >
             {garnishOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -253,7 +253,7 @@ export const CocktailCrafter: FC = () => {
               </option>
             ))}
           </TextField>
-        </Stack>
+
 
           <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
               <label>{t(tokens.form.sweetness)}</label>

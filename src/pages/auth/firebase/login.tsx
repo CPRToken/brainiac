@@ -58,8 +58,10 @@ const Page: NextPage = () => {
   const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const searchParams = useSearchParams();
-    const returnTo = searchParams.get('returnTo');
+
     const { issuer, signInWithEmailAndPassword} = useAuth<AuthContextType>();
+
+
     const formik = useFormik({
         initialValues,
         validationSchema,

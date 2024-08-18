@@ -202,7 +202,7 @@ export const MagicMirror: FC = () => {
         <Typography variant="body2">
           {t(tokens.form.magicMirror)}
         </Typography>
-        <Stack direction="row" spacing={2}>
+        <Stack  spacing={3}>
           <TextField
             label={t(tokens.form.occasion)}
             name="ocassion"
@@ -211,7 +211,7 @@ export const MagicMirror: FC = () => {
             value={occasion}
             onChange={(e) => setOccasion(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {occasionOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -227,7 +227,7 @@ export const MagicMirror: FC = () => {
             value={style}
             onChange={(e) => setStyle(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {styleOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -237,7 +237,7 @@ export const MagicMirror: FC = () => {
           </TextField>
         </Stack>
 
-        <Stack direction="row" spacing={2}>
+        <Stack  spacing={3}>
           <TextField
             label={t(tokens.form.gender)}
             name="gender"
@@ -246,7 +246,7 @@ export const MagicMirror: FC = () => {
             value={gender}
             onChange={(e) => setGender(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
               {genderOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -261,7 +261,7 @@ export const MagicMirror: FC = () => {
             onChange={(e) => setAge(e.target.value)}
              multiline
              rows={1}
-             sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
+
           >
             {ageOptions.map((option) => (
               <option key={option.value} value={option.value}>

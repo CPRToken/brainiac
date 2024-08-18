@@ -26,11 +26,11 @@ export const HomeHero: FC = () => {
             backgroundPosition: 'top center',
             backgroundSize: 'cover',
             backgroundImage: theme.palette.mode === 'dark'
-              ? 'linear-gradient(rgba(0, 0, 139, 0.20), rgba(0, 0, 139, 0.3)), url("/assets/ai-dark.png")'
-              : 'linear-gradient(rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.3)), url("/assets/ai-light.png")',
+              ? 'linear-gradient(rgba(0, 0, 139, 0.10), rgba(0, 0, 139, 0.2)), url("/assets/ai-dark.png")'
+              : 'linear-gradient(rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.3)), url("/assets/ailight.png")',
             pt: '40px',
             pb: '10px',
-            height: '70vh', // Default to 70% of the viewport height
+            height: '60vh', // Default to 70% of the viewport height
             width: 'cover',
             '@media (max-width:600px)': {
               height: '50vh', // Adjust height for xs screens
@@ -42,55 +42,45 @@ export const HomeHero: FC = () => {
 
           }}
       >
-          <Container maxWidth="lg">
-            <Box
-              sx={{
-                alignItems: 'center',
-                display: 'flex',
-                flexDirection: 'column',
-
-                pt: { xs: 0, sm: 2, md: 6, lg: 8 }, // Example padding top values for different sizes
-                pb: { xs: 0, sm: 2, md: 3, lg: 4 }, // Example padding bottom values for different sizes
-              }}
-            >
-                <Typography sx={{ ...typography.h2, color: 'text.primary', mt: 12, mb: 0 }}>
-                    {t(tokens.headings.Heading)}
-                </Typography>
-                      <Typography
-                          component="span"
-                          color="primary.main"
-                          variant="inherit"
-
-                      ><br />
-
-                      </Typography>  <br />
-
-
-                  <Typography
-                      color="text.primary"
-                      sx={{
-                          fontSize: { xs: '1.2rem', sm: '1.2rem' },  // Change these sizes as needed
-                          fontWeight: 500,
-                      }}
-                  >
-                      {/* eslint-disable-next-line react/no-unescaped-entities */}
-
-          </Typography>
-          <Stack
-            alignItems="center"
-            direction="row"
-            flexWrap="wrap"
-            spacing={1}
-            sx={{ my: 2 }}
+        <Container maxWidth="lg">
+          <Box
+            sx={{
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              pt: { xs: 0, sm: 2, md: 6, lg: 8 },
+              pb: { xs: 0, sm: 2, md: 3, lg: 4 },
+            }}
           >
+            <Stack
+              direction="row"
+              justifyContent="space-between"  // Spread the columns evenly
+              spacing={2}
+              sx={{ my: 2, width: '100%' }}  // Ensure Stack takes full width
+            >
+              {/* Column 1 */}
+              <Box sx={{ width: '48%' }}>  {/* Adjusted to 48% for better spacing */}
+                <Typography
+                  sx={{ ...typography.h4, color: 'text.primary', mt: 5, pt: 2, mb: 0 }}
+                >
+                  {t(tokens.headings.Heading)}
+                </Typography>
+                <Typography
+                  sx={{ ...typography.body1, color: 'text.primary', mt: 5, pt: 2, mb: 0 }}
+                >
+                  {t(tokens.form.BrainiacIntro)}
+                </Typography>
+              </Box>
+
+              {/* Column 2 */}
+              <Box sx={{ width: '48%' }}>  {/* Adjusted to 48% for better spacing */}
+                {/* Your content for the second column */}
+              </Box>
+            </Stack>
+          </Box>
+        </Container>
 
 
-
-          </Stack>
-
-        </Box>
-
-      </Container>
-    </Box>
+      </Box>
   );
 };

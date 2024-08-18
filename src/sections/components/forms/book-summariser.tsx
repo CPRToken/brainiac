@@ -41,7 +41,7 @@ export const BookSummariser: FC = () => {
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [author, setAuthor] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-
+  const [extra , setExtra] = useState<string>('');
   const [length, setLength] = useState<number>(1);
   const [prompt, setPrompt] = useState<string>('');
 
@@ -71,13 +71,13 @@ export const BookSummariser: FC = () => {
             const authorText = author.trim() !== '' ? `${t(author).trim()} ` : '';
             const titleText = title.trim() !== '' ? `${t(title).trim()} ` : '';
             const lengthText = ` ${t(summaryLength[length])}`; // Ensure this returns the correct string
-
+          const extraText = extra !== '' ? `${t(extra)}` : '';
             // Replace placeholders with the actual values
             newPrompt = newPrompt
                 .replace('[author]', authorText)
                 .replace('[title]', titleText)
-                .replace('[length]', lengthText);
-
+                .replace('[length]', lengthText)
+                 .replace('[extra]', extraText)
             // Remove any trailing commas and spaces
 
 
@@ -85,7 +85,7 @@ export const BookSummariser: FC = () => {
         } else {
             setPrompt('');
         }
-    }, [author, title, length, t]);
+    }, [author, title, length, extra, t]);
 
 
 
@@ -133,7 +133,18 @@ export const BookSummariser: FC = () => {
             </option>
           ))}
         </TextField>
-
+        <Stack spacing={1}>
+          <TextField
+            fullWidth
+            label={t(tokens.form.extraTextInfo)}
+            name="extra"
+            value={extra}
+            onChange={(e) => setExtra(e.target.value)}
+            multiline
+            rows={2}
+          >
+          </TextField>
+        </Stack>
         <div>
           <label>{t(tokens.form.summaryLength)}</label>
           <Slider
@@ -154,9 +165,10 @@ export const BookSummariser: FC = () => {
 
 
       </Stack>
+
           <Box sx={{ mt: 3 }}>
             <Button
-              onClick={() => handleSubmit(prompt, 2000)}
+              onClick={() => handleSubmit(prompt, 3000)}
               type="submit"
               variant="contained"
               fullWidth

@@ -34,7 +34,13 @@ const Page: NextPage = () => {
           py: 8,
         }}
       >
-        <Container maxWidth={settings.stretch ? false : 'xl'}>
+        <Container
+          maxWidth="xl"  // Set the max width to medium (you can use 'sm', 'md', 'lg', etc.)
+          sx={{
+            mx: 'auto',  // Center the container horizontally
+            px: 3       // Optional padding for extra space on the sides
+          }}
+        >
           <Grid
             container
             spacing={{
@@ -83,12 +89,10 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={3} // Changed from 4 to 3 for skinnier My Content
+              md={4} // Changed from 4 to 3 for skinnier My Content
               sx={{ paddingLeft: 2 }}
             >
-              <Hidden smDown> {/* Hide on small screens and down */}
-                <MyContent />
-              </Hidden>
+
             </Grid>
           </Grid>
         </Container>

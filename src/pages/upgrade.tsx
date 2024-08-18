@@ -6,6 +6,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import { useTranslation } from "react-i18next";
+import {LanguageSwitch }from 'src/layouts/dashboard/language-switch/language-switch';
 import Typography from '@mui/material/Typography';
 import { typography } from "src/theme/typography";
 import { Seo } from 'src/components/seo';
@@ -122,6 +123,7 @@ const PricingSection: FC = () => {
 
   return (
     <>
+      <LanguageSwitch />
       <Seo title="Pricing" />
       <Box component="main" sx={{ flexGrow: 1 }}>
         <Box
@@ -141,7 +143,7 @@ const PricingSection: FC = () => {
                 mb: 4,
               }}
             >
-              <Typography sx={{ ...typography.h3, color: 'text.primary', mt: 9, mb: 0 }}>
+              <Typography sx={{ ...typography.h3, color: 'text.primary', mt: 2, mb: 0 }}>
                 {t(tokens.headings.startToday)}
               </Typography>
               <Typography sx={{ ...typography.body2, color: 'text.primary', mt: 2, mb: 1 }}>
@@ -171,10 +173,12 @@ const PricingSection: FC = () => {
                     currency="$"
                     description={t(tokens.form.planDescription)}
                     features={[
-                      t(tokens.form.AllPrevious),
-                      t(tokens.form.Alternative),
-                      t(tokens.form.UnlimitedData),
-                      t(tokens.form.Salsa),
+                      t(tokens.nav.imageGenerator),
+                      t(tokens.nav.lyricWriter),
+                      t(tokens.nav.SEOWriter),
+                      t(tokens.nav.poemGenerator),
+                      t(tokens.headings.dreamInterpretation),
+
                     ]}
                     icon={<PricingPlanIcon name="startup" />}
                     name={t(tokens.form.Basic)}
@@ -205,10 +209,28 @@ const PricingSection: FC = () => {
                     currency="$"
                     description={t(tokens.form.planDescription)}
                     features={[
-                      t(tokens.form.AllPrevious),
-                      t(tokens.form.Alternative),
-                      t(tokens.form.UnlimitedData),
-                      t(tokens.form.Salsa),
+                      t(tokens.nav.imageGenerator),
+                      t(tokens.nav.lyricWriter),
+                      t(tokens.nav.SEOWriter),
+                      t(tokens.nav.scriptWriter),
+                      t(tokens.nav.recipeWriter),
+                      t(tokens.nav.poemGenerator),
+                      t(tokens.nav.essayWriter),
+                      t(tokens.nav.dietPlanner),
+                      t(tokens.nav.storyGenerator),
+                      t(tokens.headings.dreamInterpretation),
+                      t(tokens.headings.magicMirror),
+                      t(tokens.headings.philosophyWriter),
+                      t(tokens.headings.interiorDesigner),
+                      t(tokens.headings.uniAnswers),
+                      t(tokens.headings.travelAgent),
+                      t(tokens.headings.cocktailCrafter),
+                      t(tokens.headings.dessertGenerator),
+                      t(tokens.headings.bookSummariser),
+                      t(tokens.headings.fruitsNVeges),
+                      t(tokens.headings.biblicalFigures),
+                      t(tokens.headings.idiomTranslator),
+
                     ]}
                     icon={<PricingPlanIcon name="standard" />}
                     name={t(tokens.form.Premium)}
@@ -239,10 +261,35 @@ const PricingSection: FC = () => {
                     currency="$"
                     description={t(tokens.form.planDescription)}
                     features={[
-                      t(tokens.form.AllPrevious),
-                      t(tokens.form.Alternative),
-                      t(tokens.form.UnlimitedData),
-                      t(tokens.form.Salsa),
+                      t(tokens.nav.imageGenerator),
+                      t(tokens.nav.lyricWriter),
+                      t(tokens.nav.SEOWriter),
+                      t(tokens.nav.scriptWriter),
+                      t(tokens.nav.recipeWriter),
+                      t(tokens.nav.poemGenerator),
+                      t(tokens.nav.essayWriter),
+                      t(tokens.nav.dietPlanner),
+                      t(tokens.nav.storyGenerator),
+                      t(tokens.headings.dreamInterpretation),
+                      t(tokens.headings.magicMirror),
+                      t(tokens.headings.philosophyWriter),
+                      t(tokens.headings.interiorDesigner),
+                      t(tokens.headings.uniAnswers),
+                      t(tokens.headings.travelAgent),
+                      t(tokens.headings.cocktailCrafter),
+                      t(tokens.headings.dessertGenerator),
+                      t(tokens.headings.bookSummariser),
+                      t(tokens.headings.fruitsNVeges),
+                      t(tokens.headings.biblicalFigures),
+                      t(tokens.headings.idiomTranslator),
+                      t(tokens.headings.editor),
+                      t(tokens.headings.resumeBuilder),
+                      t(tokens.headings.speechWriter),
+                      t(tokens.headings.translator),
+                      t(tokens.headings.careerDeveloper),
+                      t(tokens.headings.startABusiness),
+                      t(tokens.headings.investmentAdvisor),
+
                     ]}
                     icon={<PricingPlanIcon name="business" />}
                     name={t(tokens.form.BusinessP)}

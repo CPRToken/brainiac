@@ -145,23 +145,33 @@ export const DessertWriter: FC = () => {
             let newPrompt = t(tokens.form.createDessert);
 
             const countryText = ` ${t(country)} `;
-             const titleText = ` ${title} `;
+
             const dishText = ` ${t(dish)} `;
             const baseText = ` ${t(base)} `;
             const toppingsText = ` ${t(toppings)} `;
             const flavorProfileText = ` ${t(spicinessLevels[spiciness])} `; // Rename 'spicinessText' to 'flavorProfileText'
 
+          const countryWords = countryText.split(' ').filter(word => word.length > 0);
+          const dishWords = dishText.split(' ').filter(word => word.length > 0);
+          const baseWords = baseText.split(' ').filter(word => word.length > 0);
+
+          // Ensure at least one word from each is taken for the title,
+          // adjusting the indexes accordingly if you want more words from each category.
+          const title = [...countryWords.slice(0, 1), ...dishWords.slice(0, 1), ...baseWords.slice(0, 1)].join(' ');
+
             newPrompt = newPrompt
                 .replace('[country]', countryText)
-                .replace('[title]', titleText)
+
                 .replace('[dish]', dishText)
                 .replace('[base]', baseText)
                 .replace('[toppings]', toppingsText)
                 .replace('[spiciness]', flavorProfileText); // Replace 'spiciness' with the flavor profile
 
-            setPrompt(newPrompt.trim());
+          setPrompt(newPrompt.trim());
+          setTitle(title);
         } else {
-            setPrompt('');
+          setPrompt('');
+          setTitle('');
         }
     }, [country, title, dish, base, toppings, spiciness, t]);
 
@@ -173,18 +183,10 @@ export const DessertWriter: FC = () => {
 
     return (
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
-      <Stack spacing={3}>
-        <TextField
-          fullWidth
-          label={t(tokens.form.poemTitle)}
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          multiline
-          rows={1}
-        >
-        </TextField>
-        <Stack direction="row" spacing={2}>
+
+
+        <Stack spacing={3}>
+
           <TextField
             label={t(tokens.form.country)}
             name="artist"
@@ -193,7 +195,7 @@ export const DessertWriter: FC = () => {
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {countryOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -209,7 +211,7 @@ export const DessertWriter: FC = () => {
             value={dish}
             onChange={(e) => setDish(e.target.value)}
             fullWidth
-            sx={{ width: 'calc(50% - 8px)' }}
+
           >
             {dishOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -217,9 +219,7 @@ export const DessertWriter: FC = () => {
               </option>
             ))}
           </TextField>
-        </Stack>
 
-        <Stack direction="row" spacing={2}>
           <TextField
             label={t(tokens.form.base)}
             name="base"
@@ -227,7 +227,7 @@ export const DessertWriter: FC = () => {
             onChange={(e) => setBase(e.target.value)}
             multiline
             rows={1}
-            sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
+
           >
               {baseOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -242,7 +242,7 @@ export const DessertWriter: FC = () => {
             onChange={(e) => setToppings(e.target.value)}
              multiline
              rows={1}
-             sx={{ width: 'calc(50% - 8px)' }} // Apply the same width to this field
+
           >
             {toppingsOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -250,7 +250,7 @@ export const DessertWriter: FC = () => {
               </option>
             ))}
           </TextField>
-        </Stack>
+
 
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
         <label>{t(tokens.form.tasteMeter)}</label>
@@ -319,7 +319,7 @@ export const DessertWriter: FC = () => {
                       color="primary"
                       onClick={() => {
                         if (textResponse !== null) { // Ensure textResponse is not null
-                          saveTextImage(textResponse, title, "dessert", image)
+                          saveTextImage(textResponse, title, t(tokens.form.recipes), image)
                             .then(() => {
                               console.log("Text and image saved successfully.");
                             })
@@ -335,14 +335,13 @@ export const DessertWriter: FC = () => {
                       {t(tokens.form.savePost)}
                     </Button>
                   </div>
-
-
                 </Box>
-                ))}
+              ))}
             </Box>
+
+
         )}
       </Box>
-    </Box>
-    );
+</Box>
+);
 }
-

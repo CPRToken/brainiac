@@ -7,8 +7,8 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import Link from 'next/link';
-import { useTheme } from "@mui/material/styles";
+
+import {TrialPlan} from 'src/sections/components/trial-plan';
 import { useRouter } from "next/router";
 import { socialApi } from "src/api/social/socialApi";
 import { Seo } from 'src/components/seo';
@@ -26,6 +26,8 @@ import { tokens } from 'src/locales/tokens';
 import { paths } from 'src/paths';
 import SvgColor from 'src/components/svg-color';
 import type { Profile } from 'src/types/social';
+
+import {useTheme} from "@mui/material/styles";
 
 type ModuleItem = {
   name: string;
@@ -54,8 +56,8 @@ const ModuleItemComponent: React.FC<ModuleItemProps> = ({ module }) => {
       variant="outlined"
       sx={{
         pt: '80%',
-        width: '100%',
-        minHeight: '100px',
+        width: '90%',
+        minHeight: '90px',
         borderRadius: 2,
         cursor: 'pointer',
         textAlign: 'center',
@@ -143,6 +145,9 @@ const Page: NextPage = () => {
   const { t } = useTranslation();
   const settings = useSettings();
 
+
+
+
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -199,12 +204,14 @@ const Page: NextPage = () => {
 
   ];
   const hasTrial = useMemo(() => userPlan === 'Trial', [userPlan]);
+
+
   return (
     <>
       <Container maxWidth="xl">
 
       <Typography sx={{
-        ...typography.h3,
+        ...typography.h4,
         mb: 4,
         mt: 0,
         pl: 2,
@@ -213,20 +220,49 @@ const Page: NextPage = () => {
       }}>{t(tokens.nav.dashboard)}</Typography>
 
         {hasTrial && (
-        <Box sx={{ p: 1, mb: 3 }}>
-          <Link href="/upgrade" passHref>
-            <Button variant="contained" color="primary" sx={{ width: '25%' }}>
-              {t(tokens.nav.upgrade)}
+          <Box sx={{ p: 0, pb:3, mb: 3 }}>
+
+              <Button
+                component="a"
+                href="/upgrade"
+                variant="contained"
+                color="primary"
+                sx={{
+                  width: {
+                    xs: '100%',
+                  sm: '50%',
+                    md: '30%',
+                    lg: '30%',
+                  },
+                  display: 'inline-block',
+                  ml: 0, // Aligns the button to the left
+                }}
+              >
+
+                <Typography sx={{ ...typography.body1, color: 'text.primary', textAlign: 'center', textDecoration: 'none'  }}>
+                  {t(tokens.nav.upgrade)}
+                </Typography>
             </Button>
-          </Link>
+
         </Box>
         )}
+
+
 
       <Typography sx={{ ...typography.h6, mb: 2, mt: 1, pl: 3, pr: 0, textAlign: 'left' }}>
         {t(tokens.form.hello)} {user?.firstName}, {t(tokens.form.yourIdeas)}
       </Typography>
-      </Container>
+
+        {/* Small Chart Component */}
+        <Box sx={{ width: { xs: '75px', sm: '140px', md: '180px' }, height: 'auto' }}>
+
+        </Box>
+
+
+      {/* Other content below */}
       <Seo title="Dashboard: Overview" />
+    </Container>
+
 
       <Box component="main" sx={{ flexGrow: 1, py: 4 }}>
         <Container maxWidth="lg">
@@ -238,6 +274,7 @@ const Page: NextPage = () => {
             ))}
           </Stack>
         </Container>
+
       </Box>
 
       <Box component="main" sx={{ flexGrow: 1, py: 8 }}>
@@ -270,7 +307,11 @@ const Page: NextPage = () => {
               <ModuleItemComponent key={module.name} module={module} />
             ))}
           </Box>
-
+            {hasTrial && (
+              <Box sx={{ mb: 4 }}>
+                <TrialPlan />
+              </Box>
+            )}
           <Box sx={{ mt: 8 }}>
 
 
