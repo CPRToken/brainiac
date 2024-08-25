@@ -203,7 +203,7 @@ const Page: NextPage = () => {
     { name: t(tokens.headings.editor), path: paths.dashboard.editor, icon: '/assets/icons/editor.svg', about: t(tokens.form.editorAbout), },
 
   ];
-  const hasTrial = useMemo(() => userPlan === 'Trial', [userPlan]);
+  const hasTrial = useMemo(() => userPlan === 'Trial' || userPlan === 'Expired', [userPlan]);
 
 
   return (

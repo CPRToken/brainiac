@@ -5,9 +5,8 @@ import { Layout as MarketingLayout } from 'src/layouts/marketing';
 import { HomeFeatures } from 'src/sections/home/home-features';
 import { HomeCta } from 'src/sections/home/home-cta';
 import { HomeHero } from 'src/sections/home/home-hero';
-import { HomeLoser } from 'src/sections/home/home-loser';
-import PriceSection from 'src/pages/upgrade';
 
+import {HomePriceplan } from 'src/sections/home/home-priceplan';
 
 
 const Page: NextPage = () => {
@@ -24,7 +23,7 @@ const Page: NextPage = () => {
 
         <HomeCta />
 
-        <PriceSection />
+        <HomePriceplan />
 
 
 

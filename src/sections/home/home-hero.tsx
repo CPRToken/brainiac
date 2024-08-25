@@ -53,20 +53,45 @@ export const HomeHero: FC = () => {
             }}
           >
             <Stack
-              direction="row"
-              justifyContent="space-between"  // Spread the columns evenly
+              direction={{ xs: 'column', lg: 'row' }}  // Single column for xs to md, row for lg and xl
+              justifyContent="space-between"
+              textAlign={{ xs: 'center', lg: 'left' }}  // Center text on xs to md, left on lg and xl
               spacing={2}
-              sx={{ my: 2, width: '100%' }}  // Ensure Stack takes full width
+              sx={{
+                my: 2,
+                width: '100%'
+              }}
             >
               {/* Column 1 */}
-              <Box sx={{ width: '48%' }}>  {/* Adjusted to 48% for better spacing */}
+              <Box
+                sx={{
+                  width: { xs: '100%', lg: '48%' },  // Full width on xs to md, 48% on lg and xl
+                  mt: { xs: 3, sm: 2, lg: 0 },  // Adjust margin-top for mobile, remove for lg and xl
+                  pt:{ xs: 3, sm: 2, lg: 0 },
+
+                }}
+              >
                 <Typography
-                  sx={{ ...typography.h4, color: 'text.primary', mt: 5, pt: 2, mb: 0 }}
+                  sx={{
+                    ...typography.h3,
+                    color: 'text.primary',
+                    mt: { xs: 2, lg: 5 },  // Adjust top margin for mobile
+                    pt: 0,
+                    mb: 0
+                  }}
                 >
                   {t(tokens.headings.Heading)}
                 </Typography>
+
+
                 <Typography
-                  sx={{ ...typography.body1, color: 'text.primary', mt: 5, pt: 2, mb: 0 }}
+                  sx={{
+                    ...typography.body1,
+                    color: 'text.primary',
+                    mt: { xs: 2, sm: 5 },  // Adjust top margin for mobile
+                    pt: 2,
+                    mb: 0
+                  }}
                 >
                   {t(tokens.form.BrainiacIntro)}
                 </Typography>

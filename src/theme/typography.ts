@@ -36,14 +36,14 @@ declare module '@mui/material/styles' {
   }
 }
 
-export const primaryFont = Public_Sans({
-  weight: ['400', '500', '600', '700', '800', '900'],
+export const primaryFont = Open_Sans({
+  weight: ['400', '500', '600', '700', '800'],
   subsets: ['latin'],
   display: 'swap',
   fallback: ['Helvetica', 'Arial', 'sans-serif'],
 });
 
-export const secondaryFont = Roboto({
+export const secondaryFont = Open_Sans({
   weight: ['400'], // Only include the available weight
   subsets: ['latin'],
   display: 'swap',
@@ -115,7 +115,7 @@ export const typography = {
     lineHeight: 1.4,
     fontSize: pxToRem(26),
     fontFamily: tertiaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 23, md: 25, lg: 26 }),
+    ...responsiveFontSizes({ sm: 20, md: 22, lg: 28 }),
   },
   h5: {
     fontWeight: 500,

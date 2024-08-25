@@ -16,6 +16,7 @@ interface PricingPlanProps {
   cta: string;
   currency: string;
   description: string;
+  info?: string;
   features: string[];
   icon: ReactNode;
   name: string;
@@ -27,7 +28,7 @@ interface PricingPlanProps {
 }
 
 export const PricingPlan: FC<PricingPlanProps> = (props) => {
-  const { cta, currency, description, features, icon, name, price, priceId, popular, sx, onClick, ...other } = props;
+  const { cta, currency, description, info, features, icon, name, price, priceId, popular, sx, onClick, ...other } = props;
 
   const handleClick = () => {
     if (onClick) {
@@ -71,16 +72,17 @@ export const PricingPlan: FC<PricingPlanProps> = (props) => {
         </Box>
         <Typography
           sx={{ mt: 2 }}
-          variant="h6"
+          variant="h5"
         >
           {name}
         </Typography>
+
         <Typography
           color="text.secondary"
           sx={{ mt: 2 }}
-          variant="body2"
+          variant="body1"
         >
-          {description}
+          {info}
         </Typography>
       </Box>
       <Divider />
@@ -143,6 +145,7 @@ PricingPlan.propTypes = {
   cta: propTypes.string.isRequired,
   currency: propTypes.string.isRequired,
   description: propTypes.string.isRequired,
+  info: propTypes.string,
   features: propTypes.array.isRequired,
   icon: propTypes.any.isRequired,
   name: propTypes.string.isRequired,

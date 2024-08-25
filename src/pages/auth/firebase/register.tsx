@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
 import { serverTimestamp } from 'firebase/firestore';
-
+import { sendEmailVerification } from "firebase/auth";
 import { GuestGuard } from 'src/guards/guest-guard';
 import { IssuerGuard } from 'src/guards/issuer-guard';
 import { useRouter } from 'src/hooks/use-router';
@@ -93,6 +93,9 @@ const Page: NextPage = () => {
 
 
         console.log("User created successfully", user);
+
+
+        await sendEmailVerification(user);
         // After successfully creating the user
         await setDoc(doc(db, 'users', user.uid), {
           uid: user.uid,
@@ -111,7 +114,8 @@ const Page: NextPage = () => {
 
 
         // Redirect to the user's profile page
-        router.push('/auth/firebase/login',);
+        router.push('/auth/firebase/verify-email?message=check-your-email');
+
 
 // ... (rest of your catch block and other code)
 

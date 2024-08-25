@@ -149,6 +149,9 @@ const PricingSection: FC = () => {
               <Typography sx={{ ...typography.body2, color: 'text.primary', mt: 2, mb: 1 }}>
                 {t(tokens.headings.joinTwoThousand)}
               </Typography>
+              <Typography sx={{ ...typography.body2, color: 'text.primary', mt: 2, mb: 3 }}>
+                {t(tokens.form.planDescription)}
+              </Typography>
               <Stack alignItems="center" direction="row" spacing={1}>
                 <Switch checked={isYearly} onChange={handleSwitchChange} />
                 <Typography sx={{ ...typography.h6, color: 'text.primary', mt: 9, mb: 0 }}>
@@ -172,12 +175,12 @@ const PricingSection: FC = () => {
                     cta={t(tokens.form.upgrade)}
                     currency="$"
                     description={t(tokens.form.planDescription)}
+                    info={t(tokens.form.allContent)}
                     features={[
                       t(tokens.nav.imageGenerator),
-                      t(tokens.nav.lyricWriter),
+                      t(tokens.form.basicTools),
                       t(tokens.nav.SEOWriter),
-                      t(tokens.nav.poemGenerator),
-                      t(tokens.headings.dreamInterpretation),
+                      t(tokens.form.unlimitedWords),
 
                     ]}
                     icon={<PricingPlanIcon name="startup" />}
@@ -208,28 +211,13 @@ const PricingSection: FC = () => {
                     cta={t(tokens.form.upgrade)}
                     currency="$"
                     description={t(tokens.form.planDescription)}
+                    info={t(tokens.form.allContent)}
                     features={[
                       t(tokens.nav.imageGenerator),
-                      t(tokens.nav.lyricWriter),
+                      t(tokens.form.premTools),
                       t(tokens.nav.SEOWriter),
-                      t(tokens.nav.scriptWriter),
-                      t(tokens.nav.recipeWriter),
-                      t(tokens.nav.poemGenerator),
-                      t(tokens.nav.essayWriter),
-                      t(tokens.nav.dietPlanner),
-                      t(tokens.nav.storyGenerator),
-                      t(tokens.headings.dreamInterpretation),
-                      t(tokens.headings.magicMirror),
-                      t(tokens.headings.philosophyWriter),
-                      t(tokens.headings.interiorDesigner),
-                      t(tokens.headings.uniAnswers),
-                      t(tokens.headings.travelAgent),
-                      t(tokens.headings.cocktailCrafter),
-                      t(tokens.headings.dessertGenerator),
-                      t(tokens.headings.bookSummariser),
-                      t(tokens.headings.fruitsNVeges),
-                      t(tokens.headings.biblicalFigures),
-                      t(tokens.headings.idiomTranslator),
+                      t(tokens.form.unlimitedWords),
+
 
                     ]}
                     icon={<PricingPlanIcon name="standard" />}
@@ -260,35 +248,14 @@ const PricingSection: FC = () => {
                     cta={t(tokens.form.upgrade)}
                     currency="$"
                     description={t(tokens.form.planDescription)}
+                    info={t(tokens.form.allContent)}
                     features={[
                       t(tokens.nav.imageGenerator),
-                      t(tokens.nav.lyricWriter),
+                      t(tokens.form.businessTools),
                       t(tokens.nav.SEOWriter),
-                      t(tokens.nav.scriptWriter),
-                      t(tokens.nav.recipeWriter),
-                      t(tokens.nav.poemGenerator),
-                      t(tokens.nav.essayWriter),
-                      t(tokens.nav.dietPlanner),
-                      t(tokens.nav.storyGenerator),
-                      t(tokens.headings.dreamInterpretation),
-                      t(tokens.headings.magicMirror),
-                      t(tokens.headings.philosophyWriter),
-                      t(tokens.headings.interiorDesigner),
-                      t(tokens.headings.uniAnswers),
-                      t(tokens.headings.travelAgent),
-                      t(tokens.headings.cocktailCrafter),
-                      t(tokens.headings.dessertGenerator),
-                      t(tokens.headings.bookSummariser),
-                      t(tokens.headings.fruitsNVeges),
-                      t(tokens.headings.biblicalFigures),
-                      t(tokens.headings.idiomTranslator),
-                      t(tokens.headings.editor),
-                      t(tokens.headings.resumeBuilder),
-                      t(tokens.headings.speechWriter),
-                      t(tokens.headings.translator),
-                      t(tokens.headings.careerDeveloper),
-                      t(tokens.headings.startABusiness),
-                      t(tokens.headings.investmentAdvisor),
+                      t(tokens.form.unlimitedWords),
+
+
 
                     ]}
                     icon={<PricingPlanIcon name="business" />}

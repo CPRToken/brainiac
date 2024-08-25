@@ -108,8 +108,8 @@ const Page: NextPage = () => {
           gap: { xs: 2, sm: 2, md: 2, lg: 2 },
           paddingLeft: { xs: 1, sm: 1, md: 1, lg: 3 },
           paddingRight: { xs: 1, sm: 1, md: 1, lg: 3 },
-          mt: { xs: 2, sm: 2, md: 2, lg: 2 },
-          mb: { xs: 2, sm: 2, md: 2, lg: 2 },
+          mt: { xs: 2, sm: 2, md: 1, lg: 1 },
+          mb: { xs: 2, sm: 2, md: 1, lg: 1 },
           display: 'grid',
           my: { xs: 6, sm: 10, md: 12 },
           gridTemplateColumns: {
@@ -182,14 +182,15 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
           sx={{
             mb: 2,
             mt: 0,
-            width: 50,
-            height: 50,
+            width: 60,
+            height: 60,
             mx: 'auto',
             display: 'flex',
             borderRadius: '50%',
             alignItems: 'center',
             justifyContent: 'center',
-            p: { xs: 1, sm: 0 },
+            p: { xs: 0, sm: 0, md: 0, lg: 0 },
+            pt: { xs: 0, sm: 0 , md: 0, lg: 1 },
           }}
         >
           <SvgColor
@@ -216,8 +217,8 @@ const ModuleItem = ({ module }: ModuleItemProps) => {
           color: 'text.secondary',
           mt: { xs: 0, sm: 1 },
           mb: { xs: 1, sm: 1 },
-          pl: { xs: 1, sm: 0 },
-          pr: { xs: 1, sm: 0 },
+          pl: { xs: 1, sm: 0 , md: 0, lg: 1 },
+          pr: { xs: 1, sm: 0 , md: 0, lg: 1 },
         }}>
           {module.about}
         </Typography>

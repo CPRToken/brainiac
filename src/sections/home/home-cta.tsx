@@ -27,10 +27,23 @@ export const HomeCta: FC = () => {
       <Container maxWidth="lg">
         <Box maxWidth="sm" sx={{ mx: 'auto', textAlign: 'center' }}>
           <Typography
-            variant="h2"
-            sx={{ mb: 2 }}
+            sx={{
+              ...typography.h3,
+              pb: 2,
+
+            }}
           >
             {t(tokens.form.HowitWorks)}
+          </Typography>
+
+          <Typography
+            sx={{
+              ...typography.body1,
+
+
+            }}
+          >
+            {t(tokens.form.HowitWorksParagraph)}
           </Typography>
 
         </Box>
@@ -38,19 +51,19 @@ export const HomeCta: FC = () => {
         <Grid container spacing={3} sx={{ mt: 5 }}>
           <Grid item xs={12} md={4}>
             <video width="100%" controls>
-              <source src="/assets/videos/hiphop.mp4" type="video/mp4" />
+              <source src={t(tokens.form.video1)} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </Grid>
           <Grid item xs={12} md={4}>
             <video width="100%" controls>
-              <source src="video2.mp4" type="video/mp4" />
+              <source src={t(tokens.form.video2)} type="video/mp4"/>
               Your browser does not support the video tag.
             </video>
           </Grid>
           <Grid item xs={12} md={4}>
             <video width="100%" controls>
-              <source src="video3.mp4" type="video/mp4" />
+              <source src={t(tokens.form.video3)} type="video/mp4"/>
               Your browser does not support the video tag.
             </video>
           </Grid>
@@ -60,31 +73,28 @@ export const HomeCta: FC = () => {
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            mt: 6,
+            mt: 6, pt: 6,
           }}
         >
           <Button
+            component="a"
             href="/auth/firebase/register"
             variant="contained"
-            sx={(theme) =>
-              theme.palette.mode === 'dark'
-                ? {
-                  backgroundColor: 'neutral.50',
-                  color: 'neutral.900',
-                  '&:hover': {
-                    backgroundColor: 'neutral.200',
-                  },
-                }
-                : {
-                  backgroundColor: 'neutral.900',
-                  color: 'neutral.50',
-                  '&:hover': {
-                    backgroundColor: 'neutral.700',
-                  },
-                }
-            }
+            color="primary"
+            sx={{
+              width: {
+                xs: '100%',
+                sm: '50%',
+                md: '30%',
+                lg: '30%',
+              },
+              display: 'inline-block',
+
+              ml: 0, // Aligns the button to the left
+            }}
           >
-            {t(tokens.nav.startFreeTrial)}
+            <Typography sx={{ ...typography.body1, color: 'text.primary', textAlign: 'center', textDecoration: 'none'  }}>   {t(tokens.nav.startFreeTrial)}
+            </Typography>
           </Button>
         </Box>
       </Container>

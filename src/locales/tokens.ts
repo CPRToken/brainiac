@@ -94,6 +94,9 @@ export const tokens = {
 headings: {
 
   primaryColor: 'headings.primaryColor',
+  plagiarismChecker: 'headings.plagiarismChecker',
+  TimeIsMoney: 'headings.TimeIsMoney',
+  KnowIsPower: 'headings.KnowIsPower',
   introduction: 'headings.introduction',
   agreementToTerms: 'headings.agreementToTerms',
   platformAndServices: 'headings.platformAndServices',
@@ -230,9 +233,20 @@ headings: {
     form: {
 
 
-
+      video1: 'form.video1',
+      video2: 'form.video2',
+      video3: 'form.video3',
       acceptConditions: 'form.acceptConditions',
+      verifyEmailPrompt: 'form.verifyEmailPrompt',
+      verifyEmailSuccess: 'form.verifyEmailSuccess',
+      clickHereIfNotRedirected: 'form.clickHereIfNotRedirected',
+      unlimitedWords: 'form.unlimitedWords',
+      allContent: 'form.allContent',
+      HowitWorksParagraph: 'form.HowitWorksParagraph',
       HowitWorks: 'form.HowitWorks',
+      basicTools: 'form.basicTools',
+      premTools: 'form.premTools',
+      businessTools: 'form.businessTools',
       trialEnded: 'form.trialEnded',
       yourDietPlan: 'form.yourDietPlan',
       question1: 'form.question1',
