@@ -110,7 +110,7 @@ const Page: NextPage = () => {
           creationDate: serverTimestamp(), // Add the creation date here
         });
 
-// For public data
+
 
 
         // Redirect to the user's profile page

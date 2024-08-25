@@ -27,6 +27,7 @@ const PricingSection: FC = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [isYearly, setIsYearly] = useState(false);
 
+
   usePageView();
 
   useEffect(() => {
