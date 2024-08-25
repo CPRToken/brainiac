@@ -40,6 +40,7 @@ const Page: NextPage = () => {
     window.location.reload(); // Reloads the current page
   };
 
+
   return (
     <div>
       {!verified ? (

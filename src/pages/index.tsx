@@ -20,18 +20,8 @@ const Page: NextPage = () => {
       <main>
 
         <HomeHero />
-
         <HomeCta />
-
         <HomePriceplan />
-
-
-
-
-
-
-
-
 
       </main>
     </>
