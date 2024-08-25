@@ -95,7 +95,7 @@ const renderTextWithLineBreaks = (text: string) => {
 
 const Page: NextPage = () => {
   const router = useRouter();
-  const title = typeof router.query.title === 'string' ? router.query.title : '';
+  const title = typeof router.query.title === 'string' ? router.query.title : 'defaultFilename';  // Ensuring title is a string
   const uid = auth.currentUser?.uid ?? ''; // Fallback to an empty string if uid is undefined
 
   const post = usePost(title, uid);
@@ -226,7 +226,7 @@ const Page: NextPage = () => {
 
 
           <Box sx={{display: 'flex', justifyContent: 'center', pt:3, mt: 3}}>
-            <IconButton id="printButton" onClick={printContent} aria-label="print">
+            <IconButton id="printButton" onClick={() => printContent(title)} aria-label="print">
               <PrintIcon fontSize="large" />
             </IconButton>
             </Box>
