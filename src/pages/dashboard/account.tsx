@@ -14,10 +14,10 @@ import { Seo } from 'src/components/seo';
 import { useCallback, useState, useEffect } from 'react';
 import {socialApi} from "src/api/social/socialApi";
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import { onAuthStateChanged } from 'firebase/auth';
+
 import { AccountGeneralSettings } from 'src/sections/dashboard/account/account-general-settings';
 import { AccountNotificationsSettings } from 'src/sections/dashboard/account/account-notifications-settings';
-
+import type { LoginEvent } from 'src/types/logins';
 import { AccountSecuritySettings } from 'src/sections/dashboard/account/account-security-settings';
 import type { Profile } from 'src/types/social';
 import {auth, db} from "../../libs/firebase";
@@ -39,7 +39,7 @@ const Page: NextPage = () => {
   const [uid, setUid] = useState<string | null>(auth.currentUser ? auth.currentUser.uid : null);
     const [user, setUser] = useState<Profile | null>(null);
 
-
+  const [loginEvents, setLoginEvents] = useState<LoginEvent[]>([]);
     const [currentTab, setCurrentTab] = useState<string>('general');
 
     const { t } = useTranslation();
@@ -70,7 +70,24 @@ const Page: NextPage = () => {
     fetchUserData();
   }, [uid]);
 
+  useEffect(() => {
+    if (currentTab !== 'security' || !uid) return; // Only fetch when security tab is active
 
+    const fetchLoginEvents = async () => {
+      try {
+        const userDoc = doc(db, 'users', uid);
+        const userSnapshot = await getDoc(userDoc);
+
+        if (userSnapshot.exists()) {
+          setLoginEvents(userSnapshot.data().loginEvents || []);
+        }
+      } catch (error) {
+        console.error("Error fetching login events:", error);
+      }
+    };
+
+    fetchLoginEvents();
+  }, [currentTab, uid]);
 
 
 
@@ -96,7 +113,7 @@ const Page: NextPage = () => {
             sx={{ mb: 3 }}
           >
             <Typography sx={{
-              ...typography.h3,
+              ...typography.h5,
               mb: 6,
               mt: 0,
               pl: 2,
@@ -131,7 +148,7 @@ const Page: NextPage = () => {
 
           {currentTab === 'notifications' && <AccountNotificationsSettings />}
           {currentTab === 'security' && (
-            <AccountSecuritySettings loginEvents={[]} />
+            <AccountSecuritySettings loginEvents={loginEvents} />  // Pass the actual state
           )}
         </Container>
       </Box>

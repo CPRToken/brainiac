@@ -38,7 +38,7 @@ export const Layout: FC<LayoutProps> = (props) => {
             linear-gradient(rgba(5, 5, 40, 0.20), rgba(5, 5, 40, 0.50))
 ,
             linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.05)),
-            url("/assets/aibg4.png")`,
+            url("/assets/ai-darkbg.png")`,
           // The linear gradient adds a bluish overlay with 50% opacity
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
@@ -48,11 +48,13 @@ export const Layout: FC<LayoutProps> = (props) => {
           flex: {
             xs: '0 0 auto',
             md: '1 1 auto',
+            lg: '1 1 50%',
           },
           justifyContent: 'center',
           p: {
             xs: 4,
             md: 8,
+            lg: 10,
           },
         }}
       >

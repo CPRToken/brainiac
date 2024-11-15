@@ -31,8 +31,7 @@ const Page: NextPage = () => {
   const uid = auth.currentUser?.uid;
   const [user, setUser] = useState<Profile | null>(null);
   const { t } = useTranslation();
-  const theme = useTheme();
-  const router = useRouter();
+
 
   useEffect(() => {
     if (!uid) return; // Exit if uid is null
@@ -52,8 +51,9 @@ const Page: NextPage = () => {
       }
     };
 
-    fetchUserData();
+    void fetchUserData(); // Use `void` to intentionally ignore the returned promise
   }, [uid]);
+
 
   const modules: ModuleItem[] = [
     { name: t(tokens.headings.imageGenerator), path: paths.dashboard.imageGenerator, icon: '/assets/icons/images.svg', about: t(tokens.form.imageAbout), plan: ['Trial','Basic','Premium', 'Business', 'BasicYearly', 'PremiumYearly', 'BusinessYearly '] },

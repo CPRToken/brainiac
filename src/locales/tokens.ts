@@ -237,6 +237,7 @@ headings: {
       video2: 'form.video2',
       video3: 'form.video3',
       acceptConditions: 'form.acceptConditions',
+      trialPlanProgress: 'form.trialPlanProgress',
       verifyEmailPrompt: 'form.verifyEmailPrompt',
       verifyEmailSuccess: 'form.verifyEmailSuccess',
       clickHereIfNotRedirected: 'form.clickHereIfNotRedirected',

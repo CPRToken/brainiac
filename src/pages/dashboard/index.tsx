@@ -181,14 +181,14 @@ const Page: NextPage = () => {
 
   usePageView();
 
-  const components: { element: JSX.Element; title: string }[] = [
+  const components: { element: JSX.Element; title?: string }[] = [
     {
       element: <MyContent />,
-      title: t(tokens.headings.myGenContent),
+
     },
     {
       element: <MyImages />,
-      title: t(tokens.headings.myGenImages),
+
     },
   ];
 
@@ -202,6 +202,7 @@ const Page: NextPage = () => {
     { name: t(tokens.headings.essayWriter), path: paths.dashboard.essayWriter, icon: '/assets/icons/edu.svg', about: t(tokens.form.essayWriterAbout),  },
     { name: t(tokens.headings.editor), path: paths.dashboard.editor, icon: '/assets/icons/editor.svg', about: t(tokens.form.editorAbout), },
 
+
   ];
   const hasTrial = useMemo(() => userPlan === 'Trial' || userPlan === 'Expired', [userPlan]);
 
@@ -211,16 +212,21 @@ const Page: NextPage = () => {
       <Container maxWidth="xl">
 
       <Typography sx={{
-        ...typography.h4,
+        ...typography.h5,
         mb: 4,
         mt: 0,
         pl: 2,
         pr: 0,
         textAlign: 'left'
       }}>{t(tokens.nav.dashboard)}</Typography>
+        {hasTrial && (
+          <Box sx={{ mb: 4 }}>
+            <TrialPlan />
+          </Box>
+        )}
 
         {hasTrial && (
-          <Box sx={{ p: 0, pb:3, mb: 3 }}>
+          <Box sx={{ p: 0, pt:1,  pb:3, mb: 3 }}>
 
               <Button
                 component="a"
@@ -281,7 +287,7 @@ const Page: NextPage = () => {
         <Container maxWidth={settings.stretch ? false : 'xl'}>
           <Stack spacing={8}>
           <Box sx={{ width: '100%', mb: 4 }}>
-            <Typography sx={{ ...typography.h6, mb: 2, mt: 0, pl: 3, pr: 0, textAlign: 'left' }}>
+            <Typography sx={{ ...typography.h6, mb: 1, mt: 0, pl: 3, pr: 0, textAlign: 'left' }}>
               {t(tokens.headings.popularAItools)}
             </Typography>
           </Box>
@@ -307,11 +313,7 @@ const Page: NextPage = () => {
               <ModuleItemComponent key={module.name} module={module} />
             ))}
           </Box>
-            {hasTrial && (
-              <Box sx={{ mb: 4 }}>
-                <TrialPlan />
-              </Box>
-            )}
+
           <Box sx={{ mt: 8 }}>
 
 

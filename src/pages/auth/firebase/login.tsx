@@ -29,7 +29,6 @@ import { useAuth } from 'src/hooks/use-auth';
 import { useMounted } from 'src/hooks/use-mounted';
 import { usePageView } from 'src/hooks/use-page-view';
 import { useRouter } from 'src/hooks/use-router';
-import { useSearchParams } from 'src/hooks/use-search-params';
 import { Layout as AuthLayout } from 'src/layouts/auth/modern-layout';
 import { paths } from 'src/paths';
 
@@ -58,9 +57,9 @@ const Page: NextPage = () => {
   const isMounted = useMounted();
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
 
-  const { issuer, signInWithEmailAndPassword} = useAuth<AuthContextType>();
+  const { signInWithEmailAndPassword } = useAuth<AuthContextType>();
+
 
 
   const formik = useFormik({
@@ -69,6 +68,8 @@ const Page: NextPage = () => {
     onSubmit: async (values, helpers): Promise<void> => {
       try {
         await signInWithEmailAndPassword(values.email, values.password);
+
+
 
 
 

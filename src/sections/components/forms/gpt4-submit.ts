@@ -1,3 +1,4 @@
+//src/sections/components/forms/gpt4-submit.ts
 import { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 
@@ -14,7 +15,7 @@ const useGPT4Submit = () => {
   }, []);
 
 
-  const handleSubmit = async (prompt: string, maxTokens: number) => {
+  const handleSubmit = async (prompt: string, maxTokens: number): Promise<string | undefined> => {
     setIsLoading(true);
     const auth = getAuth();
     const token = await auth.currentUser?.getIdToken();
@@ -33,13 +34,14 @@ const useGPT4Submit = () => {
 
       if (response.ok && data.content) {
         setOpenAIResponse(data.content);
+        return data.content; // Return the response content as a string
       } else {
         console.error("Failed to get documents.");
       }
     } catch (error) {
       console.error("An error occurred:", error);
     } finally {
-      setIsLoading(false); // Set loading to false when the request completes or fails
+      setIsLoading(false);
     }
   };
 

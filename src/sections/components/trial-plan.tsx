@@ -6,11 +6,13 @@ import Typography from '@mui/material/Typography';
 import { tokens } from '../../locales/tokens';
 import { useTranslation } from 'react-i18next';
 import { typography } from '../../theme/typography';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const TRIAL_WORD_LIMIT = 1500;
 
 export const TrialPlan: FC = () => {
   const [uid, setUid] = useState<string | null>(null);
+  const [progress, setProgress] = useState(0);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -55,6 +57,8 @@ export const TrialPlan: FC = () => {
         }
       });
 
+      setProgress((totalWordCount / TRIAL_WORD_LIMIT) * 100);
+
       // Check if the user has reached the trial word limit
       if (totalWordCount >= TRIAL_WORD_LIMIT) {
         await updateDoc(doc(db, 'users', uid), {
@@ -71,9 +75,15 @@ export const TrialPlan: FC = () => {
 
   return (
     <div>
-      <Typography sx={{ ...typography.h6, textAlign: 'left', pl: 2, mb: 2 }}>
-        {t(tokens.form.trialPlan)}
+      <Typography sx={{ ...typography.body2, textAlign: 'left', pl: 2, mb: 2 }}>
+        {t(tokens.form.trialPlanProgress)}
       </Typography>
+      <LinearProgress
+        variant="determinate"
+        value={progress}
+        sx={{ height: '15px', borderRadius: '5px' }}  // You can increase the height as needed
+      />
+
     </div>
   );
 };

@@ -701,6 +701,7 @@ export const es = {
   [tokens.form.Premium]: 'Premium',
   [tokens.form.BusinessP]: 'Empresaria',
   [tokens.form.trialPlan]: 'Plan de Prueba',
+  [tokens.form.trialPlanProgress]: 'Progreso del Plan de Prueba',
     [tokens.form.pasteIdiom]: 'Pegue el Modismo aqui',
     [tokens.form.interiorDesignerTip]: 'Consulte al Diseñador de Interiores seleccionando sus preferencias de tipo de propiedad, habitación deseada, su estilo preferido y tema de color',
       [tokens.headings.bookSummariser]: 'Resumidor de Libros',

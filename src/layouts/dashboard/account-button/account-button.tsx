@@ -46,6 +46,14 @@ export const AccountButton: FC = () => {
     const user = useProfile();
     const popover = usePopover<HTMLButtonElement>();
 
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
+      .toUpperCase();
+  };
+
     return (
         <>
             <Box
@@ -63,17 +71,21 @@ export const AccountButton: FC = () => {
                     borderRadius: '50%',
                 }}
             >
-                <Avatar
-                    sx={{
-                        height: 40,
-                        width: 40,
-                    }}
-                    src={user?.avatar}
-                >
-                    <SvgIcon>
-                        <User01Icon />
-                    </SvgIcon>
-                </Avatar>
+              <Avatar
+                sx={{
+                  height: 40,
+                  width: 40,
+                }}
+                src={user?.avatar}
+              >
+                {user?.avatar ? (
+                  <SvgIcon>
+                    <User01Icon />
+                  </SvgIcon>
+                ) : (
+                  getInitials(user?.name || "Guest")
+                )}
+              </Avatar>
             </Box>
             <AccountPopover
                 anchorEl={popover.anchorRef.current}

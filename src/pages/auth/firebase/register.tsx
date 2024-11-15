@@ -1,3 +1,4 @@
+//src/pages/auth/firebase/register.tsx
 import { NextPage } from 'next';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -71,11 +72,10 @@ const Page: NextPage = () => {
       confirmPassword: '',
       policy: false,
 
-
-
     },
+
     validationSchema,
-    onSubmit: async (values, { setSubmitting, setErrors }) => {
+    onSubmit: async (values, { setErrors }) => {
       console.log('Form onSubmit started');
       try {
         console.log('Firebase createUserWithEmailAndPassword starting');
@@ -86,29 +86,30 @@ const Page: NextPage = () => {
         // Construct the user URL
 
 
-        const defaultCoverImageUrl = "/assets/covers/brainiac.png";
-
-        const profileURL = `${values.firstName}${values.lastName}`.toLowerCase().replace(/\s+/g, '');
-
 
 
         console.log("User created successfully", user);
 
 
-        await sendEmailVerification(user);
+        const actionCodeSettings = {
+          url: 'https://brainiacmedia.ngrok.app/auth/firebase/verify-email', // Replace with your app's verify email page
+          handleCodeInApp: true,
+        };
+
+        await sendEmailVerification(user, actionCodeSettings);
         // After successfully creating the user
         await setDoc(doc(db, 'users', user.uid), {
           uid: user.uid,
           firstName: values.firstName,
           lastName: values.lastName,
-            email: user.email,
-          cover: defaultCoverImageUrl,
-            userUrl: profileURL,
+          email: user.email,
           plan: 'Trial',
           role: 'User',
-         stripeCustomerId: '',
+          stripeCustomerId: '',
           creationDate: serverTimestamp(), // Add the creation date here
+          loginEvents: []  // Initialize the loginEvents array
         });
+
 
 
 

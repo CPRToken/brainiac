@@ -36,19 +36,19 @@ class SocialApi {
 
         return {
           uid: uid,
-          avatar: userData.avatar || '',
-          cover: userData.cover || '',
+
           email: userData.email || '',
           gender: userData.gender || '',
           firstName: userData.firstName || '',
           lastName: userData.lastName || '',
           name: `${userData.firstName} ${userData.lastName}`,
           stripeCustomerId: userData.stripeCustomerId || '',
+          loginEvents: userData.loginEvents || [],
           priceId: userData.priceId || '',
          role: userData.role || '',
           plan: userData.plan || '',
           planStartDate: userData.planStartDate || '',
-          userUrl: userData.userUrl || '',
+
 
 
         };

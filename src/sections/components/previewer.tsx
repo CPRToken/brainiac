@@ -16,7 +16,7 @@ import { createTheme } from 'src/theme';
 
 interface PreviewerProps {
   children: ReactNode;
-  title: string;
+  title?: string;
 }
 
 export const Previewer: FC<PreviewerProps> = (props) => {
@@ -41,26 +41,26 @@ export const Previewer: FC<PreviewerProps> = (props) => {
   }, []);
 
   return (
-    <Card
-      variant="outlined"
-      {...other}
-    >
-      <CardHeader
-        action={
-          <IconButton onClick={handleModeSwitch}>
-            <SvgIcon fontSize="small">
-              {paletteMode === 'light' ? <Moon01Icon /> : <SunIcon />}
-            </SvgIcon>
-          </IconButton>
-        }
-        title={title}
-      />
+    <Card variant="outlined" {...other}>
+      {title && (
+        <CardHeader
+          action={
+            <IconButton onClick={handleModeSwitch}>
+              <SvgIcon fontSize="small">
+                {paletteMode === 'light' ? <Moon01Icon /> : <SunIcon />}
+              </SvgIcon>
+            </IconButton>
+          }
+          title={title}
+        />
+      )}
       <Divider />
       <ThemeProvider theme={theme}>
         <Box sx={{ colorScheme: paletteMode }}>{children}</Box>
       </ThemeProvider>
     </Card>
   );
+
 };
 
 Previewer.propTypes = {

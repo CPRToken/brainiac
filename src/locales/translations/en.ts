@@ -602,6 +602,7 @@ export const en = {
   [tokens.form.generateTweets]: 'Generate [options] tweets in [language] language, about [title], in a [style] style. Along with emojis too.',
     [tokens.form.yourFinancialPlan]: 'Your Financial Plan',
   [tokens.form.trialPlan]: 'Trial Plan',
+  [tokens.form.trialPlanProgress]: 'Trial Plan Progress',
   [tokens.form.trialEnded]: 'Your trial has ended. ',
   [tokens.form.question1]: 'Does Brainiac Media offer a free trial?',
   [tokens.form.answer1]: 'Yes, we offer a free trial that includes access to all of our AI tools: content creation, SEO optimization, social media management, and more. Experience the full power of Brainiac Media and see how it can revolutionize your workflow.',

@@ -6,11 +6,10 @@ import Typography from '@mui/material/Typography';
 import { typography } from "src/theme/typography";
 import {tokens} from "src/locales/tokens";
 import { useTranslation } from 'react-i18next';
-import { Button } from '@mui/material';
-import { Seo } from 'src/components/seo';
+
+
 import { Layout as AuthLayout } from 'src/layouts/auth/modern-layout';
-import { paths } from 'src/paths';
-import { auth} from 'src/libs/firebase';
+
 import { useRouter } from 'next/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
@@ -28,13 +27,14 @@ const Page: NextPage = () => {
         user.reload().then(() => {
           if (user.emailVerified) {
             setVerified(true);
-            router.push('/auth/firebase/login'); // Redirect to dashboard or appropriate page once verified
+            router.push('/auth/firebase/login'); // Redirect after verification
           }
         });
       }
     });
     return unsubscribe; // Clean up the subscription on unmount
   }, [auth, router]);
+
 
   const handleRetry = () => {
     window.location.reload(); // Reloads the current page
@@ -45,18 +45,15 @@ const Page: NextPage = () => {
     <div>
       {!verified ? (
         <>
-        <Typography
-          sx={{
-            ...typography.h6,
-            pb: 4,
+          <Typography
+            sx={{
+              ...typography.h6,
+              pb: 4,
 
-          }}
-        >
-          {t(tokens.form.verifyEmailPrompt)}
-        </Typography>
-        <Button variant="contained" onClick={handleRetry}>
-          {t(tokens.form.clickHereIfNotRedirected)}
-        </Button>
+            }}
+          >
+            {t(tokens.form.verifyEmailPrompt)}
+          </Typography>
         </>
       ) : (
         <Typography

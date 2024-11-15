@@ -62,7 +62,7 @@ const usePosts = () => {
   }, [uid, isMounted]);
 
   useEffect(() => {
-    handlePostsGet();
+
   }, [handlePostsGet]);
 
   return { posts, deletePost }; // Return an object containing both posts and deletePost
@@ -93,15 +93,13 @@ const Page: NextPage = () => {
           return;
         }
 
-        setUser(userData);          // Use userData instead of fetchedUser
-
-
+        setUser(userData); // Use userData instead of fetchedUser
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
 
-    fetchUserData();
+    void fetchUserData(); // Intentionally ignoring the returned promise
   }, [uid]);
 
 

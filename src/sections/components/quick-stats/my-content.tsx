@@ -112,8 +112,8 @@ export const MyContent: FC = () => {
     >
       <Grid container spacing={2}>
         <Grid xs={12} md={6} lg={3}>
-          <Card>
-            <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
+          <Card elevation={0} sx={{ boxShadow: 'none', p: 0 }}>
+          <Stack alignItems="center" direction="row" spacing={2} sx={{ p: 3 }}>
               <Stack spacing={1} sx={{ flexGrow: 1 }}>
                 <Typography sx={{ ...typography.subtitle1,  textAlign: 'left' ,mb: 2}}>
                   {t(tokens.form.numberArticles)}
