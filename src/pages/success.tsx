@@ -76,7 +76,7 @@ const Page: NextPage = () => {
     };
 
     updatePlan();
-  }, [profile, router]);
+  }, [profile]);
 
 
   usePageView();

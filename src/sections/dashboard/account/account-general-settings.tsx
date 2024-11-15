@@ -22,7 +22,7 @@ import Box from "@mui/material/Box";
 
 interface AccountGeneralSettingsProps {
   uid?: string;
-  avatar: string;
+
   email: string;
   role?: string;
   priceId?: string;
@@ -31,7 +31,7 @@ interface AccountGeneralSettingsProps {
 }
 
 export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) => {
-  const { avatar, name, email, plan, priceId, role } = props;
+  const { name, email, plan, priceId, role } = props;
   const [uid, setUid] = useState<string | null>(null);
   const [isEditingName, setIsEditingName] = useState(false);
   const [isPublic, setIsPublic] = useState(false);
@@ -194,7 +194,6 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
 
 AccountGeneralSettings.propTypes = {
   uid: PropTypes.string,
-  avatar: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   priceId: PropTypes.string,

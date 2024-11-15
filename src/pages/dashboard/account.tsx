@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { Seo } from 'src/components/seo';
 
 import { useCallback, useState, useEffect } from 'react';
@@ -138,7 +138,7 @@ const Page: NextPage = () => {
           </Stack>
           {currentTab === 'general' && user && (
             <AccountGeneralSettings
-              avatar={user.avatar || ''}
+
               email={user.email || ''}
               name={user.name || ''}
               plan={user.plan || ''}

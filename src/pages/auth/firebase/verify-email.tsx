@@ -35,12 +35,6 @@ const Page: NextPage = () => {
     return unsubscribe; // Clean up the subscription on unmount
   }, [auth, router]);
 
-
-  const handleRetry = () => {
-    window.location.reload(); // Reloads the current page
-  };
-
-
   return (
     <div>
       {!verified ? (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import React from 'react';
 import Box from '@mui/material/Box';
@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 
 import Typography from '@mui/material/Typography';
-import {typography} from "src/theme/typography";
+import {typography} from "src/theme/typography";;
 import { useRouter } from 'next/router';
 import PrintIcon from '@mui/icons-material/Print';
 import IconButton from '@mui/material/IconButton';
@@ -25,7 +25,7 @@ import { usePageView } from 'src/hooks/use-page-view';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { paths } from 'src/paths';
 import type { Post } from 'src/types/content';
-import {auth } from "src/libs/firebase";
+import {auth, db } from "src/libs/firebase";
 import type {Profile} from "../../../types/social";
 import { contentApi } from 'src/api/content';
 import {socialApi} from "../../../api/social/socialApi";

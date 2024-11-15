@@ -32,7 +32,6 @@ const Page: NextPage = () => {
   const [user, setUser] = useState<Profile | null>(null);
   const { t } = useTranslation();
 
-
   useEffect(() => {
     if (!uid) return; // Exit if uid is null
 
@@ -51,9 +50,8 @@ const Page: NextPage = () => {
       }
     };
 
-    void fetchUserData(); // Use `void` to intentionally ignore the returned promise
+    fetchUserData();
   }, [uid]);
-
 
   const modules: ModuleItem[] = [
     { name: t(tokens.headings.imageGenerator), path: paths.dashboard.imageGenerator, icon: '/assets/icons/images.svg', about: t(tokens.form.imageAbout), plan: ['Trial','Basic','Premium', 'Business', 'BasicYearly', 'PremiumYearly', 'BusinessYearly '] },

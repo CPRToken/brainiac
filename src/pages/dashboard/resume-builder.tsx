@@ -41,14 +41,16 @@ const Page: NextPage = () => {
         }
 
         setUser(userData);
+
+
+
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
 
-    void fetchUserData(); // Use `void` to intentionally ignore the returned promise
+    fetchUserData();
   }, [uid]);
-
 
   usePageView();
 

@@ -29,6 +29,9 @@ import { useAuth } from 'src/hooks/use-auth';
 import { useMounted } from 'src/hooks/use-mounted';
 import { usePageView } from 'src/hooks/use-page-view';
 import { useRouter } from 'src/hooks/use-router';
+import { v4 as uuidv4 } from 'uuid';  // Add this for unique ID generation
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { db } from 'src/libs/firebase';  // Your Firestore instance
 import { Layout as AuthLayout } from 'src/layouts/auth/modern-layout';
 import { paths } from 'src/paths';
 
@@ -58,8 +61,8 @@ const Page: NextPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
-  const { signInWithEmailAndPassword } = useAuth<AuthContextType>();
 
+  const { issuer, signInWithEmailAndPassword} = useAuth<AuthContextType>();
 
 
   const formik = useFormik({
