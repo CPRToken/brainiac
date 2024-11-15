@@ -92,7 +92,7 @@ const Page: NextPage = () => {
 
 
         const actionCodeSettings = {
-          url: 'https://brainiacmedia.ngrok.app/auth/firebase/verify-email', // Replace with your app's verify email page
+          url: 'https://brainiacmedia.ai/auth/firebase/verify-email', // Replace with your app's verify email page
           handleCodeInApp: true,
         };
 
