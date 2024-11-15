@@ -73,13 +73,13 @@ const Page: NextPage = () => {
               xs={12}
               md={9}
               sx={{
-                paddingLeft: 3, // Add padding here
+                paddingLeft: 2, // Add padding here
                 // Or if you prefer margin: marginLeft: 2
               }}
             >
               <Stack
                 spacing={{
-                  xs: 4,
+                  xs: 2,
                   lg: 4,
                 }}
               >

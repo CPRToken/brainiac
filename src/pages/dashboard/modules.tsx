@@ -73,7 +73,7 @@ const Page: NextPage = () => {
     { name: t(tokens.headings.speechWriter), path: paths.dashboard.speechWriter, icon: '/assets/icons/speech.svg', about: t(tokens.form.speechWriterAbout) , plan: ['Trial', 'Premium','Business'] },
     { name: t(tokens.headings.translator), path: paths.dashboard.translator, icon: '/assets/icons/translator.svg', about: t(tokens.form.translatorAbout) , plan: ['Trial','Premium', 'Business'] },
     { name: t(tokens.headings.careerDeveloper), path: paths.dashboard.careerDeveloper, icon: '/assets/icons/career.svg', about: t(tokens.form.careerDeveloperAbout) , plan: ['Trial', 'Business'] },
-    { name: t(tokens.headings.startABusiness), path: paths.dashboard.startABusiness, icon: '/assets/icons/Business.svg', about: t(tokens.form.startABusinessAbout), plan: ['Trial', 'Business'] },
+    { name: t(tokens.headings.startABusiness), path: paths.dashboard.startABusiness, icon: '/assets/icons/business.svg', about: t(tokens.form.startABusinessAbout), plan: ['Trial', 'Business'] },
     { name: t(tokens.headings.investmentAdvisor), path: paths.dashboard.investmentAdvisor, icon: '/assets/icons/invest.svg', about: t(tokens.form.investmentAdvisorAbout) , plan: ['Trial', 'Premium', 'Business'] },
     { name: t(tokens.headings.uniAnswers), path: paths.dashboard.uniAnswers, icon: '/assets/icons/uni.svg', about: t(tokens.form.uniAnswersAbout) , plan: ['Trial','Premium', 'Business'] },
     { name: t(tokens.headings.travelAgent), path: paths.dashboard.travelAgent, icon: '/assets/icons/travel.svg', about: t(tokens.form.travelAgentAbout) , plan: ['Trial','Premium', 'Business'] },

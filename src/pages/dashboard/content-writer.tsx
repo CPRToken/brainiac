@@ -4,10 +4,10 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
-import Hidden from '@mui/material/Hidden';
+
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
+
 import { usePageView } from 'src/hooks/use-page-view';
 import { ContentWriter } from 'src/sections/components/forms/content-writer';
 import { Seo } from 'src/components/seo';
@@ -34,9 +34,16 @@ const Page: NextPage = () => {
           py: 8,
         }}
       >
-        <Container maxWidth={settings.stretch ? false : 'xl'}>
+        <Container
+          maxWidth="xl"  // Set the max width to medium (you can use 'sm', 'md', 'lg', etc.)
+          sx={{
+            mx: 'auto',  // Center the container horizontally
+            px: 3       // Optional padding for extra space on the sides
+          }}
+        >
           <Grid
             container
+            justifyContent="center"
             spacing={{
               xs: 3,
               lg: 4,
@@ -64,9 +71,9 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={8}
+              md={9}
               sx={{
-                paddingLeft: 4, // Add padding here
+                paddingLeft: 2, // Add padding here
                 // Or if you prefer margin: marginLeft: 2
               }}
             >
@@ -81,13 +88,7 @@ const Page: NextPage = () => {
                 </Box>
               </Stack>
             </Grid>
-            <Grid
-              xs={12}
-              md={4} // Changed from 4 to 3 for skinnier My Content
-              sx={{ paddingLeft: 2 }}
-            >
 
-            </Grid>
           </Grid>
         </Container>
       </Box>
