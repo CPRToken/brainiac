@@ -2,7 +2,8 @@
 export interface Profile {
 
     uid?: string;
-     name?: string;
+    avatar?: string;
+    name?: string;
     firstName?: string;
     lastName?: string;
     email?: string;
