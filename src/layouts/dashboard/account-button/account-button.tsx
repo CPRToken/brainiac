@@ -75,6 +75,7 @@ export const AccountButton: FC = () => {
                 sx={{
                   height: 40,
                   width: 40,
+                  fontSize: '1.1rem',
                 }}
                 src={user?.avatar}
               >

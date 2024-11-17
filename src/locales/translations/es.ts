@@ -84,6 +84,7 @@ export const es = {
   [tokens.nav.myContent ]: 'Mi Contenido',
   [tokens.form.imageInstructions]: 'Selecciona las opciones deseadas para generar una imagen. Elige un estilo de artista, un estilo visual y un tema. Deja "Artista" como "Sin artista específico" para imágenes realistas.',
   [tokens.form.translateInstructions]: 'Para iniciar la traducción de texto, por favor ingrese su texto aquí. A continuación, elija su idioma preferido del menú desplegable y haga clic en \'Submit\' para proceder..',
+  [tokens.form.govPositionsInstructions]: 'Ingrese la posición, seleccione el país y haga clic en enviar para ver sus requisitos, responsabilidades y nombramientos según la constitución del país.',
   [tokens.form.magicMirror]: 'Consulta al Espejo Mágico para encontrar el atuendo perfecto para cualquier evento. Selecciona tus preferencias de las opciones del menú y haz clic en "Submit".',
   [tokens.form.createInteriorDesign]: 'Para GPT4, NO te disculpes en la respuesta, crea lo que se solicita en las siguientes indicaciones y eso es todo, ya que dalle3 se encarga de la imagen. \n Crea un concepto detallado de diseño interior, utilizando la siguiente información:\n Tipo de propiedad: [propertyType] \n Habitación: [room], \n Estilo: [style] \n y el esquema de color: [colorTheme] \n.',
   [tokens.form.retail]: 'Venta al por menor',
@@ -710,6 +711,7 @@ export const es = {
   [tokens.form.moneySaved]: 'Dinero Ahorrado',
   [tokens.form.filmTitle]: 'Dale a tu película un nombre o título',
   [tokens.form.yourIdeas]: 'Da vida a tus ideas!',
+  [tokens.form.position]: 'Posición',
     [tokens.form.course]: 'curso',
   [tokens.form.planDescription]:'Obtén un 20% de descuento cuando pagues anualmente',
   [tokens.form.interests]: 'intereses: p. ej. deportes, música, arte',
@@ -1231,8 +1233,8 @@ export const es = {
     [tokens.form.mealType]: 'Tipo de comida',
   [tokens.form.dish]: 'Tipo de plato',
     [tokens.form.calories]: 'Calorías',
-
-
+  [tokens.form.USA]: 'Estados Unidos',
+  [tokens.form.Australia]: 'Australia',
   [tokens.form.country]: 'País',
   [tokens.form.words]: 'Palabras',
   [tokens.form.language]: 'Idioma al que quieres traducir tu texto',
@@ -1268,7 +1270,7 @@ export const es = {
   [tokens.form.blibicalPrompts]: 'Proporciona una lista de dónde se pueden encontrar las historias de [figure], en la Biblia. También proporciona un resumen de estas.\'.',
     [tokens.form.investmentAdvicePrompts]: 'Proporcione asesoramiento de inversión personalizado basado en la siguiente información:\n\nObjetivo Principal de Inversión: [investmentGoals]\nIndustria Específica: [industry]\nSu experiencia en la industria de [industryExperience]\nPor qué quieren invertir: [why]\nAdemás, tenga en cuenta su Experiencia de Inversión: [investmentExperience]\nIngresos Anuales: [annualIncome]\nSu marco de tiempo de [time]\nPresupuesto Disponible para Inversión: [budget]\nNivel de Tolerancia al Riesgo: [riskTolerance]\n\n. Es muy importante que obtengan un detallado ROI como una tasa porcentual y también en una base anual. Si no se proporcionan detalles financieros, sugiera un enfoque conservador inicialmente. Además, ofrezca insights sobre potenciales oportunidades de inversión que coincidan con sus objetivos y tolerancia al riesgo.',
   [tokens.form.createWhatPrompts]: 'Crea instrucciones para hacer un(a) [what], utilizando [material], con dimensiones de [dimensions] y un nivel de dificultad [difficulty].',
-
+  [tokens.form.govPositionPrompts]: 'Proporcione un resumen detallado y completo para la posición gubernamental: [position], basado en la constitución del país: [country]',
   [tokens.form.investmentAdviceTip]: '¿No está seguro de cómo invertir su dinero? Complete el formulario a continuación, y la IA generará un asesoramiento de inversión personalizado adaptado a sus objetivos y situación financiera.',
   [tokens.form.editorInstructions]: 'Para que el editor revise y reescriba tus escritos, simplemente pega tu texto a continuación y selecciona cuántas revisiones u opciones te gustaría tener.',
         [tokens.form.skills]: 'Habilidades: p. ej. programación, diseño gráfico, marketing',
@@ -1319,6 +1321,7 @@ export const es = {
   [tokens.form.dietPlan]: 'construye un plan de dieta con requerimientos de dieta [dietType] [mealType] y con solo [calories] calorías',
     [tokens.headings.TimeFrame]: 'Plazo de Inversión',
   [tokens.headings.TimeIsMoney]: 'El tiempo es dinero',
+  [tokens.headings.govPositions]: 'Posiciones Gubernamentales',
   [tokens.headings.KnowIsPower]: 'Saber es poder',
   [tokens.headings.introduction]: 'Introducción',
   [tokens.headings.myGenContent]: 'Mis Imagenes Generadas',
