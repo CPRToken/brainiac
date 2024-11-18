@@ -1,4 +1,4 @@
-// pages/upgrade.tsx
+//src/sections/home/home-priceplan.tsx
 import React, { FC, useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -6,7 +6,6 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import { useTranslation } from "react-i18next";
-
 import Typography from '@mui/material/Typography';
 import { typography } from "src/theme/typography";
 import { Seo } from 'src/components/seo';
@@ -21,7 +20,7 @@ import { getAuth } from 'firebase/auth';
 import { socialApi } from 'src/api/social/socialApi';
 import { getPriceId } from 'src/utils/getPriceId';
 
-export const HomePriceplan: FC = () => {
+ const HomePriceplan: FC = () => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
   const { t } = useTranslation();
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -290,3 +289,5 @@ export const HomePriceplan: FC = () => {
     </>
   );
 };
+
+export default HomePriceplan;
