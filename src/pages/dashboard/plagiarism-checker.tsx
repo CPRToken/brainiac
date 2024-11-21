@@ -7,8 +7,7 @@ import {tokens} from "src/locales/tokens";
 import Hidden from '@mui/material/Hidden';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
-import { usePageView } from 'src/hooks/use-page-view';
+ import { usePageView } from 'src/hooks/use-page-view';
 import { PlagiarismChecker} from 'src/sections/components/forms/plagiarism-checker';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
@@ -26,7 +25,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title={t(tokens.headings.translator)} />
+      <Seo title={t(tokens.headings.plagiarismChecker)} />
       <Box
         component="main"
         sx={{

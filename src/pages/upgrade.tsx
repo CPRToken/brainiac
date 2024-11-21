@@ -21,6 +21,8 @@ import { getAuth } from 'firebase/auth';
 import { socialApi } from 'src/api/social/socialApi';
 import { getPriceId } from 'src/utils/getPriceId';
 
+
+
 const PricingSection: FC = () => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
   const { t } = useTranslation();
@@ -65,58 +67,33 @@ const PricingSection: FC = () => {
   }, []);
 
 
-
   const handleCheckout = async (selectedPlan: string) => {
-    const planName = selectedPlan
-    const priceId = getPriceId(planName);
+    const priceId = getPriceId(selectedPlan, t); // Calculate `priceId` dynamically on the client
 
-    if (!priceId) {
-      console.error('No price ID found for the selected plan:', planName);
-      return;
+    const requestBody = {
+      userId: profile?.uid,
+      userEmail: profile?.email,
+      planName: selectedPlan,
+      stripeCustomerId: profile?.stripeCustomerId || '',
+      priceId, // Send `priceId` to the API
+    };
+
+    const response = await fetch('/api/checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to create Stripe checkout session: ${errorText}`);
     }
 
-    if (!stripe) {
-      console.error('Stripe not initialized');
-      return;
-    }
-
-    if (!profile || !profile.uid || !profile.email) {
-      console.error('User profile is not loaded or essential details are missing');
-      return;
-    }
-
-    try {
-      const requestBody = {
-        userId: profile.uid,
-        userEmail: profile.email,
-        planName: selectedPlan,
-        stripeCustomerId: profile.stripeCustomerId || '',
-        priceId: priceId,
-      };
-
-      const response = await fetch('/api/checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to create Stripe checkout session: ${errorText}`);
-      }
-
-      const session = await response.json();
-      const { error } = await stripe.redirectToCheckout({ sessionId: session.sessionId });
-      if (error) {
-        console.error('Stripe checkout error:', error);
-        return;
-      }
-    } catch (error) {
-      console.error('Error creating checkout session:', error);
-    }
+    const session = await response.json();
+    await stripe?.redirectToCheckout({ sessionId: session.sessionId });
   };
+
+
 
   const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsYearly(event.target.checked);
@@ -187,8 +164,8 @@ const PricingSection: FC = () => {
                     icon={<PricingPlanIcon name="startup" />}
                     name={t(tokens.form.Basic)}
                     popular
-                    price={isYearly ? "7.95" : "9.95"}
-                    priceId={isYearly ? 'price_1PjDoqI7exj9oAo95jqY8uSw' : 'price_1PgQI4I7exj9oAo949UmThhH'}
+                    price={isYearly ? t(tokens.form.priceBasicYearlyCurrency) : t(tokens.form.priceBasicCurrency)} //
+                    priceId={isYearly ? t(tokens.form.priceBasicYearly) : t(tokens.form.priceBasic)} // Use tokens for dynamic IDs
                     sx={{
                       height: '100%',
                       maxWidth: 460,
@@ -224,7 +201,7 @@ const PricingSection: FC = () => {
                     icon={<PricingPlanIcon name="standard" />}
                     name={t(tokens.form.Premium)}
                     popular
-                    price={isYearly ? "12.95" : "14.95"}
+                    price={isYearly ? "$12.95" : "$14.95"}
                     priceId={isYearly ? 'price_1PjDpjI7exj9oAo9UkvkaR6x' : 'price_1PgQJsI7exj9oAo9mUdbE0ZX'}
                     sx={{
                       height: '100%',
@@ -262,7 +239,7 @@ const PricingSection: FC = () => {
                     icon={<PricingPlanIcon name="business" />}
                     name={t(tokens.form.BusinessP)}
                     popular
-                    price={isYearly ? "14.95" : "19.95"}
+                    price={isYearly ? "$14.95" : "$19.95"}
                     priceId={isYearly ? 'price_1PjDr8I7exj9oAo9lm4zAEDn' : 'price_1PgQKSI7exj9oAo9acr903Ka'}
                     sx={{
                       height: '100%',

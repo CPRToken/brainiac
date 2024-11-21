@@ -13,6 +13,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
 import {useProtectedPage} from "../../../hooks/use-protectedpage";
+import {saveDoc} from "../buttons/saveDoc";
 
 type Option = {
     label: string;
@@ -88,13 +89,32 @@ export const StartABusiness: FC = () => {
   const [blueOrWhite, setBlueOrWhite] = useState<string>('');
   const [workExperience, setWorkExperience] = useState<string>('');
   const [budget, setBudget]= useState<string>('');
+  const [title, setTitle] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
-
-
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
+
+
+  const submitToOpenAI = () => {
+    const maxTokens = 2000;
+    if (prompt) {
+      handleSubmit(prompt, maxTokens)
+        .then(() => {
+          // Handle successful submission if needed
+        })
+        .catch(error => {
+          console.error("Error submitting to OpenAI:", error);
+        });
+    } else {
+      console.error("Prompt is empty or not updated, cannot submit.");
+    }
+  };
+
   useEffect(() => {
+
+    if (industry && skills && budget) {
+
     let newPrompt = t(tokens.form.startABusinessPrompts);
 
     const industryText = industry ? `${t(industry)} ` : '';
@@ -106,6 +126,13 @@ export const StartABusiness: FC = () => {
     const workExperienceText = workExperience ? `${t(workExperience)} ` : '';
     const budgetText = budget ? `${t(budget)} ` : '';
     const typeofBusinessText = typeofBusiness ? `${t(typeofBusiness)} ` : '';
+
+    const industryWords = industryText.split(' ').filter(word => word.length > 0);
+      const skillsWords = skillsText.split(' ').filter(word => word.length > 0);
+      const budgetWords = budgetText.split(' ').filter(word => word.length > 0);
+
+    const title = [...industryWords.slice(0, 1),...skillsWords.slice(0, 1),...budgetWords.slice(0, 1)].join(' ');
+
 
     newPrompt = newPrompt
         .replace('[industry]', industryText)
@@ -119,22 +146,14 @@ export const StartABusiness: FC = () => {
         .replace('[typeofBusiness]', typeofBusinessText);
 
     setPrompt(newPrompt.trim());
+    setTitle(title);
+  } else {
+    setPrompt('');
+    setTitle('');
+  }
   }, [industry, inOrOut, blueOrWhite, skills, targetMarket, interests, workExperience, budget, typeofBusiness, t]);
 
-  const submitToOpenAI = () => {
-    const maxTokens = 2000;
-    if (prompt) {
-      handleSubmit(prompt, maxTokens)
-          .then(() => {
-            // Handle successful submission if needed
-          })
-          .catch(error => {
-            console.error("Error submitting to OpenAI:", error);
-          });
-    } else {
-      console.error("Prompt is empty or not updated, cannot submit.");
-    }
-  };
+
 
 
 
@@ -329,17 +348,30 @@ export const StartABusiness: FC = () => {
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>
-          <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
+          <Paper elevation={3} ref={textRef}
+                 style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
             {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
-                {index < array.length - 1 ? <br /> : null}
+                {index < array.length - 1 ? <br/> : null}
               </React.Fragment>
             ))}
           </Paper>
+          <div style={{textAlign: 'center', paddingTop: '20px'}}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => saveDoc(openAIResponse, title, t(tokens.form.BusinessPlans))}
+              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+            >
+              {t(tokens.form.saveText)}
+            </Button>
+          </div>
         </Box>
         )}
       </Box>
-    );
+  );
 
 };
+
+

@@ -204,7 +204,7 @@ export const IdiomTranslator: FC = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => saveDoc(openAIResponse, title, t(tokens.form.translations))}
+              onClick={() => saveDoc(openAIResponse, title, t(tokens.form.idioms))}
               style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
             >
               {t(tokens.form.saveText)}

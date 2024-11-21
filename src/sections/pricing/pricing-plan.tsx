@@ -14,7 +14,7 @@ import type { Theme } from '@mui/material/styles/createTheme';
 
 interface PricingPlanProps {
   cta: string;
-  currency: string;
+  currency?: string;
   description: string;
   info?: string;
   features: string[];
@@ -56,7 +56,7 @@ export const PricingPlan: FC<PricingPlanProps> = (props) => {
         </Box>
         <Box sx={{ display: 'flex' }}>
           <Typography variant="h4">
-            {currency}
+
             {price}
           </Typography>
           <Typography

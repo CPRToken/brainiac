@@ -31,13 +31,10 @@ export const UniAnswers: FC = () => {
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
-  const handlePromptChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPrompt(event.target.value);
-  };
 
 
   const submitToOpenAI = () => {
-    const maxTokens = 1500;
+    const maxTokens = 3000;
     if (prompt) {
       // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
@@ -56,14 +53,23 @@ export const UniAnswers: FC = () => {
 
   useEffect(() => {
     if (question) {
-      let newPrompt = t('writePoem');  // Assume 'writePoem' is a defined key in your translation files
-      const questionText = `${t(question)} `;
-      const questionWords = questionText.split(' ').filter(word => word.length > 0);
-      const newTitle = [...questionWords.slice(0, 1)].join(' '); // Using newTitle to avoid conflict with state setter
 
-      newPrompt = newPrompt.replace('[question]', questionText)
+      let newPrompt = t(tokens.form.uniQuestion); // Assume 'writePoem' is a defined key in your translation files
+
+      const questionText = `${t(question)} `;
+
+
+      const questionWords = questionText.split(' ');
+      const title = [...questionWords.slice(0, 3)].join(' '); // Using newTitle to avoid conflict with state setter
+
+
+
+      newPrompt = newPrompt
+        .replace('[question]', questionText)
+
+
       setPrompt(newPrompt.trim());
-      setTitle(newTitle);
+      setTitle(title);
     } else {
       setPrompt('');
       setTitle('');
@@ -82,7 +88,7 @@ export const UniAnswers: FC = () => {
           label={t(tokens.form.pasteQuestion)}
           name="prompt"
           value={prompt}
-          onChange={handlePromptChange}
+          onChange={(e) => setQuestion(e.target.value)}
           multiline
           rows={10}
         />
@@ -122,7 +128,7 @@ export const UniAnswers: FC = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.Poems))}
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.uniAnswers))}
                 style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
               >
                 {t(tokens.form.saveText)}

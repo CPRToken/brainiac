@@ -16,10 +16,6 @@ import Typography from "@mui/material/Typography";
 
 
 
-type Option = {
-    label: string;
-    value: string;
-};
 
 
 
