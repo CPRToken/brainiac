@@ -18,7 +18,6 @@ import {useProtectedPage} from "../../../hooks/use-protectedpage";
 
 
 
-
 export const UniAnswers: FC = () => {
   useProtectedPage();
 
