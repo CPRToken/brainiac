@@ -111,21 +111,23 @@ Page.getLayout = (page) => <MarketingLayout>{page}</MarketingLayout>;
 
 export default Page;
 function productIdToPlan(priceId: string): string {
-  const priceToPlan: Record<string, string> = {
-    'price_1PgQI4I7exj9oAo949UmThhH': 'Basic',
-    'price_1PgQJsI7exj9oAo9mUdbE0ZX': 'Premium',
-    'price_1PgQKSI7exj9oAo9acr903Ka': 'Business',
-    'price_1PjDoqI7exj9oAo95jqY8uSw': 'BasicYearly',
-    'price_1PjDpjI7exj9oAo9UkvkaR6x': 'PremiumYearly',
-    'price_1PjDr8I7exj9oAo9lm4zAEDn': 'BusinessYearly',
-    'price_1Pk4zmI7exj9oAo9khc4OT16': 'Basic',
-    'price_1Pk4zkI7exj9oAo9N92hGKqe': 'Premium',
-    'price_1Pk4ziI7exj9oAo95ZIL3sby': 'Business',
-    'price_1Pk4zgI7exj9oAo9DSyIUy8G': 'BasicYearly',
-    'price_1Pk4zeI7exj9oAo9eUPovxQl': 'PremiumYearly',
-    'price_1Pk4zbI7exj9oAo9qsyipPNj': 'BusinessYearly',
-    'price_canceled': 'Canceled'
-  };
+  const priceToPlan: Record<string, string> =
+
+    {
+      'price_1QNpMjI7exj9oAo9ColPjP1G': 'Basic',
+      'price_1QNpZYI7exj9oAo9f2IXAwdx': 'Premium',
+      'price_1QNpgKI7exj9oAo9DMTVCQBz': 'Business',
+      'price_1QNpQPI7exj9oAo9rx2W7jkg': 'BasicYearly',
+      'price_1QNpeNI7exj9oAo9mCyQ1FJa': 'PremiumYearly',
+      'price_1QNpiKI7exj9oAo9CcI657sF': 'BusinessYearly',
+      'price_1QNpX8I7exj9oAo9erM3juYm': 'Basic',
+      'price_1QNpl9I7exj9oAo9PaBuwzY2': 'Premium',
+      'price_1QNpo4I7exj9oAo9fUqEamTZ': 'Business',
+      'price_1QNpV9I7exj9oAo9Aq2lz9Uz': 'BasicYearly',
+      'price_1QNppOI7exj9oAo9ufdAPG5x': 'PremiumYearly',
+      'price_1QNps4I7exj9oAo9O6sC4IRL': 'BusinessYearly',
+      'price_canceled': 'Canceled'
+    };
 
   return priceToPlan[priceId] || 'Unknown';
 }
