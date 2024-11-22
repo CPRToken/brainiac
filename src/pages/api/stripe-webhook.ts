@@ -81,6 +81,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   console.log(`User plan updated for ${stripeCustomerId} to ${plan} with price ${priceId}`);
 }
 
+
 async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   const stripeCustomerId = subscription.customer as string;
   const priceId = subscription.items.data[0].price.id;

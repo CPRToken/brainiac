@@ -258,10 +258,22 @@ export const en = {
   [tokens.form.video1]: '/assets/videos/vid1.mp4',
   [tokens.form.video2]: '/assets/videos/es/lyricwriteres.mp4',
   [tokens.form.video3]: '/assets/videos/poems.mp4',
-  [tokens.form.priceBasic]: 'price_1Pk4zmI7exj9oAo9khc4OT16',
-  [tokens.form.priceBasicCurrency]: '$9.95',
-  [tokens.form.priceBasicYearly]: 'price_1Pk4zgI7exj9oAo9DSyIUy8G',
-  [tokens.form.priceBasicYearlyCurrency]: '$7.95',
+
+  [tokens.form.priceBasic]: 'price_1QNpMjI7exj9oAo9ColPjP1G',
+  [tokens.form.priceBasicCurrency]: '$7.99',
+  [tokens.form.priceBasicYearly]: 'price_1QNpQPI7exj9oAo9rx2W7jkg',
+  [tokens.form.priceBasicYearlyCurrency]: '$6.39',
+
+  [tokens.form.pricePremium]: 'price_1QNpZYI7exj9oAo9f2IXAwdx',
+  [tokens.form.pricePremiumCurrency]: '$12.99',
+  [tokens.form.pricePremiumYearly]: 'price_1QNpeNI7exj9oAo9mCyQ1FJa',
+  [tokens.form.pricePremiumYearlyCurrency]: '$10.39',
+
+  [tokens.form.priceBusiness]: 'price_1QNpgKI7exj9oAo9DMTVCQBz',
+  [tokens.form.priceBusinessCurrency]: '$24.99',
+  [tokens.form.priceBusinessYearly]: 'price_1QNpiKI7exj9oAo9CcI657sF',
+  [tokens.form.priceBusinessYearlyCurrency]: '$19.99',
+
     [tokens.form.propertyType]: 'Property Type',
   [tokens.form.industrialChic]: 'Industrial Chic',
     [tokens.form.colorTheme]: 'Color Theme: e.g. Grey & White',

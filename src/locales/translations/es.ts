@@ -45,10 +45,23 @@ export const es = {
   [tokens.form.video1]: '/assets/videos/es/amor.mp4',
   [tokens.form.video2]: '/assets/videos/es/video2.mp4',
   [tokens.form.video3]: '/assets/videos/es/video3.mp4',
-  [tokens.form.priceBasic]: 'price_1QNS60I7exj9oAo9pSmHH85W',
-  [tokens.form.priceBasicCurrency]: '6000 CLP',
-  [tokens.form.priceBasicYearly]: 'price_1QNSWvI7exj9oAo9v7EZIWNn',
-  [tokens.form.priceBasicYearlyCurrency]: '5000 CLP',
+
+  [tokens.form.priceBasic]: 'price_1QNpX8I7exj9oAo9erM3juYm',
+  [tokens.form.priceBasicCurrency]: '4,500 CLP',
+  [tokens.form.priceBasicYearly]: 'price_1QNpV9I7exj9oAo9Aq2lz9Uz',
+  [tokens.form.priceBasicYearlyCurrency]: '3,600 CLP',
+
+  [tokens.form.pricePremium]: 'price_1QNpl9I7exj9oAo9PaBuwzY2',
+  [tokens.form.pricePremiumCurrency]: '8,000 CLP',
+  [tokens.form.pricePremiumYearly]: 'price_1QNppOI7exj9oAo9ufdAPG5x',
+  [tokens.form.pricePremiumYearlyCurrency]: '6,400 CLP',
+
+  [tokens.form.priceBusiness]: 'price_1QNpo4I7exj9oAo9fUqEamTZ',
+  [tokens.form.priceBusinessCurrency]: '12,000 CLP',
+  [tokens.form.priceBusinessYearly]: 'price_1QNps4I7exj9oAo9O6sC4IRL',
+  [tokens.form.priceBusinessYearlyCurrency]: '9,600 CLP',
+
+
   [tokens.form.verifyEmailPrompt]: 'Por favor verifica tu correo electrónico para continuar',
   [tokens.form.verifyEmailSuccess]: 'Tu correo electrónico ha sido verificado con éxito',
   [tokens.form.clickHereIfNotRedirected]: 'Haz clic aquí si no eres redirigido automáticamente',

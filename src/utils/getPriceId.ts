@@ -2,12 +2,12 @@
 import { tokens } from "../locales/tokens";
 
 export const getPriceId = (plan: string, t?: (key: string) => string): string => {
-  if (plan === 'Basic') return t ? t(tokens.form.priceBasic) : 'price_1Pk4zmI7exj9oAo9khc4OT16';
-  if (plan === 'Premium') return 'price_1Pk4zkI7exj9oAo9N92hGKqe';
-  if (plan === 'Business') return 'price_1Pk4ziI7exj9oAo95ZIL3sby';
-  if (plan === 'BasicYearly') return t ? t(tokens.form.priceBasicYearly) : 'price_1Pk4zgI7exj9oAo9DSyIUy8G';
-  if (plan === 'PremiumYearly') return 'price_1Pk4zeI7exj9oAo9eUPovxQl';
-  if (plan === 'BusinessYearly') return 'price_1Pk4zbI7exj9oAo9qsyipPNj';
+  if (plan === 'Basic') return t ? t(tokens.form.priceBasic) : 'price_1QNpMjI7exj9oAo9ColPjP1G';
+  if (plan === 'Premium') return t ? t(tokens.form.pricePremium) : 'price_1QNpZYI7exj9oAo9f2IXAwdx';
+  if (plan === 'Business') return t ? t(tokens.form.priceBusiness) : 'price_1QNpgKI7exj9oAo9DMTVCQBz';
+  if (plan === 'BasicYearly') return t ? t(tokens.form.priceBasicYearly) : 'price_1QNpQPI7exj9oAo9rx2W7jkg';
+  if (plan === 'PremiumYearly') return t ? t(tokens.form.pricePremiumYearly) : 'price_1QNpeNI7exj9oAo9mCyQ1FJa';
+  if (plan === 'BusinessYearly') return t ? t(tokens.form.priceBusinessYearly) : 'price_1QNpiKI7exj9oAo9CcI657sF';
 
   throw new Error(`Unknown plan: ${plan}`);
 };

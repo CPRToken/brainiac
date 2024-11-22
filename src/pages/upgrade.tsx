@@ -201,8 +201,8 @@ const PricingSection: FC = () => {
                     icon={<PricingPlanIcon name="standard" />}
                     name={t(tokens.form.Premium)}
                     popular
-                    price={isYearly ? "$12.95" : "$14.95"}
-                    priceId={isYearly ? 'price_1PjDpjI7exj9oAo9UkvkaR6x' : 'price_1PgQJsI7exj9oAo9mUdbE0ZX'}
+                    price={isYearly ? t(tokens.form.pricePremiumYearlyCurrency) : t(tokens.form.pricePremiumCurrency)}
+                    priceId={isYearly ? t(tokens.form.pricePremiumYearly) : t(tokens.form.pricePremium)}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
@@ -239,8 +239,8 @@ const PricingSection: FC = () => {
                     icon={<PricingPlanIcon name="business" />}
                     name={t(tokens.form.BusinessP)}
                     popular
-                    price={isYearly ? "$14.95" : "$19.95"}
-                    priceId={isYearly ? 'price_1PjDr8I7exj9oAo9lm4zAEDn' : 'price_1PgQKSI7exj9oAo9acr903Ka'}
+                    price={isYearly ? t(tokens.form.priceBusinessYearlyCurrency) : t(tokens.form.priceBusinessCurrency)}
+                    priceId={isYearly ? t(tokens.form.priceBusinessYearly) : t(tokens.form.priceBusiness)}
                     sx={{
                       height: '100%',
                       maxWidth: 460,
