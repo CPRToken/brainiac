@@ -11,13 +11,15 @@ import Button from '@mui/material/Button';
 import {TrialPlan} from 'src/sections/components/trial-plan';
 import { useRouter } from "next/router";
 import { socialApi } from "src/api/social/socialApi";
-import { Seo } from 'src/components/seo';
+
 import { usePageView } from 'src/hooks/use-page-view';
 import { useSettings } from 'src/hooks/use-settings';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import { MyContent } from 'src/sections/components/quick-stats/my-content';
-import { MyImages } from 'src/sections/components/quick-stats/my-images';
-import { Previewer } from 'src/sections/components/previewer';
+
+import { OverviewDoneArticles } from 'src/sections/dashboard/overview/overview-done-articles';
+import { OverviewTimeSaved } from 'src/sections/dashboard/overview/overview-time-saved';
+import { OverviewDoneImages } from 'src/sections/dashboard/overview/overview-done-images';
+
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -181,16 +183,6 @@ const Page: NextPage = () => {
 
   usePageView();
 
-  const components: { element: JSX.Element; title?: string }[] = [
-    {
-      element: <MyContent />,
-
-    },
-    {
-      element: <MyImages />,
-
-    },
-  ];
 
   const modules: ModuleItem[] = [
     { name: t(tokens.headings.imageGenerator), path: paths.dashboard.imageGenerator, icon: '/assets/icons/images.svg', about: t(tokens.form.imageAbout),  },
@@ -210,15 +202,19 @@ const Page: NextPage = () => {
   return (
     <>
       <Container maxWidth="xl">
+        <Typography
+          sx={{
+            ...typography.h4,
+            mb: 4,
+            mt: 0,
+            pl: 2,
+            pr: 0,
+            textAlign: 'left',
+          }}
+        >
+          {t(tokens.nav.dashboard)}
+        </Typography>
 
-      <Typography sx={{
-        ...typography.h5,
-        mb: 4,
-        mt: 0,
-        pl: 2,
-        pr: 0,
-        textAlign: 'left'
-      }}>{t(tokens.nav.dashboard)}</Typography>
         {hasTrial && (
           <Box sx={{ mb: 4 }}>
             <TrialPlan />
@@ -226,106 +222,136 @@ const Page: NextPage = () => {
         )}
 
         {hasTrial && (
-          <Box sx={{ p: 0, pt:1,  pb:3, mb: 3 }}>
-
-              <Button
-                component="a"
-                href="/upgrade"
-                variant="contained"
-                color="primary"
-                sx={{
-                  width: {
-                    xs: '100%',
+          <Box sx={{ p: 0, pt: 1, pb: 3, mb: 3 }}>
+            <Button
+              component="a"
+              href="/upgrade"
+              variant="contained"
+              color="primary"
+              sx={{
+                width: {
+                  xs: '100%',
                   sm: '50%',
-                    md: '30%',
-                    lg: '30%',
-                  },
-                  display: 'inline-block',
-                  ml: 0, // Aligns the button to the left
+                  md: '30%',
+                  lg: '30%',
+                },
+                display: 'inline-block',
+                ml: 0,
+              }}
+            >
+              <Typography
+                sx={{
+                  ...typography.body1,
+                  color: 'text.primary',
+                  textAlign: 'center',
+                  textDecoration: 'none',
                 }}
               >
-
-                <Typography sx={{ ...typography.body1, color: 'text.primary', textAlign: 'center', textDecoration: 'none'  }}>
-                  {t(tokens.nav.upgrade)}
-                </Typography>
+                {t(tokens.nav.upgrade)}
+              </Typography>
             </Button>
-
-        </Box>
+          </Box>
         )}
 
+        {/* Main content */}
+        <Box
+          sx={{
+            flexGrow: 1,
+            py: 8,
+          }}
+        >
+          <Container maxWidth={settings.stretch ? false : 'xl'}>
+            <Grid
+              container
 
+              spacing={{
+                xs: 3,
+                lg: 4,
+              }}
+            >
+              <Grid xs={12}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  spacing={4}
+                >
 
-      <Typography sx={{ ...typography.h6, mb: 2, mt: 1, pl: 3, pr: 0, textAlign: 'left' }}>
-        {t(tokens.form.hello)} {user?.firstName}, {t(tokens.form.yourIdeas)}
-      </Typography>
+                </Stack>
+              </Grid>
 
-        {/* Small Chart Component */}
-        <Box sx={{ width: { xs: '75px', sm: '140px', md: '180px' }, height: 'auto' }}>
-
+              {/* Add your three cells */}
+              <Grid xs={12} md={4}>
+                <Box sx={{ p: 2 }}>
+                  <OverviewDoneArticles />
+                </Box>
+              </Grid>
+              <Grid xs={12} md={4}>
+                <Box sx={{ p: 2 }}>
+                  <OverviewDoneImages />
+                </Box>
+              </Grid>
+              <Grid xs={12} md={4}>
+                <Box sx={{ p: 2 }}>
+                  <OverviewTimeSaved />
+                </Box>
+              </Grid>
+            </Grid>
+          </Container>
         </Box>
 
+        {/* AI tools section */}
+        <Box component="main" sx={{ flexGrow: 1, py: 5 }}>
+          <Container maxWidth={settings.stretch ? false : 'xl'}>
+            <Stack spacing={8}>
+              <Box sx={{ width: '100%', mb: 3 }}>
+                <Typography
+                  sx={{
+                    ...typography.h4,
+                    mb: 1,
+                    mt: 0,
+                    pl: 3,
+                    pr: 0,
+                    textAlign: 'left',
+                  }}
+                >
+                  {t(tokens.headings.popularAItools)}
+                </Typography>
+              </Box>
 
-      {/* Other content below */}
-      <Seo title="Dashboard: Overview" />
-    </Container>
+              <Box
+                sx={{
+                  gap: { xs: 2, sm: 2, md: 2, lg: 2 },
+                  paddingLeft: { xs: 1, sm: 1, md: 1, lg: 4 },
+                  paddingRight: { xs: 1, sm: 1, md: 1, lg: 4 },
+                  mt: { xs: 2, sm: 2, md: 2, lg: 2 },
+                  mb: { xs: 2, sm: 2, md: 2, lg: 2 },
+                  display: 'grid',
+                  my: { xs: 6, sm: 10, md: 12 },
+                  gridTemplateColumns: {
+                    xs: 'repeat(2, 1fr)',
+                    sm: 'repeat(3, 1fr)',
+                    md: 'repeat(4, 1fr)',
+                    lg: 'repeat(4, 1fr)',
+                  },
+                }}
+              >
+                {modules.map((module) => (
+                  <ModuleItemComponent key={module.name} module={module} />
+                ))}
+              </Box>
 
-
-      <Box component="main" sx={{ flexGrow: 1, py: 4 }}>
-        <Container maxWidth="lg">
-          <Stack spacing={8}>
-            {components.map((component) => (
-              <Previewer key={component.title} title={component.title}>
-                {component.element}
-              </Previewer>
-            ))}
-          </Stack>
-        </Container>
-
-      </Box>
-
-      <Box component="main" sx={{ flexGrow: 1, py: 8 }}>
-        <Container maxWidth={settings.stretch ? false : 'xl'}>
-          <Stack spacing={8}>
-          <Box sx={{ width: '100%', mb: 4 }}>
-            <Typography sx={{ ...typography.h6, mb: 1, mt: 0, pl: 3, pr: 0, textAlign: 'left' }}>
-              {t(tokens.headings.popularAItools)}
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              gap: { xs: 2, sm: 2, md: 2, lg: 2 },
-              paddingLeft: { xs: 1, sm: 1, md: 1, lg: 4 },
-              paddingRight: { xs: 1, sm: 1, md: 1, lg: 4 },
-              mt: { xs: 2, sm: 2, md: 2, lg: 2 },
-              mb: { xs: 2, sm: 2, md: 2, lg: 2 },
-              display: 'grid',
-              my: { xs: 6, sm: 10, md: 12 },
-              gridTemplateColumns: {
-                xs: 'repeat(2, 1fr)',
-                sm: 'repeat(3, 1fr)',
-                md: 'repeat(4, 1fr)',
-                lg: 'repeat(4, 1fr)',
-              },
-            }}
-          >
-            {modules.map((module) => (
-              <ModuleItemComponent key={module.name} module={module} />
-            ))}
-          </Box>
-
-          <Box sx={{ mt: 8 }}>
-
-
-            <Grid container spacing={{ xs: 3, lg: 4 }}>
-              {/* Add content here */}
-            </Grid>
-          </Box>
-          </Stack>
-        </Container>
-      </Box>
+              <Box sx={{ mt: 8 }}>
+                <Grid container spacing={{ xs: 3, lg: 4 }}>
+                  {/* Add content here */}
+                </Grid>
+              </Box>
+            </Stack>
+          </Container>
+        </Box>
+      </Container>
     </>
   );
+
 };
 
 

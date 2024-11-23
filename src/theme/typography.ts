@@ -1,4 +1,4 @@
-import { Public_Sans, Open_Sans, Roboto, Oswald, Montserrat  } from 'next/font/google';
+import { Inter, Open_Sans, Oswald, Montserrat  } from 'next/font/google';
 
 // ----------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ declare module '@mui/material/styles' {
   }
 }
 
-export const primaryFont = Open_Sans({
+export const primaryFont = Inter({
   weight: ['400', '500', '600', '700', '800'],
   subsets: ['latin'],
   display: 'swap',
@@ -121,7 +121,7 @@ export const typography = {
     fontWeight: 500,
     lineHeight: 1.5,
     fontSize: pxToRem(22),
-    fontFamily: secondaryFont.style.fontFamily,
+    fontFamily: primaryFont.style.fontFamily,
     textTransform: 'uppercase',
     ...responsiveFontSizes({ sm: 22, md: 25, lg: 22 }),
   },
@@ -129,14 +129,14 @@ export const typography = {
     fontWeight: 500,
     lineHeight:  1.4,
     fontSize: pxToRem(22),
-    fontFamily:tertiaryFont.style.fontFamily,
+    fontFamily:primaryFont.style.fontFamily,
     ...responsiveFontSizes({ sm: 15, md: 17, lg: 22 }),
   },
   subtitle1: {
     fontWeight: 600,
     lineHeight: 1.2,
     fontSize: pxToRem(13),
-    fontFamily: tertiaryFont.style.fontFamily,
+    fontFamily: primaryFont.style.fontFamily,
     textTransform: 'uppercase',
     ...responsiveFontSizes({ sm: 14, md: 13, lg: 13 }), // Add responsive sizes
   },
@@ -155,7 +155,7 @@ export const typography = {
   body2: {
     lineHeight: 0.5,
     fontSize: pxToRem(17),
-    fontFamily: secondaryFont.style.fontFamily,
+    fontFamily: primaryFont.style.fontFamily,
   },
 
 
