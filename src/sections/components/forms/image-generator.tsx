@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Image from 'next/image';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -9,6 +10,7 @@ import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useImageSubmit from './image-submit';
+import { useMemoryUsage } from 'src/contexts/memory/memory-usage-context';
 import { handleSaveImage } from 'src/sections/components/buttons/saveImage';
 import {useProtectedPage} from "src/hooks/use-protectedpage";
 
@@ -167,15 +169,6 @@ const themeOptions: Option[] = [
 ];
 
 
-const objectOptions: Option[] = [
-  { label: '', value: '' },
-  { label: 'Kangaroo', value: 'kangaroo' },
-  { label: 'Koala', value: 'koala' },
-  { label: 'Rainbow lorikeet', value: 'rainbow lorikeet' },
-
-
-  // ... add more as needed
-];
 
 export const ImageGenerator: FC = () => {
   useProtectedPage();
@@ -188,7 +181,7 @@ export const ImageGenerator: FC = () => {
   const [object, setObject] = useState<string>('');
  const [extra , setExtra] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
-
+  const [userPlan] = useState<PlanType | null>(null);
 
     const { t } = useTranslation();
 
@@ -219,6 +212,39 @@ export const ImageGenerator: FC = () => {
   }, [artist, style, theme, object, extra, t]);
 
 
+  type PlanType = "Basic" | "Premium" | "Business" | "BasicYearly" | "PremiumYearly" | "BusinessYearly";
+
+  const { totalUsage } = useMemoryUsage(); // Fetch memory usage from context
+
+  let memoryLimit: number;
+
+// Dynamically determine the memory limit based on the user's plan
+  switch (userPlan) {
+    case "Basic":
+    case "BasicYearly":
+      memoryLimit = 100;
+      break;
+    case "Premium":
+    case "PremiumYearly":
+      memoryLimit = 200;
+      break;
+    case "Business":
+    case "BusinessYearly":
+      memoryLimit = 500;
+      break;
+    default:
+      memoryLimit = 0; // Default fallback for unknown plans
+  }
+
+// Check if the Save button should be disabled
+  const disableSaveButton = totalUsage >= memoryLimit;
+
+// Debugging: Log values to ensure they are correct
+  console.log("User Plan:", userPlan);
+  console.log("Total Usage:", totalUsage, "MB");
+  console.log("Memory Limit:", memoryLimit, "MB");
+  console.log("Disable Save Button:", disableSaveButton);
+
 
 
 
@@ -240,11 +266,7 @@ export const ImageGenerator: FC = () => {
             rows={1}
             fullWidth
           >
-            {objectOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {t(option.label)} {/* Apply translation here */}
-              </option>
-            ))}
+
           </TextField>
           <TextField
             label={t(tokens.form.artist)}
@@ -334,24 +356,39 @@ export const ImageGenerator: FC = () => {
           <label>{t(tokens.form.yourImage)}</label>
           {openAIResponse.map((url, index) => (
             <Box key={index} sx={{ mt: 2 }}>
-              <img src={url} alt={`Generated Art ${index + 1}`} style={{ width: '100%', marginBottom: '30px' }} />
-              {/* Remove the anchor tag from here */}
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => handleSaveImage(url, index)}
-              >
-                {t(tokens.form.saveImage)}
-              </Button>
-              {/* Anchor tag removed */}
+              <Image
+                src={url}
+                alt={`Generated Art ${index + 1}`}
+                width={500} // Replace with the actual width of your image
+                height={500} // Replace with the actual height of your image
+                style={{ width: '100%', marginBottom: '30px' }}
+              />
+              {/* Conditionally render the Save Image button */}
+              {!disableSaveButton ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleSaveImage(url, index)}
+                >
+                  {t(tokens.form.saveImage)}
+                </Button>
+              ) : (
+                <Typography
+                  variant="body2"
+                  color="error"
+                  sx={{ marginTop: '10px', textAlign: 'center' }}
+                >
+                  You have reached your memory limit. Please delete some images to save new ones.
+                </Typography>
+              )}
             </Box>
           ))}
         </Box>
       )}
-
     </Box>
   );
 }
+
 
 
 

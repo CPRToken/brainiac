@@ -238,8 +238,9 @@ headings: {
       video1: 'form.video1',
       video2: 'form.video2',
       video3: 'form.video3',
-
+      basicMB: 'form.basicMB',
       priceBasic: 'form.priceBasic',
+      youReached: 'form.youReached',
       priceBasicCurrency: 'form.priceBasicCurrency',
       priceBasicYearly: 'form.priceBasicYearly',
       priceBasicYearlyCurrency: 'form.priceBasicYearlyCurrency',
@@ -1434,6 +1435,7 @@ headings: {
         Freedom: 'form.Freedom',
         Transformation: 'form.Transformation',
         Desire: 'form.Desire',
+      totalMemory: 'form.totalMemory',
         Memory: 'form.Memory',
         Mortality: 'form.Mortality',
         Happiness: 'form.Happiness',

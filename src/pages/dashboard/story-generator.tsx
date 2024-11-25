@@ -6,23 +6,17 @@ import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
 import { usePageView } from 'src/hooks/use-page-view';
 import { StoryGenerator } from 'src/sections/components/forms/story-generator';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import { auth } from '../../libs/firebase';
-import Hidden from "@mui/material/Hidden";
+
 
 const Page: NextPage = () => {
   usePageView();
 
   const { t } = useTranslation();
-  const user = auth.currentUser;
-  const uid = user ? user.uid : null;
-  const settings = {
-    stretch: false // Replace with your actual settings value
-  };
+
 
   return (
     <>

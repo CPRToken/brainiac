@@ -42,27 +42,30 @@ export const OverviewTimeSaved: FC = () => {
           const data = doc.data();
           const htmlContent = data.htmlContent || '';
           totalWordCount += htmlContent.split(/\s+/).filter((word: string) => word.length > 0).length;
-
         });
 
         const contentCount = contentSnapshot.size;
         const writingTimeSavedInMinutes = totalWordCount / 40;
         const totalResearchTimeInMinutes = contentCount * 30;
-        const totalTimeSavedInMinutes = writingTimeSavedInMinutes + totalResearchTimeInMinutes;
+        const contentTimeSavedInMinutes = writingTimeSavedInMinutes + totalResearchTimeInMinutes;
 
-        setContentTimeSaved(totalTimeSavedInMinutes);
+        setContentTimeSaved(contentTimeSavedInMinutes);
+
         // Fetch image data
         const imagesRef = ref(storage, `/${uid}/images/`);
         const imagesList = await listAll(imagesRef);
-        const imageTimeSaved = imagesList.items.length * TIME_PER_IMAGE;
-        setImageTimeSaved(imageTimeSaved);
+        const imageTimeSavedInMinutes = imagesList.items.length * TIME_PER_IMAGE;
+
+        setImageTimeSaved(imageTimeSavedInMinutes);
 
         // Combine both
-        setTotalTimeSaved(contentTimeSaved + imageTimeSaved);
+        const total = contentTimeSavedInMinutes + imageTimeSavedInMinutes;
+        setTotalTimeSaved(total);
       } catch (error) {
         console.error('Error calculating time saved:', error);
       }
     };
+
 
     if (uid) {
       calculateTimeSaved(uid);
@@ -96,7 +99,7 @@ export const OverviewTimeSaved: FC = () => {
         <div>
           <img
             src="/assets/iconly/hour-glass.svg"
-            width={48}
+            width={55}
           />
         </div>
 
@@ -105,14 +108,19 @@ export const OverviewTimeSaved: FC = () => {
           {/* Title Row */}
           <Typography
             color="text.secondary"
-            variant="body2"
+
+            variant="body1"
+
           >
             {t(tokens.headings.timeSaved)}
           </Typography>
 
           {/* Row 3: Total Time Saved */}
           <Typography
-            color="text.primary"variant="h5"sx={{ mt: 1 }}>
+            color="text.primary"
+            align={'center'}
+
+            variant="h5"sx={{ mt: 1 }}>
 
             {formatTimeSaved(totalTimeSaved)}
           </Typography>
@@ -120,6 +128,7 @@ export const OverviewTimeSaved: FC = () => {
           {/* Row 1: Content Time Saved */}
           <Typography
             color="text.secondary"
+            align={'center'}
             variant="body2"
             sx={{ mt: 1 }}
           >
@@ -129,6 +138,7 @@ export const OverviewTimeSaved: FC = () => {
           {/* Row 2: Image Time Saved */}
           <Typography
             color="text.secondary"
+            align={'center'}
             variant="body2"
           >
             {t(tokens.form.Images)}: {formatTimeSaved(imageTimeSaved)}

@@ -11,18 +11,14 @@ import { usePageView } from 'src/hooks/use-page-view';
 import { CocktailCrafter } from 'src/sections/components/forms/cocktail-crafter';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import { auth } from '../../libs/firebase';
+
 
 
 const Page: NextPage = () => {
   usePageView();
 
   const { t } = useTranslation();
-  const user = auth.currentUser;
-  const uid = user ? user.uid : null;
-  const settings = {
-    stretch: false // Replace with your actual settings value
-  };
+
 
   return (
     <>

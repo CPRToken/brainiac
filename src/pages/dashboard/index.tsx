@@ -15,7 +15,7 @@ import { socialApi } from "src/api/social/socialApi";
 import { usePageView } from 'src/hooks/use-page-view';
 import { useSettings } from 'src/hooks/use-settings';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-
+import { TotalMemory } from 'src/sections/components/charts/memory-chart';
 import { OverviewDoneArticles } from 'src/sections/dashboard/overview/overview-done-articles';
 import { OverviewTimeSaved } from 'src/sections/dashboard/overview/overview-time-saved';
 import { OverviewDoneImages } from 'src/sections/dashboard/overview/overview-done-images';

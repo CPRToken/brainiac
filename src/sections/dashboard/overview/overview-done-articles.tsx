@@ -62,14 +62,7 @@ export const OverviewDoneArticles: FC = () => {
     }
   }, [uid]);
 
-  const formatTimeSaved = (timeInMinutes: number) => {
-    if (timeInMinutes < 60) {
-      return `${timeInMinutes.toFixed(2)} minutes`;
-    } else {
-      const hours = timeInMinutes / 60;
-      return `${hours.toFixed(2)} hours`;
-    }
-  };
+
 
   return (
     <Card>
@@ -93,25 +86,42 @@ export const OverviewDoneArticles: FC = () => {
 
         {/* Combined Metrics */}
         <Box sx={{ flexGrow: 1 }}>
-          <Typography color="text.secondary" variant="body2">
+          <Typography
+            color="text.primary"
+
+            variant="body1">
             <Link href={paths.dashboard.content.index} underline="hover">
-              <a style={{ textDecoration: 'none', color: 'inherit' }}>
+              <a style={{ textDecoration: 'none',
+                color: 'text.primary' }}>
                 {t(tokens.nav.myContent)}
               </a>
             </Link>
           </Typography>
 
-          <Typography color="text.primary" variant="h5"sx={{ mt: 1 }}>
+          <Typography
+            color="text.primary"
+            align={"center"}
+            variant="h5"sx={{ mt: 1 }}>
 
             {contentCount}</Typography>
 
 
             {/* Right Column */}
 
-              <Typography color="text.secondary" variant="body2"sx={{mt:1}}>
+              <Typography
+                color="text.secondary"
+                align={"center"}
+                variant="body2"sx={{mt:1}}>
+
                 {wordCount} {t(tokens.form.words)}
               </Typography>
-              <Typography color="text.secondary" variant="body2">
+              <Typography
+                color="text.secondary"
+                variant="body2"
+                align="center"
+              >
+
+
                 ${moneySaved.toFixed(2)} {t(tokens.form.moneySaved)}
               </Typography>
 

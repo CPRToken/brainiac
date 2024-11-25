@@ -87,20 +87,29 @@ export const OverviewDoneImages: FC = () => {
 
         {/* Combined Metrics */}
         <Box sx={{ flexGrow: 1 }}>
-          <Typography color="text.secondary" variant="body2">
+          <Typography color="text.secondary" variant="body1">
             <Link href={paths.dashboard.myImages} underline="hover">
               <a style={{ textDecoration: 'none', color: 'inherit' }}>
                 {t(tokens.nav.myImages)}
               </a>
             </Link>
           </Typography>
-          <Typography color="text.primary" variant="h5"sx={{ mt: 1 }}>
+          <Typography
+            color="text.primary"
+            align={"center"}
+            variant="h5"sx={{ mt: 1 }}>
             {imageCount}
           </Typography>
-          <Typography color="text.secondary" variant="body2"sx={{ mt: 1 }} >
+          <Typography color="text.secondary"
+                      variant="body2"
+                      align={"center"}
+                      sx={{ mt: 1 }} >
             ${moneySaved.toFixed(2)} {t(tokens.form.moneySaved)}
           </Typography>
-          <Typography color="text.secondary" variant="body2">
+          <Typography
+            color="text.secondary"
+            align={"center"}
+            variant="body2">
             {formatTimeSaved(timeSaved)} {t(tokens.form.timeSaved)}
           </Typography>
         </Box>

@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {useTranslation} from "react-i18next";
+import {MemoryUsageProvider} from "src/contexts/memory/memory-usage-context";
 import {tokens} from "src/locales/tokens";
 import Hidden from '@mui/material/Hidden';
 import Stack from '@mui/material/Stack';
@@ -13,7 +14,6 @@ import { ImageGenerator } from 'src/sections/components/forms/image-generator';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { auth } from '../../libs/firebase';
-
 const Page: NextPage = () => {
   usePageView();
 
@@ -27,6 +27,8 @@ const Page: NextPage = () => {
   return (
     <>
       <Seo title={t(tokens.headings.imageGenerator)} />
+      {uid && ( // Only render MemoryUsageProvider if uid is available
+        <MemoryUsageProvider uid={uid}> {/* Wrap the provider here */}
       <Box
         component="main"
         sx={{
@@ -94,12 +96,18 @@ const Page: NextPage = () => {
           </Grid>
         </Container>
       </Box>
+        </MemoryUsageProvider>
+      )}
+      {!uid && (
+        <Typography variant="body2" color="error" align="center">
+          Unable to fetch user data. Please log in.
+        </Typography>
+      )}
     </>
   );
 
 
 };
-
 
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 

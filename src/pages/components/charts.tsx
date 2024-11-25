@@ -10,7 +10,7 @@ import { Layout as MarketingLayout } from 'src/layouts/marketing';
 import { Previewer } from 'src/sections/components/previewer';
 import { Chart1 } from 'src/sections/components/charts/chart-1';
 import { Chart2 } from 'src/sections/components/charts/chart-2';
-import { Chart3 } from 'src/sections/components/charts/chart-3';
+import { TotalMemory } from 'src/sections/components/charts/memory-chart';
 import { Chart4 } from 'src/sections/components/charts/chart-4';
 import { Chart5 } from 'src/sections/components/charts/chart-5';
 import { Chart6 } from 'src/sections/components/charts/chart-6';
@@ -32,8 +32,8 @@ const components: { element: JSX.Element; title: string }[] = [
     title: 'Chart 2',
   },
   {
-    element: <Chart3 />,
-    title: 'Chart 3',
+    element: <TotalMemory />,
+    title: 'Total Memory',
   },
   {
     element: <Chart4 />,

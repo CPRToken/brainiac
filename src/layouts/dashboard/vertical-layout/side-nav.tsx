@@ -6,16 +6,16 @@ import Box from '@mui/material/Box';
 
 import Drawer from '@mui/material/Drawer';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+
 import { useTheme } from '@mui/material/styles';
-import Link from 'next/link';
-import {Chart3} from 'src/sections/components/charts/chart-3';
+
+
 import { RouterLink } from 'src/components/router-link';
 import { Scrollbar } from 'src/components/scrollbar';
 import { usePathname } from 'src/hooks/use-pathname';
 import { paths } from 'src/paths';
 import type { NavColor } from 'src/types/settings';
-import { tokens } from 'src/locales/tokens';
+
 import type { Section } from '../config';
 import { TenantSwitch } from '../tenant-switch';
 import { SideNavSection } from './side-nav-section';

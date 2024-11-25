@@ -10,18 +10,13 @@ import { usePageView } from 'src/hooks/use-page-view';
 import { RecipeWriter } from 'src/sections/components/forms/recipe-generator';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import { auth } from '../../libs/firebase';
 
 
 const Page: NextPage = () => {
   usePageView();
 
   const { t } = useTranslation();
-  const user = auth.currentUser;
-  const uid = user ? user.uid : null;
-  const settings = {
-    stretch: false // Replace with your actual settings value
-  };
+
 
   return (
     <>
@@ -33,9 +28,16 @@ const Page: NextPage = () => {
           py: 8,
         }}
       >
-        <Container maxWidth={settings.stretch ? false : 'xl'}>
+        <Container
+          maxWidth="xl"  // Set the max width to medium (you can use 'sm', 'md', 'lg', etc.)
+          sx={{
+            mx: 'auto',  // Center the container horizontally
+            px: 3       // Optional padding for extra space on the sides
+          }}
+        >
           <Grid
             container
+            justifyContent="center"
             spacing={{
               xs: 3,
               lg: 4,
@@ -80,13 +82,7 @@ const Page: NextPage = () => {
                 </Box>
               </Stack>
             </Grid>
-            <Grid
-              xs={12}
-              md={4} // Changed from 4 to 3 for skinnier My Content
-              sx={{ paddingLeft: 2 }}
-            >
 
-            </Grid>
           </Grid>
         </Container>
       </Box>

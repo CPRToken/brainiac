@@ -13,28 +13,37 @@ import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
 import { useSettings } from 'src/hooks/use-settings';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import { OverviewBanner } from 'src/sections/dashboard/overview/overview-banner';
-import { OverviewDoneArticles } from 'src/sections/dashboard/overview/overview-done-articles';
-import { OverviewEvents } from 'src/sections/dashboard/overview/overview-events';
 
+import { OverviewDoneArticles } from 'src/sections/dashboard/overview/overview-done-articles';
+
+import { TotalMemory } from 'src/sections/components/charts/memory-chart';
 import { OverviewTransactions } from 'src/sections/dashboard/overview/overview-transactions';
 import { OverviewDoneImages } from 'src/sections/dashboard/overview/overview-done-images';
 import { OverviewSubscriptionUsage } from 'src/sections/dashboard/overview/overview-subscription-usage';
 import { OverviewHelp } from 'src/sections/dashboard/overview/overview-help';
 import { OverviewJobs } from 'src/sections/dashboard/overview/overview-jobs';
 import { OverviewTimeSaved } from 'src/sections/dashboard/overview/overview-time-saved';
-import { OverviewTips } from 'src/sections/dashboard/overview/overview-tips';
 
 const now = new Date();
+
+
+
 
 const Page: NextPage = () => {
   const settings = useSettings();
 
+
+
+
+
   usePageView();
+
+
 
   return (
     <>
       <Seo title="Dashboard: Overview" />
+
       <Box
         component="main"
         sx={{
@@ -85,35 +94,6 @@ const Page: NextPage = () => {
               xs={12}
               md={7}
             >
-              <OverviewBanner />
-            </Grid>
-            <Grid
-              xs={12}
-              md={5}
-            >
-              <OverviewTips
-                sx={{ height: '100%' }}
-                tips={[
-                  {
-                    title: 'New fresh design.',
-                    content:
-                      'Your favorite template has a new trendy look, more customization options, screens & more.',
-                  },
-                  {
-                    title: 'Tip 2.',
-                    content: 'Tip content',
-                  },
-                  {
-                    title: 'Tip 3.',
-                    content: 'Tip content',
-                  },
-                ]}
-              />
-            </Grid>
-            <Grid
-              xs={12}
-              md={7}
-            >
               <OverviewSubscriptionUsage
                 chartSeries={[
                   {
@@ -127,6 +107,16 @@ const Page: NextPage = () => {
                 ]}
               />
             </Grid>
+            <Grid
+              xs={12}
+              md={5}
+
+            >
+              <TotalMemory />
+            </Grid>
+
+
+
             <Grid
               xs={12}
               md={5}
@@ -173,48 +163,15 @@ const Page: NextPage = () => {
                 ]}
               />
             </Grid>
-            <Grid
-              xs={12}
-              md={5}
-            >
-              <OverviewEvents
-                events={[
-                  {
-                    id: '3bfa0bc6cbc99bf747c94d51',
-                    createdAt: addDays(now, 1),
-                    description: '17:00 to 18:00',
-                    title: 'Meeting with Partners',
-                  },
-                  {
-                    id: 'dd6c8ce8655ac222b01f24f9',
-                    createdAt: addDays(now, 4),
-                    description: '17:00 to 18:00',
-                    title: 'Weekly Meeting',
-                  },
-                  {
-                    id: 'f274902e2bf226865b3cf947',
-                    createdAt: addDays(now, 4),
-                    description: '17:00 to 18:00',
-                    title: 'Weekly Meeting',
-                  },
-                  {
-                    id: 'd2a66e24110f52acb0cd0b9f',
-                    createdAt: addDays(now, 7),
-                    description: '17:00 to 18:00',
-                    title: 'Weekly Meeting',
-                  },
-                ]}
-              />
-            </Grid>
-            <Grid xs={6}>
-              <OverviewJobs />
-            </Grid>
+
+
             <Grid xs={6}>
               <OverviewHelp />
             </Grid>
           </Grid>
         </Container>
       </Box>
+
     </>
   );
 };

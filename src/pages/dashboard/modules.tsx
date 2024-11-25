@@ -56,9 +56,9 @@ const Page: NextPage = () => {
   const modules: ModuleItem[] = [
     { name: t(tokens.headings.imageGenerator), path: paths.dashboard.imageGenerator, icon: '/assets/icons/images.svg', about: t(tokens.form.imageAbout), plan: ['Trial','Basic','Premium', 'Business', 'BasicYearly', 'PremiumYearly', 'BusinessYearly '] },
     { name: t(tokens.headings.lyricWriter), path: paths.dashboard.lyricWriter, icon: '/assets/icons/lyric.svg', about: t(tokens.form.lyricWriterAbout) , plan: ['Trial','Basic','Premium', 'Business', 'BasicYearly', 'PremiumYearly', 'BusinessYearly '] },
-    { name: t(tokens.headings.scriptWriter), path: paths.dashboard.scriptWriter, icon: '/assets/icons/movie.svg', about: t(tokens.form.scriptWriterAbout) , plan: ['Trial','Premium', 'Business','PremiumYearly', 'BusinessYearly '] },
+    { name: t(tokens.headings.scriptWriter), path: paths.dashboard.scriptWriter, icon: '/assets/icons/movie.svg', about: t(tokens.form.scriptWriterAbout) , plan: ['Trial','Basic','Premium', 'Business','PremiumYearly', 'BusinessYearly '] },
     { name: t(tokens.headings.recipeWriter), path: paths.dashboard.recipeGen, icon: '/assets/icons/recipe.svg', about: t(tokens.form.recipeWriterAbout) , plan: ['Trial','Premium', 'Business','PremiumYearly', 'BusinessYearly '] },
-    { name: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator, icon: '/assets/icons/poem.svg', about: t(tokens.form.poemGeneratorAbout) , plan: ['Trial','Premium', 'Business','PremiumYearly', 'BusinessYearly '] },
+    { name: t(tokens.headings.poemGenerator), path: paths.dashboard.poemGenerator, icon: '/assets/icons/poem.svg', about: t(tokens.form.poemGeneratorAbout) , plan: ['Trial','Basic','Premium', 'Business','PremiumYearly', 'BusinessYearly '] },
     { name: t(tokens.headings.seoArticleWriter), path: paths.dashboard.seoArticleWriter, icon: '/assets/icons/seo.svg', about: t(tokens.form.seoArticleWriterAbout) , plan: ['Trial','Premium', 'Business'] },
     { name: t(tokens.headings.essayWriter), path: paths.dashboard.essayWriter, icon: '/assets/icons/edu.svg', about: t(tokens.form.essayWriterAbout) , plan: ['Trial','Premium', 'Business','PremiumYearly', 'BusinessYearly '] },
     { name: t(tokens.headings.editor), path: paths.dashboard.editor, icon: '/assets/icons/editor.svg', about: t(tokens.form.editorAbout) , plan: ['Trial','Business'] },

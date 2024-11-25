@@ -6,23 +6,16 @@ import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { MyContent } from 'src/sections/dashboard/file-manager/my-content';
 import { usePageView } from 'src/hooks/use-page-view';
 import { InteriorDesigner } from 'src/sections/components/forms/interior-designer';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import { auth } from '../../libs/firebase';
-import Hidden from "@mui/material/Hidden";
+
 
 const Page: NextPage = () => {
   usePageView();
 
   const { t } = useTranslation();
-  const user = auth.currentUser;
-  const uid = user ? user.uid : null;
-  const settings = {
-    stretch: false // Replace with your actual settings value
-  };
 
   return (
     <>
@@ -34,7 +27,13 @@ const Page: NextPage = () => {
           py: 8,
         }}
       >
-        <Container maxWidth={settings.stretch ? false : 'xl'}>
+        <Container
+          maxWidth="xl"  // Set the max width to medium (you can use 'sm', 'md', 'lg', etc.)
+          sx={{
+            mx: 'auto',  // Center the container horizontally
+            px: 3       // Optional padding for extra space on the sides
+          }}
+        >
           <Grid
             container
             justifyContent="center"
