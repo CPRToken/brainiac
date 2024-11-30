@@ -1,7 +1,6 @@
 // src/sections/dashboard/account/account-general-settings.tsx
 import type { FC } from 'react';
 import PropTypes from 'prop-types';
-
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import { useTranslation } from "react-i18next";
@@ -10,8 +9,6 @@ import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
-
-import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { auth, db } from "../../../libs/firebase";
@@ -62,13 +59,7 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
     fetchUserData();
   }, [uid, priceId]);
 
-  const handleToggle = async () => {
-    const newIsPublic = !isPublic;
-    setIsPublic(newIsPublic);
-    if (!uid) return;
-    const userDocRef = doc(db, 'users', uid);
-    await updateDoc(userDocRef, { isPublic: newIsPublic });
-  };
+
 
   const priceIdToPlan = (priceId: string): string => {
     const priceToPlan: Record<string, string> = {
@@ -86,7 +77,7 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
         <CardContent>
           <Grid container spacing={3}>
             <Grid xs={12} md={4}>
-              <Typography variant="h5">{t(tokens.nav.details)}</Typography>
+              <Typography variant="h6">{t(tokens.nav.details)}</Typography>
             </Grid>
             <Grid xs={12} md={8}>
               <Stack spacing={3}>
@@ -142,17 +133,17 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
         <CardContent>
           <Grid container spacing={3}>
             <Grid xs={12} md={4}>
-              <Typography variant="h6">Manage subscription</Typography>
+              <Typography variant="h6">{t(tokens.form.manageSub)}</Typography>
             </Grid>
             <Grid xs={12} sm={12} md={8}>
               <Stack divider={<Divider />} spacing={3}>
                 <Stack alignItems="flex-start" direction="row" justifyContent="space-between" spacing={3}>
                   <Stack spacing={1}>
-                    <Typography variant="subtitle1">To cancel your subscription</Typography>
+                    <Typography variant="subtitle1">{t(tokens.form.toCancel)}</Typography>
                     <Box sx={{ mt: 2 }}>
 
-                      <a href="https://billing.stripe.com/p/login/test_fZe5l49cn0KbejufYY" target="_blank" rel="noopener noreferrer">
-                        Go to Stripe Billing Portal
+                      <a href="https://billing.stripe.com/p/login/6oE29f7vj5sL4a4fYY" target="_blank" rel="noopener noreferrer">
+                        {t(tokens.form.clickHere)}
                       </a>
                     </Box>
                   </Stack>

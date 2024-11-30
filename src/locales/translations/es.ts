@@ -1091,8 +1091,11 @@ export const es = {
   [tokens.form.PopArt]: 'pop_art',  // 'Pop Art' is a proper noun and typically not translated
   [tokens.form.PostImpressionism]: 'postimpresionismo',
   [tokens.form.PostModernism]: 'postmodernismo',
+  [tokens.form.toCancel]: 'Para cancelar tu suscripción.',
   [tokens.form.Renaissance]: 'renacimiento',
-  [tokens.form.Rococo]: 'rococó',
+  [tokens.form.clickHere]: 'Haz clic aquí',
+  [tokens.form.manageSub]: 'Administrar tu suscripción.',
+    [tokens.form.Rococo]: 'rococó',
   [tokens.form.Romanticism]: 'romanticismo',
   [tokens.form.Symbolism]: 'simbolismo',
   [tokens.form.Victorian]: 'victoriano',

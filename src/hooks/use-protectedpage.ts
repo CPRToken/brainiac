@@ -44,7 +44,7 @@ export const useProtectedPage = () => {
   useEffect(() => {
     if (!isLoading) {
       if (!user) {
-        // Redirect to login if no user is found
+
         router.push('/login');
       } else if (['Expired', 'Canceled'].includes(user.plan ?? '')) {
         // Redirect to subscription page if user has the 'Expired' or 'Canceled' plan

@@ -48,7 +48,7 @@ export const HomeHero: FC = () => {
               alignItems: 'center',
               display: 'flex',
               flexDirection: 'column',
-              pt: { xs: 0, sm: 2, md: 6, lg: 8 },
+              pt: { xs: 0, sm: 2, md: 5, lg: 5 },
               pb: { xs: 0, sm: 2, md: 3, lg: 4 },
             }}
           >
@@ -65,18 +65,18 @@ export const HomeHero: FC = () => {
               {/* Column 1 */}
               <Box
                 sx={{
-                  width: { xs: '100%', lg: '48%' },  // Full width on xs to md, 48% on lg and xl
-                  mt: { xs: 3, sm: 2, lg: 0 },  // Adjust margin-top for mobile, remove for lg and xl
-                  pt:{ xs: 3, sm: 2, lg: 0 },
+                  width: { xs: '100%', md: '48%', lg: '48%' },  // Full width on xs to md, 48% on lg and xl
+                  mt: { xs: 3, sm: 2, md: 1, lg: 0 },  // Adjust margin-top for mobile, remove for lg and xl
+                  pt:{ xs: 3, sm: 2, md: 1,  lg: 0 },
 
                 }}
               >
                 <Typography
                   sx={{
-                    ...typography.h3,
+                    ...typography.h4,
                     color: 'text.primary',
-                    mt: { xs: 2, lg: 5 },  // Adjust top margin for mobile
-                    pt: 0,
+                    mt: { xs: 3,  md: 3, lg: 3 },  // Adjust top margin for mobile
+                    pt: { xs: 3, lg: 5 },
                     mb: 0
                   }}
                 >
@@ -88,8 +88,8 @@ export const HomeHero: FC = () => {
                   sx={{
                     ...typography.body1,
                     color: 'text.primary',
-                    mt: { xs: 2, sm: 5 },  // Adjust top margin for mobile
-                    pt: 2,
+                    mt: { xs: 2, sm: 4 },  // Adjust top margin for mobile
+                    pt: 1,
                     mb: 0
                   }}
                 >

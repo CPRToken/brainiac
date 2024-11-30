@@ -233,7 +233,7 @@ export const ImageGenerator: FC = () => {
       memoryLimit = 500;
       break;
     default:
-      memoryLimit = 0; // Default fallback for unknown plans
+      memoryLimit = 500; // Default fallback for unknown plans
   }
 
 // Check if the Save button should be disabled
@@ -352,7 +352,7 @@ export const ImageGenerator: FC = () => {
           </Button>
         </Box>
       {openAIResponse && openAIResponse.length > 0 && (
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{ mt: 3, textAlign: 'center' }}>
           <label>{t(tokens.form.yourImage)}</label>
           {openAIResponse.map((url, index) => (
             <Box key={index} sx={{ mt: 2 }}>
@@ -369,6 +369,7 @@ export const ImageGenerator: FC = () => {
                   variant="contained"
                   color="primary"
                   onClick={() => handleSaveImage(url, index)}
+                  style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
                 >
                   {t(tokens.form.saveImage)}
                 </Button>

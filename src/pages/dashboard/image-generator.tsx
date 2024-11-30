@@ -26,7 +26,11 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title={t(tokens.headings.imageGenerator)} />
+      <Seo
+
+        title={t(tokens.headings.imageGenerator)}
+
+      />
       {uid && ( // Only render MemoryUsageProvider if uid is available
         <MemoryUsageProvider uid={uid}> {/* Wrap the provider here */}
       <Box

@@ -151,10 +151,7 @@ export const SettingsDrawer: FC<SettingsDrawerProps> = (props) => {
             onChange={(value) => handleFieldUpdate('paletteMode', value)}
             value={values.paletteMode}
           />
-          <OptionsNavColor
-            onChange={(value) => handleFieldUpdate('navColor', value)}
-            value={values.navColor}
-          />
+
           <OptionsLayout
             onChange={(value) => handleFieldUpdate('layout', value)}
             value={values.layout}

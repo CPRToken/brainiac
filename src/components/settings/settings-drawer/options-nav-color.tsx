@@ -1,71 +1,43 @@
 import type { FC } from 'react';
 import PropTypes from 'prop-types';
-import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import { tokens } from 'src/locales/tokens';
 import Typography from '@mui/material/Typography';
- import type { NavColor } from 'src/types/settings';
-import {useTranslation} from "react-i18next";
-
-interface Option {
-  label: string;
-  value: NavColor;
-}
-
+import { useTranslation } from "react-i18next";
 
 interface OptionsNavColorProps {
-  onChange?: (value: NavColor) => void;
-  value?: NavColor;
+  onChange?: (value: 'blend-in') => void;
+  value?: 'blend-in';
 }
 
 export const OptionsNavColor: FC<OptionsNavColorProps> = (props) => {
-  const { onChange, value } = props;
+  const { onChange } = props;
   const { t } = useTranslation();
 
-
-  const options: Option[] = [
-    {
-      label: t(tokens.form.blendIn),
-      value: 'blend-in',
-    },
-    {
-      label: t(tokens.form.discreet),
-      value: 'discrete',
-    },
-    {
-      label: t(tokens.form.evident),
-      value: 'evident',
-    },
-  ];
-
+  const defaultOption = {
+    label: t(tokens.form.blendIn),
+    value: 'blend-in' as const, // Explicitly set the type to the literal 'blend-in'
+  };
 
   return (
     <Stack spacing={1}>
       <Typography color="text.secondary" variant="overline">
         {t(tokens.headings.navColor)}
       </Typography>
-      <Stack
-        alignItems="center"
-        direction="row"
-        flexWrap="wrap"
-        gap={2}
-      >
-        {options.map((option) => (
-          <Chip
-            key={option.label}
-            label={option.label}
-            onClick={() => onChange?.(option.value)}
-            sx={{
-              borderColor: 'transparent',
-              borderRadius: 1.5,
-              borderStyle: 'solid',
-              borderWidth: 2,
-              ...(option.value === value && {
-                borderColor: 'primary.main',
-              }),
-            }}
-          />
-        ))}
+      <Stack alignItems="center" direction="row" flexWrap="wrap" gap={2}>
+        <Typography
+          onClick={() => onChange?.(defaultOption.value)}
+          sx={{
+            borderColor: 'transparent',
+            borderRadius: 1.5,
+            borderStyle: 'solid',
+            borderWidth: 2,
+            color: 'text.primary',
+            cursor: 'pointer',
+          }}
+        >
+          {defaultOption.label}
+        </Typography>
       </Stack>
     </Stack>
   );
@@ -73,5 +45,5 @@ export const OptionsNavColor: FC<OptionsNavColorProps> = (props) => {
 
 OptionsNavColor.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.oneOf(['blend-in', 'discrete', 'evident']),
+  value: PropTypes.oneOf(['blend-in']),
 };

@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ['firebasestorage.googleapis.com'], // Add this line
+    domains: [
+      'firebasestorage.googleapis.com',
+      'oaidalleapiprodscus.blob.core.windows.net' // Add this domain
+    ],
   },
   webpack(config) {
     config.module.rules.push({

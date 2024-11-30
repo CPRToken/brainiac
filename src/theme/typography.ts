@@ -10,8 +10,11 @@ export function pxToRem(value: number) {
   return `${value / 16}rem`;
 }
 
-export function responsiveFontSizes({ sm, md, lg }: { sm: number; md: number; lg: number }) {
+export function responsiveFontSizes({ xs, sm, md, lg }: { xs?: number; sm: number; md: number; lg: number }) {
   return {
+    '@media (max-width:600px)': {
+      fontSize: xs ? pxToRem(xs) : undefined,
+    },
     '@media (min-width:600px)': {
       fontSize: pxToRem(sm),
     },
@@ -24,17 +27,7 @@ export function responsiveFontSizes({ sm, md, lg }: { sm: number; md: number; lg
   };
 }
 
-declare module '@mui/material/styles' {
-  interface TypographyVariants {
-    fontSecondaryFamily: React.CSSProperties['fontFamily'];
-    fontWeightSemiBold: React.CSSProperties['fontWeight'];
-    fontTertiaryFamily: React.CSSProperties['fontFamily'];
-    fontQuaternaryFamily: React.CSSProperties['fontFamily'];
-    fontQuinaryFamily: React.CSSProperties['fontFamily'];
 
-
-  }
-}
 
 export const primaryFont = Inter({
   weight: ['400', '500', '600', '700', '800'],
@@ -115,7 +108,7 @@ export const typography = {
     lineHeight: 1.4,
     fontSize: pxToRem(26),
     fontFamily: tertiaryFont.style.fontFamily,
-    ...responsiveFontSizes({ sm: 20, md: 22, lg: 28 }),
+    ...responsiveFontSizes({ xs:19, sm: 21, md: 24, lg: 26 }),
   },
   h5: {
     fontWeight: 500,
@@ -151,6 +144,7 @@ export const typography = {
     lineHeight: 1.6,
     fontSize: pxToRem(17),
     fontFamily: primaryFont.style.fontFamily,
+    ...responsiveFontSizes({ xs:15, sm: 16, md: 16, lg: 17 }), // Add responsive sizes
   },
   body2: {
     lineHeight: 0.5,

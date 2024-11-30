@@ -1,11 +1,8 @@
 import type { FC, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-
 import Stack from '@mui/material/Stack';
-
-import Image from 'next/image';
-
+import { useTheme } from '@mui/material/styles';
 
 import { RouterLink } from 'src/components/router-link';
 import { paths } from 'src/paths';
@@ -17,8 +14,21 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = (props) => {
   const { children } = props;
 
-  return (
+  const theme = useTheme();
 
+  // Dynamic logo based on theme mode
+  const logoSrc =
+    theme.palette.mode === 'dark'
+      ? '/assets/logos/logo-dark.svg'
+      : '/assets/logos/logo-light.svg';
+
+  // Dynamic background image based on theme mode
+  const bgImage =
+    theme.palette.mode === 'dark'
+      ? '/assets/ai-darkbg.png'
+      : '/assets/ai-lightbg.png';
+
+  return (
     <Box
       sx={{
         backgroundColor: 'background.default',
@@ -30,19 +40,23 @@ export const Layout: FC<LayoutProps> = (props) => {
         },
       }}
     >
+      {/* Left Section with Background Image */}
       <Box
         sx={{
           alignItems: 'center',
           backgroundColor: 'neutral.800',
-            backgroundImage: `
-            linear-gradient(rgba(5, 5, 40, 0.20), rgba(5, 5, 40, 0.50))
-,
-            linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.05)),
-            url("/assets/ai-darkbg.png")`,
-          // The linear gradient adds a bluish overlay with 50% opacity
+          backgroundImage: theme.palette.mode === 'dark'
+            ? `
+          linear-gradient(rgba(10, 10, 50, 0.45), rgba(10, 10, 50, 0.30)),
+          linear-gradient(rgba(0, 0, 0, 0.20), rgba(0, 0, 0, 0.15)),
+          url(${bgImage})`
+            : `
+          linear-gradient(rgba(255, 255, 255, 0.50), rgba(245, 245, 245, 0.30)),
+          linear-gradient(rgba(200, 200, 200, 0.25), rgba(200, 200, 200, 0.35)),
+          url(${bgImage})`,
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover', // this makes it cover the entire box
+          backgroundSize: 'cover',
           color: 'common.white',
           display: 'flex',
           flex: {
@@ -59,41 +73,11 @@ export const Layout: FC<LayoutProps> = (props) => {
         }}
       >
         <Box maxWidth="md">
-            <Box
-                sx={{
-                    '& Image': {
-                        maxWidth: '300px', // For PC/Laptops
-                        marginBottom: '1rem',
-                        '@media (max-width: 600px)': {
-                            maxWidth: '200px', // For mobile
-                        },
-                    },
-                }}
-            >
-
-
-            </Box>
-
-
-
-            <Stack
-            alignItems="center"
-            direction="row"
-            flexWrap="wrap"
-            gap={4}
-            sx={{
-              color: 'text.primary',
-              '& > *': {
-                color: 'neutral.400',
-                flex: '0 0 auto',
-              },
-            }}
-          >
-
-          </Stack>
+          {/* Add content specific to the background section here if needed */}
         </Box>
       </Box>
 
+      {/* Right Section with Content and Logo */}
       <Box
         sx={{
           backgroundColor: 'background.paper',
@@ -112,21 +96,17 @@ export const Layout: FC<LayoutProps> = (props) => {
             md: 8,
           },
           width: {
-           xs: 690,
+            xs: 690,
             md: 650,
           },
         }}
       >
         <div>
-            <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
-
-
-
-
+          {/* Logo Section */}
+          <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
             <Stack
               alignItems="center"
               component={RouterLink}
-
               direction="row"
               display="inline-flex"
               href={paths.index}
@@ -135,20 +115,20 @@ export const Layout: FC<LayoutProps> = (props) => {
             >
               <Box
                 component="img"
-                src="/assets/logos/logo.svg"
+                src={logoSrc}
+                alt="Logo"
                 sx={{
                   display: 'inline-flex',
                   height: 50,
                   width: 50,
                 }}
               />
-
               <Box
                 sx={{
                   color: 'text.primary',
-                  fontFamily: "inherit",
-                 fontSize: { xs: 25, md: 27 },
-                  fontWeight: { xs: 450, md: 500 },  // Lighter weight for mobile, bolder for PC
+                  fontFamily: 'inherit',
+                  fontSize: { xs: 25, md: 27 },
+                  fontWeight: { xs: 450, md: 500 },
                   letterSpacing: '0.4px',
                   lineHeight: 2.5,
                   '& span': {
@@ -156,10 +136,12 @@ export const Layout: FC<LayoutProps> = (props) => {
                   },
                 }}
               >
-               Brainiac <span>Media</span>
+                Brainiac <span>Media</span>
               </Box>
             </Stack>
           </Box>
+
+          {/* Children Content */}
           {children}
         </div>
       </Box>

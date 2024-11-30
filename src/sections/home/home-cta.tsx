@@ -20,7 +20,7 @@ export const HomeCta: FC = () => {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top center',
         backgroundImage: 'url("/assets/gradient-bg.svg")',
-        pt: '120px',
+        pt: '100px',
         pb: '120px',
       }}
     >
@@ -28,8 +28,9 @@ export const HomeCta: FC = () => {
         <Box maxWidth="sm" sx={{ mx: 'auto', textAlign: 'center' }}>
           <Typography
             sx={{
-              ...typography.h3,
+              ...typography.h4,
               pb: 2,
+              mb:2,
 
             }}
           >
@@ -49,25 +50,86 @@ export const HomeCta: FC = () => {
         </Box>
 
         <Grid container spacing={3} sx={{ mt: 5 }}>
-          <Grid item xs={12} md={4}>
-            <video width="100%" controls>
-              <source src={t(tokens.form.video1)} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            sx={{
+              display: 'flex',
+              justifyContent: {
+                xs: 'center', // Center video for xs screens
+                md: 'flex-start', // Default for md and above
+              },
+            }}
+          >
+            <Box
+              sx={{
+                width: {
+                  xs: '50%', // 50% width for xs
+                  md: '100%', // Full width for md and above
+                },
+              }}
+            >
+              <video width="100%" controls>
+                <source src={t(tokens.form.video1)} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </Box>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <video width="100%" controls>
-              <source src={t(tokens.form.video2)} type="video/mp4"/>
-              Your browser does not support the video tag.
-            </video>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            sx={{
+              display: 'flex',
+              justifyContent: {
+                xs: 'center',
+                md: 'flex-start',
+              },
+            }}
+          >
+            <Box
+              sx={{
+                width: {
+                  xs: '50%',
+                  md: '100%',
+                },
+              }}
+            >
+              <video width="100%" controls>
+                <source src={t(tokens.form.video2)} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </Box>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <video width="100%" controls>
-              <source src={t(tokens.form.video3)} type="video/mp4"/>
-              Your browser does not support the video tag.
-            </video>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            sx={{
+              display: 'flex',
+              justifyContent: {
+                xs: 'center',
+                md: 'flex-start',
+              },
+            }}
+          >
+            <Box
+              sx={{
+                width: {
+                  xs: '50%',
+                  md: '100%',
+                },
+              }}
+            >
+              <video width="100%" controls>
+                <source src={t(tokens.form.video3)} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </Box>
           </Grid>
         </Grid>
+
 
         <Box
           sx={{
