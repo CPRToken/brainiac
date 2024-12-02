@@ -202,9 +202,10 @@ export const TopNav: FC<TopNavProps> = (props) => {
                   </>
                 </Stack>
               </Box>
-              <LanguageSwitch />
+
             </Stack>
           )}
+          <LanguageSwitch />
           <Stack
             alignItems="center"
             direction="row"

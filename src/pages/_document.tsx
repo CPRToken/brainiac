@@ -16,6 +16,29 @@ const CustomDocument = ({ emotionStyleTags }: CustomDocumentProps) => {
   return (
     <Html lang="en">
       <Head>
+        <link
+          rel="icon"
+          href="/favicon-dark.png"
+          type="image/x-icon"
+        />
+        <link
+          rel="icon"
+          href="/favicon-16x16.png"
+          type="image/png"
+          sizes="16x16"
+        />
+        <link
+          rel="icon"
+          href="/favicon-32x32.png"
+          type="image/png"
+          sizes="32x32"
+        />
+        <link
+          rel="apple-touch-icon.png"
+          href="/apple-touch-icon.png"
+          type="image/png"
+          sizes="180x180"
+        />
 
         <meta
           name="emotion-insertion-point"
@@ -24,8 +47,8 @@ const CustomDocument = ({ emotionStyleTags }: CustomDocumentProps) => {
         {emotionStyleTags}
       </Head>
       <body>
-        <Main />
-        <NextScript />
+      <Main/>
+      <NextScript/>
       </body>
     </Html>
   );
@@ -34,7 +57,7 @@ const CustomDocument = ({ emotionStyleTags }: CustomDocumentProps) => {
 CustomDocument.getInitialProps = async (ctx: DocumentContext) => {
   const originalRenderPage = ctx.renderPage;
   const cache = createEmotionCache();
-  const { extractCriticalToChunks } = createEmotionServer(cache);
+  const {extractCriticalToChunks} = createEmotionServer(cache);
 
   ctx.renderPage = () =>
     originalRenderPage({

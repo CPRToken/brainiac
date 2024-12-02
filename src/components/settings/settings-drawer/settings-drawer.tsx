@@ -8,7 +8,7 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
-import Box from '@mui/material/Box';
+
 import Typography from '@mui/material/Typography';
 import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
@@ -21,7 +21,7 @@ import { OptionsColorPreset } from './options-color-preset';
 import { OptionsContrast } from './options-contrast';
 import { OptionsDirection } from './options-direction';
 import { OptionsLayout } from './options-layout';
-import { OptionsNavColor } from './options-nav-color';
+
 import { OptionsColorScheme } from './options-color-scheme';
 import { OptionsStretch } from './options-stretch';
 
@@ -38,7 +38,7 @@ interface SettingsDrawerProps {
 export const SettingsDrawer: FC<SettingsDrawerProps> = (props) => {
   const { canReset, onClose, onUpdate, onReset, open, values = {}, ...other } = props;
   const { t } = useTranslation();
-  const { i18n } = useTranslation();
+
 
   const handleFieldUpdate = useCallback(
     (field: keyof Settings, value: unknown): void => {
