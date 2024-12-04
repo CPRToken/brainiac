@@ -31,6 +31,7 @@ const styleOptions: Option[] = [
   { label: tokens.form.argumentative, value: tokens.form.argumentative },
   { label: tokens.form.articulate, value: tokens.form.articulate },
   { label: tokens.form.blog, value: tokens.form.blog },
+  { label: tokens.form.youtube, value: tokens.form.youtube },
   { label: tokens.form.biographical, value: tokens.form.biographical },
   { label: tokens.form.conversational, value: tokens.form.conversational },
   { label: tokens.form.Didactic, value: tokens.form.Didactic },

@@ -239,6 +239,7 @@ headings: {
       video2: 'form.video2',
       video3: 'form.video3',
       basicMB: 'form.basicMB',
+      youtube: 'form.youtube',
       priceBasic: 'form.priceBasic',
       youReached: 'form.youReached',
       clickHere: 'form.clickHere',

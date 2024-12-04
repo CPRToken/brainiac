@@ -48,8 +48,8 @@ export const HomeHero: FC = () => {
               alignItems: 'center',
               display: 'flex',
               flexDirection: 'column',
-              pt: { xs: 0, sm: 2, md: 5, lg: 5 },
-              pb: { xs: 0, sm: 2, md: 3, lg: 4 },
+              pt: { xs: 0, sm: 0, md: 4, lg: 5 },
+              pb: { xs: 1, sm: 2, md: 3, lg: 4 },
             }}
           >
             <Stack
@@ -67,7 +67,7 @@ export const HomeHero: FC = () => {
                 sx={{
                   width: { xs: '100%', md: '48%', lg: '48%' },  // Full width on xs to md, 48% on lg and xl
                   mt: { xs: 3, sm: 2, md: 1, lg: 0 },  // Adjust margin-top for mobile, remove for lg and xl
-                  pt:{ xs: 3, sm: 2, md: 1,  lg: 0 },
+                  pt:{ xs: 2, sm: 2, md: 1,  lg: 0 },
 
                 }}
               >

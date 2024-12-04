@@ -1,3 +1,4 @@
+//src/components/settings/settings-drawer/settings-drawer.tsx
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
@@ -8,14 +9,11 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
-
 import Typography from '@mui/material/Typography';
 import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
 import { Scrollbar } from 'src/components/scrollbar';
 import type { Settings } from 'src/types/settings';
-import Image from 'next/image';
-
 
 import { OptionsColorPreset } from './options-color-preset';
 import { OptionsContrast } from './options-contrast';
@@ -35,18 +33,30 @@ interface SettingsDrawerProps {
   values?: Settings;
 }
 
+const defaultSettings: Settings = {
+  navColor: 'blend-in', // Default navColor
+  // Other default settings...
+};
+
 export const SettingsDrawer: FC<SettingsDrawerProps> = (props) => {
   const { canReset, onClose, onUpdate, onReset, open, values = {}, ...other } = props;
   const { t } = useTranslation();
 
 
+
   const handleFieldUpdate = useCallback(
     (field: keyof Settings, value: unknown): void => {
+      const mergedValues: Settings = {
+        ...defaultSettings,
+        ...values,
+      };
+
       onUpdate?.({
+        ...mergedValues,
         [field]: value,
       });
     },
-    [onUpdate]
+    [onUpdate, values]
   );
 
   return (

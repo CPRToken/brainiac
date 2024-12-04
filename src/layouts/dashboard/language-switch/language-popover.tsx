@@ -1,3 +1,4 @@
+//src/layouts/dashboard/language-switch/language-popover.tsx
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
@@ -12,7 +13,7 @@ import Typography from '@mui/material/Typography';
 
 import { tokens } from 'src/locales/tokens';
 
-type Language = 'en' | 'es'
+type Language = 'es' | 'en'
 
 type LanguageOptions = {
   [key in Language]: {
@@ -23,15 +24,17 @@ type LanguageOptions = {
 
 const languageOptions: LanguageOptions = {
 
+  es: {
+    icon: '/assets/flags/flag-es.svg',
+    label: 'Español',
+  },
+
   en: {
     icon: '/assets/flags/flag-uk.svg',
     label: 'English',
   },
 
-  es: {
-    icon: '/assets/flags/flag-es.svg',
-    label: 'Español',
-  },
+
 
 
 };

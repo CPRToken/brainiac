@@ -112,6 +112,7 @@ export const es = {
   [tokens.form.surfaceArea]: 'Área de Superficie: por ejemplo, 20m2, 50cm2, 1000ft2',
   [tokens.form.recipes]: 'Recetas',
   [tokens.form.role]: 'Rol',
+  [tokens.form.youtube]: 'YouTube',
     [tokens.form.lyrics]: 'Canciones',
   [tokens.form.attire]: 'Atuendo',
   [tokens.form.upset]: 'Molesto',

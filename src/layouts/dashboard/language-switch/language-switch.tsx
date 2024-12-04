@@ -1,3 +1,4 @@
+//src/layouts/dashboard/language-switch/language-switch.tsx
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
@@ -37,7 +38,9 @@ export const LanguageSwitch: FC = () => {
     };
   }, [i18n]);
 
-  const flag = languages[i18n.language as Language];
+  const flag = languages[
+  (localStorage.getItem('appLanguage') as Language) || 'es' // Default to 'es' flag
+    ];
 
   return (
     <>

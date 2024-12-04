@@ -3,16 +3,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+ import Typography from '@mui/material/Typography';
 import { useTranslation } from "react-i18next";
-import { useTheme } from '@mui/material/styles';
+
 import { typography } from "../../theme/typography";
 import { tokens } from "../../locales/tokens";
 
 export const HomeCta: FC = () => {
   const { t } = useTranslation();
-  const theme = useTheme();
 
   return (
     <Box
@@ -20,8 +18,8 @@ export const HomeCta: FC = () => {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'top center',
         backgroundImage: 'url("/assets/gradient-bg.svg")',
-        pt: '100px',
-        pb: '120px',
+        pt: '60px',
+        pb: '100px',
       }}
     >
       <Container maxWidth="lg">
@@ -30,8 +28,8 @@ export const HomeCta: FC = () => {
             sx={{
               ...typography.h4,
               pb: 2,
-              mb:2,
-
+              mb: { xs: 1, sm: 2, md: 3, lg: 4 }, // Responsive margin-bottom
+              mt: { xs: 0, sm: 2, md: 3, lg: 4 }, // Responsive margin-top
             }}
           >
             {t(tokens.form.HowitWorks)}
@@ -65,8 +63,8 @@ export const HomeCta: FC = () => {
             <Box
               sx={{
                 width: {
-                  xs: '50%', // 50% width for xs
-                  md: '100%', // Full width for md and above
+                  xs: '80%', // 50% width for xs
+                  md: '80%', // Full width for md and above
                 },
               }}
             >
@@ -91,7 +89,7 @@ export const HomeCta: FC = () => {
             <Box
               sx={{
                 width: {
-                  xs: '50%',
+                  xs: '80%',
                   md: '100%',
                 },
               }}
@@ -117,8 +115,8 @@ export const HomeCta: FC = () => {
             <Box
               sx={{
                 width: {
-                  xs: '50%',
-                  md: '100%',
+                  xs: '80%',
+                  md: '80%',
                 },
               }}
             >
