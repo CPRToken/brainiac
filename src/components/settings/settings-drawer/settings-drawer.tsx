@@ -15,11 +15,13 @@ import {tokens} from "src/locales/tokens";
 import { Scrollbar } from 'src/components/scrollbar';
 import type { Settings } from 'src/types/settings';
 
+
+
 import { OptionsColorPreset } from './options-color-preset';
 import { OptionsContrast } from './options-contrast';
 import { OptionsDirection } from './options-direction';
 import { OptionsLayout } from './options-layout';
-
+import { OptionsNavColor } from './options-nav-color';
 import { OptionsColorScheme } from './options-color-scheme';
 import { OptionsStretch } from './options-stretch';
 
@@ -161,7 +163,10 @@ export const SettingsDrawer: FC<SettingsDrawerProps> = (props) => {
             onChange={(value) => handleFieldUpdate('paletteMode', value)}
             value={values.paletteMode}
           />
-
+          <OptionsNavColor
+            onChange={(value) => handleFieldUpdate('navColor', value)}
+            value={values.navColor}
+          />
           <OptionsLayout
             onChange={(value) => handleFieldUpdate('layout', value)}
             value={values.layout}
