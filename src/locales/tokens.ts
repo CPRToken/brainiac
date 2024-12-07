@@ -95,6 +95,7 @@ headings: {
 
   primaryColor: 'headings.primaryColor',
   plagiarismChecker: 'headings.plagiarismChecker',
+  Articulate: 'headings.Articulate',
   timeSaved: 'headings.timeSaved',
   TimeIsMoney: 'headings.TimeIsMoney',
   KnowIsPower: 'headings.KnowIsPower',
@@ -257,6 +258,9 @@ headings: {
       priceBusinessYearlyCurrency: 'form.priceBusinessYearlyCurrency',
       Images: 'form.Images',
       Content: 'form.Content',
+      articulateIntro: 'form.articulateIntro',
+      articulateAbout: 'form.articulateAbout',
+      articulatePrompt: 'form.articulatePrompt',
       acceptConditions: 'form.acceptConditions',
       trialPlanProgress: 'form.trialPlanProgress',
       verifyEmailPrompt: 'form.verifyEmailPrompt',
