@@ -51,6 +51,7 @@ export const HomeCta: FC = () => {
           <Grid
             item
             xs={12}
+            sm={6}
             md={4}
             sx={{
               display: 'flex',
@@ -63,8 +64,10 @@ export const HomeCta: FC = () => {
             <Box
               sx={{
                 width: {
-                  xs: '80%', // 50% width for xs
-                  md: '80%', // Full width for md and above
+                  xs: '70%',
+                  sm: '80%',
+                  md: '85%',
+                  lg: '90%',
                 },
               }}
             >
@@ -77,6 +80,7 @@ export const HomeCta: FC = () => {
           <Grid
             item
             xs={12}
+            sm={6}
             md={4}
             sx={{
               display: 'flex',
@@ -89,8 +93,10 @@ export const HomeCta: FC = () => {
             <Box
               sx={{
                 width: {
-                  xs: '80%',
-                  md: '100%',
+                  xs: '70%',
+                  sm: '80%',
+                  md: '85%',
+                  lg: '90%',
                 },
               }}
             >
@@ -103,6 +109,7 @@ export const HomeCta: FC = () => {
           <Grid
             item
             xs={12}
+            sm={6}
             md={4}
             sx={{
               display: 'flex',
@@ -115,8 +122,10 @@ export const HomeCta: FC = () => {
             <Box
               sx={{
                 width: {
-                  xs: '80%',
-                  md: '80%',
+                  xs: '70%',
+                  sm: '80%',
+                  md: '85%',
+                  lg: '90%',
                 },
               }}
             >

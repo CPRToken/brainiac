@@ -1,4 +1,4 @@
-
+//src/sections/components/forms/image-submit.ts
 import { useState } from 'react';
 import { getAuth } from 'firebase/auth';
 

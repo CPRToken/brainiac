@@ -3,14 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Stack, TextField } from '@mui/material';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ResponseText from '../clipboards/response-text';
-
-
-
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGPT4Submit from './gpt4-submit';
+import useGrokSubmit from './grok-submit';
 import Typography from "@mui/material/Typography";
 import {saveDoc} from "../buttons/saveDoc";
 import {useProtectedPage} from "../../../hooks/use-protectedpage";
@@ -24,6 +21,7 @@ const industryOptions: Option[] = [
     { label: '', value: '' },
     { label: tokens.form.retail, value: tokens.form.retail },
     { label: tokens.form.hospitality, value: tokens.form.hospitality },
+  { label: tokens.form.realEstate, value: tokens.form.realEstate },
     { label: tokens.form.fashion, value: tokens.form.fashion },
     { label: tokens.form.services, value: tokens.form.services }, // Services like beauty or cleaning
     { label: tokens.form.technology, value: tokens.form.technology },
@@ -85,44 +83,36 @@ export const InvestmentAdvisor: FC = () => {
   useProtectedPage();
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
+  const { handleSubmit, grokResponse, isLoading } = useGrokSubmit();
+
   const [hasInvestmentGoals, setHasInvestmentGoals] = useState('');
   const [investmentGoals, setInvestmentGoals] = useState('');
   const [title, setTitle] = useState<string>('');
   const [industryExperience, setIndustryExperience] = useState('');
     const [industry, setIndustry] = useState<string>('');
     const [why, setWhy] = useState<string>('');
-
     const [time, setTime] = useState<string>('');
-
   const [annualIncome, setAnnualIncome] = useState('');
-
- const [investmentExperience, setInvestmentExperience] = useState('');
+  const [investmentExperience, setInvestmentExperience] = useState('');
   const [riskTolerance, setRiskTolerance] = useState('');
   const [budget, setBudget]= useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
-
-
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
 
   const submitToOpenAI = () => {
-    const maxTokens = 2000;
+    const maxTokens = 3000;
     if (prompt) {
       handleSubmit(prompt, maxTokens)
         .then(() => {
           // Handle successful submission if needed
         })
-        .catch(error => {
-          console.error("Error submitting to OpenAI:", error);
+        .catch(() => {
+          // Optionally handle any error logic here, or leave it empty
         });
-    } else {
-      console.error("Prompt is empty or not updated, cannot submit.");
     }
   };
-
-
 
 
 
@@ -133,13 +123,10 @@ export const InvestmentAdvisor: FC = () => {
 
     const investmentGoalsText = investmentGoals ? `${t(investmentGoals)} ` : '';
     const whyText = why ? `${t(why)} ` : '';
-
     const industryText = industry ? `${t(industry)} ` : '';
     const industryExperienceText = industryExperience ? `${t(industryExperience)} ` : '';
-
-   const investmentExperienceText = investmentExperience ? `${t(investmentExperience)} ` : '';
+    const investmentExperienceText = investmentExperience ? `${t(investmentExperience)} ` : '';
     const annualIncomeText = annualIncome ? `${t(annualIncome)} ` : '';
-
     const timeText = time ? `${t(time)} ` : '';
     const budgetText = budget ? `${t(budget)} ` : '';
     const riskToleranceText = riskTolerance ? `${t(riskTolerance)} ` : '';
@@ -158,7 +145,6 @@ export const InvestmentAdvisor: FC = () => {
       .replace('[investmentGoals]', investmentGoalsText)
       .replace('[investmentExperience]', investmentExperienceText)
       .replace('[annualIncome]', annualIncomeText)
-
       .replace('[time]', timeText)
       .replace('[budget]', budgetText)
       .replace('[riskTolerance]', riskToleranceText);
@@ -474,7 +460,7 @@ export const InvestmentAdvisor: FC = () => {
             </Button>
         </Box>
 
-        {openAIResponse && (
+        {grokResponse && (
           <Box sx={{mt: 3}}>
             <label>{t(tokens.form.yourInvestmentPlan)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
@@ -482,7 +468,7 @@ export const InvestmentAdvisor: FC = () => {
             </Button>
             <Paper elevation={3} ref={textRef}
                    style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
-              {openAIResponse.split('\n').map((str, index, array) => (
+              {grokResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
                   {index < array.length - 1 ? <br/> : null}
@@ -493,7 +479,7 @@ export const InvestmentAdvisor: FC = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.investments))}
+                onClick={() => saveDoc(grokResponse, title, t(tokens.form.investments))}
                 style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
               >
                 {t(tokens.form.saveText)}

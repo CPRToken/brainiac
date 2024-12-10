@@ -7,12 +7,11 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGPT4Submit from './gpt4-submit';
+import useGrokSubmit from './grok-submit';
 import Typography from "@mui/material/Typography";
 import {saveDoc} from "../buttons/saveDoc";
 import {useProtectedPage} from "../../../hooks/use-protectedpage";
@@ -82,7 +81,7 @@ const translationLanguageOptions: Option[] = [
 export const IdiomTranslator: FC = () => {
   useProtectedPage();
   const { t } = useTranslation();
-  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
+  const { handleSubmit, grokResponse, isLoading } = useGrokSubmit();
   const [translationLanguage, setTranslationLanguage] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [idiom, setIdiom] = useState<string>('');
@@ -98,11 +97,9 @@ export const IdiomTranslator: FC = () => {
         .then(() => {
           // Handle successful submission if needed
         })
-        .catch(error => {
-          console.error("Error submitting to OpenAI:", error);
+        .catch(() => {
+          // Optionally handle any error logic here, or leave it empty
         });
-    } else {
-      console.error("Prompt is empty or not updated, cannot submit.");
     }
   };
 
@@ -185,7 +182,7 @@ export const IdiomTranslator: FC = () => {
         </Button>
       </Box>
 
-      {openAIResponse && (
+      {grokResponse && (
         <Box sx={{mt: 3}}>
           <label>Your Translation:</label>
           <Button onClick={handleCopyText} title="Copy response text">
@@ -193,7 +190,7 @@ export const IdiomTranslator: FC = () => {
           </Button>
           <Paper elevation={3} ref={textRef}
                  style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
-            {openAIResponse.split('\n').map((str, index, array) => (
+            {grokResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
                 {index < array.length - 1 ? <br/> : null}
@@ -204,7 +201,7 @@ export const IdiomTranslator: FC = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => saveDoc(openAIResponse, title, t(tokens.form.idioms))}
+              onClick={() => saveDoc(grokResponse, title, t(tokens.form.idioms))}
               style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
             >
               {t(tokens.form.saveText)}

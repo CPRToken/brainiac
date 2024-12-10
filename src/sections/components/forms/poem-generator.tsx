@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGPT4Submit from './gpt4-submit';
+import useGrokSubmit from './grok-submit';
 import {saveDoc} from "../buttons/saveDoc";
 
 
@@ -105,7 +105,7 @@ export const PoemGenerator: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
+  const { handleSubmit, grokResponse, isLoading } = useGrokSubmit();
   const [poet, setPoet] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
@@ -117,7 +117,7 @@ export const PoemGenerator: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
   const submitToOpenAI = () => {
-    const maxTokens = 1000;
+    const maxTokens = 2000;
     if (prompt) {
       // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
@@ -280,7 +280,7 @@ export const PoemGenerator: FC = () => {
           </Button>
         </Box>
 
-        {openAIResponse && (
+        {grokResponse && (
           <Box sx={{mt: 3}}>
             <label>{t(tokens.form.yourPoem)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
@@ -288,7 +288,7 @@ export const PoemGenerator: FC = () => {
             </Button>
             <Paper elevation={3} ref={textRef}
                    style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
-              {openAIResponse.split('\n').map((str, index, array) => (
+              {grokResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
                   {index < array.length - 1 ? <br/> : null}
@@ -299,7 +299,7 @@ export const PoemGenerator: FC = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.Poems))}
+                onClick={() => saveDoc(grokResponse, title, t(tokens.form.Poems))}
                 style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
               >
                 {t(tokens.form.saveText)}

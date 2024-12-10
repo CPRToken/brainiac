@@ -21,12 +21,7 @@ const CustomDocument = ({ emotionStyleTags }: CustomDocumentProps) => {
           href="/favicon-dark.png"
           type="image/x-icon"
         />
-        <link
-          rel="icon"
-          href="/favicon-16x16.png"
-          type="image/png"
-          sizes="16x16"
-        />
+
         <link
           rel="icon"
           href="/favicon-32x32.png"

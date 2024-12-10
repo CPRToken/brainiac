@@ -1,3 +1,4 @@
+//src/pages/api/chatgpt.ts
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import OpenAI from 'openai';
 

@@ -37,6 +37,7 @@ const Page: NextPage = () => {
         >
           <Grid
             container
+            justifyContent="center"
             spacing={{
               xs: 3,
               lg: 4,
@@ -66,7 +67,7 @@ const Page: NextPage = () => {
               xs={12}
               md={9}
               sx={{
-                paddingLeft: 3, // Add padding here
+                paddingLeft: 2, // Add padding here
                 // Or if you prefer margin: marginLeft: 2
               }}
             >

@@ -2,8 +2,6 @@ import React from 'react';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-
-
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -11,39 +9,33 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useChatSubmit from './chat-submit';
+import useGrokChatSubmit from './grokchat-submit';
 import Typography from "@mui/material/Typography";
 
 
 
-type Option = {
-    label: string;
-    value: string;
-};
 
 
 
 
 
 export const ChatGPT: React.FC = () => {
-  const { handleSubmit, openAIResponse, isLoading } = useChatSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGrokChatSubmit();
   const [chat, setChat] = useState<string>('');
   const [conversation, setConversation] = useState<string[]>([]);
   const { t } = useTranslation();
 
-  const submitToOpenAI = async () => {
-    setConversation(prev => [...prev, `You: ${chat}`]);
-    await handleSubmit(chat, 6000); // Assuming max_tokens is 2000
+  const submitToOpenAI = () => {
+    setConversation((prev) => [...prev, `You: ${chat}`]);
+    handleSubmit(chat); // Call handleSubmit with the chat input
     setChat('');
   };
 
   useEffect(() => {
     if (openAIResponse) {
-      setConversation(prev => [...prev, `GPT-4: ${openAIResponse}`]);
+      setConversation((prev) => [...prev, `GPT-4: ${openAIResponse}`]);
     }
-  }, [openAIResponse]); // This effect runs when openAIResponse updates
-
-
+  }, [openAIResponse]);
 
 
   return (
