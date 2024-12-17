@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs", // Adjusted for better backend compatibility if needed
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true, // Typical for Next.js since it handles compilation
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true // This can help avoid type checking errors in node_modules
+    ,
+    "allowJs": true,
+    "incremental": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}

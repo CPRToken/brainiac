@@ -1,0 +1,87 @@
+/* Remove if fonts are not used */
+
+@import '~@fontsource/inter/100.css';
+@import '~@fontsource/inter/200.css';
+@import '~@fontsource/inter/300.css';
+@import '~@fontsource/inter/400.css';
+@import '~@fontsource/inter/500.css';
+@import '~@fontsource/inter/600.css';
+@import '~@fontsource/inter/700.css';
+@import '~@fontsource/inter/800.css';
+@import '~@fontsource/inter/900.css';
+@import '~@fontsource/roboto-mono/300.css';
+@import '~@fontsource/roboto-mono/400.css';
+@import '~@fontsource/plus-jakarta-sans/600.css';
+@import '~@fontsource/plus-jakarta-sans/700.css';
+
+/* Remove if simplebar is not used */
+@import '~simplebar-react/dist/simplebar.min.css';
+
+/* Remove if slick-carousel is not used */
+@import '~slick-carousel/slick/slick.css';
+@import '~slick-carousel/slick/slick-theme.css';
+
+@import '~react-quill/dist/quill.snow.css';
+
+/* Remove if react-draft-wysiwyg is not used */
+@import '~react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+/* Remove if mapbox is not used */
+@import '~mapbox-gl/dist/mapbox-gl.css';
+
+/* Add these styles at the bottom of your global.css */
+.ql-editor {
+  line-height: 1.8 !important; /* Adjust the line height */
+  font-size: 15px !important; /* Adjust the font size */
+  font-family: 'Inter', sans-serif !important; /* Example: Using Inter font */
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #printableContent, #printableContent * {
+    visibility: visible;
+    color: #000 !important; /* Force text to print in black */
+  }
+
+  #printableContent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  #printHeader {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #printFooter {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  /* Specifically hide the Breadcrumbs and Links */
+  .MuiBreadcrumbs-root,
+  .MuiBreadcrumbs-root * {
+    display: none !important;
+  }
+
+  /* Specifically hide the Copy Text Button using its ID */
+  #copyTextButton, #copyTextButton * {
+    display: none !important;
+  }
+
+  /* Ensure main content stays visible */
+  #printableContent > *:not(.MuiBreadcrumbs-root):not(#copyTextButton) {
+    visibility: visible;
+  }
+}
+
