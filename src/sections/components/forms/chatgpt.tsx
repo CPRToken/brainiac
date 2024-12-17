@@ -1,5 +1,5 @@
+//src/sections/components/forms/chatgpt.tsx
 import React from 'react';
-import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -25,11 +25,17 @@ export const ChatGPT: React.FC = () => {
   const [conversation, setConversation] = useState<string[]>([]);
   const { t } = useTranslation();
 
-  const submitToOpenAI = () => {
+  const submitToOpenAI = async () => {
     setConversation((prev) => [...prev, `You: ${chat}`]);
-    handleSubmit(chat); // Call handleSubmit with the chat input
+    try {
+      await handleSubmit(chat, 1000); // Await the async function
+    } catch (error) {
+      console.error("Error submitting chat:", error);
+    }
     setChat('');
   };
+
+
 
   useEffect(() => {
     if (openAIResponse) {
