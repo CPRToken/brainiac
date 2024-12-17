@@ -17,7 +17,7 @@ import {useProtectedPage} from "src/hooks/use-protectedpage";
 
 
 
-export const ImageGenerator: FC = () => {
+export const GrokImageGenerator: FC = () => {
   useProtectedPage();
 
 
