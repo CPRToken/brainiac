@@ -1299,7 +1299,7 @@ export const es = {
   [tokens.form.pasteText]: 'Pega tu texto aquí y presiona Submit',
   [tokens.form.dimensions]: 'Ingrese las dimensiones: por ejemplo, 600A x 100L x 40P x 1000A (en mm)',
   [tokens.form.figures]: 'Figuras',
-  [tokens.form.reviseOrEdit]: 'Proporcione [quantity] revisiones de [words] palabras cada una (si se proporciona una cantidad), para el siguiente [text], que debe ser reescrito en el estilo [style] seleccionado y con el tono [mood] seleccionado..',
+  [tokens.form.reviseOrEdit]: 'Proporcione [quantity] revisiones para el siguiente [text], para ser reescrito en el estilo [style] seleccionado.',
   [tokens.form.uniQuestion]: 'Proporcione una respuesta para esta pregunta universitaria: [question].',
   [tokens.form.imagePrompts]: 'Crea una imagen de [extra] .',
   [tokens.form.blibicalPrompts]: 'Proporciona una lista de dónde se pueden encontrar las historias de [figure], en la Biblia. También proporciona un resumen de estas.\'.',

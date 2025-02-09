@@ -118,9 +118,9 @@ export const Editor: FC = () => {
 
   const [text, setText] = useState<string>('');
   const [style, setStyle] = useState<string>('');
-  const [mood, setMood] = useState<string>('');
+
   const [title, setTitle] = useState<string>('');
- const [words, setWords] = useState<string>('');
+
   const [quantity, setQuantity] = useState<number>(2);
   const [prompt, setPrompt] = useState<string>('');
 
@@ -155,24 +155,25 @@ export const Editor: FC = () => {
 
 
   useEffect(() => {
-    if (mood && style && quantity) {
+    if (text && style && quantity) {
       let newPrompt = t(tokens.form.reviseOrEdit);
 
       const textText = text !== '' ? `${t(text)} ` : '';
-      const moodText = mood !== '' ? `${t(mood)} ` : '';
+
       const styleText = style !== '' ? `${t(style)} ` : '';
-      const wordsText = words !== '' ? `${t(words)} ` : '';
+
 
       const textWords = textText.split(' ');
       const title = textWords.slice(0, 3).join(' ');
 
+      const wordCount = textWords.length;
 
       // Replace placeholders with the actual values
       newPrompt = newPrompt
         .replace('[text]', textText)
-        .replace('[mood]', moodText)
+
         .replace('[style]', styleText)
-        .replace('[words]', wordsText)
+        .replace('[words]', `${wordCount}`) // Dynamically insert word count
         .replace('[quantity]', quantity.toString());
 
       // Remove any trailing commas and spaces
@@ -184,12 +185,7 @@ export const Editor: FC = () => {
       setPrompt('');
       setTitle('');
     }
-  }, [text, mood, style, words, quantity, t]);
-
-
-
-
-
+  }, [text,  style, quantity, t]);
 
 
 
@@ -215,22 +211,7 @@ export const Editor: FC = () => {
             rows={10}
           />
 
-          <TextField
-            fullWidth
-            label={t(tokens.form.mood)}
-            name="mood"
-            select
-            SelectProps={{native: true}}
-            value={mood}
-            onChange={(e) => setMood(e.target.value)}
 
-          >
-            {moodOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {t(option.label)} {/* Apply translation here */}
-              </option>
-            ))}
-          </TextField>
 
           <TextField
             fullWidth
@@ -248,16 +229,7 @@ export const Editor: FC = () => {
             ))}
           </TextField>
 
-          <TextField
-            fullWidth
-            label={t(tokens.form.howManyWords)}
-            name="words"
-            value={words}
-            onChange={(e) => setWords(e.target.value)}
-            multiline
-            rows={1}
-          >
-          </TextField>
+
           <div
             style={{display: 'flex', justifyContent: 'center', width: '100%', paddingTop: '20px'}}>
             <label>{t(tokens.form.Quantity)}</label>
@@ -265,6 +237,7 @@ export const Editor: FC = () => {
           <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
             <CustomSlider
               value={quantity}
+              name="quantity"
               min={1}
               max={10}
               step={1}
