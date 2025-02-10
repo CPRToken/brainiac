@@ -626,7 +626,7 @@ export const en = {
   [tokens.form.govPositionPrompts]: 'Provide a comprehensive detailed summary for Government position: [position], based on country: [country]\'s, constitution.',
   [tokens.form.startABusinessPrompts]: 'Provide a comprehensive business plan based on the available information: Industry: [industry], Business Idea: [typeofBusiness], for a [blueOrWhite] worker, that prefers to work [inOrOut], that has the following skillset: [skills], that has these Interests: [interests], Field Experience: [fieldExperience], and that has a target market of [targetMarket], but if they leave the field [targetMarket] empty, please provide them with a list of their possible target market. And the user has a Budget of: [budget].',
   [tokens.form.createWhatPrompts]:'Provide comprehensive instructions on how to make a [what] with [dimensions] dimensions and a difficulty level of [difficulty].',
-  [tokens.form.reviseOrEdit]: 'Provide [quantity] revisions for the following [text], to be rewritten in the selected [style] style.',
+  [tokens.form.reviseOrEdit]: 'Provide [quantity] revisions for the following [text], to be rewritten in the selected [style] style and [mood].',
   [tokens.form.bookSummary]: 'Write a book summary for [title], written by [author], summarizing the book into the chosen [length] summary length and focused on or including [extra].\n Please leave out the certiainly part.',
   [tokens.form.replicaPrompts]:'Create replica forms or tokens, of the template pasted in [text], using the provided names [list] in the list.',
     [tokens.form.stockPrompts]: 'Provide predictions and analysis for [stock] stocks with a budget of [duration]. Include trends, performance forecasts, and key financial indicators.',

@@ -118,7 +118,7 @@ export const Editor: FC = () => {
 
   const [text, setText] = useState<string>('');
   const [style, setStyle] = useState<string>('');
-
+  const [mood, setMood] = useState<string>('');
   const [title, setTitle] = useState<string>('');
 
   const [quantity, setQuantity] = useState<number>(2);
@@ -155,11 +155,11 @@ export const Editor: FC = () => {
 
 
   useEffect(() => {
-    if (text && style && quantity) {
+    if (text && mood && style && quantity) {
       let newPrompt = t(tokens.form.reviseOrEdit);
 
       const textText = text !== '' ? `${t(text)} ` : '';
-
+      const moodText = mood !== '' ? `${t(mood)} ` : '';
       const styleText = style !== '' ? `${t(style)} ` : '';
 
 
@@ -171,7 +171,7 @@ export const Editor: FC = () => {
       // Replace placeholders with the actual values
       newPrompt = newPrompt
         .replace('[text]', textText)
-
+        .replace('[mood]', moodText)
         .replace('[style]', styleText)
         .replace('[words]', `${wordCount}`) // Dynamically insert word count
         .replace('[quantity]', quantity.toString());
@@ -185,7 +185,7 @@ export const Editor: FC = () => {
       setPrompt('');
       setTitle('');
     }
-  }, [text,  style, quantity, t]);
+  }, [text, mood,  style, quantity, t]);
 
 
 
@@ -210,6 +210,22 @@ export const Editor: FC = () => {
             multiline
             rows={10}
           />
+          <TextField
+            fullWidth
+            label={t(tokens.form.mood)}
+            name="mood"
+            select
+            SelectProps={{native: true}}
+            value={mood}
+            onChange={(e) => setMood(e.target.value)}
+
+          >
+            {moodOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {t(option.label)} {/* Apply translation here */}
+              </option>
+            ))}
+          </TextField>
 
 
 
