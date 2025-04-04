@@ -1,3 +1,4 @@
+//pages/dashboard/images/index.tsx
 import React, {useState, useEffect, useCallback, MouseEvent, ChangeEvent, useMemo} from 'react';
 import type { NextPage } from 'next';
 import Container from '@mui/material/Container';
@@ -240,6 +241,15 @@ const Page: NextPage = () => {
         <Container maxWidth="xl"> {/* Standardized maxWidth */}
           <Stack spacing={1}>
             <Typography variant="h3">{t(tokens.headings.myImages)}</Typography>
+            <div>
+              <Typography
+                variant="body2"
+                sx={{ paddingTop: '30px', paddingBottom: '30px' }}
+              >
+                {t(tokens.form.deleteImages)}
+              </Typography>
+
+            </div>
           </Stack>
           <Divider sx={{ my: 4 }} />
           <Grid container spacing={2} justifyContent="center">

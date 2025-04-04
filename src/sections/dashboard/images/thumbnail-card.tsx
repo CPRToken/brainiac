@@ -1,3 +1,4 @@
+//sections/dashboard/images/thumbnail-card.tsx
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
@@ -17,19 +18,16 @@ import type { Item } from 'src/types/file-manager';
 import { bytesToSize } from 'src/utils/bytes-to-size';
 import { ImagesMenu } from './images-menu';
 
-
 interface ThumbnailCardProps {
   item: Item;
   imageUrls?: string;
   onDelete?: (itemId: string) => void;
   onFavorite?: (itemId: string, value: boolean) => void;
   onOpen?: () => void;
-
 }
 
-
 export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
-  const {  imageUrls, item, onDelete, onOpen } = props;
+  const { imageUrls, item, onDelete, onOpen } = props;
   const uid = item.uid;
   const popover = usePopover<HTMLButtonElement>();
 
@@ -39,13 +37,10 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
   }, [item, popover, onDelete]);
 
   let size = bytesToSize(item.size);
-
   if (item.type === 'folder') {
     size += `• ${item.itemsCount} items`;
   }
-
   const createdAt = item.createdAt ? format(new Date(item.createdAt), 'dd MMM, yyyy') : 'N/A';
-
 
   return (
     <>
@@ -71,68 +66,46 @@ export const ThumbnailCard: FC<ThumbnailCardProps> = (props) => {
           direction="row"
           justifyContent="space-between"
           spacing={3}
-          sx={{
-            pt: 1,
-            px: 2,
-          }}
+          sx={{ pt: 1, px: 2 }}
         >
           {imageUrls && (
             <Image
-              src={imageUrls} // Use imageUrls here
+              src={imageUrls}
               alt="Thumbnail"
-              width={1024} // Width of the image
-              height={1024} // Height of the image
+              width={1024}
+              height={1024}
               layout="responsive"
-              onClick={onOpen} // This line makes the image clickable and will call the onOpen function when clicked
+              onClick={onOpen}
             />
           )}
         </Stack>
         <Box sx={{ p: 2 }}>
-
-
           <Divider sx={{ my: 1 }} />
-          <Stack
-            alignItems="center"
-            direction="row"
-            justifyContent="space-between"
-            spacing={1}
-          >
-
-            <div>
-
-
-            </div>
+          <Stack alignItems="center" direction="row" justifyContent="space-between" spacing={1}>
+            <div></div>
           </Stack>
-          <Typography
-            color="text.secondary"
-            variant="caption"
-          >
-
-          </Typography>
+          <Typography color="text.secondary" variant="caption"></Typography>
         </Box>
-        <IconButton
-          onClick={popover.handleOpen}
-          ref={popover.anchorRef}
-        >
+        <IconButton onClick={popover.handleOpen} ref={popover.anchorRef}>
           <SvgIcon fontSize="small">
             <DotsVerticalIcon />
           </SvgIcon>
         </IconButton>
-
       </Card>
       <ImagesMenu
         anchorEl={popover.anchorRef.current}
         onClose={popover.handleClose}
         onDelete={handleDelete}
         open={popover.open}
-        uid={uid} // Add this
-        fileName={item.name} // Assuming the file name is item.name
-        storage={storage} // Import and use the storage instance
+        uid={uid}
+        fileName={item.name}
+        storage={storage}
+        imageUrl={imageUrls || ''} // Passing imageUrl for download
       />
-
     </>
   );
 };
+
 
 ThumbnailCard.propTypes = {
   // @ts-ignore

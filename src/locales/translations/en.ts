@@ -21,6 +21,7 @@ export const en = {
   [tokens.headings.TimeIsMoney]: 'Time is Money',
   [tokens.headings.KnowIsPower]: 'Knowledge is Power',
   [tokens.headings.general]: 'General',
+  [tokens.headings.contentDetector]: 'Content Detector',
   [tokens.headings.tocs]: 'Terms & Conditions',
   [tokens.headings.joinTwoThousand]: 'Join 2000+ users today',
   [tokens.headings.myGenContent]: 'My Generated Content',
@@ -227,6 +228,7 @@ export const en = {
   [tokens.form.translationIdiom]: 'Select the language you want the idiom in',
   [tokens.form.idiomInstructions]: 'Ever womdered how an idiom would sound in another language? Or that idiom\'s equivalent in another country?',
   [tokens.form.idiomTranslationPrompts]: 'Translate this idiom [idiom] or its equivalent, into [translationLanguage]',
+  [tokens.form.detectorPrompts]: 'rewrite the below [text] to pass AI detectors, like https://copyleaks.com/ai-content-detector',
   [tokens.form.chatInstructions]: 'Ask away',
   [tokens.form.songTitle]: 'Give your song a name or title',
   [tokens.form.youtube]: 'YouTube',
@@ -448,6 +450,7 @@ export const en = {
   [tokens.form.PanelDiscussion]: 'Panel Discussion',
   [tokens.form.Toast]: 'Toast',
   [tokens.form.type]: 'Type',
+  [tokens.form.detector]: 'Detector',
   [tokens.form.pasteCode]: 'Paste your code here',
   [tokens.form.codeTranslate]: 'To translate your code into another scripting language, please paste your code below and select the desired language.',
   [tokens.form.imageInstructions]: 'Select the desired options to generate an image. Choose an artist, a visual style, a theme & an object.\nSelect \'No Artist\' for realistic looking images.\n' +
@@ -1115,7 +1118,7 @@ export const en = {
   [tokens.form.Nostalgic]: 'Nostalgic',
   [tokens.form.Energetic]: 'Energetic',
     [tokens.form.era]: 'Era',
-
+  [tokens.form.downloadImage]: 'Download Image',
   [tokens.form.health]: 'Health',
    [tokens.form.artificialIntelligence]: 'AI',
     [tokens.form.engaging]: 'Engaging',
@@ -1184,7 +1187,7 @@ export const en = {
     [tokens.form.writePoem]: 'Compose a [duration] word [genre] poem, whilst capturing the essence and style reminiscent of [poet], in a[mood] mood,  without mentioning the poet\'s name.',
 
   [tokens.form.extraInfo]: 'Any addiontal information would help generate a more accurate image.',
-
+  [tokens.form.deleteImages]: 'It is highly recommended that you download your favorite images to your PC by clicking on the 3 dots and selecting \'download\' for safe keeping, and delete the images you do not want to free up space',
     [tokens.form.writeStory]: 'Compose a [genre] story for children, styled after [author], spanning [duration] words, infused with a[mood] mood, and crafted in a[style] style, without mentioning the author\'s name.',
   [tokens.form.yourValuation]: 'Your Valuation',
         [tokens.form.writeItinerary]: 'write an itinerary for a [style] trip to [destination] using [mode] travel, with a budget of [budget]',
@@ -1195,7 +1198,7 @@ export const en = {
   [tokens.form.realEstatePrompts]: 'Create a comprehensive property valuation in USD, using the following details:\n Property Type [propertyType]\n Country: [country]\n State: [state],\n City: [city],\n Street: [street],\n Postcode: [postCode], \n Property age: [age].\n Property information: [place].\n Additionally, based on local data analysis: [propertyData].',
   [tokens.form.uniQuestion]: 'Provide an answer for this university question: [question]',
   [tokens.form.translationPrompts]: 'Translate the following [text], to [translationLanguage].',
-    [tokens.form.imagePrompts]: 'Create an image with the following [extra] prompts.',
+    [tokens.form.imagePrompts]: 'Create an image with the following prompts: Object: [object], Artist: [artist], Style: [style], Theme: [theme] and any extra [extra] additional info if entered, .',
     [tokens.form.createCocktail]: 'Create a [alcohol] [cocktail] with [mixer] and [garnish] , that is [sweetness]',
   [tokens.form.createRecipe]: 'Create an [country] [dish] dish with [protein] and [garnish], that is [spiciness] ',
     [tokens.form.createDessert]: 'Create a [country] [dish] dessert, with [base] and [toppings], that is [spiciness]',

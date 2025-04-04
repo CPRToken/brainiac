@@ -2,9 +2,15 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: [
-      'firebasestorage.googleapis.com',
-      'oaidalleapiprodscus.blob.core.windows.net' // Add this domain
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'oaidalleapiprodscus.blob.core.windows.net',
+      },
     ],
   },
   webpack(config) {

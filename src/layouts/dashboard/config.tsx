@@ -153,6 +153,8 @@ export const useSections = () => {
                   { title: t(tokens.headings.govPositions), path: paths.dashboard.govPositions },
                   { title: t(tokens.headings.templateReplicator), path: paths.dashboard.templateReplicator },
                   { title: t(tokens.headings.codeConverter), path: paths.dashboard.codeConverter },
+                  { title: t(tokens.headings.contentDetector), path: paths.dashboard.detector },
+
                 ],
               },
               {

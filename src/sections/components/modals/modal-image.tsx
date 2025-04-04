@@ -1,21 +1,46 @@
 import { Box, Paper, Stack, Typography, IconButton, SvgIcon } from '@mui/material';
 import { FC } from 'react';
-import XIcon from '@untitled-ui/icons-react/build/esm/X'; // Assuming the path is correct
+import XIcon from '@untitled-ui/icons-react/build/esm/X';
+import { tokens } from 'src/locales/tokens';
+import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
 
 interface ImageViewerProps {
   imageUrl: string;
-  onClose?: () => void; // Optional close function if you wish to pass one in
+  onClose?: () => void;
 }
 
-
 export const ImageViewer: FC<ImageViewerProps> = ({ imageUrl, onClose }) => {
-  return (
-    <Box
-      sx={{
 
-      }}
-    >
+
+
+
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+
+      // Extract the file name from the URL before the '?' and decode it
+      const fileNameWithQuery = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+      const fileName = decodeURIComponent(fileNameWithQuery.split('?')[0]);
+
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
+  };
+
+  const { t } = useTranslation();
+
+  return (
+    <Box>
       <Paper
         elevation={12}
         sx={{
@@ -32,16 +57,14 @@ export const ImageViewer: FC<ImageViewerProps> = ({ imageUrl, onClose }) => {
           alignItems="center"
           direction="row"
           spacing={1}
-          sx={{
-            px: 2,
-            py: 1,
-          }}
+          sx={{ px: 2, py: 1 }}
         >
           <Typography
-            sx={{ flexGrow: 1 }}
+            sx={{ flexGrow: 1, textAlign: 'center', cursor: 'pointer' }}
             variant="h6"
+            onClick={handleDownload}
           >
-           <center> Click to Print</center>
+            {t(tokens.form.downloadImage)}
           </Typography>
           <IconButton onClick={onClose}>
             <SvgIcon>
@@ -52,13 +75,11 @@ export const ImageViewer: FC<ImageViewerProps> = ({ imageUrl, onClose }) => {
         <Image
           src={imageUrl}
           alt="Modal content"
-          width={1024}  // Width of the image
-          height={1024} // Height of the image
+          width={1024}
+          height={1024}
           layout="responsive"
         />
       </Paper>
     </Box>
   );
-}
-
-
+};

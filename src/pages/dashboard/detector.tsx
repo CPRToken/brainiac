@@ -7,10 +7,9 @@ import {tokens} from "src/locales/tokens";
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { usePageView } from 'src/hooks/use-page-view';
-import { BookSummariser } from 'src/sections/components/forms/book-summariser';
+import { Detector } from 'src/sections/components/forms/detector';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import React from "react";
 
 
 const Page: NextPage = () => {
@@ -18,10 +17,10 @@ const Page: NextPage = () => {
 
   const { t } = useTranslation();
 
-
   return (
     <>
-      <Seo title={t(tokens.headings.bookSummariser)} />
+      <Seo title={t(tokens.headings.editor)} />
+
       <Box
         component="main"
         sx={{
@@ -52,7 +51,7 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                    variant="h5">{t(tokens.headings.bookSummariser)}</Typography>
+                    variant="h5">{t(tokens.headings.contentDetector)}</Typography>
                 </div>
 
                 <Stack
@@ -68,7 +67,7 @@ const Page: NextPage = () => {
               xs={12}
               md={9}
               sx={{
-                paddingLeft: 4, // Add padding here
+                paddingLeft: 2, // Add padding here
                 // Or if you prefer margin: marginLeft: 2
               }}
             >
@@ -79,7 +78,7 @@ const Page: NextPage = () => {
                 }}
               >
                 <Box paddingTop={4}>
-                  <BookSummariser/>
+                  <Detector />
                 </Box>
               </Stack>
             </Grid>

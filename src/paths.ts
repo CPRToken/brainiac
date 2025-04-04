@@ -105,6 +105,7 @@ lyricWriter: '/dashboard/lyric-writer',
     idiomTranslator: '/dashboard/idiom-translator',
     govPositions: '/dashboard/government-positions',
     articulate: '/dashboard/articulate',
+    detector: '/dashboard/detector',
 
     chatGPT: '/dashboard/chatgpt',
     customers: {
