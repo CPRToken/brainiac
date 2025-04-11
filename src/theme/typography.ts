@@ -1,3 +1,4 @@
+//src/theme/typography.ts
 import { Inter, Open_Sans, Oswald, Montserrat  } from 'next/font/google';
 
 // ----------------------------------------------------------------------

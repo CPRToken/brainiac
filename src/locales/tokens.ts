@@ -585,7 +585,7 @@ headings: {
         webDevelopment: 'form.webDevelopment',
         customerRelationshipManagementCrm: 'form.customerRelationship',
         none: 'form.none',
-
+      thankYouSubscribe: 'form.thankYouSubscribe',
         technology: 'form.technology',
       finance: 'form.finance',
       retail: 'form.retail',

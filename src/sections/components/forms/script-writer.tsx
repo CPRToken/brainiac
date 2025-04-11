@@ -78,10 +78,9 @@ const moodOptions: Option[] = [
   { label: tokens.form.Dramatic, value: tokens.form.Dramatic },
   // ... add more as needed
 ];
+
 export const ScriptWriter: FC = () => {
   useProtectedPage();
-
-
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [title, setTitle] = useState<string>('');
@@ -91,21 +90,18 @@ export const ScriptWriter: FC = () => {
   const [notes, setNotes] = useState<string>('');
   const [duration, setDuration] = useState<number>(30);
   const [prompt, setPrompt] = useState<string>('');
+  // New state for character count and details
+  const [characterCount, setCharacterCount] = useState<number>(1);
+  const [characterDetails, setCharacterDetails] = useState<string[]>([]);
+
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
-
 
   const submitToOpenAI = () => {
     const maxTokens = 4000;
     if (prompt) {
-      // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
-        .then(() => {
-          // Handle successful submission if needed
-        })
-        .catch(error => {
-          console.error("Error submitting to OpenAI:", error);
-        });
+        .catch(error => console.error("Error submitting to OpenAI:", error));
     } else {
       console.error("Prompt is empty or not updated, cannot submit.");
     }
@@ -114,35 +110,46 @@ export const ScriptWriter: FC = () => {
   useEffect(() => {
     if (genre && style && mood && duration) {
       let newPrompt = t(tokens.form.writeScript);
-
-
-        const titleText = title !== '' ? `${t(title)} ` : '';
-        const genreText = genre !== '' ? `${t(genre)} ` : '';
+      const titleText = title !== '' ? `${t(title)} ` : '';
+      const genreText = genre !== '' ? `${t(genre)} ` : '';
       const styleText = style !== '' ? `${t(style)} , ` : '';
       const moodText = mood !== '' ? `${t(mood)} , ` : '';
       const notesText = notes !== '' ? `${t(notes)} ` : '';
 
+      // Optionally include character details in the prompt
+      const charactersText = characterDetails.length > 0
+        ? characterDetails.map((detail, index) => `Character ${index + 1}: ${detail}`).join(' | ')
+        : '';
 
-        newPrompt = newPrompt
-          .replace('[title]', titleText)
-          .replace('[genre]', genreText)
-          .replace('[style]', styleText)
-          .replace('[mood]', moodText)
-          .replace('[notes]', notesText)
-
+      newPrompt = newPrompt
+        .replace('[title]', titleText)
+        .replace('[genre]', genreText)
+        .replace('[style]', styleText)
+        .replace('[mood]', moodText)
+        .replace('[notes]', notesText) + (charactersText ? ` ${charactersText}` : '');
 
       setPrompt(newPrompt.trim());
     } else {
       setPrompt('');
     }
-  }, [genre, style, mood, notes, duration, t]);
+  }, [genre, style, mood, notes, duration, characterDetails, t, title]);
 
+  // Options for number of characters
+  const characterCountOptions = [1, 2, 4];
 
+  // Update characterDetails state when count changes
+  useEffect(() => {
+    setCharacterDetails(Array(characterCount).fill(''));
+  }, [characterCount]);
 
+  const handleCharacterDetailChange = (index: number, value: string) => {
+    const details = [...characterDetails];
+    details[index] = value;
+    setCharacterDetails(details);
+  };
 
   return (
     <Box sx={{ p: 2, height: 'auto', minHeight: '500px', maxWidth: '800px', margin: 'auto' }}>
-
       <Stack spacing={3}>
         <TextField
           fullWidth
@@ -152,8 +159,7 @@ export const ScriptWriter: FC = () => {
           onChange={(e) => setTitle(e.target.value)}
           multiline
           rows={1}
-        >
-        </TextField>
+        />
         <TextField
           fullWidth
           label={t(tokens.form.genre)}
@@ -165,7 +171,7 @@ export const ScriptWriter: FC = () => {
         >
           {genreOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {t(option.label)} {/* Apply translation here */}
+              {t(option.label)}
             </option>
           ))}
         </TextField>
@@ -180,7 +186,7 @@ export const ScriptWriter: FC = () => {
         >
           {styleOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {t(option.label)} {/* Apply translation here */}
+              {t(option.label)}
             </option>
           ))}
         </TextField>
@@ -195,10 +201,39 @@ export const ScriptWriter: FC = () => {
         >
           {moodOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {t(option.label)} {/* Apply translation here */}
+              {t(option.label)}
             </option>
           ))}
         </TextField>
+        {/* New dropdown for number of characters */}
+        <TextField
+          fullWidth
+          label="Number of Characters"
+          name="characterCount"
+          select
+          SelectProps={{ native: true }}
+          value={characterCount}
+          onChange={(e) => setCharacterCount(Number(e.target.value))}
+        >
+          {characterCountOptions.map((count) => (
+            <option key={count} value={count}>
+              {count}
+            </option>
+          ))}
+        </TextField>
+        {/* Conditionally render text boxes for each character */}
+        {Array.from({ length: characterCount }, (_, index) => (
+          <TextField
+            key={index}
+            fullWidth
+            label={`Character ${index + 1} Details`}
+            name={`characterDetail${index}`}
+            value={characterDetails[index] || ''}
+            onChange={(e) => handleCharacterDetailChange(index, e.target.value)}
+            multiline
+            rows={2}
+          />
+        ))}
         <TextField
           fullWidth
           label={t(tokens.form.notesText)}
@@ -208,8 +243,7 @@ export const ScriptWriter: FC = () => {
           multiline
           rows={3}
         />
-
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', paddingTop: '10px' }}>
           <label>{t(tokens.form.duration)}</label>
         </div>
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
@@ -221,9 +255,6 @@ export const ScriptWriter: FC = () => {
             onChange={(_, newValue) => setDuration(newValue as number)}
           />
         </div>
-
-
-
       </Stack>
       <Box sx={{ mt: 3 }}>
         <Button
@@ -236,31 +267,27 @@ export const ScriptWriter: FC = () => {
           {isLoading ? <CircularProgress size={24} /> : 'Submit'}
         </Button>
       </Box>
-
-
       {openAIResponse && (
-        <Box sx={{mt: 3}}>
-
+        <Box sx={{ mt: 3 }}>
           <label>{t(tokens.form.yourScript)}</label>
           <Button onClick={handleCopyText} title="Copy response text">
-            <FileCopyIcon/>
+            <FileCopyIcon />
           </Button>
-
           <Paper elevation={3} ref={textRef}
-                 style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
+                 style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
             {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
-                {index < array.length - 1 ? <br/> : null}
+                {index < array.length - 1 ? <br /> : null}
               </React.Fragment>
             ))}
           </Paper>
-          <div style={{textAlign: 'center', paddingTop: '20px'}}>
+          <div style={{ textAlign: 'center', paddingTop: '20px' }}>
             <Button
               variant="contained"
               color="primary"
               onClick={() => saveDoc(openAIResponse, title, t(tokens.form.screenPlays))}
-              style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
+              style={{ marginTop: '20px', width: '200px' }}
             >
               {t(tokens.form.saveText)}
             </Button>
@@ -268,8 +295,5 @@ export const ScriptWriter: FC = () => {
         </Box>
       )}
     </Box>
-
-
   );
 };
-

@@ -1,6 +1,5 @@
-import type { FC, ReactNode } from 'react';
-import PropTypes from 'prop-types';
-
+//src/layouts/dashboard/layout.tsx
+import { FC, ReactNode } from 'react';
 import { withAuthGuard } from 'src/hocs/with-auth-guard';
 import { useSettings } from 'src/hooks/use-settings';
 
@@ -9,7 +8,7 @@ import { HorizontalLayout } from './horizontal-layout';
 import { VerticalLayout } from './vertical-layout';
 
 interface LayoutProps {
-  children?: ReactNode;
+  children?: ReactNode;  // TypeScript will handle this
 }
 
 export const Layout: FC<LayoutProps> = withAuthGuard((props) => {
@@ -18,23 +17,19 @@ export const Layout: FC<LayoutProps> = withAuthGuard((props) => {
 
   if (settings.layout === 'horizontal') {
     return (
-        <HorizontalLayout
-            sections={sections}
-            navColor={settings.navColor}
-            {...props}
-        />
+      <HorizontalLayout
+        sections={sections}
+        navColor={settings.navColor}
+        {...props}
+      />
     );
   }
 
   return (
-      <VerticalLayout
-          sections={sections}
-          navColor={settings.navColor}
-          {...props}
-      />
+    <VerticalLayout
+      sections={sections}
+      navColor={settings.navColor}
+      {...props}
+    />
   );
 });
-
-Layout.propTypes = {
-  children: PropTypes.node,
-};

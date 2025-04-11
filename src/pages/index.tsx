@@ -5,7 +5,7 @@ import { Layout as MarketingLayout } from 'src/layouts/marketing';
 
 import { HomeCta } from 'src/sections/home/home-cta';
 import { HomeHero } from 'src/sections/home/home-hero';
-
+import PricingSection from  'src/pages/pricing'
 
 
 
@@ -21,7 +21,7 @@ const Page: NextPage = () => {
 
         <HomeHero />
         <HomeCta />
-
+<PricingSection/>
 
       </main>
     </>

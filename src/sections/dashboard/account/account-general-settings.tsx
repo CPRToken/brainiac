@@ -140,12 +140,26 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
                 <Stack alignItems="flex-start" direction="row" justifyContent="space-between" spacing={3}>
                   <Stack spacing={1}>
                     <Typography variant="subtitle1">{t(tokens.form.toCancel)}</Typography>
-                    <Box sx={{ mt: 2 }}>
+                    <Button
+                      variant="outlined"
+                      onClick={async () => {
+                        const res = await fetch('/api/create-portal-session', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ uid }),
+                        });
 
-                      <a href="https://billing.stripe.com/p/login/6oE29f7vj5sL4a4fYY" target="_blank" rel="noopener noreferrer">
-                        {t(tokens.form.clickHere)}
-                      </a>
-                    </Box>
+                        const data = await res.json();
+                        if (data.url) {
+                          window.location.href = data.url;
+                        } else {
+                          alert('Failed to open billing portal.');
+                        }
+                      }}
+                    >
+                      {t(tokens.form.clickHere)}
+                    </Button>
+
                   </Stack>
 
                 </Stack>

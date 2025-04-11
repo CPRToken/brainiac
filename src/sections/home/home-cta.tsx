@@ -28,7 +28,7 @@ export const HomeCta: FC = () => {
             sx={{
               ...typography.h4,
               pb: 2,
-              mb: { xs: 1, sm: 2, md: 3, lg: 4 }, // Responsive margin-bottom
+              mb: { xs: 1, sm: 2, md: 3, lg: 2 }, // Responsive margin-bottom
               mt: { xs: 0, sm: 2, md: 3, lg: 4 }, // Responsive margin-top
             }}
           >
@@ -138,34 +138,7 @@ export const HomeCta: FC = () => {
         </Grid>
 
 
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            mt: 6, pt: 6,
-          }}
-        >
-          <Button
-            component="a"
-            href="/auth/firebase/register"
-            variant="contained"
-            color="primary"
-            sx={{
-              width: {
-                xs: '100%',
-                sm: '50%',
-                md: '30%',
-                lg: '30%',
-              },
-              display: 'inline-block',
 
-              ml: 0, // Aligns the button to the left
-            }}
-          >
-            <Typography sx={{ ...typography.body1, color: 'text.primary', textAlign: 'center', textDecoration: 'none'  }}>   {t(tokens.nav.startFreeTrial)}
-            </Typography>
-          </Button>
-        </Box>
       </Container>
     </Box>
   );

@@ -1,12 +1,11 @@
-// pages/api/stripe-webhook.ts
+// pages/api/test-webhook.ts
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import Stripe from 'stripe';
 import admin from 'src/libs/firebaseAdmin';
 import { Readable } from 'stream';
-import { getPriceId } from 'src/utils/getPriceId';
 
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const stripeSecretKey = process.env.STRIPE_TEST_SECRET_KEY;
+const stripeWebhookSecret = process.env.STRIPE_TEST_WEBHOOK_SECRET;
 
 if (!stripeSecretKey || !stripeWebhookSecret) {
   throw new Error('Stripe keys are not defined');
@@ -35,10 +34,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     switch (event.type) {
-      case 'checkout.session.completed':
+      case 'checkout.session.completed': {
         console.log('Handling checkout.session.completed event');
-        await handleCheckoutSessionCompleted(event.data.object as Stripe.Checkout.Session);
+        const sessionId = (event.data.object as any).id;
+        const fullSession = await stripe.checkout.sessions.retrieve(sessionId, {
+          expand: ['customer'],
+        }) as Stripe.Checkout.Session & { customer: Stripe.Customer | Stripe.DeletedCustomer };
+        await handleCheckoutSessionCompleted(fullSession);
         break;
+      }
       case 'customer.subscription.created':
         console.log('Handling customer.subscription.created event');
         await handleSubscriptionCreated(event.data.object as Stripe.Subscription);
@@ -47,6 +51,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         console.log('Handling customer.subscription.deleted event');
         await handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
         break;
+
+      case 'customer.subscription.updated':
+        console.log('Handling customer.subscription.updated event');
+        await handleSubscriptionCreated(event.data.object as Stripe.Subscription);
+        break;
+
       default:
         console.log('Unhandled event type:', event.type);
     }
@@ -67,18 +77,41 @@ async function streamToBuffer(stream: Readable): Promise<Buffer> {
   });
 }
 
-async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
-  const stripeCustomerId = session.customer as string;
+async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session & { customer: Stripe.Customer | Stripe.DeletedCustomer }) {
+  const stripeCustomerId = typeof session.customer === 'string' ? session.customer : session.customer.id;
   const priceId = session.metadata?.priceId;
+  const userId = session.metadata?.uid;
+  const email = session.metadata?.email;
 
-  if (!stripeCustomerId || !priceId) {
-    console.error('Customer ID or Price ID is missing in metadata.');
-    throw new Error('Customer ID or Price ID is missing in metadata.');
+  if (!stripeCustomerId || !priceId || !userId || !email) {
+    console.error('Missing customer ID, price ID, email, or UID');
+    throw new Error('Missing required metadata');
   }
 
-  const plan = getPriceId(priceId);
-  await updateUserPlan(stripeCustomerId, plan, priceId);
-  console.log(`User plan updated for ${stripeCustomerId} to ${plan} with price ${priceId}`);
+  const plan = productIdToPlan(priceId);
+  const db = admin.firestore();
+  const userRef = db.collection('users').doc(userId);
+  const userDoc = await userRef.get();
+
+  try {
+    if (!userDoc.exists) {
+      await userRef.set({
+        uid: userId,
+        email,
+        plan,
+        priceId,
+        stripeCustomerId,
+        role: 'User',
+        creationDate: admin.firestore.FieldValue.serverTimestamp(),
+      });
+      console.log(`Created new user ${email} in Firestore`);
+    } else {
+      await userRef.update({ plan, priceId });
+      console.log(`Updated existing user ${email} plan to ${plan}`);
+    }
+  } catch (error: any) {
+    console.error('Failed to create/update user in Firestore:', error);
+  }
 }
 
 async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
@@ -90,7 +123,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
     throw new Error('Customer ID or Price ID is missing in subscription data.');
   }
 
-  const plan = getPriceId(priceId);
+  const plan = productIdToPlan(priceId);
   await updateUserPlan(stripeCustomerId, plan, priceId);
   console.log(`Subscription created for ${stripeCustomerId} with plan ${plan}`);
 }
@@ -115,7 +148,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 
   const userDoc = querySnapshot.docs[0];
   const userEmail = userDoc.data().email as string;
-  const plan = getPriceId(priceId);
+  const plan = productIdToPlan(priceId);
 
   try {
     await userDoc.ref.update({ plan, priceId });
@@ -163,6 +196,20 @@ async function updateUserPlan(stripeCustomerId: string, plan: string, priceId: s
     console.error(`Failed to update Firestore for customer ID: ${stripeCustomerId}`, error);
     throw new Error('Failed to update user plan');
   }
+}
+
+function productIdToPlan(priceId: string): string {
+  const priceToPlan: Record<string, string> = {
+    'price_1PgQI4I7exj9oAo949UmThhH': 'Basic',
+    'price_1PgQJsI7exj9oAo9mUdbE0ZX': 'Premium',
+    'price_1PgQKSI7exj9oAo9acr903Ka': 'Business',
+    'price_1PjDoqI7exj9oAo95jqY8uSw': 'BasicYearly',
+    'price_1PjDpjI7exj9oAo9UkvkaR6x': 'PremiumYearly',
+    'price_1PjDr8I7exj9oAo9lm4zAEDn': 'BusinessYearly',
+    'price_canceled': 'Canceled'
+  };
+
+  return priceToPlan[priceId] || 'Unknown';
 }
 
 export default handler;

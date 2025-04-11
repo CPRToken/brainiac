@@ -1,5 +1,5 @@
-// Remove if react-quill is not used
-import 'react-quill/dist/quill.snow.css';
+//media/src/pages/_app.tsx
+
 // Remove if react-draft-wysiwyg is not used
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 // Remove if simplebar is not used

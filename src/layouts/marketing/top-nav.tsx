@@ -231,23 +231,7 @@ export const TopNav: FC<TopNavProps> = (props) => {
               >
                   {t(tokens.headings.logIn)}
               </Button>
-            <Button
-              component="a"
-              size={mdUp ? 'medium' : 'small'}
-              href="/auth/firebase/register"
-              target=""
-              variant="outlined"
-              sx={{
-                width: mdUp ? 'auto' : '90%',
-                maxWidth: '150px',
-                marginLeft: '10px',  // Adjust the margin to create space between the buttons
-                borderColor: 'yourBorderColor',
-                borderWidth: 2,
-                fontWeight: 'bold'
-              }}
-            >
-              {t(tokens.nav.register)}
-            </Button>
+
               {!mdUp && (
               <IconButton onClick={onMobileNavOpen}>
                 <SvgIcon fontSize="small">

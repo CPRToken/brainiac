@@ -34,6 +34,3 @@ export const Layout: FC<LayoutProps> = (props) => {
   );
 };
 
-Layout.propTypes = {
-  children: PropTypes.node,
-};

@@ -90,15 +90,7 @@ const Page: NextPage = () => {
                       sx={{ flexGrow: 1, py: 2, mt: 3, mb:3 }}>
           {t(tokens.headings.success)}</Typography>
 
-          <Stack spacing={8}>
-            {profile ? (
-              <Previewer title="Subscription Details">
 
-              </Previewer>
-            ) : (
-              <Typography variant="body2">Loading your subscription details...</Typography>
-            )}
-          </Stack>
         <Success/>
         </Container>
         </Box>
