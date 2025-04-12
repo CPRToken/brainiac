@@ -23,7 +23,8 @@
 
     console.log('Request body:', req.body);
 
-    const { userId, userEmail, planName, priceId } = req.body;
+    const { userId, userEmail, planName, priceId, referrer } = req.body;
+
 
     if (!userId || !userEmail || !planName || !priceId) {
       return res.status(400).json({ error: 'Missing required fields' });
@@ -49,7 +50,8 @@
           uid: userId,
           email: userEmail,
           priceId,
-          referrer: req.body.referrer || '',
+          referrer: referrer || '',
+
 
         },
       });
