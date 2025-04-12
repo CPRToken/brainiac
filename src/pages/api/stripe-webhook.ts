@@ -86,6 +86,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   const db = admin.firestore();
   const userRef = db.collection('users').doc(userId);
   const userDoc = await userRef.get();
+  const referrer = session.metadata?.referrer || null;
 
   try {
     if (!userDoc.exists) {
@@ -95,6 +96,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
         plan,
         priceId,
         stripeCustomerId,
+        referrer, // ✅ Save it in Firestore
         role: 'User',
         creationDate: admin.firestore.FieldValue.serverTimestamp(),
       });

@@ -49,6 +49,8 @@
           uid: userId,
           email: userEmail,
           priceId,
+          referrer: req.body.referrer || '',
+
         },
       });
 

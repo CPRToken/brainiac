@@ -51,6 +51,13 @@ const Page: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
+    const ref = router.query.ref;
+    if (ref) {
+      localStorage.setItem('referrer', ref as string);
+    }
+  }, [router.query.ref]);
+
+  useEffect(() => {
     console.log('Query params:', router.query);
     if (router.query.plan && router.query.priceId && router.query.uid) {
       setPlanName(router.query.plan as string);
@@ -89,6 +96,7 @@ const Page: NextPage = () => {
         });
 
         // Call the Checkout Session API to create the Stripe checkout session.
+        const referrer = localStorage.getItem('referrer');
         const response = await fetch('/api/checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -97,6 +105,7 @@ const Page: NextPage = () => {
             userEmail: values.email,
             planName,
             priceId,
+            referrer, //
           })
         });
 
