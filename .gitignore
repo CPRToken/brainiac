@@ -13,6 +13,11 @@
 out
 .next
 
+# Ignore test Stripe files
+/src/pages/api/test-webhook.ts
+/src/utils/getTestPriceId.ts
+
+
 # misc
 .DS_Store
 .eslintcache

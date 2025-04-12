@@ -47,6 +47,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         console.log('Handling customer.subscription.deleted event');
         await handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
         break;
+      case 'customer.subscription.updated':
+        console.log('Handling customer.subscription.updated event');
+        await handleSubscriptionUpdated(event.data.object as Stripe.Subscription);
+        break;
       default:
         console.log('Unhandled event type:', event.type);
     }
@@ -70,15 +74,39 @@ async function streamToBuffer(stream: Readable): Promise<Buffer> {
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
   const stripeCustomerId = session.customer as string;
   const priceId = session.metadata?.priceId;
+  const userId = session.metadata?.uid;
+  const email = session.metadata?.email;
 
-  if (!stripeCustomerId || !priceId) {
-    console.error('Customer ID or Price ID is missing in metadata.');
-    throw new Error('Customer ID or Price ID is missing in metadata.');
+  if (!stripeCustomerId || !priceId || !userId || !email) {
+    console.error('Missing customer ID, price ID, UID or email');
+    throw new Error('Missing required metadata');
   }
 
   const plan = getPriceId(priceId);
-  await updateUserPlan(stripeCustomerId, plan, priceId);
-  console.log(`User plan updated for ${stripeCustomerId} to ${plan} with price ${priceId}`);
+  const db = admin.firestore();
+  const userRef = db.collection('users').doc(userId);
+  const userDoc = await userRef.get();
+
+  try {
+    if (!userDoc.exists) {
+      await userRef.set({
+        uid: userId,
+        email,
+        plan,
+        priceId,
+        stripeCustomerId,
+        role: 'User',
+        creationDate: admin.firestore.FieldValue.serverTimestamp(),
+      });
+      console.log(`Created new user ${email} in Firestore`);
+    } else {
+      await userRef.update({ plan, priceId });
+      console.log(`Updated existing user ${email} with new plan ${plan}`);
+    }
+  } catch (error: any) {
+    console.error('Error updating/creating user:', error);
+    throw new Error('Failed to update or create user');
+  }
 }
 
 async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
@@ -95,13 +123,29 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   console.log(`Subscription created for ${stripeCustomerId} with plan ${plan}`);
 }
 
-async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
   const stripeCustomerId = subscription.customer as string;
-  const priceId = subscription.metadata?.priceId as string;
+  const priceId = subscription.items.data[0].price.id;
+  const cancelAtPeriodEnd = subscription.cancel_at_period_end;
 
   if (!stripeCustomerId || !priceId) {
-    console.error('Customer ID or Price ID is missing in subscription data.');
-    throw new Error('Customer ID or Price ID is missing in subscription data.');
+    console.error('Customer ID or Price ID is missing in subscription update.');
+    throw new Error('Customer ID or Price ID is missing in subscription update.');
+  }
+
+  const plan = cancelAtPeriodEnd ? 'CancelPending' : getPriceId(priceId);
+  const priceToSet = cancelAtPeriodEnd ? 'price_cancel_pending' : priceId;
+
+  await updateUserPlan(stripeCustomerId, plan, priceToSet);
+  console.log(`Subscription updated for ${stripeCustomerId} - plan: ${plan}, cancel at period end: ${cancelAtPeriodEnd}`);
+}
+
+async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+  const stripeCustomerId = subscription.customer as string;
+
+  if (!stripeCustomerId) {
+    console.error('Customer ID is missing in subscription data.');
+    throw new Error('Customer ID is missing in subscription data.');
   }
 
   const db = admin.firestore();
@@ -115,21 +159,42 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 
   const userDoc = querySnapshot.docs[0];
   const userEmail = userDoc.data().email as string;
+  const priceId = 'price_canceled';
   const plan = getPriceId(priceId);
 
   try {
     await userDoc.ref.update({ plan, priceId });
-    console.log(`Successfully updated user ${stripeCustomerId} plan to ${plan} with price ${priceId}`);
-
+    console.log(`Updated user ${stripeCustomerId} plan to ${plan}`);
     await sendCancellationEmail(userEmail, plan, stripeCustomerId);
   } catch (error) {
-    console.error(`Failed to update Firestore for customer ID: ${stripeCustomerId}`, error);
+    console.error(`Failed to update Firestore for ${stripeCustomerId}`, error);
+    throw new Error('Failed to update user plan');
+  }
+}
+
+async function updateUserPlan(stripeCustomerId: string, plan: string, priceId: string | null) {
+  const db = admin.firestore();
+  const userDocRef = db.collection('users').where('stripeCustomerId', '==', stripeCustomerId);
+  const querySnapshot = await userDocRef.get();
+
+  if (querySnapshot.empty) {
+    console.error('No matching documents found for stripeCustomerId:', stripeCustomerId);
+    throw new Error('No matching documents found');
+  }
+
+  const userDoc = querySnapshot.docs[0];
+
+  try {
+    await userDoc.ref.update({ plan, priceId });
+    console.log(`Successfully updated user ${stripeCustomerId} to plan ${plan}`);
+  } catch (error: any) {
+    console.error(`Failed to update Firestore for ${stripeCustomerId}`, error);
     throw new Error('Failed to update user plan');
   }
 }
 
 async function sendCancellationEmail(email: string, plan: string, customerId: string) {
-  const response = await fetch('/api/cancelled-email', {
+  const response = await fetch('https://your-domain.com/api/cancelled-email', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ to: email, customerEmail: email, plan, stripeCustomerId: customerId }),
@@ -140,28 +205,6 @@ async function sendCancellationEmail(email: string, plan: string, customerId: st
   } else {
     const responseData = await response.json();
     console.log('Cancellation email sent successfully:', responseData);
-  }
-}
-
-async function updateUserPlan(stripeCustomerId: string, plan: string, priceId: string | null) {
-  const db = admin.firestore();
-  const userDocRef = db.collection('users').where('stripeCustomerId', '==', stripeCustomerId);
-
-  const querySnapshot = await userDocRef.get();
-  if (querySnapshot.empty) {
-    console.error('No matching documents found for stripeCustomerId:', stripeCustomerId);
-    throw new Error('No matching documents found');
-  }
-
-  const userDoc = querySnapshot.docs[0];
-
-  try {
-    console.log(`Updating Firestore for customer ${stripeCustomerId} with plan ${plan} and priceId ${priceId}`);
-    await userDoc.ref.update({ plan, priceId });
-    console.log(`Successfully updated user ${stripeCustomerId} plan to ${plan} with price ${priceId}`);
-  } catch (error: any) {
-    console.error(`Failed to update Firestore for customer ID: ${stripeCustomerId}`, error);
-    throw new Error('Failed to update user plan');
   }
 }
 
