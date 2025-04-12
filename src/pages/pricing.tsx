@@ -28,6 +28,8 @@ const PricingSection: FC = () => {
   const { t } = useTranslation();
   const [isYearly, setIsYearly] = useState(false);
 
+
+
   usePageView();
 
 
@@ -48,6 +50,14 @@ const PricingSection: FC = () => {
 
 
   const router = useRouter();
+
+  useEffect(() => {
+    const ref = router.query.ref;
+    if (ref) {
+      localStorage.setItem('referrer', ref as string);
+    }
+  }, [router.query.ref]);
+
 
   const handleCheckout = (selectedPlan: string) => {
     const priceId = getPriceId(selectedPlan);
