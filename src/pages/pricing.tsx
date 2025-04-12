@@ -62,10 +62,11 @@ const PricingSection: FC = () => {
   const handleCheckout = (selectedPlan: string) => {
     const priceId = getPriceId(selectedPlan);
     const userId = uuidv4();
+    const referrer = localStorage.getItem('referrer');
 
     router.push({
       pathname: '/auth/firebase/register',
-      query: { plan: selectedPlan, priceId, uid: userId },
+      query: { plan: selectedPlan, priceId, uid: userId, ref: referrer ?? '' },
     });
   };
 
