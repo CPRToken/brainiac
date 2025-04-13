@@ -44,7 +44,7 @@
         cancel_url: process.env.NEXT_PUBLIC_CANCEL_URL!,
         customer: customer.id,
         subscription_data: {
-          trial_period_days: 1,
+          trial_period_days: 3,
         },
         metadata: {
           uid: userId,

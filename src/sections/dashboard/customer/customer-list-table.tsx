@@ -124,7 +124,7 @@ export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
 
                <TableCell>Nombre</TableCell>
               <TableCell>Plan</TableCell>
-
+              <TableCell>Referred</TableCell>
               <TableCell align="right">Date Joined</TableCell>
             </TableRow>
           </TableHead>
@@ -133,7 +133,7 @@ export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
                 const isSelected = selected.indexOf(customer.id) !== -1;
                 const name = `${customer.firstName} ${customer.lastName}`;
                 const plan = `${customer.plan}`;
-
+              const referrer = `${customer.referrer}`;
               const startDate = customer.planStartDate ? new Date(customer.planStartDate) : null;
 
               // Format the date
@@ -179,7 +179,7 @@ export const CustomerListTable: FC<CustomerListTableProps> = (props) => {
 
                   <TableCell>{plan}</TableCell>
 
-
+                  <TableCell>{referrer}</TableCell>
 
                   <TableCell align="right">
                     {formattedDate}
