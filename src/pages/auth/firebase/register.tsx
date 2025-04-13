@@ -82,7 +82,10 @@ const Page: NextPage = () => {
         const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
         const user = userCredential.user;
 
-        // Create the Firestore user record without email verification
+        // Get referral code from localStorage
+        const referrer = localStorage.getItem('referrer') || '';
+
+        // Create the Firestore user record with referral info
         await setDoc(doc(db, 'users', user.uid), {
           uid: user.uid,
           firstName: values.firstName,
@@ -92,11 +95,11 @@ const Page: NextPage = () => {
           role: 'User',
           stripeCustomerId: '',
           creationDate: serverTimestamp(),
-          loginEvents: []
+          loginEvents: [],
+          referrer, // Added referral field
         });
 
-        // Call the Checkout Session API to create the Stripe checkout session.
-        const referrer = localStorage.getItem('referrer');
+        // Create Stripe Checkout Session
         const response = await fetch('/api/checkout-session', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -105,7 +108,7 @@ const Page: NextPage = () => {
             userEmail: values.email,
             planName,
             priceId,
-            referrer, //
+            referrer,
           })
         });
 
@@ -144,11 +147,68 @@ const Page: NextPage = () => {
         <CardContent>
           <form noValidate onSubmit={formik.handleSubmit}>
             <Stack spacing={3}>
-              <TextField label="First Name" name="firstName" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.firstName} error={Boolean(formik.touched.firstName && formik.errors.firstName)} helperText={formik.touched.firstName && formik.errors.firstName} fullWidth />
-              <TextField label="Last Name" name="lastName" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.lastName} error={Boolean(formik.touched.lastName && formik.errors.lastName)} helperText={formik.touched.lastName && formik.errors.lastName} fullWidth />
-              <TextField label="Email" name="email" type="email" onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.email} error={Boolean(formik.touched.email && formik.errors.email)} helperText={formik.touched.email && formik.errors.email} fullWidth />
-              <TextField label="Password" name="password" type={showPassword ? 'text' : 'password'} onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.password} error={Boolean(formik.touched.password && formik.errors.password)} helperText={formik.touched.password && formik.errors.password} fullWidth InputProps={{ endAdornment: <InputAdornment position="end"><IconButton onClick={handleClickShowPassword} edge="end">{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton></InputAdornment> }} />
-              <TextField label="Confirm Password" name="confirmPassword" type={showPassword ? 'text' : 'password'} onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.confirmPassword} error={Boolean(formik.touched.confirmPassword && formik.errors.confirmPassword)} helperText={formik.touched.confirmPassword && formik.errors.confirmPassword} fullWidth />
+              <TextField
+                label="First Name"
+                name="firstName"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.firstName}
+                error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+                helperText={formik.touched.firstName && formik.errors.firstName}
+                fullWidth
+              />
+              <TextField
+                label="Last Name"
+                name="lastName"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.lastName}
+                error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+                helperText={formik.touched.lastName && formik.errors.lastName}
+                fullWidth
+              />
+              <TextField
+                label="Email"
+                name="email"
+                type="email"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.email}
+                error={Boolean(formik.touched.email && formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+                fullWidth
+              />
+              <TextField
+                label="Password"
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.password}
+                error={Boolean(formik.touched.password && formik.errors.password)}
+                helperText={formik.touched.password && formik.errors.password}
+                fullWidth
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleClickShowPassword} edge="end">
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
+              />
+              <TextField
+                label="Confirm Password"
+                name="confirmPassword"
+                type={showPassword ? 'text' : 'password'}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.confirmPassword}
+                error={Boolean(formik.touched.confirmPassword && formik.errors.confirmPassword)}
+                helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                fullWidth
+              />
               <Box sx={{ display: 'flex', alignItems: 'center', ml: -1, mt: 1 }}>
                 <Checkbox checked={formik.values.policy} name="policy" onChange={formik.handleChange} />
                 <Typography color="text.secondary" variant="body2">
