@@ -62,12 +62,4 @@ export const PropertyListItem: FC<PropertyListItemProps> = (props) => {
   );
 };
 
-PropertyListItem.propTypes = {
-  align: PropTypes.oneOf<Direction>(['horizontal', 'vertical']),
-  children: PropTypes.node as any,
 
-
-  disableGutters: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string,
-};
