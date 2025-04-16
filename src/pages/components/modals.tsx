@@ -8,7 +8,7 @@ import { usePageView } from 'src/hooks/use-page-view';
 import { Layout as ComponentsLayout } from 'src/layouts/components';
 import { Layout as MarketingLayout } from 'src/layouts/marketing';
 import { Previewer } from 'src/sections/components/previewer';
-import { Modal1 } from 'src/sections/components/modals/modal-1';
+
 import { Modal2 } from 'src/sections/components/modals/modal-2';
 import { Modal3 } from 'src/sections/components/modals/modal-3';
 import { Modal4 } from 'src/sections/components/modals/modal-4';
@@ -20,10 +20,7 @@ import { Modal9 } from 'src/sections/components/modals/modal-9';
 import { Modal10 } from 'src/sections/components/modals/modal-10';
 
 const components: { element: JSX.Element; title: string }[] = [
-  {
-    element: <Modal1 />,
-    title: 'Modal 1',
-  },
+  
   {
     element: <Modal2 />,
     title: 'Modal 2',

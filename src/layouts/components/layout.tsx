@@ -90,6 +90,6 @@ export const Layout: FC<LayoutProps> = (props) => {
 
 Layout.propTypes = {
   breadcrumbs: PropTypes.array,
-  children: PropTypes.node.isRequired,
+
   title: PropTypes.string.isRequired,
 };

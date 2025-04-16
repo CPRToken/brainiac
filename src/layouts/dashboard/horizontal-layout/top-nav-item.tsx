@@ -315,9 +315,9 @@ TopNavItem.propTypes = {
   active: PropTypes.bool,
   disabled: PropTypes.bool,
   external: PropTypes.bool,
-  icon: PropTypes.node,
+
   items: PropTypes.array,
-  label: PropTypes.node,
+
   path: PropTypes.string,
   title: PropTypes.string.isRequired,
 };

@@ -64,6 +64,6 @@ export const Previewer: FC<PreviewerProps> = (props) => {
 };
 
 Previewer.propTypes = {
-  children: PropTypes.node.isRequired,
+
   title: PropTypes.string.isRequired,
 };
