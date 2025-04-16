@@ -129,7 +129,7 @@ export const LiveTranslator: FC = () => {
 
         <TextField
           fullWidth
-          label="Input Language"
+          label={t(tokens.form.inputLanguage)}
           select
           SelectProps={{ native: true }}
           value={inputLanguage}
