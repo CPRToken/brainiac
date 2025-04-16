@@ -1,5 +1,5 @@
 //src/sections/components/forms/live-translator.tsx
-// Updated LiveTranslator: fixed voice code mapping for speech synthesis to support languages like Thai
+// Updated LiveTranslator: added input language dropdown for English/Spanish
 
 import React, { useState } from 'react';
 import type { FC } from 'react';
@@ -22,7 +22,7 @@ const languageCodeMap: Record<string, string> = {
   German: 'de',
   Italian: 'it',
   Japanese: 'ja',
-    Portuguese: 'pt',
+  Portuguese: 'pt',
   Russian: 'ru',
   Korean: 'ko',
   Arabic: 'ar',
@@ -37,12 +37,14 @@ const voiceCodeMap: Record<string, string> = {
   German: 'de-DE',
   Italian: 'it-IT',
   Japanese: 'ja-JP',
-   Portuguese: 'pt-PT',
+  Portuguese: 'pt-PT',
   Russian: 'ru-RU',
   Korean: 'ko-KR',
   Arabic: 'ar-SA',
   Hindi: 'hi-IN',
 };
+
+const inputLanguages = ['English', 'Spanish'];
 
 declare global {
   interface Window {
@@ -57,6 +59,7 @@ export const LiveTranslator: FC = () => {
   useProtectedPage();
   const { t } = useTranslation();
   const [language, setLanguage] = useState('Spanish');
+  const [inputLanguage, setInputLanguage] = useState('English');
   const { handleSpeak, isSpeaking } = useAzureSpeak();
 
   const translateText = async (text: string, to: string): Promise<string> => {
@@ -82,7 +85,8 @@ export const LiveTranslator: FC = () => {
   const handleTranslate = async () => {
     const voiceLang = languageCodeMap[language];
     const voiceCode = voiceCodeMap[language];
-    if (!voiceLang || !voiceCode) {
+    const inputCode = voiceCodeMap[inputLanguage];
+    if (!voiceLang || !voiceCode || !inputCode) {
       console.error('Unsupported language');
       return;
     }
@@ -96,7 +100,7 @@ export const LiveTranslator: FC = () => {
     const recognition = new SpeechRecognition();
     activeRecognizer = recognition;
 
-    recognition.lang = language === 'English' ? 'es-ES' : 'en-US';
+    recognition.lang = inputCode;
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
@@ -119,10 +123,25 @@ export const LiveTranslator: FC = () => {
   return (
     <Box sx={{ p: 2, maxWidth: 700, mx: 'auto' }}>
       <Stack spacing={3}>
-
         <Typography variant="body2">
           {t(tokens.form.liveTranslatorInstructions)}
         </Typography>
+
+        <TextField
+          fullWidth
+          label="Input Language"
+          select
+          SelectProps={{ native: true }}
+          value={inputLanguage}
+          onChange={(e) => setInputLanguage(e.target.value)}
+        >
+          {inputLanguages.map((lang) => (
+            <option key={lang} value={lang}>
+              {lang}
+            </option>
+          ))}
+        </TextField>
+
         <TextField
           fullWidth
           label={t(tokens.form.translationLanguage)}
