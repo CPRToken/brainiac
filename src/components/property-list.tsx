@@ -12,6 +12,4 @@ export const PropertyList: FC<PropertyListProps> = (props) => {
   return <List disablePadding>{children}</List>;
 };
 
-PropertyList.propTypes = {
-  children: PropTypes.node,
-};
+
