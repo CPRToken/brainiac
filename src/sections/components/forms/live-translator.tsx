@@ -94,7 +94,7 @@ export const LiveTranslator: FC = () => {
     const recognition = new SpeechRecognition();
     activeRecognizer = recognition;
 
-    recognition.lang = 'en-US';
+    recognition.lang = language === 'English' ? 'es-ES' : 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
