@@ -1,5 +1,5 @@
 //src/sections/components/forms/azure-speak.ts
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getAuth } from 'firebase/auth';
 
 const useAzureSpeak = () => {
@@ -7,24 +7,31 @@ const useAzureSpeak = () => {
 
   const handleSpeak = async (text: string): Promise<void> => {
     setIsSpeaking(true);
+    const auth = getAuth();
+    const token = await auth.currentUser?.getIdToken();
+
     try {
-      if (!text.includes('|')) throw new Error('Invalid input format');
+      const response = await fetch('/api/azure-translator', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ text })
+      });
 
-      const [inputText, voiceLang] = text.split('|');
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Azure Speech API failed');
+      }
 
-      const utterance = new SpeechSynthesisUtterance(inputText);
-      utterance.lang = voiceLang;
-
-      // Optional: pick voice from browser's available list
-      const voices = window.speechSynthesis.getVoices();
-      const matchedVoice = voices.find((v) => v.lang === voiceLang);
-      if (matchedVoice) utterance.voice = matchedVoice;
-
-      window.speechSynthesis.speak(utterance);
-
-      utterance.onend = () => setIsSpeaking(false);
-    } catch (err) {
-      console.error('Browser TTS failed:', err);
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.play();
+    } catch (error) {
+      console.error('Azure TTS failed:', error);
+    } finally {
       setIsSpeaking(false);
     }
   };

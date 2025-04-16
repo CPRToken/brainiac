@@ -17,6 +17,7 @@ import axios from 'axios';
 const languageCodeMap: Record<string, string> = {
   English: 'en',
   Spanish: 'es',
+  Thai: 'th',
   French: 'fr',
   German: 'de',
   Italian: 'it',
@@ -31,6 +32,7 @@ const languageCodeMap: Record<string, string> = {
 const voiceCodeMap: Record<string, string> = {
   English: 'en-US',
   Spanish: 'es-ES',
+  Thai: 'th-TH',
   French: 'fr-FR',
   German: 'de-DE',
   Italian: 'it-IT',
