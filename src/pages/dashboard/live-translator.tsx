@@ -1,16 +1,14 @@
-//src/pages/dashboard/translator.tsx
+//src/pages/dashboard/live-translator.tsx
 import type { NextPage } from 'next';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {useTranslation} from "react-i18next";
 import {tokens} from "src/locales/tokens";
-
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-
 import { usePageView } from 'src/hooks/use-page-view';
-import { Translator } from 'src/sections/components/forms/translator';
+import { LiveTranslator } from 'src/sections/components/forms/live-translator';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 
@@ -23,7 +21,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title={t(tokens.headings.translator)} />
+      <Seo title={t(tokens.form.liveSpeechTranslator)} />
       <Box
         component="main"
         sx={{
@@ -54,7 +52,7 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                      variant="h5">{t(tokens.headings.translator)}</Typography>
+                      variant="h5">{t(tokens.form.liveSpeechTranslator)}</Typography>
                 </div>
 
                 <Stack
@@ -81,7 +79,7 @@ const Page: NextPage = () => {
                 }}
               >
                 <Box paddingTop={4}>
-                  <Translator />
+                  <LiveTranslator />
                 </Box>
               </Stack>
             </Grid>

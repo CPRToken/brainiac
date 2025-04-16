@@ -1,3 +1,4 @@
+//src/sections/components/forms/translator.tsx
 import React from 'react';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';

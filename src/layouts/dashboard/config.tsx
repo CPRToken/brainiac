@@ -154,6 +154,7 @@ export const useSections = () => {
                   { title: t(tokens.headings.templateReplicator), path: paths.dashboard.templateReplicator },
                   { title: t(tokens.headings.codeConverter), path: paths.dashboard.codeConverter },
                   { title: t(tokens.headings.contentDetector), path: paths.dashboard.detector },
+                  { title: t(tokens.headings.liveTranslator), path: paths.dashboard.azureTranslator },
 
                 ],
               },

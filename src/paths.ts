@@ -106,6 +106,7 @@ lyricWriter: '/dashboard/lyric-writer',
     govPositions: '/dashboard/government-positions',
     articulate: '/dashboard/articulate',
     detector: '/dashboard/detector',
+    azureTranslator: '/dashboard/live-translator',
 
     chatGPT: '/dashboard/chatgpt',
     customers: {
