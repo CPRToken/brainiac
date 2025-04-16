@@ -53,5 +53,5 @@ export const AuthGuard: FC<AuthGuardProps> = (props) => {
 };
 
 AuthGuard.propTypes = {
-  children: PropTypes.node,
+
 };

@@ -61,10 +61,11 @@ export const SeverityPill: FC<SeverityPillProps> = (props) => {
     >
       {children}
     </SeverityPillRoot>
+
   );
 };
 
 SeverityPill.propTypes = {
-  children: PropTypes.node,
+
   color: PropTypes.oneOf(['primary', 'secondary', 'error', 'info', 'warning', 'success']),
 };

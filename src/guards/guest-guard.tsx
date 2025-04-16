@@ -44,5 +44,5 @@ export const GuestGuard: FC<GuestGuardProps> = (props) => {
 };
 
 GuestGuard.propTypes = {
-  children: PropTypes.node,
+
 };

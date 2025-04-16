@@ -1,3 +1,4 @@
+//src/layouts/dashboard/horizontal-layout/horizontal-layout.tsx
 import type { FC, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -58,7 +59,7 @@ export const HorizontalLayout: FC<HorizontalLayoutProps> = (props) => {
 };
 
 HorizontalLayout.propTypes = {
-  children: PropTypes.node,
+
   navColor: PropTypes.oneOf<NavColor>(['blend-in', 'discrete', 'evident']),
   sections: PropTypes.array,
 };
