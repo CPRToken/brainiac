@@ -1,9 +1,8 @@
+//src/layouts/dashboard/account-button/account-popover.tsx
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
-import CreditCard01Icon from '@untitled-ui/icons-react/build/esm/CreditCard01';
-import Settings04Icon from '@untitled-ui/icons-react/build/esm/Settings04';
 import User03Icon from '@untitled-ui/icons-react/build/esm/User03';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -102,7 +101,8 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
       onClose?.();
 
       await auth.signOut();
-      router.push(paths.index);
+      router.push('/auth/firebase/login');
+
 
     } catch (err) {
       console.error(err);

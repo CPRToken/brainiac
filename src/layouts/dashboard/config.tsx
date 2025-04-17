@@ -1,3 +1,4 @@
+//src/layouts/dashboard/config.tsx
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -119,6 +120,14 @@ export const useSections = () => {
             path: paths.dashboard.chatGPT,
             icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
           },
+          ...(hasPremiumOrBusiness
+            ? [{
+              title: t(tokens.headings.liveTranslator),
+              path: paths.dashboard.azureTranslator,
+              icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
+            }]
+            : []),
+
         ],
       },
       ...(hasPremiumOrBusiness

@@ -84,6 +84,7 @@ const Page: NextPage = () => {
     { name: t(tokens.headings.biblicalFigures), path: paths.dashboard.biblicalFigures, icon: '/assets/icons/bible.svg', about: t(tokens.form.biblicalFiguresAbout) , plan: ['Trial','Premium', 'Business'] },
     { name: t(tokens.headings.idiomTranslator), path: paths.dashboard.idiomTranslator, icon: '/assets/icons/idioms.svg', about: t(tokens.form.idiomTranslatorAbout) , plan: ['Trial','Premium', 'Business'] },
     { name: t(tokens.headings.Articulate), path: paths.dashboard.articulate, icon: '/assets/icons/articulate.svg', about: t(tokens.form.articulateAbout) , plan: ['Trial','Premium', 'Business'] },
+    { name: t(tokens.headings.liveTranslator), path: paths.dashboard.azureTranslator, icon: '/assets/icons/speech.svg', about: t(tokens.form.liveTransAbout) , plan: ['Premium', 'Business'] },
   ];
 
   const filteredModules = user ? modules.filter(module => {

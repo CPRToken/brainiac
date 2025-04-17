@@ -1,3 +1,4 @@
+//src/hooks/use-protectedpage.ts
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -46,10 +47,10 @@ export const useProtectedPage = () => {
       if (!user) {
 
         router.push('/login');
-      } else if (['Expired', 'Canceled'].includes(user.plan ?? '')) {
-        // Redirect to subscription page if user has the 'Expired' or 'Canceled' plan
+      } else if (['Expired', 'Canceled', 'Basic', 'Trial'].includes(user.plan ?? '')) {
         router.push('/upgrade');
       }
+
       // Add more conditions as needed based on other plans
     }
   }, [user, isLoading, router]);
