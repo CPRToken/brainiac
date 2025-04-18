@@ -91,7 +91,7 @@ const Page: NextPage = () => {
           firstName: values.firstName,
           lastName: values.lastName,
           email: user.email,
-          plan: 'Trial',
+          plan: 'Pending',
           role: 'User',
           stripeCustomerId: '',
           creationDate: serverTimestamp(),
