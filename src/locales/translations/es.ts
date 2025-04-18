@@ -427,6 +427,7 @@ export const es = {
   [tokens.form.biblicalFiguresAbout]: 'Explora figuras bíblicas aqui.',
   [tokens.form.imageAbout]: "Cree imágenes impresionantes.",
   [tokens.form.liveTransAbout]: 'Traduce tu discurso en tiempo real.',
+  [tokens.form.startFreeTrial]: 'Iniciar Prueba Gratuita',
     [tokens.form.scriptWriterAbout]: 'Crea guiones atractivos para películas y televisión.',
   [tokens.form.recipeWriterAbout]: 'Crea deliciosas recetas para cualquier ocasión.',
   [tokens.form.poemGeneratorAbout]: 'Genera hermosos y expresivos poemas.',

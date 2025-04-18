@@ -350,6 +350,7 @@ headings: {
       ChicagoTurabian: 'form.ChicagoTurabian',
       Harvard: 'form.Harvard',
       Vancouver: 'form.Vancouver',
+      startFreeTrial: 'form.startFreeTrial',
 
       AMA: 'form.AMA',
       ACM: 'form.ACM',

@@ -1231,6 +1231,7 @@ export const en = {
   [tokens.form.idiomTranslatorAbout]: 'What idioms are in another language',
   [tokens.form.biblicalFiguresAbout]: 'Find where certain biblical figures appear in the bible',
   [tokens.form.liveTransAbout]: 'Translate your speech in real-time',
+  [tokens.form.startFreeTrial]: 'Start Free Trial',
   [tokens.form.imageAbout]: 'Create stunning images',
   [tokens.form.scriptWriterAbout]: 'Craft compelling scripts for movies & television',
   [tokens.form.recipeWriterAbout]: 'Create delicious recipes for any occasion',

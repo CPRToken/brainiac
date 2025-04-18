@@ -133,7 +133,7 @@ const PricingSection: FC = () => {
                   }}
                 >
                   <PricingPlan
-                    cta="Start Free Trial"
+                    cta={t(tokens.form.startFreeTrial)}
                     currency="$"
                     description={t(tokens.form.planDescription)}
                     info={t(tokens.form.allContent)}
@@ -168,7 +168,7 @@ const PricingSection: FC = () => {
                   }}
                 >
                   <PricingPlan
-                    cta="Start Free Trial"
+                    cta={t(tokens.form.startFreeTrial)}
                     currency="$"
                     description={t(tokens.form.planDescription)}
                     info={t(tokens.form.allContent)}
@@ -203,7 +203,7 @@ const PricingSection: FC = () => {
                   }}
                 >
                   <PricingPlan
-                    cta="Start Free Trial"
+                    cta={t(tokens.form.startFreeTrial)}
                     currency="$"
                     description={t(tokens.form.planDescription)}
                     info={t(tokens.form.allContent)}
