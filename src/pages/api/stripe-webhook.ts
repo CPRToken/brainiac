@@ -28,36 +28,34 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const buf = await streamToBuffer(req);
     event = stripe.webhooks.constructEvent(buf, sig, stripeWebhookSecret!);
-  } catch (error: any) {
-    console.error('Error verifying webhook signature:', error);
-    return res.status(400).send('Webhook Error: Signature verification failed');
-  }
 
-  try {
+    // ✅ Respond to Stripe immediately
+    res.status(200).json({ received: true });
+
+    // ⏳ Process Stripe event after sending response
     switch (event.type) {
       case 'checkout.session.completed':
-        console.log('Handling checkout.session.completed event');
         await handleCheckoutSessionCompleted(event.data.object as Stripe.Checkout.Session);
         break;
       case 'customer.subscription.created':
-        console.log('Handling customer.subscription.created event');
         await handleSubscriptionCreated(event.data.object as Stripe.Subscription);
         break;
       case 'customer.subscription.deleted':
-        console.log('Handling customer.subscription.deleted event');
         await handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
         break;
       case 'customer.subscription.updated':
-        console.log('Handling customer.subscription.updated event');
         await handleSubscriptionUpdated(event.data.object as Stripe.Subscription);
         break;
       default:
         console.log('Unhandled event type:', event.type);
     }
+
   } catch (error: any) {
-    console.error('Error handling event:', error);
-    return res.status(500).send('Internal Server Error');
+    console.error('Webhook processing error:', error);
+    return res.status(400).send('Webhook Error');
   }
+
+
 
   res.json({ received: true });
 }
