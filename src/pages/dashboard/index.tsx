@@ -1,3 +1,4 @@
+//src/pages/dashboard/index.tsx
 import type { NextPage } from 'next';
 import { useMemo } from 'react';
 import Box from '@mui/material/Box';
@@ -7,19 +8,17 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-
+import {doc, updateDoc} from 'firebase/firestore';            // ← MISSING
+import { db } from 'src/libs/firebase';
 import {TrialPlan} from 'src/sections/components/trial-plan';
 import { useRouter } from "next/router";
 import { socialApi } from "src/api/social/socialApi";
-
 import { usePageView } from 'src/hooks/use-page-view';
 import { useSettings } from 'src/hooks/use-settings';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import { TotalMemory } from 'src/sections/components/charts/memory-chart';
 import { OverviewDoneArticles } from 'src/sections/dashboard/overview/overview-done-articles';
 import { OverviewTimeSaved } from 'src/sections/dashboard/overview/overview-time-saved';
 import { OverviewDoneImages } from 'src/sections/dashboard/overview/overview-done-images';
-
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -28,7 +27,6 @@ import { tokens } from 'src/locales/tokens';
 import { paths } from 'src/paths';
 import SvgColor from 'src/components/svg-color';
 import type { Profile } from 'src/types/social';
-
 import {useTheme} from "@mui/material/styles";
 
 type ModuleItem = {
@@ -37,19 +35,27 @@ type ModuleItem = {
   icon: string;
   about: string;
 
+
+
 };
+
 
 type ModuleItemProps = {
   module: ModuleItem;
 };
 
+
+
 const ModuleItemComponent: React.FC<ModuleItemProps> = ({ module }) => {
   const router = useRouter();
   const theme = useTheme();
   const [hovered, setHovered] = React.useState(false);
+  const { t } = useTranslation();
 
   const handleMouseEnter = () => setHovered(true);
   const handleMouseLeave = () => setHovered(false);
+
+
 
   return (
 
@@ -139,50 +145,15 @@ const ModuleItemComponent: React.FC<ModuleItemProps> = ({ module }) => {
   );
 };
 
+
 const Page: NextPage = () => {
-
   const [user, setUser] = useState<Profile | null>(null);
-
-  const [userPlan, setUserPlan] = useState<string>('');
-  const { t } = useTranslation();
+  const [userPlan, setUserPlan] = useState('');
   const settings = useSettings();
-
-
-
-
-  useEffect(() => {
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        const uid = currentUser.uid;
-        try {
-          const userData = await socialApi.getProfile({ uid });
-          setUserPlan(userData.plan || ''); // Default to empty string if undefined
-          if (!userData) {
-            console.error("User data not found");
-            return;
-          }
-
-          setUser(userData);
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      } else {
-        setUser(null);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-
-
-
-
-
+  const { t } = useTranslation();
+  const theme = useTheme();
 
   usePageView();
-
 
   const modules: ModuleItem[] = [
     { name: t(tokens.headings.imageGenerator), path: paths.dashboard.imageGenerator, icon: '/assets/icons/images.svg', about: t(tokens.form.imageAbout),  },
@@ -196,8 +167,48 @@ const Page: NextPage = () => {
 
 
   ];
-  const hasTrial = useMemo(() => userPlan === 'Trial' || userPlan === 'Expired', [userPlan]);
 
+  useEffect(() => {
+    const auth = getAuth();
+    let poller: number;
+
+    const unsub = onAuthStateChanged(auth, (u) => {
+      if (!u) return;
+      const uid = u.uid;
+
+      const check = async () => {
+        const profile = await socialApi.getProfile({ uid });
+        setUser(profile);
+        setUserPlan(profile.plan || '');
+
+        if (profile.priceId === 'pending') {
+          poller = window.setInterval(async () => {
+            const p = await socialApi.getProfile({ uid });
+            setUser(p);
+            setUserPlan(p.plan || '');
+            if (p.priceId && p.priceId !== 'pending') {
+              await updateDoc(doc(db, 'users', uid), {
+                planStartDate: new Date().toISOString(),
+              });
+              clearInterval(poller);
+            }
+          }, 2000);
+        }
+      };
+
+      check().catch(err => {
+        console.error('Profile check failed:', err);
+        clearInterval(poller);
+      });
+    });
+
+    return () => {
+      unsub();
+      clearInterval(poller);
+    };
+  }, []);
+
+  const hasTrial = useMemo(() => userPlan === 'Trial' || userPlan === 'Expired', [userPlan]);
 
   return (
     <>
@@ -361,3 +372,24 @@ Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
 
+function productIdToPlan(priceId: string): string {
+  const priceToPlan: Record<string, string> =
+
+    {
+      'price_1QNpMjI7exj9oAo9ColPjP1G': 'Basic',
+      'price_1QNpZYI7exj9oAo9f2IXAwdx': 'Premium',
+      'price_1QNpgKI7exj9oAo9DMTVCQBz': 'Business',
+      'price_1QNpQPI7exj9oAo9rx2W7jkg': 'BasicYearly',
+      'price_1QNpeNI7exj9oAo9mCyQ1FJa': 'PremiumYearly',
+      'price_1QNpiKI7exj9oAo9CcI657sF': 'BusinessYearly',
+      'price_1QNpX8I7exj9oAo9erM3juYm': 'Basic',
+      'price_1QNpl9I7exj9oAo9PaBuwzY2': 'Premium',
+      'price_1QNpo4I7exj9oAo9fUqEamTZ': 'Business',
+      'price_1QNpV9I7exj9oAo9Aq2lz9Uz': 'BasicYearly',
+      'price_1QNppOI7exj9oAo9ufdAPG5x': 'PremiumYearly',
+      'price_1QNps4I7exj9oAo9O6sC4IRL': 'BusinessYearly',
+      'price_canceled': 'Canceled'
+    };
+
+  return priceToPlan[priceId] || 'Unknown';
+}
