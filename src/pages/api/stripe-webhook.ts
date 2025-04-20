@@ -99,7 +99,12 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       });
       console.log(`Created new user ${email} in Firestore`);
     } else {
-      await userRef.update({ plan, priceId, referrer });
+      await userRef.update({
+        plan,
+        priceId,
+        stripeCustomerId,
+        referrer
+      });
       console.log(`Updated existing user ${email} with new plan ${plan}`);
     }
   } catch (error: any) {
