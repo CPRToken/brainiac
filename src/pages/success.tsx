@@ -1,8 +1,8 @@
+//src/pages/success.tsx
 import type { NextPage } from 'next';
 import {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
 import {Success} from 'src/sections/components/detail-lists/success';
 import { Seo } from 'src/components/seo';
 import { doc, updateDoc } from 'firebase/firestore';
