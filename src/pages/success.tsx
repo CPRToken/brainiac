@@ -42,4 +42,8 @@ const Page: NextPage = () => {
   );
 };
 
+
 Page.getLayout = (page) => <MarketingLayout>{page}</MarketingLayout>;
+
+
+export default Page;

@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import {doc, updateDoc} from 'firebase/firestore';            // ← MISSING
+import {doc, updateDoc} from 'firebase/firestore';
 import { db } from 'src/libs/firebase';
 import {TrialPlan} from 'src/sections/components/trial-plan';
 import { useRouter } from "next/router";
