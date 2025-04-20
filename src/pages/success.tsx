@@ -14,8 +14,7 @@ import { socialApi } from 'src/api/social/socialApi';
 import { usePageView } from 'src/hooks/use-page-view';
 import { Typography } from '@mui/material';
 import { Layout as MarketingLayout } from 'src/layouts/marketing';
-import { Previewer } from 'src/sections/components/previewer';
-import {tokens} from "../locales/tokens";
+ import {tokens} from "../locales/tokens";
 import {useTranslation} from "react-i18next";
 
 

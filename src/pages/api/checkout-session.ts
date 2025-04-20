@@ -56,13 +56,6 @@
         },
       });
 
-  // Update Firestore with the Stripe customer id
-      const userDocRef = db.collection('users').doc(userId);
-      await userDocRef.update({
-        stripeCustomerId: customer.id,
-        stripeSessionId: session.id,  // optional but useful for reference
-        priceId,
-      });
 
 
       res.status(200).json({ sessionId: session.id });
