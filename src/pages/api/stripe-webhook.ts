@@ -1,35 +1,43 @@
 // src/pages/api/stripe-webhook.ts
 
-// Disable Next.js body parsing so we receive the raw request
 export const config = { api: { bodyParser: false } };
 
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import Stripe from 'stripe';
 import admin from 'src/libs/firebaseAdmin';
 import { Readable } from 'stream';
-import { getPriceId } from 'src/utils/getPriceId';
 
-// Assert environment variables exist and are strings
-const stripeSecretKey: string = process.env.STRIPE_SECRET_KEY!;
-const stripeWebhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET!;
-
-if (!stripeSecretKey || !stripeWebhookSecret) {
-  throw new Error('Stripe keys are not defined');
-}
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY!;
+const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 const stripe = new Stripe(stripeSecretKey, {
   apiVersion: '2024-06-20',
   typescript: true,
 });
 
+const pricePlanMap: Record<string, string> = {
+  'price_1QNpMjI7exj9oAo9ColPjP1G': 'Basic',
+  'price_1QNpQPI7exj9oAo9rx2W7jkg': 'BasicYearly',
+  'price_1QNpZYI7exj9oAo9f2IXAwdx': 'Premium',
+  'price_1PgQHUI7exj9oAo9f0qZ8g6W': 'PremiumYearly',
+  'price_1QNpgKI7exj9oAo9DMTVCQBz': 'Business',
+  'price_1QNpiKI7exj9oAo9CcI657sF': 'BusinessYearly',
+
+  'price_1PgQI4I7exj9oAo949UmThhH': 'BasicTest',
+ 'price_1PgQJsI7exj9oAo9mUdbE0ZX': 'PremiumTest',
+  'price_1PgQKSI7exj9oAo9acr903Ka': 'BusinessTest',
+  'price_1PjDoqI7exj9oAo95jqY8uSw': 'BasicTestYearly',
+  'price_1PjDpjI7exj9oAo9UkvkaR6x': 'PremiumTestYearly',
+  'price_1PjDr8I7exj9oAo9lm4zAEDn': 'BusinessTestYearly',
+  'price_canceled': 'Canceled',
+};
+
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
     return res.status(405).send('Method Not Allowed');
   }
 
-  // Read raw body for signature verification
   const buf = await streamToBuffer(req);
-  // Stripe signature header should be a single string
   const sig = req.headers['stripe-signature'] as string;
 
   let event: Stripe.Event;
@@ -40,29 +48,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // Acknowledge Stripe receipt
   res.status(200).json({ received: true });
 
-  // Handle events asynchronously
   switch (event.type) {
     case 'checkout.session.completed':
       await handleCheckoutSessionCompleted(event.data.object as Stripe.Checkout.Session);
-      break;
-    case 'customer.subscription.created':
-      await handleSubscriptionCreated(event.data.object as Stripe.Subscription);
-      break;
-    case 'customer.subscription.updated':
-      await handleSubscriptionUpdated(event.data.object as Stripe.Subscription);
-      break;
-    case 'customer.subscription.deleted':
-      await handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
       break;
     default:
       console.log('Unhandled event type:', event.type);
   }
 }
 
-// Helper to convert readable stream to buffer
 async function streamToBuffer(stream: Readable): Promise<Buffer> {
   const chunks: Uint8Array[] = [];
   return new Promise((resolve, reject) => {
@@ -74,19 +70,28 @@ async function streamToBuffer(stream: Readable): Promise<Buffer> {
 
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
   console.log('Processing checkout.session.completed for session:', session.id);
+
   const stripeCustomerId = session.customer as string;
   const priceId = session.metadata?.priceId as string;
   const userId = session.metadata?.uid as string;
   const email = session.metadata?.email as string;
   const referrer = session.metadata?.referrer || null;
 
-  const plan = getPriceId(priceId);
+  const plan = pricePlanMap[priceId] || 'Pending';
   const db = admin.firestore();
   const userRef = db.collection('users').doc(userId);
   const userDoc = await userRef.get();
 
   try {
-    if (!userDoc.exists) {
+    if (userDoc.exists) {
+      await userRef.update({
+        plan,
+        priceId,
+        stripeCustomerId,
+        referrer
+      });
+      console.log(`Updated existing user ${email} with new plan ${plan}`);
+    } else {
       await userRef.set({
         uid: userId,
         email,
@@ -98,78 +103,11 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
         creationDate: admin.firestore.FieldValue.serverTimestamp(),
       });
       console.log(`Created new user ${email} in Firestore`);
-    } else {
-      await userRef.update({
-        plan,
-        priceId,
-        stripeCustomerId,
-        referrer
-      });
-      console.log(`Updated existing user ${email} with new plan ${plan}`);
     }
   } catch (error: any) {
     console.error('Error updating/creating user:', error);
     throw new Error('Failed to update or create user');
   }
-}
-
-async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
-  const stripeCustomerId = subscription.customer as string;
-  const priceId = subscription.items.data[0].price.id;
-  const plan = getPriceId(priceId);
-  await updateUserPlan(stripeCustomerId, plan, priceId);
-  console.log(`Subscription created for ${stripeCustomerId} with plan ${plan}`);
-}
-
-async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
-  const stripeCustomerId = subscription.customer as string;
-  const priceId = subscription.items.data[0].price.id;
-  const cancelAtPeriodEnd = subscription.cancel_at_period_end;
-  const plan = cancelAtPeriodEnd ? 'CancelPending' : getPriceId(priceId);
-  const priceToSet = cancelAtPeriodEnd ? 'price_cancel_pending' : priceId;
-  await updateUserPlan(stripeCustomerId, plan, priceToSet);
-  console.log(`Subscription updated for ${stripeCustomerId} - plan: ${plan}`);
-}
-
-async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
-  const stripeCustomerId = subscription.customer as string;
-  const db = admin.firestore();
-  const userDocRef = db.collection('users').where('stripeCustomerId', '==', stripeCustomerId);
-  const querySnapshot = await userDocRef.get();
-  if (querySnapshot.empty) {
-    console.error('No matching documents found for stripeCustomerId:', stripeCustomerId);
-    return;
-  }
-  const userDoc = querySnapshot.docs[0];
-  const userEmail = userDoc.data().email as string;
-
-  try {
-    await userDoc.ref.update({ plan: 'Canceled', priceId: 'price_canceled' });
-    console.log(`Canceled subscription for ${stripeCustomerId}`);
-    await sendCancellationEmail(userEmail, 'Canceled', stripeCustomerId);
-  } catch (err) {
-    console.error(`Failed to cancel subscription for ${stripeCustomerId}`, err);
-  }
-}
-
-async function updateUserPlan(stripeCustomerId: string, plan: string, priceId: string | null) {
-  const db = admin.firestore();
-  const userDocRef = db.collection('users').where('stripeCustomerId', '==', stripeCustomerId);
-  const querySnapshot = await userDocRef.get();
-  if (querySnapshot.empty) {
-    console.error('No matching documents found for stripeCustomerId:', stripeCustomerId);
-    return;
-  }
-  const userDoc = querySnapshot.docs[0];
-  await userDoc.ref.update({ plan, priceId });
-}
-
-async function sendCancellationEmail(email: string, plan: string, customerId: string) {
-  await fetch('https://your-domain.com/api/cancelled-email', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ to: email, plan, stripeCustomerId: customerId }),
-  });
 }
 
 export default handler;

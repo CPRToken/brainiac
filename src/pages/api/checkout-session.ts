@@ -1,43 +1,43 @@
-  // pages/api/checkout-session.ts
-  import { NextApiRequest, NextApiResponse } from 'next/types';
-  import Stripe from 'stripe';
-  import admin from 'src/libs/firebaseAdmin';
+// pages/api/checkout-session.ts
+import { NextApiRequest, NextApiResponse } from 'next/types';
+import Stripe from 'stripe';
+import admin from 'src/libs/firebaseAdmin';
+
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY!;
 
 
+const stripe = new Stripe(stripeSecretKey, { apiVersion: '2024-06-20' });
+const db = admin.firestore();
 
-  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-  const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-  if (!stripeSecretKey || !stripeWebhookSecret) {
-    throw new Error('Stripe keys are not defined');
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
+  console.log('Request body:', req.body);
 
-  const stripe = new Stripe(stripeSecretKey, { apiVersion: '2024-06-20' });
-  const db = admin.firestore();
+  const { userId, userEmail, planName, priceId, referrer } = req.body;
 
-  export default async (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method !== 'POST') {
-      return res.status(405).json({ error: 'Method Not Allowed' });
-    }
+  if (!userId || !userEmail || !planName || !priceId) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
 
-    console.log('Request body:', req.body);
+  try {
+    // Always create a new Stripe customer
+    const customer = await stripe.customers.create({
+      email: userEmail,
+      metadata: { uid: userId },
+    });
 
-    const { userId, userEmail, planName, priceId, referrer } = req.body;
+    // 🛠 Immediately save stripeCustomerId into Firestore
+    await db.collection('users').doc(userId).set(
+      {
+        stripeCustomerId: customer.id,
+      },
+      { merge: true }
+    );
 
-
-    if (!userId || !userEmail || !planName || !priceId) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    try {
-      // After creating the customer and session:
-      const customer = await stripe.customers.create({
-        email: userEmail,
-        metadata: { uid: userId },
-      });
-
-      const session = await stripe.checkout.sessions.create({
+    const session = await stripe.checkout.sessions.create({
         mode: 'subscription',
         line_items: [{ price: priceId, quantity: 1 }],
         success_url: process.env.NEXT_PUBLIC_SUCCESS_URL!,
@@ -58,9 +58,9 @@
 
 
 
-      res.status(200).json({ sessionId: session.id });
-    } catch (error) {
-      console.error('Error creating checkout session:', error);
-      res.status(500).json({ error: 'Error creating checkout session' });
-    }
-  };
+    res.status(200).json({ sessionId: session.id });
+  } catch (error) {
+    console.error('Error creating checkout session:', error);
+    res.status(500).json({ error: 'Error creating checkout session' });
+  }
+};

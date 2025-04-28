@@ -23,6 +23,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Layout as AuthLayout } from 'src/layouts/auth/modern-layout';
 import { loadStripe } from '@stripe/stripe-js';
 import { paths } from 'src/paths';
+import { useTranslation } from 'react-i18next';
 import { GuestGuard } from 'src/guards/guest-guard';
 import { IssuerGuard } from 'src/guards/issuer-guard';
 import { Issuer } from 'src/utils/auth';
@@ -31,6 +32,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth } from 'src/libs/firebase';
 import { db } from 'src/libs/firebase';
+import {tokens} from "../../../locales/tokens";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required('First name is required'),
@@ -49,6 +51,7 @@ const Page: NextPage = () => {
   const [priceId, setPriceId] = useState('');
   const [uid, setUid] = useState('');
   const router = useRouter();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const ref = router.query.ref;
@@ -97,6 +100,7 @@ const Page: NextPage = () => {
           creationDate: serverTimestamp(),
           loginEvents: [],
           referrer, // Added referral field
+
         });
 
         // Create Stripe Checkout Session
@@ -136,19 +140,26 @@ const Page: NextPage = () => {
         <CardHeader
           subheader={
             <Typography color="text.secondary" variant="body2">
-              Already have an account? &nbsp;
-              <Link component={RouterLink} href={paths.auth.firebase.login} underline="hover" variant="subtitle2">
-                Log in
+              {t(tokens.form.alreadyAccount)}&nbsp;
+              <Link
+                component={RouterLink}
+                href={paths.auth.firebase.login}
+                underline="hover"
+                variant="subtitle2"
+              >
+                {t(tokens.form.login)}
               </Link>
             </Typography>
+
           }
-          title="Register"
+          sx={{ pb: 0 }}
+          title={t(tokens.nav.register)}
         />
         <CardContent>
           <form noValidate onSubmit={formik.handleSubmit}>
             <Stack spacing={3}>
               <TextField
-                label="First Name"
+                label={t(tokens.form.firstName)}
                 name="firstName"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -158,7 +169,7 @@ const Page: NextPage = () => {
                 fullWidth
               />
               <TextField
-                label="Last Name"
+                label={t(tokens.form.lastName)}
                 name="lastName"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -168,7 +179,7 @@ const Page: NextPage = () => {
                 fullWidth
               />
               <TextField
-                label="Email"
+                label={t(tokens.form.email)}
                 name="email"
                 type="email"
                 onBlur={formik.handleBlur}
@@ -179,7 +190,7 @@ const Page: NextPage = () => {
                 fullWidth
               />
               <TextField
-                label="Password"
+                label={t(tokens.form.password)}
                 name="password"
                 type={showPassword ? 'text' : 'password'}
                 onBlur={formik.handleBlur}
@@ -199,7 +210,7 @@ const Page: NextPage = () => {
                 }}
               />
               <TextField
-                label="Confirm Password"
+                label={t(tokens.form.confirmPassword)}
                 name="confirmPassword"
                 type={showPassword ? 'text' : 'password'}
                 onBlur={formik.handleBlur}

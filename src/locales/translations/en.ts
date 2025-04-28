@@ -210,6 +210,7 @@ export const en = {
   [tokens.headings.introduction]: 'Introduction',
   [tokens.headings.upgradeSubheader]: 'Upgrade before reaching it',
     [tokens.headings.usedStorage]: 'You have used {percentage}% of your available storage.',
+  [tokens.form.confirmPassword]: 'Confirm Password',
   [tokens.form.forgotPassword]: 'Forgot Password',
   [tokens.form.brainiacIntro]: 'Brainiac Media ("Brainiac Media") provides an artificial intelligence content generation platform known as “Brainiac Media” ("Platform"). These Terms of Service ("Agreement") govern your access to and use of the Platform, the website https://BrainiacMedia.ai/ and all related technology or services provided or made available by Brainiac Media via the Site (collectively, the "Services"). The term "Customer" refers to any person who accesses or uses the Services. Brainiac Media and Customer are each a "Party" and collectively the "Parties."',
   [tokens.form.acceptConditions]: 'By accessing or using the Services, you agree to be bound by this Agreement. If you do not agree, you must not access or use the Services. This Agreement supersedes any prior agreements or arrangements with respect to the use of the Services..',
@@ -282,6 +283,14 @@ export const en = {
   [tokens.form.priceBusinessYearly]: 'price_1QNpiKI7exj9oAo9CcI657sF',
   [tokens.form.priceBusinessYearlyCurrency]: '$19.99',
 
+  [tokens.form.priceTestBasic]: 'price_1PgQI4I7exj9oAo949UmThhH',
+  [tokens.form.priceBasicTestYearly]: 'price_1PjDoqI7exj9oAo95jqY8uSw',
+
+
+
+
+
+  [tokens.form.termsAndConditions]: 'Terms and Conditions',
     [tokens.form.propertyType]: 'Property Type',
   [tokens.form.industrialChic]: 'Industrial Chic',
     [tokens.form.colorTheme]: 'Color Theme: e.g. Grey & White',
@@ -644,6 +653,8 @@ export const en = {
     [tokens.form.yourFinancialPlan]: 'Your Financial Plan',
   [tokens.form.trialPlan]: 'Trial Plan',
   [tokens.form.trialPlanProgress]: 'Trial Plan Progress',
+  [tokens.form.alreadyAccount]: 'Already have an account?',
+  [tokens.form.login]: 'Login',
   [tokens.form.trialEnded]: 'Your trial has ended. ',
   [tokens.form.question1]: 'Does Brainiac Media offer a free trial?',
   [tokens.form.answer1]: 'Yes, we offer a free trial that includes access to all of our AI tools: content creation, SEO optimization, social media management, and more. Experience the full power of Brainiac Media and see how it can revolutionize your workflow.',
@@ -885,7 +896,7 @@ export const en = {
   [tokens.form.course]: 'Course(s)',
   [tokens.form.dreams]: 'Dreams',
   [tokens.form.language]: 'Language ',
-  [tokens.form.translationLanguage]: 'Language you want your voice translated to',
+
   [tokens.form.resumeLanguage]: 'Language you want your Resume written in',
   [tokens.form.skills]: 'Skills: e.g. "HTML, Team management, JavaScript"',
   [tokens.form.startBusinessTip]: 'Struggling to start a business or lacking ideas? Fill out the form below, and we\'ll provide a customized business plan to get you going. Let\'s make your business dream a reality!.',

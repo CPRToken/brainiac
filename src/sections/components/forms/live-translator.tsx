@@ -44,7 +44,10 @@ const voiceCodeMap: Record<string, string> = {
   Hindi: 'hi-IN',
 };
 
-const inputLanguages = ['English', 'Spanish'];
+const allLanguages = Object.keys(languageCodeMap);
+
+const inputLanguages = allLanguages;
+
 
 declare global {
   interface Window {

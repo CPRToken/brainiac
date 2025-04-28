@@ -259,6 +259,12 @@ headings: {
       priceBusinessCurrency: 'form.priceBusinessCurrency',
       priceBusinessYearly: 'form.priceBusinessYearly',
       priceBusinessYearlyCurrency: 'form.priceBusinessYearlyCurrency',
+
+
+
+      priceBasicTestYearly: 'form.priceBasicTestYearly',
+      priceTestBasic: 'form.priceTestBasic',
+
       Images: 'form.Images',
       Content: 'form.Content',
       articulateIntro: 'form.articulateIntro',
@@ -413,6 +419,7 @@ headings: {
       biblicalFiguresAbout: 'form.biblicalFiguresAbout',
       idiomTranslatorAbout: 'form.idiomTranslatorAbout',
       todayIs: 'form.todayIs',
+      confirmPassword: 'form.confirmPassword',
       saveTextnImage: 'form.saveTextnImage',
       recipes: 'form.recipes',
       scriptWriterAbout: 'form.scriptWriterAbout',
@@ -836,6 +843,7 @@ headings: {
          streetwear: 'form.streetwear',
         businessFormal: 'form.businessFormal',
         cocktailAttire: 'form.cocktailAttire',
+      login: 'form.login',
         bohemian: 'form.bohemian',
         grunge: 'form.grunge',
         preppy: 'form.preppy',
@@ -1489,7 +1497,7 @@ headings: {
         PictureBooks: 'form.PictureBooks',
         AnimalStories: 'form.AnimalStories',
         BedtimeStories: 'form.BedtimeStories',
-
+      alreadyAccount: 'form.alreadyAccount',
 
         Landscape: 'form.Landscape',
         Portraiture: 'form.Portraiture',
