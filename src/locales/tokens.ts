@@ -114,6 +114,8 @@ headings: {
   governingLaw: 'headings.governingLaw',
   changesToTerms: 'headings.changesToTerms',
   miscellaneous: 'headings.miscellaneous',
+  contractGenerator: 'headings.contractGenerator',
+
 
   success: 'headings.success',
   tocs: 'headings.tocs',
@@ -259,8 +261,16 @@ headings: {
       priceBusinessCurrency: 'form.priceBusinessCurrency',
       priceBusinessYearly: 'form.priceBusinessYearly',
       priceBusinessYearlyCurrency: 'form.priceBusinessYearlyCurrency',
-
-
+      employmentContract: 'form.EmploymentContract',
+      serviceAgreement: 'form.ServiceAgreement',
+      salesAgreement : 'form.SalesAgreement',
+      rentalContract : 'form.RentalContract',
+      NDA: 'form.NDA',
+      contractType: 'form.contractType',
+      partiesInvolved: 'form.partiesInvolved',
+      terms: 'form.terms',
+      genContractPrompts: 'form.genContractPrompts',
+      contracts: 'form.contracts',
 
       priceBasicTestYearly: 'form.priceBasicTestYearly',
       priceTestBasic: 'form.priceTestBasic',
@@ -309,6 +319,11 @@ headings: {
       position: 'form.position',
       inputLanguage: 'form.inputLanguage',
       USA: 'form.USA',
+
+      UK: 'form.UK',
+      Canada: 'form.Canada',
+      Germany: 'form.Germany',
+      France: 'form.France',
       Australia: 'form.Australia',
       fairUsePolicy: 'form.fairUsePolicy',
       extraSpeechInfo: 'form.extraSpeechInfo',
@@ -418,6 +433,8 @@ headings: {
       lyricWriterAbout: 'form.lyricWriterAbout',
       biblicalFiguresAbout: 'form.biblicalFiguresAbout',
       idiomTranslatorAbout: 'form.idiomTranslatorAbout',
+      contractGeneratorAbout : 'form.contractGeneratorAbout',
+
       todayIs: 'form.todayIs',
       confirmPassword: 'form.confirmPassword',
       saveTextnImage: 'form.saveTextnImage',

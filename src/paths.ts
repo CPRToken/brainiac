@@ -107,6 +107,7 @@ lyricWriter: '/dashboard/lyric-writer',
     articulate: '/dashboard/articulate',
     detector: '/dashboard/detector',
     azureTranslator: '/dashboard/live-translator',
+    contractGenerator: '/dashboard/contract-generator',
 
     chatGPT: '/dashboard/chatgpt',
     customers: {
