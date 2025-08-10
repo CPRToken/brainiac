@@ -1,29 +1,13 @@
-import type { FC, MouseEvent, ReactElement } from 'react';
-import { cloneElement, useContext } from 'react';
+// src/components/dropdown/dropdown-trigger.tsx
 import PropTypes from 'prop-types';
+import React from 'react';
 
-import { DropdownContext } from './dropdown-context';
+type Props = { children: React.ReactNode };
 
-interface DropdownButtonProps {
-  children: ReactElement;
+export default function DropdownTrigger({ children }: Props) {
+  return <>{children}</>;
 }
 
-export const DropdownTrigger: FC<DropdownButtonProps> = (props) => {
-  const { children } = props;
-  const { onTriggerEnter, onTriggerLeave } = useContext(DropdownContext);
-
-  return cloneElement(children, {
-    onMouseEnter: (event: MouseEvent<HTMLElement>) => {
-      children.props.onMouseEnter?.(event);
-      onTriggerEnter(event);
-    },
-    onMouseLeave: (event: MouseEvent<HTMLElement>) => {
-      children.props.onMouseLeave?.(event);
-      onTriggerLeave(event);
-    },
-  });
-};
-
 DropdownTrigger.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired, // ← was element
 };
