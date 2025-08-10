@@ -1,7 +1,6 @@
 //src/pages/api/dalle.ts
 import { NextApiRequest, NextApiResponse } from 'next/types';
-import fetch from 'node-fetch';
-import admin from 'src/libs/firebaseAdmin';
+ import admin from 'src/libs/firebaseAdmin';
 
 function isFirebaseAuthError(error: any): error is { errorInfo: { code: string } } {
   return typeof error === 'object' && error !== null && 'errorInfo' in error;
