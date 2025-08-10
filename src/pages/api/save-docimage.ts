@@ -1,7 +1,6 @@
 // src/pages/api/save-docimage.ts
 import type { NextApiRequest, NextApiResponse } from 'next/types';
 import admin from 'src/libs/firebaseAdmin';
-import fetch from 'node-fetch';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -21,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await fetch(image);
     if (!response.ok) throw new Error('Failed to fetch image');
 
-    const buffer = await response.buffer();
+    const buffer = Buffer.from(await response.arrayBuffer());
     const storage = admin.storage();
     const bucket = storage.bucket();
 

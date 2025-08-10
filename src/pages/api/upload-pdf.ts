@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next/types';
-import fetch from 'node-fetch';
+
 import admin from 'src/libs/firebaseAdmin';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

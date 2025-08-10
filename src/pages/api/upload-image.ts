@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next/types';
-import fetch from 'node-fetch';
+
 import admin from 'src/libs/firebaseAdmin';
 
 
@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await fetch(imageUrl);
     if (!response.ok) throw new Error('Failed to fetch image');
 
-    const buffer = await response.buffer();
+    const buffer = Buffer.from(await response.arrayBuffer());
     const storage = admin.storage();
     const bucket = storage.bucket();
     const fileName = `${uid}/images/uploaded-${Date.now()}.png`; // Include UID in the path

@@ -1,6 +1,6 @@
 //src/pages/api/upload-content.ts
 import type { NextApiRequest, NextApiResponse } from 'next/types';
-import fetch from 'node-fetch'; // You already have this for fetching
+
 import admin from 'src/libs/firebaseAdmin';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await fetch(pdfUrl);
     if (!response.ok) throw new Error('Failed to fetch PDF');
 
-    const buffer = await response.buffer();
+    const buffer = Buffer.from(await response.arrayBuffer());
     const storage = admin.storage();
     const bucket = storage.bucket();
     const fileName = `${uid}/content/uploaded-${Date.now()}.pdf`; // Save in 'documents' directory

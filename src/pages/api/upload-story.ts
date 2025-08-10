@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next/types';
-import fetch from 'node-fetch';
+
 import admin from 'src/libs/firebaseAdmin';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -15,7 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const imageResponse = await fetch(imageUrl);
     if (!imageResponse.ok) throw new Error('Failed to fetch image');
 
-    const imageBuffer = await imageResponse.buffer();
+    const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+
     const storage = admin.storage();
     const bucket = storage.bucket();
     const timeStamp = Date.now();
