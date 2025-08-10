@@ -4,10 +4,10 @@ import React from 'react';
 
 type Props = { children: React.ReactNode };
 
-export default function DropdownTrigger({ children }: Props) {
-  return <>{children}</>;
-}
+export const DropdownTrigger = ({ children }: Props) => <>{children}</>;
 
 DropdownTrigger.propTypes = {
-  children: PropTypes.node.isRequired, // ← was element
+  children: PropTypes.node.isRequired,
 };
+
+export default DropdownTrigger; // optional; keeps both default + named
