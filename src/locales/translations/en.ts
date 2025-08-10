@@ -643,7 +643,7 @@ export const en = {
   [tokens.form.freeTrial]: 'Free Trial',
   [tokens.form.yourScript]: 'Your Script',
   [tokens.form.yourResponse]: 'Your Response',
-  [tokens.form.writeSong]: 'Write a [genre] song using the [title], in a [style], while emulating the style of [artist]. with a [mood] mood, with a duration of [duration] minutes',
+  [tokens.form.writeSong]: 'Write a [genre] song using the [title], in a [style]. with a [mood] mood, and a duration of [duration] minutes',
   [tokens.form.writeScript]: 'Write a screenplay using the Title: [title], Genre: [genre], with a [style] style, and [mood] mood, with a duration of [duration]. Also, include the following additional information: [characterDetails], Notes: [notes] if any.',
   [tokens.form.extraTextInfo]: 'Any addtional info would help generate a more accurate response',
   [tokens.form.APA]: 'APA',
@@ -913,7 +913,7 @@ export const en = {
   [tokens.form.course]: 'Course(s)',
   [tokens.form.dreams]: 'Dreams',
   [tokens.form.language]: 'Language ',
-
+  [tokens.form.translationLanguage]: 'Language you want your text translated to',
   [tokens.form.resumeLanguage]: 'Language you want your Resume written in',
   [tokens.form.skills]: 'Skills: e.g. "HTML, Team management, JavaScript"',
   [tokens.form.startBusinessTip]: 'Struggling to start a business or lacking ideas? Fill out the form below, and we\'ll provide a customized business plan to get you going. Let\'s make your business dream a reality!.',
@@ -1217,7 +1217,7 @@ export const en = {
   [tokens.form.greenLiving]: 'Green Living',
   [tokens.form.brandNew]: 'Brand New',
   [tokens.form.poemTitle]: 'Give your poem a name or title',
-    [tokens.form.writePoem]: 'Compose a [duration] word [genre] poem, whilst capturing the essence and style reminiscent of [poet], in a[mood] mood,  without mentioning the poet\'s name.',
+    [tokens.form.writePoem]: 'Compose a [genre] poem, whilst capturing the essence and style reminiscent of [poet], in a[mood] mood,  without mentioning the poet\'s name.',
 
   [tokens.form.extraInfo]: 'Any addiontal information would help generate a more accurate image.',
   [tokens.form.deleteImages]: 'It is highly recommended that you download your favorite images to your PC by clicking on the 3 dots and selecting \'download\' for safe keeping, and delete the images you do not want to free up space',

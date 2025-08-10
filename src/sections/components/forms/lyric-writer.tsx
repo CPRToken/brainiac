@@ -102,8 +102,7 @@ export const LyricWriter: FC = () => {
 
   const [title, setTitle] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
-  const [artist, setArtist] = useState<string>('');
-  const [style, setTheme] = useState<string>('');
+   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
   const [tempo, setTempo] = useState<string>('');
   const [duration, setDuration] = useState<number>(2);
@@ -137,7 +136,6 @@ export const LyricWriter: FC = () => {
 
        const titleText = title !== '' ? `${t(title)} ` : '';
       const genreText = genre !== '' ? `${t(genre)} ` : '';
-      const artistText = artist !== '' ? `${t(artist)} ` : '';
       const styleText = style !== '' ? `${t(style)} , ` : '';
       const moodText = mood !== '' ? `${t(mood)} , ` : '';
       const tempoText = tempo !== '' ? `${t(tempo)} , ` : '';
@@ -147,7 +145,6 @@ export const LyricWriter: FC = () => {
       newPrompt = newPrompt
         .replace('[title]', titleText)
         .replace('[genre]', genreText)
-        .replace('[artist]', artistText)
         .replace('[style]', styleText)
         .replace('[mood]', moodText)
         .replace('[tempo]', tempoText)
@@ -158,7 +155,7 @@ export const LyricWriter: FC = () => {
     } else {
       setPrompt('');
     }
-  }, [title, genre, artist, style, mood, tempo, duration, t]);
+  }, [title, genre, style, mood, tempo, duration, t]);
 
 
 
@@ -207,17 +204,8 @@ export const LyricWriter: FC = () => {
             </option>
           ))}
         </TextField>
-        <TextField
-          label={t(tokens.form.artist)}
-          name="artist"
-          value={artist}
-          onChange={(e) => setArtist(e.target.value)}
-          multiline
-          rows={1}
-          fullWidth
-        >
 
-        </TextField>
+
         <TextField
 
           label={t(tokens.form.style)}

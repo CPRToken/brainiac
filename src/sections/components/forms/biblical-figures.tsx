@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGrokSubmit from './grok-submit';
+import useGPT4Submit from './gpt4-submit';
 import Typography from "@mui/material/Typography";
 import { saveDoc } from 'src/sections/components/buttons/saveDoc';
 
@@ -21,7 +21,7 @@ export const BiblicalFigures: FC = () => {
 
 
 
-  const { handleSubmit, grokResponse, isLoading } = useGrokSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [figure, setFigure] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
@@ -118,14 +118,14 @@ export const BiblicalFigures: FC = () => {
           </Button>
         </Box>
 
-        {grokResponse && (
+        {openAIResponse && (
         <Box sx={{ mt: 3 }}>
               <label>{t(tokens.form.yourResponse)}</label>
               <Button onClick={handleCopyText} title="Copy response text">
                 <FileCopyIcon />
               </Button>
           <Paper elevation={3} ref={textRef} style={{ padding: '30px', overflow: 'auto', lineHeight: '1.5' }}>
-            {grokResponse.split('\n').map((str, index, array) => (
+            {openAIResponse.split('\n').map((str, index, array) => (
               <React.Fragment key={index}>
                 {str}
                 {index < array.length - 1 ? <br /> : null}
@@ -136,7 +136,7 @@ export const BiblicalFigures: FC = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => saveDoc(grokResponse, title, t(tokens.form.figures))}
+              onClick={() => saveDoc(openAIResponse, title, t(tokens.form.figures))}
               style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
             >
               {t(tokens.form.saveText)}

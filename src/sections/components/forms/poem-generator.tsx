@@ -6,12 +6,12 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import {CustomSlider} from "../slider/slider";
+
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGrokSubmit from './grok-submit';
+import useGPT5Submit from './gpt5-submit';
 import {saveDoc} from "../buttons/saveDoc";
 
 
@@ -105,12 +105,11 @@ export const PoemGenerator: FC = () => {
 
 
 
-  const { handleSubmit, grokResponse, isLoading } = useGrokSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT5Submit();
   const [poet, setPoet] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
-  const [duration, setDuration] = useState<number>(100);
   const [prompt, setPrompt] = useState<string>('');
  const [title, setTitle] = useState<string>('');
   const { t } = useTranslation();
@@ -139,7 +138,7 @@ export const PoemGenerator: FC = () => {
   useEffect(() => {
 
     // Check if all selections are made
-    if (genre && style && mood && duration) {
+    if (poet && genre && style && mood ) {
 
 
 
@@ -149,7 +148,7 @@ export const PoemGenerator: FC = () => {
     const genreText = ` ${t(genre)} `;
     const styleText = ` ${t(style)} `;
     const moodText  = ` ${t(mood)} `;
-    const durationText = ` ${duration} `;
+
 
 
       const poetWords = poetText.split(' ').filter(word => word.length > 0);
@@ -167,7 +166,6 @@ export const PoemGenerator: FC = () => {
          .replace('[genre]',genreText)
           .replace('[style]',styleText)
             .replace('[mood]',moodText)
-            .replace('[duration]',durationText);
 
 
 
@@ -177,7 +175,7 @@ export const PoemGenerator: FC = () => {
       setPrompt('');
       setTitle('');
     }
-  }, [poet, genre, style, mood, duration, t]);
+  }, [poet, genre, style, mood, t]);
 
 
 
@@ -250,25 +248,14 @@ export const PoemGenerator: FC = () => {
             </option>
           ))}
         </TextField>
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
-          <label>{t(tokens.form.words)}</label>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-          <CustomSlider
-            value={duration} // Convert the word count to the slider's scale
-            min={50}
-            max={600}
-            step={50} // The slider's step
-            onChange={(_, newValue) => setDuration(newValue as number)} // Convert back to words on change
-            sx={{ width: '95%' }}
-          />
-        </div>
+
+
 
 
 
 
       </Stack>
-        <Box sx={{ mt: 3 }}>
+        <Box sx={{ mt: 4 }}>
           <Button
             onClick={submitToOpenAI}
             type="submit"
@@ -280,7 +267,7 @@ export const PoemGenerator: FC = () => {
           </Button>
         </Box>
 
-        {grokResponse && (
+        {openAIResponse && (
           <Box sx={{mt: 3}}>
             <label>{t(tokens.form.yourPoem)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
@@ -288,7 +275,7 @@ export const PoemGenerator: FC = () => {
             </Button>
             <Paper elevation={3} ref={textRef}
                    style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
-              {grokResponse.split('\n').map((str, index, array) => (
+              {openAIResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
                   {index < array.length - 1 ? <br/> : null}
@@ -299,7 +286,7 @@ export const PoemGenerator: FC = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => saveDoc(grokResponse, title, t(tokens.form.Poems))}
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.Poems))}
                 style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
               >
                 {t(tokens.form.saveText)}

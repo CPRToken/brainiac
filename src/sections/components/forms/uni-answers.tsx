@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
-import useGPT4Submit from "./gpt4-submit";
+import useGPT5Submit from "./gpt5-submit";
 import CircularProgress from "@mui/material/CircularProgress";
 import {saveDoc} from "../buttons/saveDoc";
 import {useProtectedPage} from "../../../hooks/use-protectedpage";
@@ -22,7 +22,7 @@ export const UniAnswers: FC = () => {
   useProtectedPage();
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT5Submit();
 
   const [prompt, setPrompt] = useState<string>('');
   const [question ,setQuestion] = useState<string>('');

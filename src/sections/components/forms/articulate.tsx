@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGrokSubmit from './grok-submit';
+import useGPT5Submit from './gpt5-submit';
 import Typography from "@mui/material/Typography";
 import {saveDoc} from "../buttons/saveDoc";
 import {useProtectedPage} from "src/hooks/use-protectedpage";
@@ -25,7 +25,7 @@ export const Articulate: FC = () => {
 
 
 
-  const { handleSubmit, grokResponse, isLoading } = useGrokSubmit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT5Submit();
 
   const [text, setText] = useState<string>('');
    const [title, setTitle] = useState<string>('');
@@ -137,7 +137,7 @@ export const Articulate: FC = () => {
           </Button>
         </Box>
 
-        {grokResponse && (
+        {openAIResponse && (
           <Box sx={{mt: 3}}>
             <label>{t(tokens.form.yourRevisions)}</label>
             <Button onClick={handleCopyText} title="Copy response text">
@@ -145,7 +145,7 @@ export const Articulate: FC = () => {
             </Button>
             <Paper elevation={3} ref={textRef}
                    style={{padding: '30px', overflow: 'auto', lineHeight: '1.5'}}>
-              {grokResponse.split('\n').map((str, index, array) => (
+              {openAIResponse.split('\n').map((str, index, array) => (
                 <React.Fragment key={index}>
                   {str}
                   {index < array.length - 1 ? <br/> : null}
@@ -156,7 +156,7 @@ export const Articulate: FC = () => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => saveDoc(grokResponse, title, t(tokens.form.expressions))}
+                onClick={() => saveDoc(openAIResponse, title, t(tokens.form.expressions))}
                 style={{marginTop: '20px', width: '200px'}} // Adjust the width as needed
               >
                 {t(tokens.form.saveText)}

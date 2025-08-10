@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGPT4Submit from './gpt4-submit';
+import useGPT5Submit from './gpt5-submit';
 import Typography from "@mui/material/Typography";
 import {saveDoc} from "../buttons/saveDoc";
 import {useProtectedPage} from "src/hooks/use-protectedpage";
@@ -114,7 +114,7 @@ export const Editor: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT5Submit();
 
   const [text, setText] = useState<string>('');
   const [style, setStyle] = useState<string>('');
