@@ -92,7 +92,7 @@
 
 
     const submitToOpenAI = () => {
-      const maxTokens = 2000;
+      const maxTokens = 3000;
       if (prompt) {
         // Submit the prompt that is updated by the useEffect hook
         handleSubmit(prompt, maxTokens)

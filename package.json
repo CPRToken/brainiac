@@ -71,13 +71,13 @@
     "micro": "^10.0.1",
     "microsoft-cognitiveservices-speech-sdk": "^1.43.1",
     "mui-one-time-password-input": "1.1.2",
-    "next": "^14.2.5",
+    "next": "^15.4.6",
     "next-sitemap": "^4.2.3",
     "node-cron": "^3.0.2",
     "nodemailer": "^6.9.5",
     "nprogress": "0.2.0",
     "numeral": "2.0.6",
-    "openai": "^4.91.1",
+    "openai": "^5.12.2",
     "pdfjs-dist": "^5.1.91",
     "prop-types": "15.8.1",
     "react": "18.2.0",
@@ -91,7 +91,7 @@
     "react-map-gl": "7.1.1",
     "react-markdown": "8.0.7",
     "react-slick": "0.29.0",
-    "react-syntax-highlighter": "^5.8.0",
+    "react-syntax-highlighter": "^15.6.1",
     "redux-devtools-extension": "2.13.9",
     "redux-thunk": "2.4.2",
     "refractor": "^5.0.0",
@@ -128,7 +128,6 @@
     "eslint-config-next": "13.4.8",
     "eslint-config-prettier": "8.8.0",
     "prettier": "3.0.0",
-    "stripe-cli": "^0.1.0",
     "typescript": "5.1.6"
   }
 }

@@ -116,7 +116,7 @@ export const PoemGenerator: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
 
   const submitToOpenAI = () => {
-    const maxTokens = 2000;
+    const maxTokens = 3000;
     if (prompt) {
       // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
@@ -137,11 +137,8 @@ export const PoemGenerator: FC = () => {
 
   useEffect(() => {
 
-    // Check if all selections are made
+
     if (poet && genre && style && mood ) {
-
-
-
       let newPrompt = t(tokens.form.writePoem);
 
     const poetText  = ` ${t(poet)} `;

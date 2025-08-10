@@ -407,7 +407,7 @@ export const es = {
   [tokens.form.writeSong]: 'Escribe una canción de [genre] utilizando el [title], en un estilo [style] y un estado de ánimo [mood], con una duración de [duration] minutos',
     [tokens.form.writeItinerary]: 'escribe un itinerario para un viaje de [mode] a [destination] con un presupuesto de [budget]',
     [tokens.form.writeStory]: 'Redacta un relato infantil de género [genre], inspirado en el estilo de [author], compuesto por [duration] palabras, ambientado en un tono[mood] y desarrollado en un estilo[style], evitando mencionar el nombre del autor.',
-  [tokens.form.writePoem]: 'Redacta un poema del género [genre], capturando la esencia y el estilo [style], reminiscentes de [poet], en un estado de ánimo [mood], sin mencionar el nombre del poeta.',
+  [tokens.form.writePoem]: 'Redacta un poema del género [genre], capturando el estilo [style], reminiscentes de [poet], en un estado de ánimo [mood], sin mencionar el nombre del poeta.',
   [tokens.form.writePhilosophy]: 'Desarrolla un nuevo concepto filosófico inspirado en [tradition], con base en la rama [branch] y enfocado en el tema de [theme]. La exposición debe ser de aproximadamente [duration] palabras de longitud.',
     [tokens.form.stockPrompts]: 'Proporciona consejos sobre acciones de [stock]. Analiza las tendencias recientes y proyecta el rendimiento  [duration] ',
     [tokens.form.dreamInterpretation]: 'Interpreta el siguiente sueño: [dream].',

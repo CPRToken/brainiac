@@ -1217,7 +1217,7 @@ export const en = {
   [tokens.form.greenLiving]: 'Green Living',
   [tokens.form.brandNew]: 'Brand New',
   [tokens.form.poemTitle]: 'Give your poem a name or title',
-    [tokens.form.writePoem]: 'Compose a [genre] poem, whilst capturing the essence and style reminiscent of [poet], in a[mood] mood,  without mentioning the poet\'s name.',
+    [tokens.form.writePoem]: 'Compose a [genre] poem, in the [style] style of [poet], with a [mood] mood,  without mentioning the poet\'s name.',
 
   [tokens.form.extraInfo]: 'Any addiontal information would help generate a more accurate image.',
   [tokens.form.deleteImages]: 'It is highly recommended that you download your favorite images to your PC by clicking on the 3 dots and selecting \'download\' for safe keeping, and delete the images you do not want to free up space',
