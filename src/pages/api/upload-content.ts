@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await fetch(pdfUrl);
     if (!response.ok) throw new Error('Failed to fetch PDF');
 
-    const buffer = Buffer.from(await response.arrayBuffer());
+    const buffer = Buffer.from(await response.arrayBuffer()); 
     const storage = admin.storage();
     const bucket = storage.bucket();
     const fileName = `${uid}/content/uploaded-${Date.now()}.pdf`; // Save in 'documents' directory

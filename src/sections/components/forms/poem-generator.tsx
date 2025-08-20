@@ -6,12 +6,12 @@ import ResponseText from '../clipboards/response-text';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-
+import {CustomSlider} from "../slider/slider";
 import Paper from '@mui/material/Paper';
 import { tokens } from 'src/locales/tokens';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
-import useGPT5Submit from './gpt5-submit';
+import useGPT4Submit from './gpt4-submit';
 import {saveDoc} from "../buttons/saveDoc";
 
 
@@ -105,18 +105,19 @@ export const PoemGenerator: FC = () => {
 
 
 
-  const { handleSubmit, openAIResponse, isLoading } = useGPT5Submit();
+  const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [poet, setPoet] = useState<string>('');
   const [genre, setGenre] = useState<string>('');
   const [style, setTheme] = useState<string>('');
   const [mood, setMood] = useState<string>('');
+  const [duration, setDuration] = useState<number>(100);
   const [prompt, setPrompt] = useState<string>('');
  const [title, setTitle] = useState<string>('');
   const { t } = useTranslation();
   const { textRef, handleCopyText } = ResponseText();
 
   const submitToOpenAI = () => {
-    const maxTokens = 3000;
+    const maxTokens = 2000;
     if (prompt) {
       // Submit the prompt that is updated by the useEffect hook
       handleSubmit(prompt, maxTokens)
@@ -137,15 +138,18 @@ export const PoemGenerator: FC = () => {
 
   useEffect(() => {
 
+    // Check if all selections are made
+    if (genre && style && mood && duration) {
 
-    if (poet && genre && style && mood ) {
+
+
       let newPrompt = t(tokens.form.writePoem);
 
     const poetText  = ` ${t(poet)} `;
     const genreText = ` ${t(genre)} `;
     const styleText = ` ${t(style)} `;
     const moodText  = ` ${t(mood)} `;
-
+    const durationText = ` ${duration} `;
 
 
       const poetWords = poetText.split(' ').filter(word => word.length > 0);
@@ -163,6 +167,7 @@ export const PoemGenerator: FC = () => {
          .replace('[genre]',genreText)
           .replace('[style]',styleText)
             .replace('[mood]',moodText)
+            .replace('[duration]',durationText);
 
 
 
@@ -172,7 +177,7 @@ export const PoemGenerator: FC = () => {
       setPrompt('');
       setTitle('');
     }
-  }, [poet, genre, style, mood, t]);
+  }, [poet, genre, style, mood, duration, t]);
 
 
 
@@ -245,14 +250,25 @@ export const PoemGenerator: FC = () => {
             </option>
           ))}
         </TextField>
-
-
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%',paddingTop: '10px' }}>
+          <label>{t(tokens.form.words)}</label>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <CustomSlider
+            value={duration} // Convert the word count to the slider's scale
+            min={50}
+            max={600}
+            step={50} // The slider's step
+            onChange={(_, newValue) => setDuration(newValue as number)} // Convert back to words on change
+            sx={{ width: '95%' }}
+          />
+        </div>
 
 
 
 
       </Stack>
-        <Box sx={{ mt: 4 }}>
+        <Box sx={{ mt: 3 }}>
           <Button
             onClick={submitToOpenAI}
             type="submit"
