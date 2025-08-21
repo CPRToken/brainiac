@@ -1,3 +1,4 @@
+//src/pages/dashboard/chatgpt.tsx
 import type { NextPage } from 'next';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -20,7 +21,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <Seo title="Content Writer" />
+      <Seo title="ChatGPT 5" />
       <Box
         component="main"
         sx={{
@@ -65,7 +66,9 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={8}
+              md={10}
+              lg={12}
+              xl={14}
               sx={{
                 paddingLeft: 2, // Add padding here
                 // Or if you prefer margin: marginLeft: 2

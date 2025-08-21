@@ -1,40 +1,49 @@
-//src/sections/components/forms/chat-submit.ts
+// src/sections/components/forms/chat-submit.ts
 import { useState } from 'react';
 
 const useChatSubmit = () => {
-    const [openAIResponse, setOpenAIResponse] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(false);  // Add a loading state
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (prompt: string, maxTokens: number) => {
-    setIsLoading(true); // Set loading to true when the request starts
+  const handleSubmit = async (
+    prompt: string,
+    maxTokens: number,
+    onToken?: (t: string) => void
+  ): Promise<string> => {
+    setIsLoading(true);
+
     try {
       const response = await fetch('/api/chatgpt', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: [prompt], // Wrap the prompt in an array
-          max_tokens: maxTokens, // Ensure the property name matches the API's expected field
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt, max_tokens: maxTokens }),
       });
 
-      const data = await response.json();
+      if (!response.body) throw new Error('No response body');
 
-      if (data.content) {
-        setOpenAIResponse(data.content);
-      } else {
-        console.error("Failed to get documents.");
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let fullText = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        fullText += chunk;
+
+        if (onToken) onToken(chunk);
       }
+
+      return fullText; // ✅ return the complete streamed text
     } catch (error) {
-      console.error("An error occurred:", error);
+      console.error('Error in handleSubmit:', error);
+      return '';
     } finally {
-      setIsLoading(false); // Set loading to false when the request completes or fails
+      setIsLoading(false);
     }
   };
 
-
-  return { handleSubmit, openAIResponse, isLoading };  // Return the loading state along with other states
+  return { handleSubmit, isLoading };
 };
 
 export default useChatSubmit;

@@ -1,27 +1,41 @@
-//src/pages/api/chatgpt.ts
-import { NextApiRequest, NextApiResponse } from 'next/types';
-import OpenAI from 'openai';
+// src/pages/api/chatgpt.ts
+import OpenAI from "openai";
+
+export const config = {
+  runtime: "edge", // 👈 run on Edge
+};
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'POST') {
-    const { prompt } = req.body;
+export default async function handler(req: Request) {
+  const { prompt, max_tokens } = await req.json();
+  const maxOut = Number(max_tokens) || 1024;
 
-    // Extract the first element of the prompt array
-    const content = Array.isArray(prompt) ? prompt[0] : prompt;
+  const stream = await openai.chat.completions.create({
+    model: "gpt-5",
+    messages: [{ role: "user", content: prompt }],
+    max_completion_tokens: maxOut,
+    stream: true,
+  });
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [{ role: 'user', content }],
-      max_tokens: 1000,
-    });
+  const encoder = new TextEncoder();
 
-    const responseContent = completion?.choices?.[0]?.message?.content?.trim() ?? "No response generated.";
+  const readable = new ReadableStream({
+    async start(controller) {
+      for await (const chunk of stream) {
+        const token = chunk.choices[0]?.delta?.content || "";
+        if (token) {
+          controller.enqueue(encoder.encode(token));
+        }
+      }
+      controller.close();
+    },
+  });
 
-    res.status(200).json({ content: responseContent });
-  } else {
-    res.status(405).end(); // Method Not Allowed
-  }
-};
-
+  return new Response(readable, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "no-cache",
+    },
+  });
+}

@@ -101,6 +101,11 @@ export const useSections = () => {
         items: [
 
           {
+            title: t(tokens.nav.chatGPT),
+            path: paths.dashboard.chatGPT,
+            icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
+          },
+          {
             title: t(tokens.nav.modules),
             path: paths.dashboard.modules,
             icon: <SvgIcon fontSize="small"><Atom01 /></SvgIcon>,
@@ -115,11 +120,7 @@ export const useSections = () => {
             path: paths.dashboard.contentWriter,
             icon: <SvgIcon fontSize="small"><Pencil02 /></SvgIcon>,
           },
-          {
-            title: t(tokens.nav.chatGPT),
-            path: paths.dashboard.chatGPT,
-            icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
-          },
+
           ...(hasPremiumOrBusiness
             ? [{
               title: t(tokens.headings.liveTranslator),

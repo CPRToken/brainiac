@@ -1274,6 +1274,7 @@ headings: {
     keywords: 'form.keywords',
     saveImage: 'form.saveImage',
       saveText: 'form.saveText',
+      saveChat: 'form.saveChat',
     words: 'form.words',
     prompts: 'form.prompts',
     writeItinerary: 'form.writeItinerary',
