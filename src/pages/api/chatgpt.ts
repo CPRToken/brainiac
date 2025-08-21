@@ -2,7 +2,7 @@
 import OpenAI from "openai";
 
 export const config = {
-  runtime: "edge", // 👈 run on Edge
+  runtime: "edge", // 👈 edge runtime supports streaming well
 };
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -25,17 +25,20 @@ export default async function handler(req: Request) {
       for await (const chunk of stream) {
         const token = chunk.choices[0]?.delta?.content || "";
         if (token) {
-          controller.enqueue(encoder.encode(token));
+          // Send as proper SSE format
+          controller.enqueue(encoder.encode(`data: ${token}\n\n`));
         }
       }
+      controller.enqueue(encoder.encode("data: [DONE]\n\n"));
       controller.close();
     },
   });
 
   return new Response(readable, {
     headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "no-cache",
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-cache, no-transform",
+      Connection: "keep-alive",
     },
   });
 }
