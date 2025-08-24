@@ -115,7 +115,7 @@ headings: {
   changesToTerms: 'headings.changesToTerms',
   miscellaneous: 'headings.miscellaneous',
   contractGenerator: 'headings.contractGenerator',
-
+  contractReader: 'headings.contractReader',
 
   success: 'headings.success',
   tocs: 'headings.tocs',
@@ -271,7 +271,8 @@ headings: {
       terms: 'form.terms',
       genContractPrompts: 'form.genContractPrompts',
       contracts: 'form.contracts',
-
+      contractReaderPrompts: 'form.contractReaderPrompts',
+      docReaderPrompts: 'form.docReaderPrompts',
       priceBasicTestYearly: 'form.priceBasicTestYearly',
       priceTestBasic: 'form.priceTestBasic',
 
@@ -294,6 +295,7 @@ headings: {
       allContent: 'form.allContent',
       realEstate: 'form.realEstate',
       HowitWorksParagraph: 'form.HowitWorksParagraph',
+      contractAnalysis: 'form.contractAnalysis',
       HowitWorks: 'form.HowitWorks',
       basicTools: 'form.basicTools',
       expressions: 'form.expressions',
@@ -372,7 +374,7 @@ headings: {
       Harvard: 'form.Harvard',
       Vancouver: 'form.Vancouver',
       startFreeTrial: 'form.startFreeTrial',
-
+      pasteContract: 'form.pasteContract',
       AMA: 'form.AMA',
       ACM: 'form.ACM',
       APA7: 'form.APA7',
@@ -434,7 +436,7 @@ headings: {
       biblicalFiguresAbout: 'form.biblicalFiguresAbout',
       idiomTranslatorAbout: 'form.idiomTranslatorAbout',
       contractGeneratorAbout : 'form.contractGeneratorAbout',
-
+      contractReaderAbout: 'form.contractReaderAbout',
       todayIs: 'form.todayIs',
       confirmPassword: 'form.confirmPassword',
       saveTextnImage: 'form.saveTextnImage',
@@ -465,7 +467,7 @@ headings: {
       dessertGeneratorAbout: 'form.dessertGeneratorAbout',
       bookSummariserAbout: 'form.bookSummariserAbout',
       fruitsNVegesAbout: 'form.fruitsNVegesAbout',
-
+      uploadDoc: 'form.uploadDoc',
       filmTitle: 'form.filmTitle',
       investments: 'form.investments',
       careerDev: 'form.careerDev',
@@ -769,6 +771,7 @@ headings: {
         fruitInstructions: 'form.fruitInstructions',
       bookTitle: 'form.bookTitle',
       translateInstructions: 'form.translateInstructions',
+      contractReaderInstructions: 'form.contractReaderInstructions',
       codeTranslate: 'form.codeTranslate',
         summaryLength: 'form.summaryLength',
       bookSummary: 'form.bookSummary',

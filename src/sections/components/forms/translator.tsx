@@ -13,7 +13,7 @@
   import { tokens } from 'src/locales/tokens';
   import { useTranslation } from 'react-i18next';
   import CircularProgress from '@mui/material/CircularProgress';
-  import useGPT5Submit from './gpt5-submit';
+  import useGPT4Submit from './gpt4-submit';
   import Typography from "@mui/material/Typography";
   import {saveDoc} from "../buttons/saveDoc";
   import {useProtectedPage} from "../../../hooks/use-protectedpage";
@@ -83,7 +83,7 @@
   export const Translator: FC = () => {
     useProtectedPage();
     const { t } = useTranslation();
-    const { handleSubmit, openAIResponse, isLoading } = useGPT5Submit();
+    const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
     const [translationLanguage, setTranslationLanguage] = useState<string>('');
     const [title, setTitle] = useState<string>('');
     const [text, setText] = useState<string>('');

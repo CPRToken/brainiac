@@ -86,6 +86,7 @@ const Page: NextPage = () => {
     { name: t(tokens.headings.Articulate), path: paths.dashboard.articulate, icon: '/assets/icons/articulate.svg', about: t(tokens.form.articulateAbout) , plan: ['Trial','Premium', 'Business'] },
     { name: t(tokens.headings.liveTranslator), path: paths.dashboard.azureTranslator, icon: '/assets/icons/speech.svg', about: t(tokens.form.liveTransAbout) , plan: ['Premium', 'Business'] },
     { name: t(tokens.headings.contractGenerator), path: paths.dashboard.contractGenerator, icon: '/assets/icons/contract.svg', about: t(tokens.form.contractGeneratorAbout) , plan: ['Trial','Premium', 'Business'] },
+    { name: t(tokens.headings.contractReader), path: paths.dashboard.contractReader, icon: '/assets/icons/contractreader.svg', about: t(tokens.form.contractReaderAbout) , plan: ['Trial','Premium', 'Business'] },
   ];
 
   const filteredModules = user ? modules.filter(module => {

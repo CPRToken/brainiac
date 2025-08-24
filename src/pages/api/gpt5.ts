@@ -19,6 +19,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     await admin.auth().verifyIdToken(token);
 
     const { prompt, max_tokens, max_completion_tokens } = req.body || {};
+
+    console.log("REQ BODY >>>", req.body);
+
     const content = Array.isArray(prompt) ? prompt[0] : prompt;
     if (typeof content !== 'string' || !content.trim()) {
       return res.status(400).json({ error: 'Prompt is required' });

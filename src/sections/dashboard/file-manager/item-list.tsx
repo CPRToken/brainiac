@@ -1,10 +1,10 @@
+
 import type { ChangeEvent, FC, MouseEvent } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TablePagination from '@mui/material/TablePagination';
 import { Scrollbar } from 'src/components/scrollbar';
 import type { Item } from 'src/types/file-manager';
 
@@ -18,7 +18,7 @@ interface ItemListProps {
   items?: Item[];
   size?: number;
   name?: string;
-  onShare?: (itemId: string) => void;
+
   onDelete?: (itemId: string) => void;
   onFavorite?: (itemId: string, value: boolean) => void;
   onOpen?: (itemId: string) => void;
@@ -36,7 +36,7 @@ export const ItemList: FC<ItemListProps> = (props) => {
 
 
     onDelete,
-      onShare,
+
     onFavorite,
     onOpen,
     onPageChange = () => {},
@@ -68,7 +68,7 @@ export const ItemList: FC<ItemListProps> = (props) => {
             onDelete={onDelete}
             onFavorite={onFavorite}
             onOpen={onOpen}
-            onShare={onShare}
+
           />
         ))}
       </Box>
@@ -107,15 +107,7 @@ export const ItemList: FC<ItemListProps> = (props) => {
   return (
     <Stack spacing={4}>
       {content}
-      <TablePagination
-        component="div"
-        count={count}
-        onPageChange={onPageChange}
-        onRowsPerPageChange={onRowsPerPageChange}
-        page={page}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[9, 18]}
-      />
+
     </Stack>
   );
 };
