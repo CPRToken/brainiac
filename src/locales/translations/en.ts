@@ -290,7 +290,7 @@ export const en = {
   [tokens.form.priceBasicTestYearly]: 'price_1PjDoqI7exj9oAo95jqY8uSw',
 
   [tokens.form.contractReaderPrompts]: 'Analyze the entire contract text [text] and point out any errors or loopholes and make some suggestions of how to improve and strengthen it.',
-  [tokens.form.docReaderPrompts]: 'Analyze the entire contract [docWords] text, and or [add] text, and point out any errors or loopholes and make some suggestions of how to improve and strengthen it.',
+  [tokens.form.docReaderPrompts]: 'Analyze the entire contract [docWords] text, and or [add] text, according to to the laws of country [country], and point out any errors or loopholes and make some suggestions of how to improve and strengthen it.',
   [tokens.form.pasteContract]: 'Or paste your contract here',
 
   [tokens.form.termsAndConditions]: 'Terms and Conditions',
@@ -472,7 +472,7 @@ export const en = {
   [tokens.form.imageInstructions]: 'Select the desired options to generate an image. Choose an artist, a visual style, a theme & an object.\nSelect \'No Artist\' for realistic looking images.\n' +
   '\n',
   [tokens.form.translateInstructions]: 'To initiate a translation, please paste your text below. Then, select the language you wish your text to be translated to and click \'Submit\' to proceed.\n' ,
-  [tokens.form.contractReaderInstructions]: 'Upload your contract in a Word doc (.doc or .docx), or paste the full contract text into the box below. Then click Submit and the tool will analyze it, highlight errors or loopholes, and suggest improvements.',
+  [tokens.form.contractReaderInstructions]: 'Upload your contract in a Word doc (.doc or .docx), or paste the full contract text into the box below, and type in the country it applies to. Then click Submit and the model will analyze, point out any loopholes, then suggest improvements.',
   [tokens.form.magicMirror]: 'Ask the Magic Mirror to find the perfect outfit for any event. Select your preferences from the menu options and click \'Submit\'.',
     [tokens.form.interiorDesignerTip]: 'Consult the Interior Designer by selecting your preferences of property type, desired room, your preferred style, and color theme.',
 

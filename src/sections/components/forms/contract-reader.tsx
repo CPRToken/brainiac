@@ -35,6 +35,7 @@ export const DocReader: FC = () => {
   const { textRef, handleCopyText } = ResponseText();
   const settings = useSettings();
   const [add, setAdd] = useState("");
+  const [country, setCountry] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [title, setTitle] = useState("Contract Summary");
 
@@ -90,7 +91,9 @@ export const DocReader: FC = () => {
       return;
     }
 
-    const prompt = t(tokens.form.docReaderPrompts).replace("[docWords]", allText);
+    const prompt = t(tokens.form.docReaderPrompts)
+      .replace("[docWords]", allText);
+
     const words = allText.split(" ").filter(Boolean);
     setTitle(words.slice(0, 5).join(" "));
 
@@ -162,6 +165,20 @@ export const DocReader: FC = () => {
                 multiline
                 rows={2}
               />
+              <Box sx={{mt: 3}}>
+              <TextField
+                label={t(tokens.form.country)}
+                name="country"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                fullWidth
+
+                multiline
+                rows={1}
+
+              >
+              </TextField>
+              </Box>
 
               <Box sx={{ mt: 3 }}>
                 <Button
