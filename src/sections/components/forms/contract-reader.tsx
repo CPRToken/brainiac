@@ -11,22 +11,15 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import Paper from "@mui/material/Paper";
 import SvgIcon from "@mui/material/SvgIcon";
 import Upload01Icon from "@untitled-ui/icons-react/build/esm/Upload01";
+import TextField from "@mui/material/TextField";
 import { Seo } from "src/components/seo";
 import { useSettings } from "src/hooks/use-settings";
 import { tokens } from "../../../locales/tokens";
 import { useTranslation } from "react-i18next";
 import { saveDoc } from "../buttons/saveDoc";
-import { getDocument, GlobalWorkerOptions } from "pdfjs-dist";
 import { useProtectedPage } from "../../../hooks/use-protectedpage";
-import useGPT4Submit from './gpt4-submit';
+import useGPT4Submit from "./gpt4-submit";
 import ResponseText from "../clipboards/response-text";
-import TextField from "@mui/material/TextField";
-
-
-if (typeof window !== "undefined") {
-  // ⛔ turn workers OFF completely
-  (GlobalWorkerOptions as any).workerSrc = null;
-}
 
 export const DocReader: FC = () => {
   useProtectedPage();
@@ -34,8 +27,8 @@ export const DocReader: FC = () => {
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const { textRef, handleCopyText } = ResponseText();
   const settings = useSettings();
-  const [add, setAdd] = useState("");
   const [country, setCountry] = useState("");
+  const [add, setAdd] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [title, setTitle] = useState("Contract Summary");
 
@@ -43,8 +36,6 @@ export const DocReader: FC = () => {
     if (!newFiles) return;
     setFiles((prev) => [...prev, ...Array.from(newFiles)].slice(0, 5));
   };
-
-
 
   const removeFile = (name: string) => {
     setFiles((prev) => prev.filter((f) => f.name !== name));
@@ -59,26 +50,9 @@ export const DocReader: FC = () => {
     // start with pasted text (if any)
     let allText = add ? add + "\n" : "";
 
-    // process uploaded files
+    // process uploaded Word files
     for (const file of files) {
-      if (file.type === "application/pdf") {
-        const buffer = await file.arrayBuffer();
-        const pdf = await getDocument({
-          data: new Uint8Array(buffer),
-          // 👇 TS doesn't know about disableWorker, so we cast
-          disableWorker: true,
-        } as any).promise;
-
-        for (let i = 1; i <= pdf.numPages; i++) {
-          const page = await pdf.getPage(i);
-          const content = await page.getTextContent();
-          allText += content.items.map((s: any) => s.str).join(" ") + "\n";
-        }
-      } else if (
-        file.type.includes("word") ||
-        file.name.endsWith(".docx") ||
-        file.name.endsWith(".doc")
-      ) {
+      if (file.type.includes("word") || file.name.endsWith(".docx") || file.name.endsWith(".doc")) {
         const { extractRawText } = await import("mammoth");
         const buffer = await file.arrayBuffer();
         const result = await extractRawText({ arrayBuffer: buffer });
@@ -92,7 +66,8 @@ export const DocReader: FC = () => {
     }
 
     const prompt = t(tokens.form.docReaderPrompts)
-      .replace("[docWords]", allText);
+      .replace("[docWords]", allText)
+      .replace("[country]", country || ""); // fallback empty if not provided
 
     const words = allText.split(" ").filter(Boolean);
     setTitle(words.slice(0, 5).join(" "));
@@ -100,20 +75,18 @@ export const DocReader: FC = () => {
     await handleSubmit(prompt, 4000);
   };
 
-
   return (
     <>
-
+      <Seo title="Dashboard: Contract Reader" />
       <Box component="main" sx={{ flexGrow: 1, py: 8 }}>
         <Container maxWidth={settings.stretch ? false : "xl"}>
           <Grid container spacing={{ xs: 3, lg: 4 }}>
             <Grid xs={12}>
-              <Typography variant="body2" sx={{ paddingTop: 'value', paddingBottom: '30px' }}>
+              <Typography variant="body2" sx={{ mb: 3 }}>
                 {t(tokens.form.contractReaderInstructions)}
               </Typography>
 
               <Stack direction="row" justifyContent="space-between" spacing={4}>
-
                 <Button
                   component="label"
                   startIcon={
@@ -128,27 +101,27 @@ export const DocReader: FC = () => {
                     type="file"
                     hidden
                     multiple
-                    accept=".pdf,.doc,.docx"
+                    accept=".doc,.docx"
                     onChange={(e) => handleFiles(e.target.files)}
                   />
                 </Button>
               </Stack>
 
-              <Stack direction="row" spacing={2} sx={{ mt: 2, mb:2,  flexWrap: "wrap" }}>
+              {/* Show uploaded files */}
+              <Stack direction="row" spacing={2} sx={{ mt: 2, mb: 2, flexWrap: "wrap" }}>
                 {files.map((file, idx) => (
                   <Box
                     key={idx}
                     sx={{
                       border: "1px solid #ddd",
                       borderRadius: 2,
-                      p: 0.5,              // less padding
-                      minWidth: 100,        // narrower minimum
-                      maxWidth: 190,       // optional cap
-                      flex: "1 1 auto",    // allow flexible shrink/grow
+                      p: 0.5,
+                      minWidth: 100,
+                      maxWidth: 190,
+                      flex: "1 1 auto",
                       textAlign: "center",
                     }}
                   >
-
                     <Typography variant="body2">{file.name}</Typography>
                     <Button size="small" color="error" onClick={() => removeFile(file.name)}>
                       Remove
@@ -156,6 +129,8 @@ export const DocReader: FC = () => {
                   </Box>
                 ))}
               </Stack>
+
+              {/* Text input option */}
               <TextField
                 fullWidth
                 label={t(tokens.form.pasteContract)}
@@ -166,20 +141,19 @@ export const DocReader: FC = () => {
                 rows={2}
               />
               <Box sx={{mt: 3}}>
-              <TextField
-                label={t(tokens.form.country)}
-                name="country"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-                fullWidth
+                <TextField
+                  label={t(tokens.form.country)}
+                  name="country"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  fullWidth
+                  multiline
+                  rows={1}
 
-                multiline
-                rows={1}
-
-              >
-              </TextField>
+                >
+                </TextField>
               </Box>
-
+              {/* Submit */}
               <Box sx={{ mt: 3 }}>
                 <Button
                   onClick={submitToOpenAI}
@@ -188,11 +162,11 @@ export const DocReader: FC = () => {
                   fullWidth
                   disabled={isLoading || (files.length === 0 && !add.trim())}
                 >
-
                   {isLoading ? <CircularProgress size={24} /> : "Submit"}
                 </Button>
               </Box>
 
+              {/* Response */}
               {openAIResponse && (
                 <Box sx={{ mt: 3 }}>
                   <label>{t(tokens.form.contractAnalysis)}</label>
@@ -207,7 +181,7 @@ export const DocReader: FC = () => {
                     {openAIResponse.split("\n").map((str, index, array) => (
                       <React.Fragment key={index}>
                         {str}
-                        {index < array.length - 1 ? <br/> : null}
+                        {index < array.length - 1 ? <br /> : null}
                       </React.Fragment>
                     ))}
                   </Paper>
