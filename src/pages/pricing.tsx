@@ -138,6 +138,7 @@ const PricingSection: FC = () => {
                     description={t(tokens.form.planDescription)}
                     info={t(tokens.form.allContent)}
                     features={[
+                      t(tokens.form.ChatGPT5),
                       t(tokens.nav.imageGenerator),
                       t(tokens.form.basicTools),
                       t(tokens.nav.SEOWriter),
@@ -173,10 +174,15 @@ const PricingSection: FC = () => {
                     description={t(tokens.form.planDescription)}
                     info={t(tokens.form.allContent)}
                     features={[
+                      t(tokens.form.ChatGPT5),
                       t(tokens.nav.imageGenerator),
                       t(tokens.form.premTools),
                       t(tokens.nav.SEOWriter),
                       t(tokens.form.unlimitedWords),
+                      t(tokens.headings.resumeBuilder),
+                      t(tokens.headings.speechWriter),
+                      t(tokens.headings.translator),
+                      t(tokens.form.andManyMore),
                     ]}
                     icon={<PricingPlanIcon name="standard" />}
                     name={t(tokens.form.Premium)}
@@ -208,10 +214,20 @@ const PricingSection: FC = () => {
                     description={t(tokens.form.planDescription)}
                     info={t(tokens.form.allContent)}
                     features={[
+                      t(tokens.form.ChatGPT5),
                       t(tokens.nav.imageGenerator),
                       t(tokens.form.businessTools),
                       t(tokens.nav.SEOWriter),
+                      t(tokens.headings.startABusiness),
                       t(tokens.form.unlimitedWords),
+                      t(tokens.headings.resumeBuilder),
+                      t(tokens.headings.speechWriter),
+                      t(tokens.headings.translator),
+                      t(tokens.headings.contractGenerator),
+                      t(tokens.headings.contractReader),
+                      t(tokens.headings.editor),
+                      t(tokens.headings.essayWriter),
+                      t(tokens.form.andManyMore),
                     ]}
                     icon={<PricingPlanIcon name="business" />}
                     name={t(tokens.form.BusinessP)}

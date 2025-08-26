@@ -252,7 +252,7 @@ export const en = {
   [tokens.form.stripeCustomerId]: 'Stripe Customer ID',
   [tokens.form.articlesGen]: 'Articles Generated',
   [tokens.form.wordsUsed]: 'Total Words',
-
+  [tokens.form.ChatGPT5]: 'ChatGPT 5',
   [tokens.form.options]: 'Options',
   [tokens.form.yourOutFit]: 'Your Outfit',
   [tokens.form.basicTools]: 'Basic Plan Tools',
@@ -690,6 +690,22 @@ export const en = {
 
   [tokens.form.question5]: 'How can Brainiac Media help improve my SEO?',
   [tokens.form.answer5]: 'Brainiac Media provides tools to help you create SEO-optimized content that ranks. By combining keyword research with our AI-driven content generation, you can boost your search engine visibility and drive more traffic to your site.',
+
+  [tokens.form.question6]: 'Why can’t I just use ChatGPT instead?',
+  [tokens.form.answer6]: 'Lower Price – Our plans start at just $7.99/month (ChatGPT Plus is $20).',
+  [tokens.form.answer7]: 'More Tools in One Place – Not just chat — you also get modules like SEO Article Writer, Image Generator, Script Writer, Resume Builder, Translator, Contract Tools, Diet Planner, Travel Agent, and more.',
+  [tokens.form.answer8]: 'Unlimited Words – No hidden caps on content generation.',
+  [tokens.form.answer9]: 'Specialized Writers – One-click modules for lyrics, poems, essays, recipes, business plans, speeches, and more — optimized prompts built in, saving you time.',
+  [tokens.form.answer10]: 'SEO-Friendly Content – Dedicated SEO Article Writer to rank better on Google.',
+  [tokens.form.answer11]: 'Business Features – Contract Generator/Reader, Career Developer, Start-a-Business advisor, Investment Advisor — tools you won’t find in ChatGPT directly.',
+  [tokens.form.answer12]: 'Creative Features – Dream interpretation, philosophy writer, story generator, cocktail/dessert creator, interior designer — fun and useful extras.',
+  [tokens.form.answer13]: 'Live Speech Translator – Real-time translator powered by Azure + Grok, included in Premium/Business plans.',
+  [tokens.form.answer14]: 'All Content is Unique – We ensure originality so your content isn’t flagged or duplicated.',
+  [tokens.form.answer15]: 'One Subscription, Many Uses – Instead of paying for multiple apps (SEO tools, translators, recipe generators, editors), you get everything in one dashboard.',
+  [tokens.form.answer16]: '20% Discount – Pay yearly and save instantly.',
+  [tokens.form.answer17]: 'Business Plans – Access to all modules plus team usage.',
+
+  [tokens.form.andManyMore]: 'And many more features',
   [tokens.form.upgradeToContinue]: 'To continue enjoying our tools and services, please upgrade your plan',
   [tokens.form.yourBusinessPlan]: 'Your Business Plan',
         [tokens.form.writeSpeech]: 'Write a [theme]speech about [title], in a [style] style, using any extra info if provided: [extra} (the extra info is for you to help write a more targeted speech, dont mention it in the response text), and with a duration of [duration] minutes',

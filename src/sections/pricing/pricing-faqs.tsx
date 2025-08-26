@@ -1,3 +1,4 @@
+//src/sections/pricing/pricing-faqs.tsx
 import React, { FC, useState } from 'react';
 import PropTypes from 'prop-types';
 import ChevronDownIcon from '@untitled-ui/icons-react/build/esm/ChevronDown';
@@ -15,11 +16,13 @@ import SvgIcon from '@mui/material/SvgIcon';
 
 interface FaqType {
   question: string;
-  answer: string;
+  answer: string | string[]; // allow both
 }
 
 const Faq: FC<FaqType> = ({ question, answer }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+
 
   return (
     <Stack
@@ -39,13 +42,23 @@ const Faq: FC<FaqType> = ({ question, answer }) => {
         <SvgIcon>{isExpanded ? <ChevronDownIcon /> : <ChevronRightIcon />}</SvgIcon>
       </Stack>
       <Collapse in={isExpanded}>
-        <Typography
-          color="text.secondary"
-          variant="body2"
-        >
-          {answer}
-        </Typography>
+        {Array.isArray(answer) ? (
+          <Box component="ul" sx={{ pl: 3, mb: 2 }}>
+            {answer.map((item, i) => (
+              <Box component="li" key={i} sx={{ mb: 1 }}>
+                <Typography color="text.secondary" variant="body2">
+                  {item}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        ) : (
+          <Typography color="text.secondary" variant="body2">
+            {answer}
+          </Typography>
+        )}
       </Collapse>
+
     </Stack>
   );
 };
@@ -59,6 +72,24 @@ export const PricingFaqs: FC = (props) => {
   const { t } = useTranslation();
 
   const faqs: FaqType[] = [
+
+    {
+      question: t(tokens.form.question6),
+      answer: [
+        t(tokens.form.answer6),
+        t(tokens.form.answer7),
+        t(tokens.form.answer8),
+        t(tokens.form.answer9),
+        t(tokens.form.answer10),
+        t(tokens.form.answer11),
+        t(tokens.form.answer12),
+        t(tokens.form.answer13),
+        t(tokens.form.answer14),
+        t(tokens.form.answer15),
+        t(tokens.form.answer16),
+        t(tokens.form.answer17),
+      ],
+    },
     {
       question: t(tokens.form.question1),
       answer: t(tokens.form.answer1),
