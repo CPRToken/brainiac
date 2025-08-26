@@ -781,7 +781,7 @@ export const es = {
   [tokens.form.answer14]: 'Todo el contenido es único – Garantizamos originalidad para que tu contenido no sea marcado o duplicado.',
   [tokens.form.answer15]: 'Una sola suscripción, muchos usos – En lugar de pagar varias apps (SEO, traductores, generadores de recetas, editores), lo tienes todo en un solo panel.',
   [tokens.form.answer16]: '20% de descuento – Ahorra al pagar anualmente.',
-  [tokens.form.answer17]: 'Planes empresariales – Acceso a todos los módulos más uso en equipo.',
+  [tokens.form.answer17]: 'Planes empresariales – Acceso a todos los módulos más uso en equipo (hasta 5 miembros)',
   [tokens.form.andManyMore]: '¡Y mucho más!',
   [tokens.form.upgradeToContinue]: 'Para seguir disfrutando de nuestras herramientas y servicios, por favor actualiza tu plan',
   [tokens.form.AllPrevious]: 'Todos los Anteriores',
