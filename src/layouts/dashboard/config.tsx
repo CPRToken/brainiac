@@ -45,7 +45,7 @@ export const useSections = () => {
   const { t } = useTranslation();
   const { currentUser } = auth;
 
-  const [userUrl, setUserUrl] = useState<string | null>(null);
+
   const [userRole, setUserRole] = useState<string>('');
   const [userPlan, setUserPlan] = useState<string>('');
 
@@ -56,7 +56,7 @@ export const useSections = () => {
         .then((docSnapshot) => {
           if (docSnapshot.exists()) {
             const userData = docSnapshot.data();
-            setUserUrl(userData.userUrl || '');
+
             setUserRole(userData.role || '');
             setUserPlan(userData.plan || ''); // Default to empty string if undefined
           }
@@ -121,13 +121,14 @@ export const useSections = () => {
             icon: <SvgIcon fontSize="small"><Pencil02 /></SvgIcon>,
           },
 
-          ...(hasPremiumOrBusiness
-            ? [{
-              title: t(tokens.headings.liveTranslator),
-              path: paths.dashboard.azureTranslator,
-              icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
-            }]
-            : []),
+          // ...(hasPremiumOrBusiness
+//   ? [{
+//       title: t(tokens.headings.liveTranslator),
+//       path: paths.dashboard.azureTranslator,
+//       icon: <SvgIcon fontSize="small"><File03 /></SvgIcon>,
+//     }]
+//   : []),
+
 
         ],
       },
@@ -238,5 +239,5 @@ export const useSections = () => {
         ]
         : []),
     ];
-  }, [t, userRole, userPlan, userUrl]);
+  }, [t, userRole, userPlan]);
 };

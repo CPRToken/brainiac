@@ -1,3 +1,4 @@
+//src/pages/dashboard/essay-writer.tsx
 import type { NextPage } from 'next';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';

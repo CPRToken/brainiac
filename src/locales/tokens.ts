@@ -95,6 +95,7 @@ headings: {
 
   primaryColor: 'headings.primaryColor',
   plagiarismChecker: 'headings.plagiarismChecker',
+  howToUse: 'headings.howToUse',
   liveTranslator: 'headings.liveTranslator',
   Articulate: 'headings.Articulate',
   timeSaved: 'headings.timeSaved',
@@ -243,6 +244,8 @@ headings: {
       video1: 'form.video1',
       video2: 'form.video2',
       video3: 'form.video3',
+      howtoVideo: 'form.howtoVideo',
+      video5: 'form.video5',
       basicMB: 'form.basicMB',
       youtube: 'form.youtube',
       priceBasic: 'form.priceBasic',

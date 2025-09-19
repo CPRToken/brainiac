@@ -45,8 +45,8 @@ export const es = {
   [tokens.form.video1]: '/assets/videos/es/amor.mp4',
   [tokens.form.video2]: '/assets/videos/es/video2.mp4',
   [tokens.form.video3]: '/assets/videos/es/video3.mp4',
-
-  [tokens.form.priceBasic]: 'price_1QNpX8I7exj9oAo9erM3juYm',
+  [tokens.form.howtoVideo]: '/assets/videos/es/howtoes.mp4',
+    [tokens.form.priceBasic]: 'price_1QNpX8I7exj9oAo9erM3juYm',
   [tokens.form.priceBasicCurrency]: '4,500 CLP',
   [tokens.form.priceBasicYearly]: 'price_1QNpV9I7exj9oAo9Aq2lz9Uz',
   [tokens.form.priceBasicYearlyCurrency]: '3,600 CLP',
@@ -645,6 +645,7 @@ export const es = {
   [tokens.form.alcohol]: 'Alcohol',
     [tokens.form.yourFinancialPlan]: 'Tu Plan Financiero',
   [tokens.headings.myContent]: 'Mi Contenido',
+    [tokens.headings.howToUse]: '¿Cómo Usar Brainiac',
   [tokens.headings.Articulate]: 'Articúlate',
   [tokens.headings.plagiarismChecker]: 'Verificador de Plagio',
   [tokens.headings.contentDetector]: 'Detector de Contenido',

@@ -22,11 +22,12 @@ export const HomeCta: FC = () => {
           <Typography sx={{ ...typography.body1 }}>{t(tokens.form.HowitWorksParagraph)}</Typography>
         </Box>
 
+
         <Grid container spacing={3} sx={{ mt: 6 }}>
           {['video1', 'video2', 'video3'].map((v, idx) => (
             <Grid item xs={12} sm={6} md={4} key={v} sx={{ display: 'flex', justifyContent: { xs: 'center', md: 'flex-start' } }}>
-              <Box sx={{ width: { xs: '70%', sm: '80%', md: '85%', lg: '90%' } }}>
-                <video width="100%" controls poster={`/assets/posters/vid${idx + 1}.jpg`} preload="none">
+              <Box sx={{ height: { xs: '70%', sm: '80%', md: '85%', lg: '90%' } }}>
+                <video width="100%" controls poster={`/assets/videos/vid${idx + 1}.jpg`} preload="none">
                   <source src={t(tokens.form[v as keyof typeof tokens.form])} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>

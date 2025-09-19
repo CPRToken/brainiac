@@ -12,6 +12,8 @@ import {doc, updateDoc} from 'firebase/firestore';
 import { db } from 'src/libs/firebase';
 import {TrialPlan} from 'src/sections/components/trial-plan';
 import { useRouter } from "next/router";
+import Dialog from '@mui/material/Dialog';
+
 import { socialApi } from "src/api/social/socialApi";
 import { usePageView } from 'src/hooks/use-page-view';
 import { useSettings } from 'src/hooks/use-settings';
@@ -20,7 +22,7 @@ import { OverviewDoneArticles } from 'src/sections/dashboard/overview/overview-d
 import { OverviewTimeSaved } from 'src/sections/dashboard/overview/overview-time-saved';
 import { OverviewDoneImages } from 'src/sections/dashboard/overview/overview-done-images';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { typography } from 'src/theme/typography';
 import { tokens } from 'src/locales/tokens';
@@ -51,6 +53,8 @@ const ModuleItemComponent: React.FC<ModuleItemProps> = ({ module }) => {
   const theme = useTheme();
   const [hovered, setHovered] = React.useState(false);
   const { t } = useTranslation();
+  const { locale } = useRouter();
+
 
   const handleMouseEnter = () => setHovered(true);
   const handleMouseLeave = () => setHovered(false);
@@ -150,8 +154,12 @@ const Page: NextPage = () => {
   const [user, setUser] = useState<Profile | null>(null);
   const [userPlan, setUserPlan] = useState('');
   const settings = useSettings();
+  const [open, setOpen] = useState(false);
+  const [thumb, setThumb] = useState<string | null>(null);
+  const hiddenVidRef = useRef<HTMLVideoElement | null>(null);
   const { t } = useTranslation();
   const theme = useTheme();
+
 
   usePageView();
 
@@ -208,7 +216,38 @@ const Page: NextPage = () => {
     };
   }, []);
 
+  const videoSrc = t(tokens.form.howtoVideo);
+
   const hasTrial = useMemo(() => userPlan === 'Trial' || userPlan === 'Expired', [userPlan]);
+
+  useEffect(() => {
+    setThumb(null); // clear old image whenever videoSrc changes
+
+    const v = hiddenVidRef.current;
+    if (!v) return;
+
+    const onLoadedMeta = () => {
+      const onSeeked = () => {
+        const c = document.createElement('canvas');
+        c.width = v.videoWidth;
+        c.height = v.videoHeight;
+        const ctx = c.getContext('2d');
+        if (!ctx) return;
+        ctx.drawImage(v, 0, 0, c.width, c.height);
+        setThumb(c.toDataURL('image/jpeg', 0.8));
+        v.removeEventListener('seeked', onSeeked);
+      };
+      v.addEventListener('seeked', onSeeked);
+      try {
+        v.currentTime = 1; // seek to 1 second instead of 0.1
+      } catch {}
+    };
+
+    v.addEventListener('loadedmetadata', onLoadedMeta);
+    return () => v.removeEventListener('loadedmetadata', onLoadedMeta);
+  }, [videoSrc]);
+
+
 
   return (
     <>
@@ -314,12 +353,92 @@ const Page: NextPage = () => {
         <Box component="main" sx={{ flexGrow: 1, py: 5 }}>
           <Container maxWidth={settings.stretch ? false : 'xl'}>
             <Stack spacing={8}>
+
+              <Box sx={{ width: '100%', mb: 3 }}>
+                <Typography
+                  sx={{
+                    ...typography.h4,
+                    mb: 0,
+                    mt: 0,
+                    pl: 3,
+                    pr: 0,
+                    textAlign: 'left',
+                  }}
+                >
+                  {t(tokens.headings.howToUse)}
+                </Typography>
+              </Box>
+
+              <video
+                ref={hiddenVidRef}
+                src={videoSrc}
+                preload="metadata"
+                style={{ display: 'none' }}
+              />
+
+              {/* Thumbnail (real still from the video) */}
+              <Grid item xs={12} sm={10} md={8}>
+                <Box
+                  onClick={() => setOpen(true)}
+                  sx={{
+                    mx: 'auto',
+                    width: { xs: '100%', sm: 250 },
+                    aspectRatio: '16/9',
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    cursor: 'pointer',
+                    boxShadow: 3,
+                    '&:hover': { boxShadow: 6 },
+                    display: 'grid',
+                    placeItems: 'center',
+                    bgcolor: 'black',
+                    border: '1px solid #fff' // 2px white border
+                  }}
+                >
+                  {thumb ? (
+                    <Box
+                      component="img"
+                      src={thumb}
+                      alt="Video thumbnail"
+                      sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
+                  ) : (
+                    // fallback: tiny muted video paused at first frame if thumb not ready yet
+                    <video src={videoSrc} muted playsInline preload="metadata" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  )}
+                </Box>
+
+                {/* Dialog with the actual video */}
+                <Dialog
+                  open={open}
+                  onClose={() => setOpen(false)}
+                  fullWidth
+                  maxWidth="md"
+                  PaperProps={{ sx: { bgcolor: 'background.default' } }}
+                >
+                  <Box sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Box sx={{ width: '100%', aspectRatio: '16/9' }}>
+                      <video
+                        key={open ? 'open' : 'closed'}  // resets on close
+                        width="100%"
+                        controls
+                        preload="none"
+                        style={{ width: '100%', height: '100%' }}
+                      >
+                        <source src={videoSrc} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </Box>
+                  </Box>
+                </Dialog>
+              </Grid>
+
               <Box sx={{ width: '100%', mb: 3 }}>
                 <Typography
                   sx={{
                     ...typography.h4,
                     mb: 1,
-                    mt: 0,
+                    mt: 7,
                     pl: 3,
                     pr: 0,
                     textAlign: 'left',

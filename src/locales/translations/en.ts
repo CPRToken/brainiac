@@ -14,7 +14,9 @@ export const en = {
   [tokens.nav.auth]: 'Auth',
   [tokens.nav.AImodules]: 'AI Modules',
   [tokens.nav.upgrade]: 'Upgrade',
+
   [tokens.headings.yourInstructions]: 'Your Instructions',
+  [tokens.headings.howToUse]: 'How to use Brainiac',
   [tokens.headings.Articulate]: 'Articulate Yourself',
   [tokens.headings.timeSaved]: 'Time Saved',
   [tokens.headings.plagiarismChecker]: 'Plagiarism Checker',
@@ -270,7 +272,7 @@ export const en = {
   [tokens.form.video1]: '/assets/videos/vid1.mp4',
   [tokens.form.video2]: '/assets/videos/es/lyricwriteres.mp4',
   [tokens.form.video3]: '/assets/videos/poems.mp4',
-
+  [tokens.form.howtoVideo]: '/assets/videos/howtoen.mp4',
   [tokens.form.priceBasic]: 'price_1QNpMjI7exj9oAo9ColPjP1G',
   [tokens.form.priceBasicCurrency]: '$7.99',
   [tokens.form.priceBasicYearly]: 'price_1QNpQPI7exj9oAo9rx2W7jkg',
