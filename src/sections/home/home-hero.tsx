@@ -30,7 +30,7 @@ export const HomeHero: FC = () => {
               : 'linear-gradient(rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.3)), url("/assets/ailight.png")',
             pt: '40px',
             pb: '10px',
-            height: '60vh', // Default to 70% of the viewport height
+            height: '55vh', // Default to 70% of the viewport height
             width: 'cover',
             '@media (max-width:600px)': {
               height: '50vh', // Adjust height for xs screens
@@ -66,22 +66,11 @@ export const HomeHero: FC = () => {
               <Box
                 sx={{
                   width: { xs: '100%', md: '48%', lg: '48%' },  // Full width on xs to md, 48% on lg and xl
-                  mt: { xs: 3, sm: 2, md: 1, lg: 0 },  // Adjust margin-top for mobile, remove for lg and xl
-                  pt:{ xs: 2, sm: 2, md: 1,  lg: 0 },
+                  mt: { xs: 3, sm: 2, md: 1, lg: 2 },  // Adjust margin-top for mobile, remove for lg and xl
+                  pt:{ xs: 2, sm: 2, md: 1,  lg: 2 },
 
                 }}
               >
-                <Typography
-                  sx={{
-                    ...typography.h4,
-                    color: 'text.primary',
-                    mt: { xs: 3,  md: 3, lg: 3 },  // Adjust top margin for mobile
-                    pt: { xs: 3, lg: 5 },
-                    mb: 0
-                  }}
-                >
-                  {t(tokens.headings.Heading)}
-                </Typography>
 
 
                 <Typography
@@ -89,7 +78,7 @@ export const HomeHero: FC = () => {
                     ...typography.body1,
                     color: 'text.primary',
                     mt: { xs: 2, sm: 4 },  // Adjust top margin for mobile
-                    pt: 1,
+                    pt: 4,
                     mb: 0
                   }}
                 >

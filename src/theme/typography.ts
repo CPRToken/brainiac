@@ -141,8 +141,8 @@ export const typography = {
     ...responsiveFontSizes({ sm: 13, md: 13, lg: 13 }), // Add responsive sizes
   },
   body1: {
-    fontWeight: 200,
-    lineHeight: 1.6,
+    fontWeight: 400,
+    lineHeight: 1.7,
     fontSize: pxToRem(17),
     fontFamily: primaryFont.style.fontFamily,
     ...responsiveFontSizes({ xs:15, sm: 16, md: 16, lg: 17 }), // Add responsive sizes

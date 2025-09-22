@@ -240,7 +240,7 @@ headings: {
 
     form: {
 
-
+      clickToExpand: 'form.clickToExpand',
       video1: 'form.video1',
       video2: 'form.video2',
       video3: 'form.video3',
