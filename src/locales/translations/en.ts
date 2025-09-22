@@ -723,6 +723,7 @@ export const en = {
   [tokens.form.informative]: 'informative',
   [tokens.form.deleteAccountTitle]: 'Delete Account',
   [tokens.form.areYouSure]: 'Are you sure you want to delete your account?',
+  [tokens.form.reauthRequired]: 'For security reasons, please re-authenticate to proceed with account deletion.',
   [tokens.form.deleteAccountError]: 'There was an error deleting your account. Please try again later.',
   [tokens.form.deleteAccountDescription]: 'Delete your account and all of your source data. This is irreversible.',
   [tokens.form.savePost]: 'Save Post',

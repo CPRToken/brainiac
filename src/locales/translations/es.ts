@@ -592,6 +592,7 @@ export const es = {
   [tokens.form.sunroom]: 'Solárium',
   [tokens.form.deleteAccountTitle]: 'Eliminar Cuenta',
   [tokens.form.areYouSure]: '¿Estás seguro de que deseas eliminar tu cuenta?',
+  [tokens.form.reauthRequired]: 'Por razones de seguridad, por favor vuelve a autenticarte para continuar con la eliminación de tu cuenta.',
   [tokens.form.deleteAccountError]: 'Hubo un error al eliminar tu cuenta. Por favor, inténtalo de nuevo más tarde.',
     [tokens.form.welcomeToBrainiacMedia]: '¡Bienvenido a Brainiac Media. Estos términos y condiciones describen las reglas y regulaciones para el uso del sitio web y los servicios de Brainiac Media.',
   [tokens.form.deleteAccountDescription]: 'Eliminar tu cuenta es una acción permanente y no se puede deshacer. Al eliminar tu cuenta, se borrarán todos tus datos personales, historial de uso y cualquier contenido asociado con tu cuenta. Esta acción es irreversible.',

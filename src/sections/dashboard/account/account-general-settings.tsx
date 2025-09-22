@@ -83,24 +83,28 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
   };
 
   const handleDeleteAccount = async () => {
-    if (!uid || !auth.currentUser) return;
-
-    // translate the message first
-    const message = t(tokens.form.areYouSure); // e.g. "Are you sure you want to delete your account? This action is irreversible."
-
-    const confirmed = window.confirm(message);
+    // confirmation first
+    const confirmed = window.confirm(t(tokens.form.areYouSure));
     if (!confirmed) return;
 
+    const user = auth.currentUser;
+    if (!user) return;
+
     try {
-      await deleteDoc(doc(db, 'users', uid));
-      await deleteUser(auth.currentUser);
+      await deleteDoc(doc(db, 'users', user.uid));
+      await deleteUser(user);
       await signOut(auth);
       router.push('/');
-    } catch (error) {
-      console.error(error);
-      alert(t(tokens.form.deleteAccountError)); // also make this a token if you want
+    } catch (err: any) {
+      if (err?.code === 'auth/requires-recent-login') {
+        alert(t(tokens.form.reauthRequired)); // this stays exactly as you wrote it
+        return;
+      }
+      console.error(err);
+      alert(t(tokens.form.deleteAccountError));
     }
   };
+
 
 
 
@@ -250,7 +254,7 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
                             handleDeleteAccount();
                           }}
                         >
-                          Delete Account
+                          {t(tokens.form.deleteAccount)}
                         </Button>
                       </DialogActions>
                     </Dialog>

@@ -243,6 +243,7 @@ headings: {
       clickToExpand: 'form.clickToExpand',
       areYouSure: 'form.areYouSure',
       deleteAccountError: 'form.deleteAccountError',
+      reauthRequired: 'form.reauthRequired',
       video1: 'form.video1',
       video2: 'form.video2',
       video3: 'form.video3',
