@@ -35,7 +35,7 @@ export const en = {
   [tokens.headings.contractGenerator]: 'Contract Generator',
   [tokens.headings.contractReader]: 'Contract Reader',
   [tokens.headings.popularAItools]: 'Our Most Popular AI Tools',
-  [tokens.headings.Heading]: 'Generate SEO-ready articles, emails and social posts in seconds',
+  [tokens.headings.Heading]: 'Write Content 10× Faster With AI',
   [tokens.headings.govPositions]: 'Government Positions',
   [tokens.headings.agreementToTerms]: 'Agreement to Terms',
   [tokens.form.acceptConditions]: 'By accessing or using the Services, you agree to be bound by this Agreement. If you do not agree, you must not access or use the Services. This Agreement supersedes any prior agreements or arrangements with respect to the use of the Services.',

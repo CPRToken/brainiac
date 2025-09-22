@@ -664,7 +664,7 @@ export const es = {
     [tokens.headings.biblicalFigures]: 'Figuras Bíblicas',
   [tokens.headings.startToday]: 'Empieza a escribir 20 veces más rápido con IA!',
   [tokens.headings.FAQ]: 'Preguntas Frecuentes',
-  [tokens.headings.Heading]: 'Genera artículos, correos y publicaciones para redes sociales optimizadas para SEO en segundos.',
+  [tokens.headings.Heading]: 'Escribe contenido 10 veces más rápido con IA',
   [tokens.headings.navColor]: 'Color Nav',
   [tokens.headings.realEstate]: 'Valorador de propiedades',
   [tokens.headings.chatGPT]: 'ChatGPT 5',

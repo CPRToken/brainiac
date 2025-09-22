@@ -26,7 +26,7 @@ import { getPriceId } from 'src/utils/getPriceId';
 const PricingSection: FC = () => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
   const { t } = useTranslation();
-  const [isYearly, setIsYearly] = useState(false);
+  const [isYearly, setIsYearly] = useState(true);
 
 
 
@@ -84,7 +84,7 @@ const PricingSection: FC = () => {
 
   return (
     <>
-
+      <LanguageSwitch />
       <Seo title="Pricing" />
       <Box component="main" sx={{ flexGrow: 1 }}>
         <Box

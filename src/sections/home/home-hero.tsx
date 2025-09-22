@@ -1,10 +1,11 @@
 import type { FC } from 'react';
 
 import Box from '@mui/material/Box';
-
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import {useTranslation} from "react-i18next";
 import Stack from '@mui/material/Stack';
+import { useRouter } from 'next/router';
 
 import Typography from '@mui/material/Typography';
 import {typography } from "src/theme/typography";
@@ -15,6 +16,7 @@ import {tokens} from "src/locales/tokens";
 
 export const HomeHero: FC = () => {
   const theme = useTheme();  // Use the theme
+  const router = useRouter();
 
   const { t } = useTranslation();
 
@@ -30,7 +32,7 @@ export const HomeHero: FC = () => {
               : 'linear-gradient(rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.3)), url("/assets/ailight.png")',
             pt: '40px',
             pb: '10px',
-            height: '55vh', // Default to 70% of the viewport height
+            height: '57vh', // Default to 70% of the viewport height
             width: 'cover',
             '@media (max-width:600px)': {
               height: '50vh', // Adjust height for xs screens
@@ -71,6 +73,17 @@ export const HomeHero: FC = () => {
 
                 }}
               >
+                <Typography
+                  sx={{
+                    ...typography.h4,
+                    color: 'text.primary',
+                    mt: { xs: 3,  md: 3, lg: 3 },  // Adjust top margin for mobile
+                    pt: { xs: 3, lg: 2 },
+                    mb: 0
+                  }}
+                >
+                  {t(tokens.headings.Heading)}
+                </Typography>
 
 
                 <Typography
@@ -79,15 +92,26 @@ export const HomeHero: FC = () => {
                     color: 'text.primary',
                     mt: { xs: 2, sm: 4 },  // Adjust top margin for mobile
                     pt: 4,
-                    mb: 0
+                    mb: 4
                   }}
                 >
                   {t(tokens.form.BrainiacIntro)}
                 </Typography>
+
+                <Button
+                  variant="contained"
+                  onClick={() => router.push('/pricing')}
+                  sx={{
+                    width: '50%' }}   // half of the parent container width
+                >
+                  {t(tokens.form.startFreeTrial)}
+                </Button>
+
               </Box>
 
               {/* Column 2 */}
-              <Box sx={{ width: '48%' }}>  {/* Adjusted to 48% for better spacing */}
+              <Box sx={{
+                width: '48%' }}>  {/* Adjusted to 48% for better spacing */}
                 {/* Your content for the second column */}
               </Box>
             </Stack>
