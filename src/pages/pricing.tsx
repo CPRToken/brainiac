@@ -84,7 +84,7 @@ const PricingSection: FC = () => {
 
   return (
     <>
-      <LanguageSwitch />
+
       <Seo title="Pricing" />
       <Box component="main" sx={{ flexGrow: 1 }}>
         <Box

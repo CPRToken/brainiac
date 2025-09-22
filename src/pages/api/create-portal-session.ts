@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const session = await stripe.billingPortal.sessions.create({
       customer: stripeCustomerId,
-      return_url: 'https://your-site.com/dashboard/account',
+      return_url: 'https://brainiacmedia.ai',
     });
 
     res.status(200).json({ url: session.url });

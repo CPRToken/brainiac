@@ -431,6 +431,7 @@ export const es = {
   [tokens.form.clickToExpand]: 'Haga clic para expandir',
   [tokens.form.contractGeneratorAbout]: 'Crea contratos legales personalizados.',
   [tokens.form.liveTransAbout]: 'Traduce tu discurso en tiempo real.',
+  [tokens.form.deleteAccount]: 'Eliminar Cuenta',
   [tokens.form.startFreeTrial]: 'Pruébalo gratis ahora',
     [tokens.form.scriptWriterAbout]: 'Crea guiones atractivos para películas y televisión.',
   [tokens.form.recipeWriterAbout]: 'Crea deliciosas recetas para cualquier ocasión.',
@@ -589,9 +590,12 @@ export const es = {
   [tokens.form.attic]: 'Ático',
   [tokens.form.basement]: 'Sótano',
   [tokens.form.sunroom]: 'Solárium',
-  [tokens.form.welcomeToBrainiacMedia]: '¡Bienvenido a Brainiac Media. Estos términos y condiciones describen las reglas y regulaciones para el uso del sitio web y los servicios de Brainiac Media.',
-
-  [tokens.form.Snack]: 'Merienda',
+  [tokens.form.deleteAccountTitle]: 'Eliminar Cuenta',
+  [tokens.form.areYouSure]: '¿Estás seguro de que deseas eliminar tu cuenta?',
+  [tokens.form.deleteAccountError]: 'Hubo un error al eliminar tu cuenta. Por favor, inténtalo de nuevo más tarde.',
+    [tokens.form.welcomeToBrainiacMedia]: '¡Bienvenido a Brainiac Media. Estos términos y condiciones describen las reglas y regulaciones para el uso del sitio web y los servicios de Brainiac Media.',
+  [tokens.form.deleteAccountDescription]: 'Eliminar tu cuenta es una acción permanente y no se puede deshacer. Al eliminar tu cuenta, se borrarán todos tus datos personales, historial de uso y cualquier contenido asociado con tu cuenta. Esta acción es irreversible.',
+    [tokens.form.Snack]: 'Merienda',
   [tokens.form.Brunch]: 'Brunch', // Brunch is often used in Spanish too
   [tokens.form.Dessert]: 'Postre',
   [tokens.form.TeaTime]: 'Hora del Té',

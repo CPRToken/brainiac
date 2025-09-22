@@ -12,10 +12,19 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { auth, db } from "../../../libs/firebase";
+import { deleteUser, signOut } from 'firebase/auth';
+import router from 'next/router';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { doc, updateDoc, getDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc, deleteDoc } from "firebase/firestore";
 import Box from "@mui/material/Box";
+import {typography} from "../../../theme/typography";
 
 interface AccountGeneralSettingsProps {
   uid?: string;
@@ -33,6 +42,8 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
   const [isEditingName, setIsEditingName] = useState(false);
   const [isPublic, setIsPublic] = useState(false);
   const [currentPlan, setCurrentPlan] = useState(plan || 'Free');
+  const [openConfirm, setOpenConfirm] = useState(false);
+
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -70,6 +81,28 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
     };
     return priceToPlan[priceId] || 'Free';
   };
+
+  const handleDeleteAccount = async () => {
+    if (!uid || !auth.currentUser) return;
+
+    // translate the message first
+    const message = t(tokens.form.areYouSure); // e.g. "Are you sure you want to delete your account? This action is irreversible."
+
+    const confirmed = window.confirm(message);
+    if (!confirmed) return;
+
+    try {
+      await deleteDoc(doc(db, 'users', uid));
+      await deleteUser(auth.currentUser);
+      await signOut(auth);
+      router.push('/');
+    } catch (error) {
+      console.error(error);
+      alert(t(tokens.form.deleteAccountError)); // also make this a token if you want
+    }
+  };
+
+
 
   return (
     <Stack spacing={4} {...props}>
@@ -178,20 +211,58 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
         <CardContent>
           <Grid container spacing={3}>
             <Grid xs={12} md={4}>
-              <Typography variant="h6">Delete Account</Typography>
+              <Typography variant="h6">{t(tokens.form.deleteAccountTitle)}</Typography>
             </Grid>
             <Grid xs={12} md={8}>
-              <Stack alignItems="flex-start" spacing={3}>
-                <Typography variant="subtitle1">
-                  Delete your account and all of your source data. This is irreversible.
-                </Typography>
-                <Button color="error" variant="outlined">
-                  Delete account
-                </Button>
+              <Stack divider={<Divider />} spacing={3}>
+                <Stack
+                  alignItems="flex-start"
+                  direction="row"
+                  justifyContent="space-between"
+                  spacing={3}
+                >
+                  <Stack spacing={1}>
+                    <Typography variant="subtitle1">
+                      {t(tokens.form.deleteAccountDescription)}
+                    </Typography>
+                    {/* Button same style as “Click here” */}
+                    <Button
+                      color="error"
+                      variant="outlined"
+                      onClick={() => setOpenConfirm(true)}
+                      sx={{ width: 160 }} // fixed width to match the other button
+                    >
+                      {t(tokens.form.deleteAccount)}
+                    </Button>
+                    <Dialog open={openConfirm} onClose={() => setOpenConfirm(false)}>
+                      <DialogTitle>Confirm Deletion</DialogTitle>
+                      <DialogContent>
+                        <DialogContentText>
+                          Are you sure you want to delete your account? This action is irreversible.
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={() => setOpenConfirm(false)}>Cancel</Button>
+                        <Button
+                          color="error"
+                          onClick={() => {
+                            setOpenConfirm(false);
+                            handleDeleteAccount();
+                          }}
+                        >
+                          Delete Account
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+
+                  </Stack>
+                </Stack>
               </Stack>
             </Grid>
           </Grid>
         </CardContent>
+
+
       </Card>
     </Stack>
   );

@@ -241,6 +241,8 @@ headings: {
     form: {
 
       clickToExpand: 'form.clickToExpand',
+      areYouSure: 'form.areYouSure',
+      deleteAccountError: 'form.deleteAccountError',
       video1: 'form.video1',
       video2: 'form.video2',
       video3: 'form.video3',
@@ -278,7 +280,7 @@ headings: {
       docReaderPrompts: 'form.docReaderPrompts',
       priceBasicTestYearly: 'form.priceBasicTestYearly',
       priceTestBasic: 'form.priceTestBasic',
-
+      deleteAccount: 'form.deleteAccount',
       Images: 'form.Images',
       Content: 'form.Content',
       articulateIntro: 'form.articulateIntro',
@@ -338,7 +340,7 @@ headings: {
       position: 'form.position',
       inputLanguage: 'form.inputLanguage',
       USA: 'form.USA',
-
+      deleteAccountDescription: 'form.deleteAccountDescription',
       UK: 'form.UK',
       Canada: 'form.Canada',
       Germany: 'form.Germany',
@@ -360,6 +362,7 @@ headings: {
       immediateTermination: 'form.immediateTermination',
       effectOfTermination: 'form.effectOfTermination',
       brainiacMediaMaterials: 'form.brainiacMediaMaterials',
+      deleteAccountTitle: 'form.deleteAccountTitle',
       liveTranslatorInstructions: 'form.liveTranslatorInstructions',
       customerContentAndData: 'form.customerContentAndData',
       outputContent: 'form.outputContent',
