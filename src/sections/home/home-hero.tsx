@@ -91,7 +91,7 @@ export const HomeHero: FC = () => {
                     ...typography.body1,
                     color: 'text.primary',
                     mt: { xs: 2, sm: 4 },  // Adjust top margin for mobile
-                    pt: 4,
+
                     mb: 4
                   }}
                 >

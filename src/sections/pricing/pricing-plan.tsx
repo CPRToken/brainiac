@@ -20,6 +20,7 @@ interface PricingPlanProps {
   features: string[];
   icon: ReactNode;
   name: string;
+  tagline?: string;
   price: string;
   priceId: string; // Add this line
   popular?: boolean;
@@ -28,7 +29,7 @@ interface PricingPlanProps {
 }
 
 export const PricingPlan: FC<PricingPlanProps> = (props) => {
-  const { cta, currency, description, info, features, icon, name, price, priceId, popular, sx, onClick, ...other } = props;
+  const { cta, currency, description, info, features, icon, name, tagline, price, priceId, popular, sx, onClick, ...other } = props;
 
   const handleClick = () => {
     if (onClick) {
@@ -46,14 +47,13 @@ export const PricingPlan: FC<PricingPlanProps> = (props) => {
       {...other}
     >
       <Box sx={{ p: 3 }}>
-        <Box
-          sx={{
-            height: 52,
-            width: 52,
-          }}
-        >
-          {icon}
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          <Box sx={{ height: 50, width: 50, mr: 1 }}>
+            {icon}
+          </Box>
+          <Typography variant="h5">{tagline}</Typography>
         </Box>
+
         <Box sx={{ display: 'flex' }}>
           <Typography variant="h4">
 
@@ -146,6 +146,7 @@ PricingPlan.propTypes = {
   currency: propTypes.string.isRequired,
   description: propTypes.string.isRequired,
   info: propTypes.string,
+  tagline: propTypes.string,
   features: propTypes.array.isRequired,
   icon: propTypes.any.isRequired,
   name: propTypes.string.isRequired,

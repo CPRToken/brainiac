@@ -250,11 +250,13 @@ export const en = {
   [tokens.form.todayIs]: 'today is a good day to create some content!',
   [tokens.form.yearlyPayment]: 'Yearly Payment',
   [tokens.form.planDescription]: 'Get 20% off when you pay annually',
+
   [tokens.form.upgrade]: 'Upgrade',
   [tokens.form.stripeCustomerId]: 'Stripe Customer ID',
   [tokens.form.articlesGen]: 'Articles Generated',
   [tokens.form.wordsUsed]: 'Total Words',
   [tokens.form.ChatGPT5]: 'ChatGPT 5',
+  [tokens.form.threedaysfreeTrial]: '3 days free trial',
   [tokens.form.options]: 'Options',
   [tokens.form.yourOutFit]: 'Your Outfit',
   [tokens.form.basicTools]: 'Basic Plan Tools',
