@@ -14,22 +14,7 @@ const stripe = new Stripe(stripeSecretKey, {
   typescript: true,
 });
 
-const pricePlanMap: Record<string, string> = {
-  'price_1QNpMjI7exj9oAo9ColPjP1G': 'Basic',
-  'price_1QNpQPI7exj9oAo9rx2W7jkg': 'BasicYearly',
-  'price_1QNpZYI7exj9oAo9f2IXAwdx': 'Premium',
-  'price_1PgQHUI7exj9oAo9f0qZ8g6W': 'PremiumYearly',
-  'price_1QNpgKI7exj9oAo9DMTVCQBz': 'Business',
-  'price_1QNpiKI7exj9oAo9CcI657sF': 'BusinessYearly',
-  'price_1PgQI4I7exj9oAo949UmThhH': 'BasicTest',
-  'price_1PgQJsI7exj9oAo9mUdbE0ZX': 'PremiumTest',
-  'price_1PgQKSI7exj9oAo9acr903Ka': 'BusinessTest',
-  'price_1PjDoqI7exj9oAo95jqY8uSw': 'BasicTestYearly',
-  'price_1PjDpjI7exj9oAo9UkvkaR6x': 'PremiumTestYearly',
-  'price_1PjDr8I7exj9oAo9lm4zAEDn': 'BusinessTestYearly',
-  'price_canceled': 'Canceled',
-};
-
+// helper to read the raw body for Stripe
 function streamToBuffer(stream: Readable): Promise<Buffer> {
   const chunks: Uint8Array[] = [];
   return new Promise((resolve, reject) => {
@@ -63,11 +48,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log('Unhandled event type:', event.type);
     }
 
-    // ✅ Acknowledge ONLY after work succeeded
     res.status(200).json({ received: true });
   } catch (err: any) {
     console.error('Webhook handler failed:', err);
-    // 500 tells Stripe to retry
     res.status(500).send('Webhook handler failed');
   }
 }
@@ -75,10 +58,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
   console.log('Processing checkout.session.completed for', session.id);
 
+  // ✅ use metadata directly instead of a hard-coded map
   const priceId = session.metadata?.priceId as string;
-  const plan = pricePlanMap[priceId] || 'Pending';
-  if (plan === 'Pending')
-    console.warn('Unmapped priceId in webhook:', priceId);
+  const plan = session.metadata?.planName || 'Pending';
+  if (plan === 'Pending') {
+    console.warn('No planName found in metadata, priceId:', priceId);
+  }
 
   const { uid: userId, email, referrer = null } = session.metadata || {};
   const stripeCustomerId = session.customer as string;
@@ -86,6 +71,8 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   const db = admin.firestore();
   const userRef = db.collection('users').doc(userId);
   const userDoc = await userRef.get();
+
+  // auto-detect language from your priceId if you want
   const preferredLanguage = priceId.includes('CLP') ? 'es' : 'en';
 
   if (userDoc.exists) {
@@ -108,9 +95,10 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       creationDate: admin.firestore.FieldValue.serverTimestamp(),
       preferredLanguage
     });
-   console.log(`Created user ${email} with plan ${plan}`);
+    console.log(`Created user ${email} with plan ${plan}`);
   }
 
+  // send welcome email
   await fetch('https://brainiacmedia.ai/api/email', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -122,9 +110,4 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   });
 
   console.log(`Welcome email sent to ${email}`);
-
-
-
-
-
 }
