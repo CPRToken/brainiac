@@ -14,10 +14,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   console.log('Request body:', req.body);
 
-  const { userId, userEmail, planName, priceId, referrer } = req.body;
+  const { userId, userEmail, priceId, referrer } = req.body;
 
   // ✅ still enforce required fields
-  if (!userId || !userEmail || !planName || !priceId) {
+  if (!userId || !userEmail || !priceId) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -50,7 +50,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         uid: userId,
         email: userEmail,
         priceId,
-        planName,         // <— add this
         referrer: referrer || '',
       },
     });

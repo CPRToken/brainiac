@@ -47,7 +47,6 @@ const validationSchema = Yup.object({
 
 const Page: NextPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [planName, setPlanName] = useState('');
   const [priceId, setPriceId] = useState('');
   const [uid, setUid] = useState('');
   const router = useRouter();
@@ -62,12 +61,12 @@ const Page: NextPage = () => {
 
   useEffect(() => {
     console.log('Query params:', router.query);
-    if (router.query.plan && router.query.priceId && router.query.uid) {
-      setPlanName(router.query.plan as string);
+    if (router.query.priceId && router.query.uid) {
       setPriceId(router.query.priceId as string);
       setUid(router.query.uid as string);
     }
   }, [router.query]);
+
 
   const formik = useFormik({
     initialValues: {
@@ -110,8 +109,7 @@ const Page: NextPage = () => {
           body: JSON.stringify({
             userId: user.uid,
             userEmail: values.email,
-            planName,
-            priceId,
+             priceId,
             referrer,
           })
         });

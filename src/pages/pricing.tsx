@@ -50,13 +50,18 @@ const PricingSection: FC = () => {
 
   const handleCheckout = (priceId: string) => {
     const userId = uuidv4();
-    const referrer = localStorage.getItem('referrer');
+    const referrer = localStorage.getItem('referrer') ?? '';
 
     router.push({
       pathname: '/auth/firebase/register',
-      query: { priceId, uid: userId, ref: referrer ?? '' },
+      query: {
+        priceId,
+        uid: userId,
+        ref: referrer
+      },
     });
   };
+
 
   const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsYearly(event.target.checked);
