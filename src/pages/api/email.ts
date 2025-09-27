@@ -1,61 +1,103 @@
-//src/pages/api/email.ts
+// src/pages/api/email.ts
 import type { NextApiRequest, NextApiResponse } from 'next/types';
 import nodemailer from 'nodemailer';
 
+const DASHBOARD_URL = 'https://brainiacmedia.ai/dashboard';
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
+
   const transporter = nodemailer.createTransport({
-    host: "mail.brainiacmedia.ai",
+    host: 'mail.brainiacmedia.ai',
     port: 587,
     secure: false,
     auth: {
       user: process.env.NODEMAILER_EMAIL,
       pass: process.env.NODEMAILER_PASSWORD,
     },
-    tls: {
-      rejectUnauthorized: false
-    }
+    tls: { rejectUnauthorized: false },
   });
 
-  if (req.method === 'POST') {
-    const email = req.body.to;
+  const to   = req.body.to as string;
+  const lang = (req.body.lang as string) || 'en';   // 'es' | 'en'
+  const plan = (req.body.plan as string) || 'Premium';
+  const name = (req.body.name as string) || '';
 
-    let subjectLine = '';
-    let htmlContent = '';
+  // ---- content (ES/EN) ----
+  const Subject =
+    lang === 'es'
+      ? `¡Bienvenido a Brainiac Media!`
+      : `Welcome to Brainiac Media!`;
 
-    if (req.body.contentType === 'video') {
-      subjectLine = `${req.body.name} Welcome to ${req.body.subject}`;
-      htmlContent = `${req.body.name} WElcome to Brainiac Media ${req.body.subject} <br> <a href="${req.body.downloadUrl}">Ver video</a>`;
-    } else {
-      subjectLine = `${req.body.name} te ha enviado un documento titulado ${req.body.subject}`;
-      htmlContent = `${req.body.name} te ha enviado un documento titulado ${req.body.subject} <br> <a href="${req.body.downloadUrl}">Ver documento</a>`;
-    }
+  const Greeting =
+    lang === 'es'
+      ? `Hola${name ? ` ${name}` : ''},`
+      : `Hi${name ? ` ${name}` : ''},`;
 
-    const mailOptions = {
-      from: '"Brainiac Media" <noreply@brainiacmedia.ai>',
-      to: email,
-      subject: subjectLine,
-      text: req.body.text,
-      html: `
-      <img src="https://firebasestorage.googleapis.com/v0/b/nfpts-3d1cb.appspot.com/o/public%2Fbrainiaclogo.png?alt=media&token=b110eb36-f6c4-4fec-bd9b-e088f6d2a14a" alt="Virtual Eternity Logo" style="display: block; margin: 0 auto; width: 800px;">
-      <div style="background-color: #f7f7f7; padding: 20px;">
-        <div style="background-color: #ffffff; padding: 20px; border-radius: 5px; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; color: #444444;">
-          ${htmlContent}
+  const Lead =
+    lang === 'es'
+      ? `Gracias por suscribirte al plan <strong>${plan}</strong>. Tu cuenta ya está activa.`
+      : `Thanks for subscribing to the <strong>${plan}</strong> plan. Your account is now active.`;
+
+  const CtaDashText = lang === 'es' ? 'Ir al Panel' : 'Go to Dashboard';
+
+  const NoteManage =
+    lang === 'es'
+      ? `Puedes gestionar y usar todas las herramientas de IA desde el Panel.<br>Puedes cancelar tu suscripción en cualquier momento en el área 'Cuenta'.`
+      : `You can manage and use all the AI tools from the Dashboard.<br>You can cancel your subscription at any time in the 'Account' area.`;
+
+  const Support =
+    lang === 'es'
+      ? `Disfruta de todas nuestras herramientas y módulos.<br><br>Saludos cordiales,<br><br>el equipo de Brainiac Media.`
+      : `Enjoy using all our tools and modules.<br><br>Kind regards,<br><br>the Brainiac Media team.`;
+
+  const TextFallback =
+    lang === 'es'
+      ? `Bienvenido a Brainiac Media (${plan}). Panel: ${DASHBOARD_URL}`
+      : `Welcome to Brainiac Media (${plan}). Dashboard: ${DASHBOARD_URL}`;
+
+  // ---- html wrapper ----
+  const Button = (href: string, label: string) => `
+    <a href="${href}" style="
+      display:inline-block;padding:12px 18px;border-radius:8px;
+      text-decoration:none;font-weight:600;font-family:Arial, sans-serif;
+      background:#3b82f6;color:#ffffff;
+    ">${label}</a>`;
+
+  const html = `
+    <img
+      src="https://firebasestorage.googleapis.com/v0/b/nfpts-3d1cb.appspot.com/o/public%2Fbrainiaclogo200.png?alt=media&token=be983452-04cf-45ef-acbb-ff03f577a894"
+      alt="Brainiac Media Logo"
+      style="display:block;margin:0;width:200px;"
+    >
+    <div style="background:#f7f7f7;padding:20px;">
+      <div style="background:#ffffff;padding:20px;border-radius:8px;
+                  font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#444;">
+        <p style="margin:0 0 12px 0;">${Greeting}</p>
+        <p style="margin:0 0 16px 0;">${Lead}</p>
+
+        <div style="margin:18px 0;">
+          ${Button(DASHBOARD_URL, CtaDashText)}
         </div>
-        <img src="https://firebasestorage.googleapis.com/v0/b/nfpts-3d1cb.appspot.com/o/public%2Fbrainiachead.png?alt=media&token=09e7b0a9-390c-48c3-803c-449bba376663" alt="Virtual Eternity Logo" style="display: block; margin: 0 auto; height: 500px;">
-      </div>
-      `
-    };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log('Error sending email:', error);
-        res.status(500).json({ message: 'Failed to send email' });
-      } else {
-        console.log('Email sent:', info.response);
-        res.status(200).json({ message: 'Email sent successfully' });
-      }
+        <p style="margin:16px 0 8px 0;">${NoteManage}</p>
+        <p style="margin:0;">${Support}</p>
+      </div>
+    </div>
+  `;
+
+  try {
+    const info = await transporter.sendMail({
+      from: '"Brainiac Media" <noreply@brainiacmedia.ai>',
+      to,
+      subject: Subject,
+      text: TextFallback,
+      html,
     });
-  } else {
-    res.status(405).json({ message: 'Method not allowed' });
+    console.log('Email sent:', info.response);
+    res.status(200).json({ message: 'Email sent successfully' });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ message: 'Failed to send email' });
   }
 }

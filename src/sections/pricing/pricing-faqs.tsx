@@ -118,24 +118,15 @@ export const PricingFaqs: FC = (props) => {
       {...props}
     >
       <Container maxWidth="lg">
-        <Grid
-          container
-          spacing={4}
-        >
-          <Grid
-            xs={12}
-            md={6}
-          >
+        <Grid container spacing={4}>
+          <Grid xs={12} md={4}> {/* 4/12 = ~33% width on md+ */}
             <Stack spacing={2}>
               <Typography sx={{ ...typography.h4, color: 'text.primary', mt: 2, mb: 0 }}>
                 {t(tokens.headings.FAQ)}
               </Typography>
             </Stack>
           </Grid>
-          <Grid
-            xs={12}
-            md={6}
-          >
+          <Grid xs={12} md={8}> {/* 8/12 = ~67% width on md+ */}
             <Stack spacing={4}>
               {faqs.map((faq, index) => (
                 <Faq

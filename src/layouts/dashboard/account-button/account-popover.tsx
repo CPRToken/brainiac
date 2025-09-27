@@ -12,6 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Popover from '@mui/material/Popover';
 import SvgIcon from '@mui/material/SvgIcon';
+import HelpCircleIcon from '@untitled-ui/icons-react/build/esm/HelpCircle';
 import Typography from '@mui/material/Typography';
 import {t} from "i18next";
 import { RouterLink } from 'src/components/router-link';
@@ -133,19 +134,43 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
           <Typography
               color="text.secondary"
               variant="body2"
-              sx={{ mb: 1 }}
+              sx={{ mb: 1, mt:1 }}
           >
             {user?.email}
           </Typography>
           <Typography
             variant="body2"
-            sx={{ mb: 1, display: 'flex', alignItems: 'center' }}
+            sx={{ mb: 0, display: 'flex', alignItems: 'center' }}
           >
             <PlanDot plan={user?.plan || ''} />
             Plan: {user?.plan}
           </Typography>
+
         </Box>
+        <Box sx={{ p: 0 }}>
+          <ListItemButton
+            component={RouterLink}
+            href={paths.dashboard.support} // adjust path
+            onClick={onClose}
+            sx={{
+              borderRadius: 1,
+              px: 1,
+              py: 1,
+            }}
+          >
+            <ListItemIcon>
+              <SvgIcon fontSize="medium">
+                <HelpCircleIcon />
+              </SvgIcon>
+            </ListItemIcon>
+            <ListItemText primary={<Typography variant="body2">{t(tokens.form.support)}</Typography>} />
+          </ListItemButton>
+        </Box>
+
         <Divider />
+
+
+
         <Box sx={{ p: 0 }}>
           <ListItemButton
             component={RouterLink}

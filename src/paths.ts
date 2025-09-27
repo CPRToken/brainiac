@@ -5,6 +5,7 @@ export const paths = {
   checkout: '/checkout',
   contact: '/contact',
   pricing: '/pricing',
+  terms: '/terms-conditions',
   auth: {
 
 
@@ -39,6 +40,8 @@ export const paths = {
   },
   dashboard: {
     index: '/dashboard',
+    support: '/dashboard/support',
+
 
 
 

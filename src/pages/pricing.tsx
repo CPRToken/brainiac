@@ -137,7 +137,7 @@ const PricingSection: FC = () => {
                     tagline={t(tokens.form.threedaysfreeTrial)}
                     currency="$"
                     description={t(tokens.form.planDescription)}
-                    info={t(tokens.form.allContent)}
+
                     features={[
                       t(tokens.form.ChatGPT5),
                       t(tokens.nav.imageGenerator),
@@ -174,7 +174,6 @@ const PricingSection: FC = () => {
                     currency="$"
                     tagline={t(tokens.form.threedaysfreeTrial)}
                     description={t(tokens.form.planDescription)}
-                    info={t(tokens.form.allContent)}
                     features={[
                       t(tokens.form.ChatGPT5),
                       t(tokens.nav.imageGenerator),
@@ -215,7 +214,6 @@ const PricingSection: FC = () => {
                     currency="$"
                     tagline={t(tokens.form.threedaysfreeTrial)}
                     description={t(tokens.form.planDescription)}
-                    info={t(tokens.form.allContent)}
                     features={[
                       t(tokens.form.ChatGPT5),
                       t(tokens.nav.imageGenerator),

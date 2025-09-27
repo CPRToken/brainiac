@@ -19,12 +19,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { doc, updateDoc, getDoc, deleteDoc } from "firebase/firestore";
-import Box from "@mui/material/Box";
-import {typography} from "../../../theme/typography";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
+
 
 interface AccountGeneralSettingsProps {
   uid?: string;
@@ -39,7 +37,6 @@ interface AccountGeneralSettingsProps {
 export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) => {
   const { name, email, plan, priceId, role } = props;
   const [uid, setUid] = useState<string | null>(null);
-  const [isEditingName, setIsEditingName] = useState(false);
   const [isPublic, setIsPublic] = useState(false);
   const [currentPlan, setCurrentPlan] = useState(plan || 'Free');
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -126,7 +123,7 @@ export const AccountGeneralSettings: FC<AccountGeneralSettingsProps> = (props) =
                 <Stack alignItems="center" direction="row" spacing={2}>
                   <TextField
                     defaultValue={name}
-                    disabled={!isEditingName}
+                    disabled
                     label={t(tokens.form.name)}
                     sx={{ flexGrow: 1 }}
                   />

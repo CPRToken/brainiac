@@ -86,10 +86,16 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   const db = admin.firestore();
   const userRef = db.collection('users').doc(userId);
   const userDoc = await userRef.get();
+  const preferredLanguage = priceId.includes('CLP') ? 'es' : 'en';
 
   if (userDoc.exists) {
-    await userRef.update({ plan, priceId, stripeCustomerId, referrer });
-    console.log(`Updated user ${email} → ${plan}`);
+    await userRef.update({
+      plan,
+      priceId,
+      stripeCustomerId,
+      referrer,
+      preferredLanguage
+    });
   } else {
     await userRef.set({
       uid: userId,
@@ -100,7 +106,25 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       referrer,
       role: 'User',
       creationDate: admin.firestore.FieldValue.serverTimestamp(),
+      preferredLanguage
     });
-    console.log(`Created user ${email} with plan ${plan}`);
+   console.log(`Created user ${email} with plan ${plan}`);
   }
+
+  await fetch('https://brainiacmedia.ai/api/email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      to: email,
+      lang: preferredLanguage,
+      plan
+    })
+  });
+
+  console.log(`Welcome email sent to ${email}`);
+
+
+
+
+
 }

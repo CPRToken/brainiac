@@ -77,13 +77,7 @@ export const PricingPlan: FC<PricingPlanProps> = (props) => {
           {name}
         </Typography>
 
-        <Typography
-          color="text.secondary"
-          sx={{ mt: 2 }}
-          variant="body1"
-        >
-          {info}
-        </Typography>
+
       </Box>
       <Divider />
       <Box

@@ -37,13 +37,7 @@ const Page: NextPage = () => {
             px: 3       // Optional padding for extra space on the sides
           }}
         >
-          <Grid
-            container
-            spacing={{
-              xs: 3,
-              lg: 4,
-            }}
-          >
+
             <Grid xs={12}>
               <Stack
                 direction="row"
@@ -72,19 +66,14 @@ const Page: NextPage = () => {
                 // Or if you prefer margin: marginLeft: 2
               }}
             >
-              <Stack
-                spacing={{
-                  xs: 3,
-                  lg: 4,
-                }}
-              >
+
                 <Box paddingTop={4}>
                   <SEOArticleWriter />
                 </Box>
-              </Stack>
+
             </Grid>
 
-          </Grid>
+
         </Container>
       </Box>
 

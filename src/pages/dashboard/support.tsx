@@ -1,6 +1,6 @@
+import React from "react";
 import type { NextPage } from 'next';
 import ArrowLeftIcon from '@untitled-ui/icons-react/build/esm/ArrowLeft';
-import Mail01Icon from '@untitled-ui/icons-react/build/esm/Mail01';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -8,22 +8,27 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import SvgIcon from '@mui/material/SvgIcon';
 import Typography from '@mui/material/Typography';
-
+import { tokens } from 'src/locales/tokens';
+import { useTranslation } from 'react-i18next';
 import { RouterLink } from 'src/components/router-link';
 import { Seo } from 'src/components/seo';
 import { usePageView } from 'src/hooks/use-page-view';
 import { paths } from 'src/paths';
 import { ContactForm } from 'src/sections/contact/contact-form';
-import {PricingFaqs} from "../sections/pricing/pricing-faqs";
-import React from "react";
+import {PricingFaqs} from "src/sections/pricing/pricing-faqs";
+import { Layout as DashboardLayout } from 'src/layouts/dashboard';
+import Mail01Icon from '@untitled-ui/icons-react/build/esm/Mail01';
 
 const Page: NextPage = () => {
+  const { t } = useTranslation();
+
   usePageView();
 
   return (
     <>
       <Seo title="Contact Us" />
-      <PricingFaqs />
+
+
       <Box
         component="main"
         sx={{
@@ -32,56 +37,17 @@ const Page: NextPage = () => {
           flexGrow: 1,
         }}
       >
-        <Box
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.50',
-            py: 8,
-          }}
-        >
+
+
+
+
 
           <Container
             maxWidth="md"
-            sx={{ pl: { lg: 15 } }}
+            sx={{ pl: { lg: 9 } }}
           >
-            <Stack spacing={3}>
-              <div>
-                <Link
-                  color="text.primary"
-                  component={RouterLink}
-                  href={paths.index}
-                  sx={{
-                    alignItems: 'center',
-                    display: 'inline-flex',
-                  }}
-                  underline="hover"
-                >
-                  <SvgIcon sx={{ mr: 1 }}>
-                    <ArrowLeftIcon />
-                  </SvgIcon>
-                  <Typography variant="subtitle2">Home</Typography>
-                </Link>
-              </div>
-              <Typography variant="h3">Contact</Typography>
-            </Stack>
-            <Stack
-              alignItems="center"
-              direction="row"
-              spacing={2}
-              sx={{
-                mb: 6,
-                mt: 8,
-              }}
-            >
-              <Avatar
-                sx={{
-                  backgroundColor: 'primary.main',
-                  color: 'primary.contrastText',
-                }}
-                variant="rounded"
-              >
 
-              </Avatar>
+            <Stack spacing={3}>
 
             </Stack>
 
@@ -101,38 +67,80 @@ const Page: NextPage = () => {
             >
 
             </Stack>
+
           </Container>
-        </Box>
+
+
         <Box
           sx={{
             backgroundColor: 'background.paper',
             px: 6,
-            py: 15,
+            py: 7,
           }}
         >
+
+
+          <div>
+            <Link
+              color="text.primary"
+              component={RouterLink}
+              href={paths.dashboard.index}
+              sx={{
+                alignItems: 'center',
+                display: 'inline-flex',
+              }}
+              underline="hover"
+            >
+              <SvgIcon sx={{ mr: 1 }}>
+                <ArrowLeftIcon />
+              </SvgIcon>
+              <Typography variant="subtitle2">Back to Dash</Typography>
+            </Link>
+          </div>
+
+
+          <Typography
+            sx={{ mt:4, pb: 4, textAlign: 'center' }}
+            variant="h6"
+          >
+            {t(tokens.form.mostQs)}
+          </Typography>
+
+          <PricingFaqs />
+
           <Container
             maxWidth="md"
             sx={{
+
+              mt: 6,
               pr: {
                 lg: 15,
+
+
               },
             }}
           >
+
+            <Typography variant="h5">Contact Us</Typography>
+
             <Typography
-              sx={{ pb: 3 }}
+              sx={{ mt:4, pb: 4, textAlign: 'center' }}
               variant="h6"
             >
-              Fill the form below
+              {t(tokens.form.ifYouCant)}
             </Typography>
-            <SvgIcon>
-              <Mail01Icon />
-            </SvgIcon>
             <ContactForm />
+
+
+
           </Container>
         </Box>
       </Box>
     </>
   );
 };
+
+
+Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
