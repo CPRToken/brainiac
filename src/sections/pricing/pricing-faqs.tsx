@@ -46,7 +46,7 @@ const Faq: FC<FaqType> = ({ question, answer }) => {
           <Box component="ul" sx={{ pl: 3, mb: 2 }}>
             {answer.map((item, i) => (
               <Box component="li" key={i} sx={{ mb: 1 }}>
-                <Typography color="text.secondary" variant="body2">
+                <Typography sx={{ ...typography.body2, color: 'text.secondary', mt: 2, mb: 1 }}>
                   {item}
                 </Typography>
               </Box>

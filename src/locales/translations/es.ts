@@ -64,7 +64,9 @@ export const es = {
   [tokens.form.priceTestBasic]: 'price_1RIu34I7exj9oAo9N3vms0dv',
   [tokens.form.priceBasicTestYearly]: 'price_1RIu4xI7exj9oAo9aQK8MSck',
 
-    [tokens.form.verifyEmailPrompt]: 'Por favor verifica tu correo electrónico para continuar',
+  [tokens.form.currency]: 'CLP',
+
+  [tokens.form.verifyEmailPrompt]: 'Por favor verifica tu correo electrónico para continuar',
   [tokens.form.verifyEmailSuccess]: 'Tu correo electrónico ha sido verificado con éxito',
   [tokens.form.clickHereIfNotRedirected]: 'Haz clic aquí si no eres redirigido automáticamente',
   [tokens.form.yourDietPlan]: 'Tu Plan de Dieta',

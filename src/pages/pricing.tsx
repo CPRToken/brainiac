@@ -18,21 +18,13 @@ import { PricingPlanIcon } from 'src/sections/pricing/pricing-plan-icon';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { tokens } from "../locales/tokens";
 import { v4 as uuidv4 } from 'uuid';
-import { getPriceId } from 'src/utils/getPriceId';
-
-
-
 
 const PricingSection: FC = () => {
   const [stripe, setStripe] = useState<Stripe | null>(null);
   const { t } = useTranslation();
   const [isYearly, setIsYearly] = useState(true);
 
-
-
   usePageView();
-
-
 
   useEffect(() => {
     const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -47,8 +39,6 @@ const PricingSection: FC = () => {
       .catch(error => console.error("Stripe initialization error:", error));
   }, []);
 
-
-
   const router = useRouter();
 
   useEffect(() => {
@@ -58,29 +48,19 @@ const PricingSection: FC = () => {
     }
   }, [router.query.ref]);
 
-
-  const handleCheckout = (selectedPlan: string) => {
-    const priceId = getPriceId(selectedPlan);
+  const handleCheckout = (priceId: string) => {
     const userId = uuidv4();
     const referrer = localStorage.getItem('referrer');
 
     router.push({
       pathname: '/auth/firebase/register',
-      query: { plan: selectedPlan, priceId, uid: userId, ref: referrer ?? '' },
+      query: { priceId, uid: userId, ref: referrer ?? '' },
     });
   };
-
-
-
-
 
   const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsYearly(event.target.checked);
   };
-
-
-
-
 
   return (
     <>
@@ -120,130 +100,91 @@ const PricingSection: FC = () => {
                 </Typography>
               </Stack>
             </Box>
+
             <Grid container spacing={4}>
               <Grid xs={12} md={4}>
-                <div
-                  onClick={() => handleCheckout(isYearly ? 'BasicYearly' : 'Basic')}
-                  style={{
-                    cursor: 'pointer',
-                    height: '100%',
-                    maxWidth: 460,
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                  }}
-                >
-                  <PricingPlan
-                    cta={t(tokens.form.startFreeTrial)}
-                    tagline={t(tokens.form.threedaysfreeTrial)}
-                    currency="$"
-                    description={t(tokens.form.planDescription)}
+                <PricingPlan
+                  cta={t(tokens.form.startFreeTrial)}
+                  tagline={t(tokens.form.threedaysfreeTrial)}
+                  currency={t(tokens.form.currency)}
+                  description={t(tokens.form.planDescription)}
+                  features={[
+                    t(tokens.form.ChatGPT5),
+                    t(tokens.nav.imageGenerator),
+                    t(tokens.form.basicTools),
+                    t(tokens.nav.SEOWriter),
+                    t(tokens.form.unlimitedWords),
+                  ]}
+                  icon={<PricingPlanIcon name="startup" />}
+                  name={t(tokens.form.Basic)}
+                  popular
+                  price={isYearly ? t(tokens.form.priceBasicYearlyCurrency) : t(tokens.form.priceBasicCurrency)}
+                  priceId={isYearly ? t(tokens.form.priceBasicYearly) : t(tokens.form.priceBasic)}
+                  onClick={handleCheckout}
+                  sx={{ height: '100%', maxWidth: 460, mx: 'auto' }}
+                />
+              </Grid>
 
-                    features={[
-                      t(tokens.form.ChatGPT5),
-                      t(tokens.nav.imageGenerator),
-                      t(tokens.form.basicTools),
-                      t(tokens.nav.SEOWriter),
-                      t(tokens.form.unlimitedWords),
-                    ]}
-                    icon={<PricingPlanIcon name="startup" />}
-                    name={t(tokens.form.Basic)}
-                    popular
-                    price={isYearly ? t(tokens.form.priceBasicYearlyCurrency) : t(tokens.form.priceBasicCurrency)}
-                    priceId={isYearly ? t(tokens.form.priceBasicYearly) : t(tokens.form.priceBasic)}
-                    sx={{
-                      height: '100%',
-                      maxWidth: 460,
-                      mx: 'auto',
-                    }}
-                  />
-                </div>
-              </Grid>
               <Grid xs={12} md={4}>
-                <div
-                  onClick={() => handleCheckout(isYearly ? 'PremiumYearly' : 'Premium')}
-                  style={{
-                    cursor: 'pointer',
-                    height: '100%',
-                    maxWidth: 460,
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                  }}
-                >
-                  <PricingPlan
-                    cta={t(tokens.form.startFreeTrial)}
-                    currency="$"
-                    tagline={t(tokens.form.threedaysfreeTrial)}
-                    description={t(tokens.form.planDescription)}
-                    features={[
-                      t(tokens.form.ChatGPT5),
-                      t(tokens.nav.imageGenerator),
-                      t(tokens.form.premTools),
-                      t(tokens.nav.SEOWriter),
-                      t(tokens.form.unlimitedWords),
-                      t(tokens.headings.resumeBuilder),
-                      t(tokens.headings.speechWriter),
-                      t(tokens.headings.translator),
-                      t(tokens.form.andManyMore),
-                    ]}
-                    icon={<PricingPlanIcon name="standard" />}
-                    name={t(tokens.form.Premium)}
-                    popular
-                    price={isYearly ? t(tokens.form.pricePremiumYearlyCurrency) : t(tokens.form.pricePremiumCurrency)}
-                    priceId={isYearly ? t(tokens.form.pricePremiumYearly) : t(tokens.form.pricePremium)}
-                    sx={{
-                      height: '100%',
-                      maxWidth: 460,
-                      mx: 'auto',
-                    }}
-                  />
-                </div>
+                <PricingPlan
+                  cta={t(tokens.form.startFreeTrial)}
+                  tagline={t(tokens.form.threedaysfreeTrial)}
+                  currency={t(tokens.form.currency)}
+                  description={t(tokens.form.planDescription)}
+                  features={[
+                    t(tokens.form.ChatGPT5),
+                    t(tokens.nav.imageGenerator),
+                    t(tokens.form.premTools),
+                    t(tokens.nav.SEOWriter),
+                    t(tokens.form.unlimitedWords),
+                    t(tokens.headings.resumeBuilder),
+                    t(tokens.headings.speechWriter),
+                    t(tokens.headings.translator),
+                    t(tokens.form.andManyMore),
+                  ]}
+                  icon={<PricingPlanIcon name="standard" />}
+                  name={t(tokens.form.Premium)}
+                  popular
+                  price={isYearly ? t(tokens.form.pricePremiumYearlyCurrency) : t(tokens.form.pricePremiumCurrency)}
+                  priceId={isYearly ? t(tokens.form.pricePremiumYearly) : t(tokens.form.pricePremium)}
+                  onClick={handleCheckout}
+                  sx={{ height: '100%', maxWidth: 460, mx: 'auto' }}
+                />
               </Grid>
+
               <Grid xs={12} md={4}>
-                <div
-                  onClick={() => handleCheckout(isYearly ? 'BusinessYearly' : 'Business')}
-                  style={{
-                    cursor: 'pointer',
-                    height: '100%',
-                    maxWidth: 460,
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                  }}
-                >
-                  <PricingPlan
-                    cta={t(tokens.form.startFreeTrial)}
-                    currency="$"
-                    tagline={t(tokens.form.threedaysfreeTrial)}
-                    description={t(tokens.form.planDescription)}
-                    features={[
-                      t(tokens.form.ChatGPT5),
-                      t(tokens.nav.imageGenerator),
-                      t(tokens.form.businessTools),
-                      t(tokens.nav.SEOWriter),
-                      t(tokens.headings.startABusiness),
-                      t(tokens.form.unlimitedWords),
-                      t(tokens.headings.resumeBuilder),
-                      t(tokens.headings.speechWriter),
-                      t(tokens.headings.translator),
-                      t(tokens.headings.contractGenerator),
-                      t(tokens.headings.contractReader),
-                      t(tokens.headings.editor),
-                      t(tokens.headings.essayWriter),
-                      t(tokens.form.andManyMore),
-                    ]}
-                    icon={<PricingPlanIcon name="business" />}
-                    name={t(tokens.form.BusinessP)}
-                    popular
-                    price={isYearly ? t(tokens.form.priceBusinessYearlyCurrency) : t(tokens.form.priceBusinessCurrency)}
-                    priceId={isYearly ? t(tokens.form.priceBusinessYearly) : t(tokens.form.priceBusiness)}
-                    sx={{
-                      height: '100%',
-                      maxWidth: 460,
-                      mx: 'auto',
-                    }}
-                  />
-                </div>
+                <PricingPlan
+                  cta={t(tokens.form.startFreeTrial)}
+                  tagline={t(tokens.form.threedaysfreeTrial)}
+                  currency={t(tokens.form.currency)}
+                  description={t(tokens.form.planDescription)}
+                  features={[
+                    t(tokens.form.ChatGPT5),
+                    t(tokens.nav.imageGenerator),
+                    t(tokens.form.businessTools),
+                    t(tokens.nav.SEOWriter),
+                    t(tokens.headings.startABusiness),
+                    t(tokens.form.unlimitedWords),
+                    t(tokens.headings.resumeBuilder),
+                    t(tokens.headings.speechWriter),
+                    t(tokens.headings.translator),
+                    t(tokens.headings.contractGenerator),
+                    t(tokens.headings.contractReader),
+                    t(tokens.headings.editor),
+                    t(tokens.headings.essayWriter),
+                    t(tokens.form.andManyMore),
+                  ]}
+                  icon={<PricingPlanIcon name="business" />}
+                  name={t(tokens.form.BusinessP)}
+                  popular
+                  price={isYearly ? t(tokens.form.priceBusinessYearlyCurrency) : t(tokens.form.priceBusinessCurrency)}
+                  priceId={isYearly ? t(tokens.form.priceBusinessYearly) : t(tokens.form.priceBusiness)}
+                  onClick={handleCheckout}
+                  sx={{ height: '100%', maxWidth: 460, mx: 'auto' }}
+                />
               </Grid>
             </Grid>
+
             <Box sx={{ mt: 4 }}>
               <Typography align="center" color="text.secondary" component="p" variant="caption">
                 {/* Any additional text */}

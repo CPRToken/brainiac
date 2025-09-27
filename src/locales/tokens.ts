@@ -242,6 +242,7 @@ headings: {
 
       clickToExpand: 'form.clickToExpand',
       areYouSure: 'form.areYouSure',
+      currency: 'form.currency',
       message: 'form.message',
       deleteAccountError: 'form.deleteAccountError',
       reauthRequired: 'form.reauthRequired',

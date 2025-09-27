@@ -275,7 +275,7 @@ const Page: NextPage = () => {
           <Box sx={{ p: 0, pt: 1, pb: 3, mb: 3 }}>
             <Button
               component="a"
-              href="/upgrade"
+              href="/pricing"
               variant="contained"
               color="primary"
               sx={{

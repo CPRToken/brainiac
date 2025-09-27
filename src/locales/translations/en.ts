@@ -235,6 +235,10 @@ export const en = {
   [tokens.form.password]: 'Password',
   [tokens.form.confirmPassword]: 'Confirm Password',
   [tokens.form.forgotPassword]: 'Forgot Password',
+
+  [tokens.form.currency]: '$',
+
+
   [tokens.form.brainiacIntro]:
     'Brainiac Media ("Brainiac Media") provides an artificial intelligence content generation platform known as “Brainiac Media” ("Platform"). These Terms of Service ("Agreement") govern your access to and use of the Platform, the website https://BrainiacMedia.ai/ and all related technology or services provided or made available by Brainiac Media via the Site (collectively, the "Services"). The term "Customer" refers to any person who accesses or uses the Services. Brainiac Media and Customer are each a "Party" and collectively the "Parties."',
   [tokens.form.acceptConditions]:
