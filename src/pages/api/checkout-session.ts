@@ -51,6 +51,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         email: userEmail,
         priceId,
         referrer: referrer || '',
+
       },
     });
 

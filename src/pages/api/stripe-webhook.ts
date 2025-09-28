@@ -60,10 +60,8 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
 
   // ✅ use metadata directly instead of a hard-coded map
   const priceId = session.metadata?.priceId as string;
-  const plan = session.metadata?.planName || 'Pending';
-  if (plan === 'Pending') {
-    console.warn('No planName found in metadata, priceId:', priceId);
-  }
+
+
 
   const { uid: userId, email, referrer = null } = session.metadata || {};
   const stripeCustomerId = session.customer as string;
@@ -71,9 +69,17 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   const db = admin.firestore();
   const userRef = db.collection('users').doc(userId);
   const userDoc = await userRef.get();
+  const price = await stripe.prices.retrieve(priceId, { expand: ['product'] });
+  const product = price.product as Stripe.Product;
+  const basePlan = product?.name || 'Unknown';
+  const isYearly = price.recurring?.interval === 'year';
+  const plan = isYearly ? `${basePlan}Yearly` : basePlan;
 
-  // auto-detect language from your priceId if you want
-  const preferredLanguage = priceId.includes('CLP') ? 'es' : 'en';
+  const currency = (price.currency || '').toLowerCase();
+  const preferredLanguage = currency === 'clp' ? 'es' : 'en';
+
+
+
 
   if (userDoc.exists) {
     await userRef.update({
