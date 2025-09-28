@@ -111,7 +111,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     body: JSON.stringify({
       to: email,
       lang: preferredLanguage,
-      plan
+      plan: 'Trial'
     })
   });
 

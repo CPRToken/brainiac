@@ -33,6 +33,7 @@ import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth } from 'src/libs/firebase';
 import { db } from 'src/libs/firebase';
 import {tokens} from "../../../locales/tokens";
+import { typography } from '../../../theme/typography';
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required('First name is required'),
@@ -227,9 +228,11 @@ const Page: NextPage = () => {
               {formik.touched.policy && formik.errors.policy && (
                 <FormHelperText error>{formik.errors.policy}</FormHelperText>
               )}
+              <Typography sx={{ ...typography.h6, color: 'text.primary', mt: 9, mb: 0 }}>
               <Button fullWidth type="submit" variant="contained" disabled={formik.isSubmitting}>
-                Start Free Trial
-              </Button>
+                {t(tokens.form.startFreeTrial)}
+                </Button>
+              </Typography>
             </Stack>
           </form>
         </CardContent>

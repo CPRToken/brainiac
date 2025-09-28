@@ -671,7 +671,7 @@ export const es = {
   [tokens.headings.startToday]: 'Empieza a escribir 20 veces más rápido con IA!',
   [tokens.headings.FAQ]: 'FAQs',
 
-  [tokens.headings.Heading]: 'Escribe contenido 10 veces más rápido con IA',
+  [tokens.headings.Heading]: 'Escribe contenido más rápido con IA',
   [tokens.headings.navColor]: 'Color Nav',
   [tokens.headings.realEstate]: 'Valorador de propiedades',
   [tokens.headings.chatGPT]: 'ChatGPT 5',
