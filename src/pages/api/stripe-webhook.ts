@@ -44,6 +44,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           event.data.object as Stripe.Checkout.Session
         );
         break;
+      case 'customer.subscription.created':
+        await handleSubscriptionCreated(
+          event.data.object as Stripe.Subscription
+        );
+        break;
       default:
         console.log('Unhandled event type:', event.type);
     }
@@ -55,14 +60,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 }
 
+// when checkout finishes (no trial)
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
   console.log('Processing checkout.session.completed for', session.id);
 
-  // ✅ use metadata directly instead of a hard-coded map
   const priceId = session.metadata?.priceId as string;
-
-
-
   const { uid: userId, email, referrer = null } = session.metadata || {};
   const stripeCustomerId = session.customer as string;
 
@@ -77,9 +79,6 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
 
   const currency = (price.currency || '').toLowerCase();
   const preferredLanguage = currency === 'clp' ? 'es' : 'en';
-
-
-
 
   if (userDoc.exists) {
     await userRef.update({
@@ -104,7 +103,33 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     console.log(`Created user ${email} with plan ${plan}`);
   }
 
-  // send welcome email
+  // send normal welcome email
+  await fetch('https://brainiacmedia.ai/api/email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      to: email,
+      lang: preferredLanguage,
+      plan
+    })
+  });
+
+  console.log(`Welcome email sent to ${email}`);
+}
+
+// when subscription with trial is created
+async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
+  console.log('Processing customer.subscription.created for', subscription.id);
+
+  const customerId = subscription.customer as string;
+  const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
+  const email = customer.email || '';
+  const userId = customer.metadata?.uid || '';
+
+  const currency = (subscription.currency || '').toLowerCase();
+  const preferredLanguage = currency === 'clp' ? 'es' : 'en';
+
+  // send trial welcome email
   await fetch('https://brainiacmedia.ai/api/email', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -115,5 +140,5 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     })
   });
 
-  console.log(`Welcome email sent to ${email}`);
+  console.log(`Trial welcome email sent to ${email}`);
 }
