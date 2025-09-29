@@ -123,13 +123,20 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
 
   const customerId = subscription.customer as string;
   const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
-  const email = customer.email || '';
-  const userId = customer.metadata?.uid || '';
+
+  const email = customer.email ?? '';
+  const userId = (customer.metadata as any)?.uid ?? '';
+
+  console.log('Trial email sending to:', email, 'userId:', userId);
+
+  if (!email) {
+    console.error('No email on customer', customerId);
+    return;
+  }
 
   const currency = (subscription.currency || '').toLowerCase();
   const preferredLanguage = currency === 'clp' ? 'es' : 'en';
 
-  // send trial welcome email
   await fetch('https://brainiacmedia.ai/api/email', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

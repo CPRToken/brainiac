@@ -878,7 +878,7 @@ export const es = {
   [tokens.form.yourSpeech]: 'Tu Discurso',
   [tokens.form.yourScript]: 'Tu Guión',
   [tokens.form.yourResponse]: 'Tu Respuesta',
-  [tokens.form.BrainiacIntro]: 'Genera artículos, correos y publicaciones para redes sociales optimizadas para SEO en segundos. Crea imágenes originales con IA y aprovecha la IA para aumentar tu productividad a toda velocidad y ahorrarte horas de trabajo. Estamos impulsados por los últimos modelos de OpenAI para ofrecer contenido de alta calidad en solo segundos',
+  [tokens.form.BrainiacIntro]: 'Genera artículos, correos y publicaciones para redes sociales optimizadas para SEO en segundos. Crea imágenes originales con IA y aprovecha la IA para aumentar tu productividad a toda velocidad y ahorrarte horas de trabajo.',
     [tokens.form.Port]: 'Oporto',
     [tokens.form.Brandy]: 'Brandy',
     [tokens.form.Sake]: 'Sake',
