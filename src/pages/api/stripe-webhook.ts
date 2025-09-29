@@ -1,4 +1,6 @@
 // src/pages/api/stripe-webhook.ts
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 export const config = { api: { bodyParser: false } };
 
 import { NextApiRequest, NextApiResponse } from 'next/types';
@@ -137,14 +139,17 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   const currency = (subscription.currency || '').toLowerCase();
   const preferredLanguage = currency === 'clp' ? 'es' : 'en';
 
-  await fetch('https://brainiacmedia.ai/api/email', {
+
+    await fetch('https://brainiacmedia.ai/api/email', {
+
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       to: email,
       lang: preferredLanguage,
       plan: 'Trial'
-    })
+    }),
+
   });
 
   console.log(`Trial welcome email sent to ${email}`);
