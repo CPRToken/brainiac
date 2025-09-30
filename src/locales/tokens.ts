@@ -247,6 +247,7 @@ headings: {
       deleteAccountError: 'form.deleteAccountError',
       reauthRequired: 'form.reauthRequired',
       threedaysfreeTrial: 'form.threedaysfreeTrial',
+      contactUs: 'form.contactUs',
       support: 'form.support',
       submit: 'form.submit',
       mostQs: 'form.mostQs',

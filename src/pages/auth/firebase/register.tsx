@@ -61,7 +61,7 @@ const Page: NextPage = () => {
   }, [router.query.ref]);
 
   useEffect(() => {
-    console.log('Query params:', router.query);
+
     if (router.query.priceId && router.query.uid) {
       setPriceId(router.query.priceId as string);
       setUid(router.query.uid as string);
@@ -230,7 +230,7 @@ const Page: NextPage = () => {
               )}
               <Typography sx={{ ...typography.h6, color: 'text.primary', mt: 9, mb: 0 }}>
               <Button fullWidth type="submit" variant="contained" disabled={formik.isSubmitting}>
-                {t(tokens.form.startFreeTrial)}
+                {t(tokens.form.register)}
                 </Button>
               </Typography>
             </Stack>

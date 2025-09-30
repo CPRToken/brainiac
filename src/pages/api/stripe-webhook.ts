@@ -35,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const sig = req.headers['stripe-signature'] as string;
     event = stripe.webhooks.constructEvent(buf, sig, stripeWebhookSecret);
   } catch (err: any) {
-    console.error('Webhook signature verification failed:', err.message);
+
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
@@ -44,11 +44,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       case 'checkout.session.completed':
         await handleCheckoutSessionCompleted(
           event.data.object as Stripe.Checkout.Session
-        );
-        break;
-      case 'customer.subscription.created':
-        await handleSubscriptionCreated(
-          event.data.object as Stripe.Subscription
         );
         break;
       default:
@@ -64,7 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 // when checkout finishes (no trial)
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
-  console.log('Processing checkout.session.completed for', session.id);
+
 
   const priceId = session.metadata?.priceId as string;
   const { uid: userId, email, referrer = null } = session.metadata || {};
@@ -102,7 +97,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       creationDate: admin.firestore.FieldValue.serverTimestamp(),
       preferredLanguage
     });
-    console.log(`Created user ${email} with plan ${plan}`);
+
   }
 
   // send normal welcome email
@@ -116,41 +111,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     })
   });
 
-  console.log(`Welcome email sent to ${email}`);
+
 }
 
 // when subscription with trial is created
-async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
-  console.log('Processing customer.subscription.created for', subscription.id);
-
-  const customerId = subscription.customer as string;
-  const customer = await stripe.customers.retrieve(customerId) as Stripe.Customer;
-
-  const email = customer.email ?? '';
-  const userId = (customer.metadata as any)?.uid ?? '';
-
-  console.log('Trial email sending to:', email, 'userId:', userId);
-
-  if (!email) {
-    console.error('No email on customer', customerId);
-    return;
-  }
-
-  const currency = (subscription.currency || '').toLowerCase();
-  const preferredLanguage = currency === 'clp' ? 'es' : 'en';
-
-
-    await fetch('https://brainiacmedia.ai/api/email', {
-
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      to: email,
-      lang: preferredLanguage,
-      plan: 'Trial'
-    }),
-
-  });
-
-  console.log(`Trial welcome email sent to ${email}`);
-}

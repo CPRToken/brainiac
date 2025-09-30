@@ -235,7 +235,7 @@ export const en = {
   [tokens.form.password]: 'Password',
   [tokens.form.confirmPassword]: 'Confirm Password',
   [tokens.form.forgotPassword]: 'Forgot Password',
-
+  [tokens.form.register]: 'Register',
   [tokens.form.currency]: '$',
 
 
@@ -333,6 +333,7 @@ export const en = {
     'Analyze the entire contract [docWords] text, and or [add] text, according to to the laws of country [country], and point out any errors or loopholes and make some suggestions of how to improve and strengthen it.',
   [tokens.form.pasteContract]: 'Or paste your contract here',
 
+  [tokens.form.contactUs]: 'Contact Us',
   [tokens.form.termsAndConditions]: 'Terms and Conditions',
   [tokens.form.propertyType]: 'Property Type',
   [tokens.form.industrialChic]: 'Industrial Chic',

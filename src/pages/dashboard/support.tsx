@@ -121,7 +121,7 @@ const Page: NextPage = () => {
             }}
           >
 
-            <Typography variant="h5">Contact Us</Typography>
+            <Typography variant="h5">  {t(tokens.form.contactUs)}</Typography>
 
             <Typography
               sx={{ mt:4, pb: 4, textAlign: 'center' }}
