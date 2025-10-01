@@ -22,40 +22,55 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const lang = (req.body.lang as string) || 'en';   // 'es' | 'en'
   const plan = (req.body.plan as string) || 'Premium';
   const name = (req.body.name as string) || '';
+  const type = (req.body.type as string) || 'welcome'; // welcome | cancellation
 
-  // *** detect trial ***
   const isTrial = plan.toLowerCase().includes('trial') || plan.toLowerCase().includes('pending');
 
   // ---- subject ----
   const Subject =
-    lang === 'es'
-      ? isTrial ? '¡Tu prueba gratuita de Brainiac Media ha comenzado!' : '¡Bienvenido a Brainiac Media!'
-      : isTrial ? 'Your Brainiac Media free trial has started!' : 'Welcome to Brainiac Media!';
+    type === 'cancellation'
+      ? lang === 'es'
+        ? 'Tu suscripción a Brainiac Media ha sido cancelada'
+        : 'Your Brainiac Media subscription has been cancelled'
+      : lang === 'es'
+        ? isTrial ? '¡Tu prueba gratuita de Brainiac Media ha comenzado!' : '¡Bienvenido a Brainiac Media!'
+        : isTrial ? 'Your Brainiac Media free trial has started!' : 'Welcome to Brainiac Media!';
 
   const Greeting = lang === 'es' ? `Hola${name ? ` ${name}` : ''},` : `Hi${name ? ` ${name}` : ''},`;
 
-  // ---- lead (main message) ----
-  const Lead = lang === 'es'
-    ? isTrial
-      ? `Has activado la prueba gratuita del plan <strong>${plan}</strong>. Ya puedes usar nuestras herramientas durante el periodo de prueba.`
-      : `Gracias por suscribirte al plan <strong>${plan}</strong>. Tu cuenta ya está activa.`
-    : isTrial
-      ? `You’ve activated the free trial of the <strong>${plan}</strong> plan. You can now use our tools during the trial period.`
-      : `Thanks for subscribing to the <strong>${plan}</strong> plan. Your account is now active.`;
+  // ---- lead ----
+  const Lead =
+    type === 'cancellation'
+      ? lang === 'es'
+        ? `Tu suscripción al plan <strong>${plan}</strong> ha sido cancelada. Ya no tendrás acceso a las herramientas premium.`
+        : `Your subscription to the <strong>${plan}</strong> plan has been cancelled. You will no longer have access to premium tools.`
+      : lang === 'es'
+        ? isTrial
+          ? `Has activado la prueba gratuita del plan <strong>${plan}</strong>. Ya puedes usar nuestras herramientas durante el periodo de prueba.`
+          : `Gracias por suscribirte al plan <strong>${plan}</strong>. Tu cuenta ya está activa.`
+        : isTrial
+          ? `You’ve activated the free trial of the <strong>${plan}</strong> plan. You can now use our tools during the trial period.`
+          : `Thanks for subscribing to the <strong>${plan}</strong> plan. Your account is now active.`;
 
   const CtaDashText = lang === 'es' ? 'Ir al Panel' : 'Go to Dashboard';
 
-  const NoteManage = lang === 'es'
-    ? `Puedes gestionar y usar todas las herramientas de IA desde el Panel.<br>Puedes cancelar tu suscripción en cualquier momento en el área 'Cuenta'.`
-    : `You can manage and use all the AI tools from the Dashboard.<br>You can cancel your subscription at any time in the 'Account' area.`;
+  const NoteManage =
+    lang === 'es'
+      ? `Puedes gestionar tu suscripción desde el área 'Cuenta'.`
+      : `You can manage your subscription from the 'Account' area.`;
 
   const Support = lang === 'es'
-    ? `Disfruta de todas nuestras herramientas y módulos.<br><br>Saludos cordiales,<br><br>el equipo de Brainiac Media.`
-    : `Enjoy using all our tools and modules.<br><br>Kind regards,<br><br>the Brainiac Media team.`;
+    ? `Saludos cordiales,<br><br>el equipo de Brainiac Media.`
+    : `Kind regards,<br><br>the Brainiac Media team.`;
 
-  const TextFallback = lang === 'es'
-    ? `${isTrial ? 'Prueba gratuita activada' : 'Bienvenido'} a Brainiac Media (${plan}). Panel: ${DASHBOARD_URL}`
-    : `${isTrial ? 'Free trial started' : 'Welcome'} to Brainiac Media (${plan}). Dashboard: ${DASHBOARD_URL}`;
+  const TextFallback =
+    type === 'cancellation'
+      ? lang === 'es'
+        ? `Suscripción cancelada (${plan}).`
+        : `Subscription cancelled (${plan}).`
+      : lang === 'es'
+        ? `${isTrial ? 'Prueba gratuita activada' : 'Bienvenido'} a Brainiac Media (${plan}). Panel: ${DASHBOARD_URL}`
+        : `${isTrial ? 'Free trial started' : 'Welcome'} to Brainiac Media (${plan}). Dashboard: ${DASHBOARD_URL}`;
 
   const Button = (href: string, label: string) => `
     <a href="${href}" style="
@@ -75,9 +90,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                   font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#444;">
         <p style="margin:0 0 12px 0;">${Greeting}</p>
         <p style="margin:0 0 16px 0;">${Lead}</p>
+        ${type !== 'cancellation' ? `
         <div style="margin:18px 0;">
           ${Button(DASHBOARD_URL, CtaDashText)}
-        </div>
+        </div>` : ''}
         <p style="margin:16px 0 8px 0;">${NoteManage}</p>
         <p style="margin:0;">${Support}</p>
       </div>

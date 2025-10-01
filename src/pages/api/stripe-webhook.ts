@@ -46,9 +46,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           event.data.object as Stripe.Checkout.Session
         );
         break;
+
+      case 'customer.subscription.deleted':
+        await handleSubscriptionDeleted(
+          event.data.object as Stripe.Subscription
+        );
+        break;
+
       default:
         console.log('Unhandled event type:', event.type);
     }
+
+
+
+
 
     res.status(200).json({ received: true });
   } catch (err: any) {
@@ -115,3 +126,31 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
 }
 
 // when subscription with trial is created
+
+async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+  const stripeCustomerId = subscription.customer as string;
+
+  const db = admin.firestore();
+  const userSnap = await db.collection('users')
+    .where('stripeCustomerId', '==', stripeCustomerId)
+    .limit(1)
+    .get();
+
+  if (!userSnap.empty) {
+    const userRef = userSnap.docs[0].ref;
+    const { email, preferredLanguage } = userSnap.docs[0].data();
+
+    await userRef.update({ plan: 'canceled' });
+
+    // send cancellation email
+    await fetch('https://brainiacmedia.ai/api/email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: email,
+        lang: preferredLanguage || 'en',
+        type: 'cancellation'
+      })
+    });
+  }
+}
