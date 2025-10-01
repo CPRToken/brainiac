@@ -24,8 +24,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const name = (req.body.name as string) || '';
   const type = (req.body.type as string) || 'welcome'; // welcome | cancellation
 
-  const isTrial = plan.toLowerCase().includes('trial') || plan.toLowerCase().includes('pending');
-
   // ---- subject ----
   const Subject =
     type === 'cancellation'
@@ -33,10 +31,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         ? 'Tu suscripción a Brainiac Media ha sido cancelada'
         : 'Your Brainiac Media subscription has been cancelled'
       : lang === 'es'
-        ? isTrial ? '¡Tu prueba gratuita de Brainiac Media ha comenzado!' : '¡Bienvenido a Brainiac Media!'
-        : isTrial ? 'Your Brainiac Media free trial has started!' : 'Welcome to Brainiac Media!';
+        ? '¡Bienvenido a Brainiac Media!'
+        : 'Welcome to Brainiac Media!';
 
-  const Greeting = lang === 'es' ? `Hola${name ? ` ${name}` : ''},` : `Hi${name ? ` ${name}` : ''},`;
+  const Greeting = lang === 'es'
+    ? `Hola${name ? ` ${name}` : ''},`
+    : `Hi${name ? ` ${name}` : ''},`;
 
   // ---- lead ----
   const Lead =
@@ -45,12 +45,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         ? `Tu suscripción al plan <strong>${plan}</strong> ha sido cancelada. Ya no tendrás acceso a las herramientas premium.`
         : `Your subscription to the <strong>${plan}</strong> plan has been cancelled. You will no longer have access to premium tools.`
       : lang === 'es'
-        ? isTrial
-          ? `Has activado la prueba gratuita del plan <strong>${plan}</strong>. Ya puedes usar nuestras herramientas durante el periodo de prueba.`
-          : `Gracias por suscribirte al plan <strong>${plan}</strong>. Tu cuenta ya está activa.`
-        : isTrial
-          ? `You’ve activated the free trial of the <strong>${plan}</strong> plan. You can now use our tools during the trial period.`
-          : `Thanks for subscribing to the <strong>${plan}</strong> plan. Your account is now active.`;
+        ? `Gracias por suscribirte al plan <strong>${plan}</strong>. Tu cuenta ya está activa.`
+        : `Thanks for subscribing to the <strong>${plan}</strong> plan. Your account is now active.`;
 
   const CtaDashText = lang === 'es' ? 'Ir al Panel' : 'Go to Dashboard';
 
@@ -69,8 +65,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         ? `Suscripción cancelada (${plan}).`
         : `Subscription cancelled (${plan}).`
       : lang === 'es'
-        ? `${isTrial ? 'Prueba gratuita activada' : 'Bienvenido'} a Brainiac Media (${plan}). Panel: ${DASHBOARD_URL}`
-        : `${isTrial ? 'Free trial started' : 'Welcome'} to Brainiac Media (${plan}). Dashboard: ${DASHBOARD_URL}`;
+        ? `Bienvenido a Brainiac Media (${plan}). Panel: ${DASHBOARD_URL}`
+        : `Welcome to Brainiac Media (${plan}). Dashboard: ${DASHBOARD_URL}`;
 
   const Button = (href: string, label: string) => `
     <a href="${href}" style="

@@ -84,6 +84,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
   const basePlan = product?.name || 'Unknown';
   const isYearly = price.recurring?.interval === 'year';
   const plan = isYearly ? `${basePlan}Yearly` : basePlan;
+  const firstName = (userDoc.exists && userDoc.data()?.firstName) || '';
 
   const currency = (price.currency || '').toLowerCase();
   const preferredLanguage = currency === 'clp' ? 'es' : 'en';
@@ -94,6 +95,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       priceId,
       stripeCustomerId,
       referrer,
+      firstName,
       preferredLanguage
     });
   } else {
@@ -118,7 +120,8 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     body: JSON.stringify({
       to: email,
       lang: preferredLanguage,
-      plan
+      plan,
+      name: firstName
     })
   });
 
@@ -138,7 +141,10 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
 
   if (!userSnap.empty) {
     const userRef = userSnap.docs[0].ref;
-    const { email, preferredLanguage } = userSnap.docs[0].data();
+    const userData = userSnap.docs[0].data();
+    const email = userData.email;
+    const preferredLanguage = userData.preferredLanguage || 'en';
+    const firstName = userData.firstName || '';  // ✅ only first name
 
     await userRef.update({ plan: 'canceled' });
 
@@ -148,6 +154,7 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         to: email,
+        name: firstName,
         lang: preferredLanguage || 'en',
         type: 'cancellation'
       })
