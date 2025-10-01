@@ -22,31 +22,43 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const lang = (req.body.lang as string) || 'en';   // 'es' | 'en'
   const plan = (req.body.plan as string) || 'Premium';
   const name = (req.body.name as string) || '';
-  const type = (req.body.type as string) || 'welcome'; // welcome | cancellation
+  const type = (req.body.type as string) || 'welcome'; // welcome | cancellation | payment_failed
 
   // ---- subject ----
-  const Subject =
-    type === 'cancellation'
-      ? lang === 'es'
-        ? 'Tu suscripción a Brainiac Media ha sido cancelada'
-        : 'Your Brainiac Media subscription has been cancelled'
-      : lang === 'es'
-        ? '¡Bienvenido a Brainiac Media!'
-        : 'Welcome to Brainiac Media!';
+  let Subject = '';
+  if (type === 'cancellation') {
+    Subject = lang === 'es'
+      ? 'Tu suscripción a Brainiac Media ha sido cancelada'
+      : 'Your Brainiac Media subscription has been cancelled';
+  } else if (type === 'payment_failed') {
+    Subject = lang === 'es'
+      ? 'Fallo en el pago de tu suscripción a Brainiac Media'
+      : 'Your Brainiac Media payment has failed';
+  } else {
+    Subject = lang === 'es'
+      ? '¡Bienvenido a Brainiac Media!'
+      : 'Welcome to Brainiac Media!';
+  }
 
   const Greeting = lang === 'es'
     ? `Hola${name ? ` ${name}` : ''},`
     : `Hi${name ? ` ${name}` : ''},`;
 
   // ---- lead ----
-  const Lead =
-    type === 'cancellation'
-      ? lang === 'es'
-        ? `Tu suscripción al plan <strong>${plan}</strong> ha sido cancelada. Ya no tendrás acceso a las herramientas premium.`
-        : `Your subscription to the <strong>${plan}</strong> plan has been cancelled. You will no longer have access to premium tools.`
-      : lang === 'es'
-        ? `Gracias por suscribirte al plan <strong>${plan}</strong>. Tu cuenta ya está activa.`
-        : `Thanks for subscribing to the <strong>${plan}</strong> plan. Your account is now active.`;
+  let Lead = '';
+  if (type === 'cancellation') {
+    Lead = lang === 'es'
+      ? `Tu suscripción al plan <strong>${plan}</strong> ha sido cancelada. Ya no tendrás acceso a las herramientas premium.`
+      : `Your subscription to the <strong>${plan}</strong> plan has been cancelled. You will no longer have access to premium tools.`;
+  } else if (type === 'payment_failed') {
+    Lead = lang === 'es'
+      ? `El pago de tu suscripción al plan <strong>${plan}</strong> ha fallado. Por favor, actualiza tu método de pago para continuar disfrutando de nuestros servicios.`
+      : `The payment for your <strong>${plan}</strong> subscription has failed. Please update your payment method to continue using our services.`;
+  } else {
+    Lead = lang === 'es'
+      ? `Gracias por suscribirte al plan <strong>${plan}</strong>. Tu cuenta ya está activa.`
+      : `Thanks for subscribing to the <strong>${plan}</strong> plan. Your account is now active.`;
+  }
 
   const CtaDashText = lang === 'es' ? 'Ir al Panel' : 'Go to Dashboard';
 
@@ -59,14 +71,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ? `Saludos cordiales,<br><br>el equipo de Brainiac Media.`
     : `Kind regards,<br><br>the Brainiac Media team.`;
 
-  const TextFallback =
-    type === 'cancellation'
-      ? lang === 'es'
-        ? `Suscripción cancelada (${plan}).`
-        : `Subscription cancelled (${plan}).`
-      : lang === 'es'
-        ? `Bienvenido a Brainiac Media (${plan}). Panel: ${DASHBOARD_URL}`
-        : `Welcome to Brainiac Media (${plan}). Dashboard: ${DASHBOARD_URL}`;
+  // ---- text fallback ----
+  let TextFallback = '';
+  if (type === 'cancellation') {
+    TextFallback = lang === 'es'
+      ? `Suscripción cancelada (${plan}).`
+      : `Subscription cancelled (${plan}).`;
+  } else if (type === 'payment_failed') {
+    TextFallback = lang === 'es'
+      ? `Fallo en el pago de la suscripción (${plan}).`
+      : `Payment failed for subscription (${plan}).`;
+  } else {
+    TextFallback = lang === 'es'
+      ? `Bienvenido a Brainiac Media (${plan}). Panel: ${DASHBOARD_URL}`
+      : `Welcome to Brainiac Media (${plan}). Dashboard: ${DASHBOARD_URL}`;
+  }
 
   const Button = (href: string, label: string) => `
     <a href="${href}" style="
@@ -86,7 +105,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                   font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#444;">
         <p style="margin:0 0 12px 0;">${Greeting}</p>
         <p style="margin:0 0 16px 0;">${Lead}</p>
-        ${type !== 'cancellation' ? `
+        ${(type !== 'cancellation') ? `
         <div style="margin:18px 0;">
           ${Button(DASHBOARD_URL, CtaDashText)}
         </div>` : ''}

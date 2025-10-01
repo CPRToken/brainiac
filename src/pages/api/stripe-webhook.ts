@@ -53,6 +53,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         );
         break;
 
+      case 'customer.subscription.updated':
+        await handleSubscriptionUpdated(event.data.object as Stripe.Subscription);
+        break;
+
+      case 'invoice.payment_failed':
+        await handlePaymentFailed(event.data.object as Stripe.Invoice);
+        break;
+
+
       default:
         console.log('Unhandled event type:', event.type);
     }
@@ -129,9 +138,10 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
 }
 
 // when subscription with trial is created
-
 async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
-  const stripeCustomerId = subscription.customer as string;
+  const stripeCustomerId = typeof subscription.customer === 'string'
+    ? subscription.customer
+    : (subscription.customer as Stripe.Customer).id;  // ✅ handle object case
 
   const db = admin.firestore();
   const userSnap = await db.collection('users')
@@ -139,25 +149,84 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
     .limit(1)
     .get();
 
-  if (!userSnap.empty) {
-    const userRef = userSnap.docs[0].ref;
-    const userData = userSnap.docs[0].data();
-    const email = userData.email;
-    const preferredLanguage = userData.preferredLanguage || 'en';
-    const firstName = userData.firstName || '';  // ✅ only first name
-
-    await userRef.update({ plan: 'canceled' });
-
-    // send cancellation email
-    await fetch('https://brainiacmedia.ai/api/email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        to: email,
-        name: firstName,
-        lang: preferredLanguage || 'en',
-        type: 'cancellation'
-      })
-    });
+  if (userSnap.empty) {
+    console.error('No Firestore user found for customer:', stripeCustomerId);
+    return;
   }
+
+  const userRef = userSnap.docs[0].ref;
+  const userData = userSnap.docs[0].data();
+  const email = userData.email;
+  const preferredLanguage = userData.preferredLanguage || 'en';
+  const firstName = userData.firstName || '';
+
+  await userRef.update({ plan: 'canceled' });
+
+  console.log(`Plan updated to canceled for ${email} (${stripeCustomerId})`);
+
+  // send cancellation email
+  await fetch('https://brainiacmedia.ai/api/email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      to: email,
+      name: firstName,
+      lang: preferredLanguage,
+      type: 'cancellation'
+    })
+  });
+}
+
+
+// subscription updated (upgrade/downgrade)
+async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
+  const stripeCustomerId =
+    typeof subscription.customer === 'string'
+      ? subscription.customer
+      : (subscription.customer as Stripe.Customer).id;
+
+  const db = admin.firestore();
+  const userSnap = await db.collection('users').where('stripeCustomerId', '==', stripeCustomerId).limit(1).get();
+  if (userSnap.empty) return;
+
+  const userRef = userSnap.docs[0].ref;
+  const items = subscription.items.data;
+  const priceId = items[0]?.price.id || '';
+  const price = await stripe.prices.retrieve(priceId, { expand: ['product'] });
+  const product = price.product as Stripe.Product;
+  const plan = price.recurring?.interval === 'year' ? `${product.name}Yearly` : product.name;
+
+  await userRef.update({ plan, priceId });
+  console.log(`🔄 Subscription updated for ${stripeCustomerId} → ${plan}`);
+}
+
+// payment failed (notify user)
+async function handlePaymentFailed(invoice: Stripe.Invoice) {
+  const stripeCustomerId =
+    typeof invoice.customer === 'string'
+      ? invoice.customer
+      : (invoice.customer as Stripe.Customer).id;
+
+  const db = admin.firestore();
+  const userSnap = await db.collection('users').where('stripeCustomerId', '==', stripeCustomerId).limit(1).get();
+  if (userSnap.empty) return;
+
+  const userData = userSnap.docs[0].data();
+  const email = userData.email;
+  const preferredLanguage = userData.preferredLanguage || 'en';
+  const firstName = userData.firstName || '';
+
+  console.warn(`⚠️ Payment failed for ${email} (${stripeCustomerId})`);
+
+  await fetch('https://brainiacmedia.ai/api/email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      to: email,
+      name: firstName,
+      lang: preferredLanguage,
+      type: 'payment_failed',
+      plan: userData.plan || '',
+    }),
+  });
 }

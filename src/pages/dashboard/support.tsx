@@ -1,7 +1,7 @@
+//src/pages/dashboard/support.tsx
 import React from "react";
 import type { NextPage } from 'next';
 import ArrowLeftIcon from '@untitled-ui/icons-react/build/esm/ArrowLeft';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
@@ -17,7 +17,7 @@ import { paths } from 'src/paths';
 import { ContactForm } from 'src/sections/contact/contact-form';
 import {PricingFaqs} from "src/sections/pricing/pricing-faqs";
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
-import Mail01Icon from '@untitled-ui/icons-react/build/esm/Mail01';
+
 
 const Page: NextPage = () => {
   const { t } = useTranslation();
