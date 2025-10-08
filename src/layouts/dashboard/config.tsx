@@ -29,7 +29,7 @@ export interface Item {
   items?: Item[];
   label?: ReactNode;
   path?: string;
-  title?: string;
+  title: string;
 }
 
 export interface Section {
