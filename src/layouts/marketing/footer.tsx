@@ -34,10 +34,7 @@ export const Footer: FC = (props) => {
           path: paths.terms,
         },
 
-        {
-          title: 'Contact',
-          path: '#',
-        },
+
       ],
     },
     {

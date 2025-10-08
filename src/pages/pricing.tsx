@@ -116,6 +116,7 @@ const PricingSection: FC = () => {
                   features={[
                     t(tokens.form.ChatGPT5),
                     t(tokens.nav.imageGenerator),
+                    ("Sora 2"),
                     t(tokens.form.basicTools),
                     t(tokens.nav.SEOWriter),
                     t(tokens.form.unlimitedWords),
@@ -139,6 +140,7 @@ const PricingSection: FC = () => {
                   features={[
                     t(tokens.form.ChatGPT5),
                     t(tokens.nav.imageGenerator),
+                    ("Sora 2"),
                     t(tokens.form.premTools),
                     t(tokens.nav.SEOWriter),
                     t(tokens.form.unlimitedWords),
@@ -166,6 +168,7 @@ const PricingSection: FC = () => {
                   features={[
                     t(tokens.form.ChatGPT5),
                     t(tokens.nav.imageGenerator),
+                    ("Sora 2"),
                     t(tokens.form.businessTools),
                     t(tokens.nav.SEOWriter),
                     t(tokens.headings.startABusiness),

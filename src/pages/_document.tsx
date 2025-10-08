@@ -16,6 +16,12 @@ const CustomDocument = ({ emotionStyleTags }: CustomDocumentProps) => {
   return (
     <Html lang="en">
       <Head>
+        {/* ✅ Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4866297459480151"
+          crossOrigin="anonymous"
+        ></script>
         <link
           rel="icon"
           href="/favicon-dark.png"

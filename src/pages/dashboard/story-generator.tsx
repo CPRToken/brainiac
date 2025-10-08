@@ -65,9 +65,10 @@ const Page: NextPage = () => {
             </Grid>
             <Grid
               xs={12}
-              md={9}
+              md={8}
               sx={{
-                paddingLeft: 2, // Add padding here
+                pl: { xs: 0, sm: 2, md: 2, lg: 2 },
+                pr: { xs: 0, sm: 2, md: 2, lg: 2 },
                 // Or if you prefer margin: marginLeft: 2
               }}
             >

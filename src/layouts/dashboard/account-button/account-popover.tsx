@@ -140,10 +140,17 @@ export const AccountPopover: FC<AccountPopoverProps> = (props) => {
           </Typography>
           <Typography
             variant="body2"
-            sx={{ mb: 0, display: 'flex', alignItems: 'center' }}
+            sx={{ mb: 1, display: 'flex', alignItems: 'center' }}
           >
             <PlanDot plan={user?.plan || ''} />
             Plan: {user?.plan}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{ mb: 0, display: 'flex', alignItems: 'center' }}
+          >
+
+            Role: {user?.role}
           </Typography>
 
         </Box>
