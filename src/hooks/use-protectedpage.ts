@@ -47,8 +47,8 @@ export const useProtectedPage = () => {
       if (!user) {
 
         router.push('/login');
-      } else if (['Expired', 'Canceled', 'Basic', 'Trial'].includes(user.plan ?? '')) {
-        router.push('/upgrade');
+      } else if (['Expired', 'Canceled', 'canceled', 'Basic', 'Trial'].includes(user.plan ?? '')) {
+        router.push('/pricing');
       }
 
       // Add more conditions as needed based on other plans

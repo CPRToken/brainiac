@@ -78,7 +78,7 @@
     "nodemailer": "^6.9.5",
     "nprogress": "0.2.0",
     "numeral": "2.0.6",
-    "openai": "^5.12.2",
+    "openai": "^6.2.0",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-apexcharts": "1.4.0",

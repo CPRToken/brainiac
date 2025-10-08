@@ -8,10 +8,11 @@ import {tokens} from "src/locales/tokens";
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { usePageView } from 'src/hooks/use-page-view';
-import { ImageGenerator } from 'src/sections/components/forms/image-generator';
+import { VideoGenerator } from 'src/sections/components/forms/video-generator';
 import { Seo } from 'src/components/seo';
 import { Layout as DashboardLayout } from 'src/layouts/dashboard';
 import { auth } from '../../libs/firebase';
+import { typography } from '../../theme/typography';
 const Page: NextPage = () => {
   usePageView();
 
@@ -26,7 +27,7 @@ const Page: NextPage = () => {
     <>
       <Seo
 
-        title={t(tokens.headings.imageGenerator)}
+        title={t(tokens.form.videoGenerator)}
 
       />
       {uid && ( // Only render MemoryUsageProvider if uid is available
@@ -61,7 +62,9 @@ const Page: NextPage = () => {
               >
                 <div>
                   <Typography
-                    variant="h5">{t(tokens.headings.imageGenerator)}</Typography>
+                    sx={{ ...typography.h4, mb: 2, textAlign: 'center' }}>Sora 2</Typography>
+                  <Typography
+                    variant="h5">{t(tokens.form.videoGenerator)}</Typography>
                 </div>
 
                 <Stack
@@ -88,7 +91,7 @@ const Page: NextPage = () => {
                 }}
               >
                 <Box paddingTop={4}>
-                  <ImageGenerator />
+                  <VideoGenerator />
                 </Box>
               </Stack>
             </Grid>

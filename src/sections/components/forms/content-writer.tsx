@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@mui/material/CircularProgress';
 import useGPT4Submit from './gpt4-submit';
 import {saveDoc} from "../buttons/saveDoc";
+import { useProtectedPage } from '../../../hooks/use-protectedpage';
 
 
 
@@ -188,6 +189,7 @@ const toneOptions: Option[] = [
 
 
 export const ContentWriter: FC = () => {
+  useProtectedPage();
 
   const { handleSubmit, openAIResponse, isLoading } = useGPT4Submit();
   const [language, setLanguage] = useState<string>('');

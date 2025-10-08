@@ -1,3 +1,4 @@
+//src/pages/dashboard/customers/index.tsx
 import type { ChangeEvent, MouseEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import type { NextPage } from 'next';

@@ -47,10 +47,18 @@ export const Footer: FC = (props) => {
           title: 'Twitter',
           path: 'https://x.com/BrainiacMediaAI',
         },
+
+      ],
+    },
+
+    {
+      title: 'Affiliates',
+      items: [
         {
-          title: 'LinkedIn',
-          path: '#',
+          title: 'Join our Affiliate Program',
+          path: '/affiliates',
         },
+
       ],
     },
   ];

@@ -16,13 +16,15 @@ import { saveDoc } from 'src/sections/components/buttons/saveDoc';
 import {socialApi} from "../../../api/social/socialApi";
 import {auth} from "../../../libs/firebase";
 import {typography} from "../../../theme/typography";
-import ResponseText from "../clipboards/response-text";
+import { useProtectedPage } from '../../../hooks/use-protectedpage';
 
 
 
 
 
 export const ChatGPT: React.FC = () => {
+  useProtectedPage();
+
   const { handleSubmit, isLoading } = useChatSubmit();
   const uid = auth.currentUser?.uid;
   const [user, setUser] = useState<Profile | null>(null);

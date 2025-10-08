@@ -6,6 +6,7 @@ export const tokens = {
   nav: {
     academy: 'nav.academy',
     upgrade: 'nav.upgrade',
+    affiliates: 'nav.affiliates',
     startFreeTrial: 'nav.startFreeTrial',
     account: 'nav.account',
     content: 'nav.content',
@@ -241,9 +242,14 @@ headings: {
     form: {
 
       clickToExpand: 'form.clickToExpand',
+      saveVideo: 'form.saveVideo',
+      yourVideo: 'form.yourVideo',
       areYouSure: 'form.areYouSure',
+      videoGenerator: 'form.videoGenerator',
       currency: 'form.currency',
       message: 'form.message',
+      sora2ComingSoon: 'form.sora2ComingSoon',
+      videoText: 'form.videoText',
       deleteAccountError: 'form.deleteAccountError',
       reauthRequired: 'form.reauthRequired',
       threedaysfreeTrial: 'form.threedaysfreeTrial',
@@ -1317,6 +1323,7 @@ headings: {
     yourImage: 'form.yourImage',
 
     imageInstructions: 'form.imageInstructions',
+      videoInstructions: 'form.videoInstructions',
     quote: 'form.quote',
     dietPlan: 'form.dietPlan',
     degree: 'form.degree',
@@ -1405,6 +1412,7 @@ headings: {
       Satirical: 'form.Satirical',
       Scientific: 'form.Scientific',
       SEO: 'form.SEO',
+      Sora2: 'form.Sora2',
       Vivid: 'form.Vivid',
       argumentative: 'form.argumentative',
     articulate: 'form.articulate',
@@ -1455,7 +1463,8 @@ headings: {
     style: 'form.style',
     mood: 'form.mood',
     duration: 'form.duration',
-    minutes: 'form.minutes',
+      durationVideo: 'form.durationVideo',
+        minutes: 'form.minutes',
     yourRecipe: 'form.yourRecipe',
     yourMealPlan: 'form.yourMealPlan',
     dietPlanner: 'form.dietPlanner',

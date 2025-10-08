@@ -70,6 +70,28 @@ export const useSections = () => {
   return useMemo(() => {
     const hasPremiumOrBusiness = userPlan === 'Premium' || userPlan === 'Business';
     const isAdmin = userRole === 'admin';
+    const isAffiliate = userRole === 'Affiliate';
+
+
+    // 🚀 If Affiliate, give them their own sidebar
+    if (isAffiliate) {
+      return [
+        {
+          items: [
+            {
+              title: t(tokens.nav.dashboard),
+              path: paths.dashboard.affiliates,   // send them to /dashboard/affiliates/index.tsx
+              icon: <SvgIcon fontSize="small"><HomeSmileIcon /></SvgIcon>,
+            },
+            {
+              title: t(tokens.nav.account),
+              path: paths.dashboard.account,
+              icon: <SvgIcon fontSize="small"><AccountBox /></SvgIcon>,
+            }
+          ]
+        }
+      ];
+    }
 
     return [
       {
@@ -146,15 +168,13 @@ export const useSections = () => {
           {
             subheader: t(tokens.nav.pages),
             items: [
-
               {
-                title: t(tokens.nav.customers),
-                path: paths.dashboard.customers.index,
-                icon: <SvgIcon fontSize="small"><Users03Icon /></SvgIcon>,
-                items: [
-                  { title: t(tokens.nav.list), path: paths.dashboard.customers.index },
-                ],
+                title: t(tokens.form.videoGenerator),
+                path: paths.dashboard.videoGenerator,
+                icon: <SvgIcon fontSize="small"><Atom01 /></SvgIcon>,
               },
+
+
               {
                 title: t(tokens.nav.adminModules),
                 path: '',
@@ -162,11 +182,20 @@ export const useSections = () => {
                 items: [
 
                   { title: t(tokens.headings.govPositions), path: paths.dashboard.govPositions },
-                  { title: t(tokens.headings.templateReplicator), path: paths.dashboard.templateReplicator },
+
                   { title: t(tokens.headings.codeConverter), path: paths.dashboard.codeConverter },
                   { title: t(tokens.headings.contentDetector), path: paths.dashboard.detector },
                   { title: t(tokens.headings.liveTranslator), path: paths.dashboard.azureTranslator },
 
+
+                ],
+              },
+              {
+                title: t(tokens.nav.customers),
+                path: paths.dashboard.customers.index,
+                icon: <SvgIcon fontSize="small"><Users03Icon /></SvgIcon>,
+                items: [
+                  { title: t(tokens.nav.list), path: paths.dashboard.customers.index },
                 ],
               },
               {

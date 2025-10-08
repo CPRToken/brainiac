@@ -10,10 +10,13 @@ export interface Profile {
     userUrl?: string;
     role?: string;
   plan?: string;
+  refUrl?: string;
   priceId?: string;
   planStartDate?: string;
   stripeCustomerId?: string;
 }
+
+
 
 
 

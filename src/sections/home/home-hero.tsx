@@ -28,7 +28,7 @@ export const HomeHero: FC = () => {
             backgroundPosition: 'top center',
             backgroundSize: 'cover',
             backgroundImage: theme.palette.mode === 'dark'
-              ? 'linear-gradient(rgba(0, 0, 139, 0.10), rgba(0, 0, 139, 0.2)), url("/assets/ai-dark.png")'
+              ? 'linear-gradient(rgba(0, 0, 139, 0.10), rgba(0, 0, 139, 0.2)), url("/assets/ai-darkflip.png")'
               : 'linear-gradient(rgba(255, 255, 255, 0.60), rgba(255, 255, 255, 0.3)), url("/assets/ailight.png")',
             pt: '40px',
             pb: '10px',
@@ -67,7 +67,7 @@ export const HomeHero: FC = () => {
               {/* Column 1 */}
               <Box
                 sx={{
-                  width: { xs: '100%', md: '48%', lg: '48%' },  // Full width on xs to md, 48% on lg and xl
+                  width: { xs: '100%', md: '48%', lg: '49%' },  // Full width on xs to md, 48% on lg and xl
                   mt: { xs: 3, sm: 2, md: 1, lg: 2 },  // Adjust margin-top for mobile, remove for lg and xl
                   pt:{ xs: 2, sm: 2, md: 1,  lg: 2 },
 
@@ -109,10 +109,29 @@ export const HomeHero: FC = () => {
 
               </Box>
 
-              {/* Column 2 */}
-              <Box sx={{
-                width: '48%' }}>  {/* Adjusted to 48% for better spacing */}
-                {/* Your content for the second column */}
+              <Box
+                sx={{
+                  width: { xs: '100%', md: '35%', lg: '30%' },  // Full width on xs to md, 48% on lg and xl
+                  mt: { xs: 3, sm: 2, md: 1, lg: 1 },  // Adjust margin-top for mobile, remove for lg and xl
+                  pt:{ xs: 2, sm: 2, md: 1,  lg: 1 },
+
+                }}
+              >
+
+                <Typography
+                  sx={{
+
+
+                    ...typography.h6,
+                    color: 'text.primary',
+                    mt: { xs: 2, sm: 4, lg:8 },  // Adjust top margin for mobile
+
+                    mb: 0,
+
+                  }}
+                >
+                  {t(tokens.form.sora2ComingSoon)}
+                </Typography>
               </Box>
             </Stack>
           </Box>

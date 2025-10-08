@@ -34,7 +34,7 @@ interface LayoutProps {
     title: string;
     href?: string;
   }[];
-  children: ReactNode;
+  children?: ReactNode;
   title: string;
 }
 

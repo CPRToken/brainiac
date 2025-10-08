@@ -39,7 +39,8 @@ export const LanguageSwitch: FC = () => {
   }, [i18n]);
 
   const flag = languages[
-  (localStorage.getItem('appLanguage') as Language) || 'es' // Default to 'es' flag
+  (localStorage.getItem('appLanguage') as Language) || 'en' // Default to 'en' flag
+
     ];
 
   return (

@@ -47,6 +47,7 @@ class SocialApi {
           priceId: userData.priceId || '',
          role: userData.role || '',
           plan: userData.plan || '',
+          refUrl: userData.refUrl || '',
           planStartDate: userData.planStartDate || '',
 
 

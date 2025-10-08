@@ -160,9 +160,9 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   const preferredLanguage = userData.preferredLanguage || 'en';
   const firstName = userData.firstName || '';
 
-  await userRef.update({ plan: 'canceled' });
+  await userRef.update({ plan: 'Canceled' });
 
-  console.log(`Plan updated to canceled for ${email} (${stripeCustomerId})`);
+
 
   // send cancellation email
   await fetch('https://brainiacmedia.ai/api/email', {
