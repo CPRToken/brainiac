@@ -4,6 +4,8 @@ export const paths = {
   contact: '/contact',
   pricing: '/pricing',
   terms: '/terms-conditions',
+  affiliates: '/affiliates',
+
   auth: {
     firebase: {
       login: '/auth/firebase/login',
@@ -37,10 +39,8 @@ export const paths = {
     index: '/dashboard',
     support: '/dashboard/support',
 
-    affiliates: {
-      index: '/dashboard/affiliates',
 
-    },
+
 
     academy: {
       index: '/dashboard/academy',

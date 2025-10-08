@@ -22,23 +22,20 @@ import { AccountBox, Android, Work} from "@mui/icons-material";
 
 
 
-
 export interface Item {
   disabled?: boolean;
   external?: boolean;
   icon?: ReactNode;
   items?: Item[];
   label?: ReactNode;
-  path?: string | { index: string; details?: (id: string) => string };
-
-  title: string;
+  path?: string;
+  title?: string;
 }
 
 export interface Section {
   items: Item[];
   subheader?: string;
 }
-
 
 
 
@@ -81,7 +78,7 @@ export const useSections = () => {
           items: [
             {
               title: t(tokens.nav.dashboard),
-              path: paths.dashboard.affiliates,   // send them to /dashboard/affiliates/index.tsx
+              path: paths.dashboard.index,   // send them to /dashboard/affiliates/index.tsx
               icon: <SvgIcon fontSize="small"><HomeSmileIcon /></SvgIcon>,
             },
             {
@@ -176,6 +173,7 @@ export const useSections = () => {
               },
 
 
+
               {
                 title: t(tokens.nav.adminModules),
                 path: '',
@@ -191,6 +189,7 @@ export const useSections = () => {
 
                 ],
               },
+
               {
                 title: t(tokens.nav.customers),
                 path: paths.dashboard.customers.index,
