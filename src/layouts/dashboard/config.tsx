@@ -29,7 +29,8 @@ export interface Item {
   icon?: ReactNode;
   items?: Item[];
   label?: ReactNode;
-  path?: string;
+  path?: string | { index: string; details?: (id: string) => string };
+
   title: string;
 }
 

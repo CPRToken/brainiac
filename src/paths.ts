@@ -39,7 +39,7 @@ export const paths = {
 
     affiliates: {
       index: '/dashboard/affiliates',
-      details: (affiliateId: string) => `/dashboard/affiliates/${affiliateId}`,
+
     },
 
     academy: {
