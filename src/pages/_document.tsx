@@ -22,31 +22,28 @@ const CustomDocument = ({ emotionStyleTags }: CustomDocumentProps) => {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4866297459480151"
           crossOrigin="anonymous"
         ></script>
-        <link
-          rel="icon"
-          href="/favicon-dark.png"
-          type="image/x-icon"
+
+        {/* ✅ Google Ads Tag */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1005620924"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-1005620924');
+      `,
+          }}
         />
 
-        <link
-          rel="icon"
-          href="/favicon-32x32.png"
-          type="image/png"
-          sizes="32x32"
-        />
-        <link
-          rel="apple-touch-icon.png"
-          href="/apple-touch-icon.png"
-          type="image/png"
-          sizes="180x180"
-        />
+        <link rel="icon" href="/favicon-dark.png" type="image/x-icon" />
+        <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+        <link rel="apple-touch-icon.png" href="/apple-touch-icon.png" type="image/png" sizes="180x180" />
 
-        <meta
-          name="emotion-insertion-point"
-          content=""
-        />
+        <meta name="emotion-insertion-point" content="" />
         {emotionStyleTags}
       </Head>
+
       <body>
       <Main/>
       <NextScript/>
